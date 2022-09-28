@@ -1,4 +1,4 @@
-name: family_garden
+name: Family Garden
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -41,6 +41,7 @@ dependencies:
   get: ^4.6.5
   google_fonts: ^3.0.1
   carousel_slider: ^4.1.1
+  dropdown_button2: ^1.8.2
 
 dev_dependencies:
   flutter_test:

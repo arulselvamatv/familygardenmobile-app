@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:family_garden/screens/Home_screen/controllers/homescreen_controller.dart';
 import 'package:family_garden/utils/theme/app_colors.dart';
 import 'package:family_garden/utils/theme/app_sizes.dart';
@@ -18,12 +19,14 @@ class HomeScreenView extends GetView<HomeScreenController> {
       appBar: AppBar(
         systemOverlayStyle: (SystemUiOverlayStyle.dark),
         leadingWidth: 30,
-        leading:
+        title: Row(
+          children: [
+            Image.asset("assets/icons/sideMenu.png",fit: BoxFit.fill,width: 25,height: 25,),
+            AppSize.size.w15,
 
-        SizedBox(
-          height: 20,width: 20,
-            child: Image.asset("assets/icons/sideMenu.png",fit: BoxFit.contain,)),
-        title: TextWidget("Family Garden",fontSize: 26,fontWeight: FontWeight.w600,color: Colors.white,),
+            TextWidget("Family Garden",fontSize: 24,fontWeight: FontWeight.w600,color: Colors.white,),
+          ],
+        ),
         actions: [
           Stack(
             children: [
@@ -71,8 +74,9 @@ class HomeScreenView extends GetView<HomeScreenController> {
             )
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
             child: SingleChildScrollView(
+              // physics: BouncingScrollPhysics(),
               child: Column (
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -85,11 +89,11 @@ class HomeScreenView extends GetView<HomeScreenController> {
                       },
 
                       decoration:  InputDecoration(
-                        prefixIcon: Icon(Icons.search),
+                        prefixIcon: ImageIcon(AssetImage('assets/icons/search.png')),
                         hintText: "Search for vegetables and fruits",
                         contentPadding: EdgeInsets.symmetric(vertical: 4),
                         hintStyle: TextStyle(
-                            color: Color(0xff1B1B1B),
+                            color: Color(0xff464646),
                             fontWeight: FontWeight.w500),
                         border: OutlineInputBorder(
                             borderSide: BorderSide.none,borderRadius: BorderRadius.circular(30)),
@@ -98,7 +102,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                       ),
                     ),
                   ),
-                  AppSize.size.h20,
+                  AppSize.size.h10,
                   Container(
                     height: 130,
                     width: Get.width,
@@ -107,7 +111,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                       image: DecorationImage(image: AssetImage('assets/images/freeDeliveryBanner.png'),fit: BoxFit.fill)
                     ),
                   ),
-                  AppSize.size.h10,
+                  AppSize.size.h15,
                   SizedBox(
                     height: 160,
                     width: Get.width,
@@ -139,24 +143,24 @@ controller.pageChanged(index);
                               itemCount: controller.carousel.length,
                               itemBuilder: (context, i) {
                                 return Container(
-                                  width: 15.0,
-                                  height: 15.0,
+                                  width: 6.0,
+                                  height: 6.0,
                                   margin: const EdgeInsets.symmetric(
-                                      horizontal: 2.0),
+                                      horizontal: 3),
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     //  borderRadius: BorderRadius.circular(4),
                                     color: controller.currentIndex.value == i
                                         ? Color(0xff1B1B1B)
-                                        :  Colors.grey,
+                                        :  Color(0xffB5B5B5),
                                   ),
                                 );
                               }),
                         ),
                       ),
                     )),
-                  AppSize.size.h20,
-                  TextWidget("Shop by Category",fontSize: 18,fontWeight: FontWeight.w600,),
+                  AppSize.size.h30,
+                  TextWidget("Shop by Category",fontSize: 16,fontWeight: FontWeight.w600,),
                   AppSize.size.h10,
                   Container(
                     height: 130,
@@ -172,7 +176,7 @@ controller.pageChanged(index);
                               width: 80,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
-                                color: Color(0xfff1f1f1)
+                                color: Color(0xfff9f9f9)
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 10),
@@ -182,8 +186,8 @@ controller.pageChanged(index);
                             ),
                             AppSize.size.h10,
                             Container(
-                              constraints: BoxConstraints(maxWidth: 65),
-                                child: TextWidget(controller.category[index]['name'],fontSize: 10,fontWeight: FontWeight.w600,textAlign: TextAlign.center,height: 1.5,maxLines: 2,textOverflow: TextOverflow.ellipsis,))
+                              constraints: BoxConstraints(maxWidth: 70),
+                                child: TextWidget(controller.category[index]['name'],fontSize: 11,fontWeight: FontWeight.w600,textAlign: TextAlign.center,height: 1.5,maxLines: 2,textOverflow: TextOverflow.ellipsis,))
                           ],
                         ),
                       );
@@ -191,40 +195,145 @@ controller.pageChanged(index);
                       return AppSize.size.w10;
                     }, itemCount: controller.category.length),
                   ),
-                  AppSize.size.h20,
-                  TextWidget("Best Sellers",fontSize: 18,fontWeight: FontWeight.w600,),
+                  AppSize.size.h30,
+                  TextWidget("Best Sellers",fontSize: 14,fontWeight: FontWeight.w600,),
                   AppSize.size.h10,
-                  Container(
-                    height: 150,
+                  SizedBox(
+                    height: 170,
                     child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
                         itemBuilder: (context, index){
-                          return Container(
-                            height: 150,
-                            width: 100,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4),
-                              border: Border.all(color: Colors.grey,width: 0.5),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                                  child: Image.asset(controller.bestSellers[index]['image'],height: 60,fit: BoxFit.contain,),
+                          return Stack(
+                            children: [
+                              Container(
+                                width: 110,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(3),
+                                  border: Border.all(color: Color(0xffDEDCDC),width: 0.75),
                                 ),
-                                TextWidget(controller.bestSellers[index]['name'],fontSize: 12,fontWeight: FontWeight.w800,),
-                                TextWidget(controller.bestSellers[index]['nameInTamil'],fontSize: 12,fontWeight: FontWeight.w500,),
-                                TextWidget(controller.bestSellers[index]['price'],fontSize: 12,fontWeight: FontWeight.w800,),
-                                TextWidget(controller.bestSellers[index]['oldPrice'],fontSize: 10,fontWeight: FontWeight.w500,decoration: TextDecoration.lineThrough,),
-                              ],
-                            ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    AppSize.size.h10,
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                                      child: Image.asset(controller.bestSellers[index]['image'],height: 60,width: 70,fit: BoxFit.fill,),
+                                    ),
+                                    AppSize.size.h3,
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: TextWidget(controller.bestSellers[index]['name'],fontSize: 10,fontWeight: FontWeight.w800,maxLines: 1,textOverflow: TextOverflow.ellipsis,),
+                                    ),
+                                    AppSize.size.h3,
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: TextWidget(controller.bestSellers[index]['nameInTamil'],fontSize: 9,fontWeight: FontWeight.w500,maxLines: 1,textOverflow: TextOverflow.ellipsis,),
+                                    ),
+                                    AppSize.size.h5,
+                                    Container(
+                                      height: 20,
+                                    ),
+                                    // Padding(
+                                    //   padding: const EdgeInsets.symmetric(horizontal: 10),
+                                    //   child: Container(
+                                    //     height: 20,
+                                    //     // width:70,
+                                    //     decoration: BoxDecoration(
+                                    //       borderRadius: BorderRadius.circular(5),
+                                    //       border: Border.all(color: Colors.grey,width: 0.5)
+                                    //     ),
+                                    //     child: DropdownButton<String>(
+                                    //       value: controller.dropdownValue.value,
+                                    //       icon: const Icon(Icons.keyboard_arrow_down),
+                                    //       elevation: 16,
+                                    //       style: const TextStyle(color: Colors.deepPurple),
+                                    //
+                                    //       onChanged: (String? value) {
+                                    //           controller.dropdownValue.value = value!;
+                                    //       },
+                                    //       items: controller.list.map<DropdownMenuItem<String>>((String value) {
+                                    //         return DropdownMenuItem<String>(
+                                    //           value: value,
+                                    //           child: Text(value),
+                                    //         );
+                                    //       }).toList(),
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    // DropdownButtonHideUnderline(
+                                    //   child: DropdownButton2(
+                                    //     items: controller.itemsList.map((item) =>
+                                    //     DropdownMenuItem<String>(
+                                    //       value: item,
+                                    //         child: TextWidget(item,fontSize: 8,))
+                                    //     ).toList(),
+                                    //     value: controller.selectedValue,
+                                    //     onChanged: (value){
+                                    //       controller.selectedValue = value as String;
+                                    //     },
+                                    //     buttonHeight: 20,
+                                    //     buttonWidth: 70,
+                                    //     itemHeight: 40,
+                                    //   ),
+                                    // ),
+                                    AppSize.size.h5,
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                                      child: Row(
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              TextWidget(controller.bestSellers[index]['price'],fontSize: 13,fontWeight: FontWeight.w600,),
+                                              TextWidget(controller.bestSellers[index]['oldPrice'],fontSize: 10,fontWeight: FontWeight.w500,decoration: TextDecoration.lineThrough,),
+                                            ],
+                                          ),
+                                          Spacer(),
+                                          Container(
+                                            height: 29,
+                                            width: 28,
+                                            decoration: BoxDecoration(
+                                              color: AppColors.primaryColor,
+                                              borderRadius: BorderRadius.circular(7)
+                                            ),
+                                            child: Center(child: Image.asset ('assets/icons/addToCart.png',height: 15,width: 15,fit: BoxFit.contain,)),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    AppSize.size.h5,
+                                    AppSize.size.h3,
+
+                                  ],
+                                ),
+                              ),
+                              Positioned(
+                                top: 0,
+                                right: 0,
+                                child: Container(
+                                  height: 15,
+                                  width: 45,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xffFE6400),
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(15),
+                                      topRight: Radius.circular(3)
+                                    )
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 8,top: 3),
+                                    child: TextWidget(controller.bestSellers[index]['offer'],fontSize: 8,fontWeight: FontWeight.w600,color: Colors.white,),
+                                  ),
+                                ),
+                              )
+                            ],
                           );
                         }, separatorBuilder: (context, index){
                       return AppSize.size.w10;
                     }, itemCount: controller.bestSellers.length),
                   ),
+                  AppSize.size.h40,
 
 
                 ],
