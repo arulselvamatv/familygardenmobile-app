@@ -15,10 +15,14 @@ class HomeScreenView extends GetView<HomeScreenController> {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       key: controller.scaffoldKey,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(55), child: AppBar(
+      appBar: AppBar(
         systemOverlayStyle: (SystemUiOverlayStyle.dark),
-        leading: Image.asset("assets/icons/sideMenu.png",height: 20,width: 24,),
+        leadingWidth: 30,
+        leading:
+
+        SizedBox(
+          height: 20,width: 20,
+            child: Image.asset("assets/icons/sideMenu.png",fit: BoxFit.contain,)),
         title: TextWidget("Family Garden",fontSize: 26,fontWeight: FontWeight.w600,color: Colors.white,),
         actions: [
           Stack(
@@ -54,8 +58,8 @@ class HomeScreenView extends GetView<HomeScreenController> {
         backgroundColor: AppColors.primaryColor,
         elevation: 0,
       ),
-      ),
-      body: Padding(
+      body:
+      Padding(
         padding: const EdgeInsets.only(top: 10),
         child: Container(
           height: Get.height,
@@ -67,116 +71,164 @@ class HomeScreenView extends GetView<HomeScreenController> {
             )
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column (
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-AppSize.size.h10,
-                Container(
-                  height: 45,
-                  child: TextFormField(
-                    controller: controller.search,
-                    maxLines: 1,
-                    onChanged: (value) {
-                    },
+            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+            child: SingleChildScrollView(
+              child: Column (
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 45,
+                    child: TextFormField(
+                      controller: controller.search,
+                      maxLines: 1,
+                      onChanged: (value) {
+                      },
 
-                    decoration:  InputDecoration(
-                      prefixIcon: Icon(Icons.search),
-                      hintText: "Search for vegetables and fruits",
-                      contentPadding: EdgeInsets.symmetric(vertical: 4),
-                      hintStyle: TextStyle(
-                          color: Color(0xff1B1B1B),
-                          fontWeight: FontWeight.w500),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide.none,borderRadius: BorderRadius.circular(30)),
-                      fillColor: Color(0xfff1f1f1),
-                      filled: true,
+                      decoration:  InputDecoration(
+                        prefixIcon: Icon(Icons.search),
+                        hintText: "Search for vegetables and fruits",
+                        contentPadding: EdgeInsets.symmetric(vertical: 4),
+                        hintStyle: TextStyle(
+                            color: Color(0xff1B1B1B),
+                            fontWeight: FontWeight.w500),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide.none,borderRadius: BorderRadius.circular(30)),
+                        fillColor: Color(0xfff1f1f1),
+                        filled: true,
+                      ),
                     ),
                   ),
-                ),
-                AppSize.size.h20,
-                TextWidget("Shop by Category",fontSize: 18,fontWeight: FontWeight.w600,),
-                AppSize.size.h10,
-                SizedBox(
-                  height: 40,
-                  // width: deviceWidth,
-                  child: CarouselSlider.builder(
-                      carouselController: controller.carouselController,
-                      itemCount: 3,
-                      itemBuilder: (context, index, realIndex) {
-                        return Container(
-                        );
-                      },
-                      options: CarouselOptions(
-                          autoPlay: true,
-                          viewportFraction: 0.95,
-                          onPageChanged: (index, reason) {
-
-                          })),
-                ),
-                // Center(
-                //   child: Padding(
-                //     padding: const EdgeInsets.symmetric(vertical: 10),
-                //     child: SizedBox(
-                //       height: 6,
-                //       child: ListView.builder(
-                //           scrollDirection: Axis.horizontal,
-                //           shrinkWrap: true,
-                //           itemCount: leaveBalance.length,
-                //           itemBuilder: (context, i) {
-                //             return Container(
-                //               width: 15.0,
-                //               height: 15.0,
-                //               margin: const EdgeInsets.symmetric(
-                //                   horizontal: 2.0),
-                //               decoration: BoxDecoration(
-                //                 shape: BoxShape.circle,
-                //                 //  borderRadius: BorderRadius.circular(4),
-                //                 color: _currentIndex == i
-                //                     ? Color(int.parse(secondColor))
-                //                     : const Color(0xFFD4DCE0),
-                //               ),
-                //             );
-                //           }),
-                //     ),
-                //   ),
-                // ),
-                AppSize.size.h10,
-                Container(
-                  height: 130,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index){
-                    return Container(
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 80,
-                            width: 80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: Color(0xfff1f1f1)
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 10),
-                              child: Image.asset
-                                ("assets/images/splash-mdpi.png"),
-                            ),
-                          ),
-                          AppSize.size.h10,
-                          Container(
-                            constraints: BoxConstraints(maxWidth: 65),
-                              child: TextWidget("Organic Fruits & Vegs",fontSize: 10,fontWeight: FontWeight.w600,textAlign: TextAlign.center,height: 1.5,maxLines: 2,textOverflow: TextOverflow.ellipsis,))
-                        ],
+                  AppSize.size.h20,
+                  Container(
+                    height: 130,
+                    width: Get.width,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(image: AssetImage('assets/images/freeDeliveryBanner.png'),fit: BoxFit.fill)
+                    ),
+                  ),
+                  AppSize.size.h10,
+                  SizedBox(
+                    height: 160,
+                    width: Get.width,
+                    child: CarouselSlider.builder(
+                        carouselController: controller.carouselController,
+                        itemCount: controller.carousel.length,
+                        itemBuilder: (context, index, realIndex) {
+                          return Container(
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                            child: Image.asset(controller.carousel[index],fit: BoxFit.fill,),
+                          );
+                        },
+                        options: CarouselOptions(
+                            autoPlay: true,
+                            viewportFraction: 1,
+                            onPageChanged: (index, reason) {
+controller.pageChanged(index);
+                            })),
+                  ),
+              GetBuilder<HomeScreenController>(
+                builder: (careController) => Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: SizedBox(
+                          height: 6,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemCount: controller.carousel.length,
+                              itemBuilder: (context, i) {
+                                return Container(
+                                  width: 15.0,
+                                  height: 15.0,
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 2.0),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    //  borderRadius: BorderRadius.circular(4),
+                                    color: controller.currentIndex.value == i
+                                        ? Color(0xff1B1B1B)
+                                        :  Colors.grey,
+                                  ),
+                                );
+                              }),
+                        ),
                       ),
-                    );
-                  }, separatorBuilder: (context, index){
-                    return AppSize.size.w10;
-                  }, itemCount: 8),
-                )
+                    )),
+                  AppSize.size.h20,
+                  TextWidget("Shop by Category",fontSize: 18,fontWeight: FontWeight.w600,),
+                  AppSize.size.h10,
+                  Container(
+                    height: 130,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index){
+                      return Container(
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 80,
+                              width: 80,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: Color(0xfff1f1f1)
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 10),
+                                child: Image.asset
+                                  (controller.category[index]['image']),
+                              ),
+                            ),
+                            AppSize.size.h10,
+                            Container(
+                              constraints: BoxConstraints(maxWidth: 65),
+                                child: TextWidget(controller.category[index]['name'],fontSize: 10,fontWeight: FontWeight.w600,textAlign: TextAlign.center,height: 1.5,maxLines: 2,textOverflow: TextOverflow.ellipsis,))
+                          ],
+                        ),
+                      );
+                    }, separatorBuilder: (context, index){
+                      return AppSize.size.w10;
+                    }, itemCount: controller.category.length),
+                  ),
+                  AppSize.size.h20,
+                  TextWidget("Best Sellers",fontSize: 18,fontWeight: FontWeight.w600,),
+                  AppSize.size.h10,
+                  Container(
+                    height: 150,
+                    child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index){
+                          return Container(
+                            height: 150,
+                            width: 100,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              border: Border.all(color: Colors.grey,width: 0.5),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                                  child: Image.asset(controller.bestSellers[index]['image'],height: 60,fit: BoxFit.contain,),
+                                ),
+                                TextWidget(controller.bestSellers[index]['name'],fontSize: 12,fontWeight: FontWeight.w800,),
+                                TextWidget(controller.bestSellers[index]['nameInTamil'],fontSize: 12,fontWeight: FontWeight.w500,),
+                                TextWidget(controller.bestSellers[index]['price'],fontSize: 12,fontWeight: FontWeight.w800,),
+                                TextWidget(controller.bestSellers[index]['oldPrice'],fontSize: 10,fontWeight: FontWeight.w500,decoration: TextDecoration.lineThrough,),
+                              ],
+                            ),
+                          );
+                        }, separatorBuilder: (context, index){
+                      return AppSize.size.w10;
+                    }, itemCount: controller.bestSellers.length),
+                  ),
 
-              ],
+
+                ],
+              ),
             ),
           ),
         ),
