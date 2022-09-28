@@ -20,17 +20,17 @@ class HomeScreenController extends GetxController {
   ].obs;
 
   List bestSellers = [
-    {'name' : 'Carrot', 'nameInTamil' : 'கேரட்', 'price' : '₹28.00', 'oldPrice' : '₹35.00', 'offer' : '20% OFF', 'image' : 'assets/images/carrot.png'},
+    {'name' : 'Carrot', 'nameInTamil' : 'கேரட்', 'price' : '₹28.00', 'oldPrice' : '₹35.00', 'offer' : '20% OFF', 'image' : 'assets/images/Carrot.png'},
     {'name' : 'Apple 3piece-450.', 'nameInTamil' : 'ஆப்பிள் ', 'price' : '₹125.00', 'oldPrice' : '₹150.00', 'offer' : '17% OFF', 'image' : 'assets/images/apple.png'},
     {'name' : 'Coriander Leaves', 'nameInTamil' : 'கொத்தமல்லி தழை ', 'price' : '₹15.00', 'oldPrice' : '₹30.00', 'offer' : '50% OFF', 'image' : 'assets/images/coriander.png'},
-    {'name' : 'Carrot', 'nameInTamil' : 'கேரட்', 'price' : '₹28.00', 'oldPrice' : '₹35.00', 'offer' : '70% OFF', 'image' : 'assets/images/carrot.png'},
-    {'name' : 'Carrot', 'nameInTamil' : 'கேரட்', 'price' : '₹28.00', 'oldPrice' : '₹35.00', 'offer' : '50% OFF', 'image' : 'assets/images/carrot.png',},
+    {'name' : 'Carrot', 'nameInTamil' : 'கேரட்', 'price' : '₹28.00', 'oldPrice' : '₹35.00', 'offer' : '70% OFF', 'image' : 'assets/images/Carrot.png'},
+    {'name' : 'Carrot', 'nameInTamil' : 'கேரட்', 'price' : '₹28.00', 'oldPrice' : '₹35.00', 'offer' : '50% OFF', 'image' : 'assets/images/Carrot.png',},
   ];
 
   final List<String> itemsList = [
-    '250 grams - ₹28.00','250 grams - ₹28.00',
-    '1 Pack - ₹125.00','1 Pack - ₹125.00',
-    '1 Bunch - ₹15.00','1 Bunch - ₹15.00',
+    '250 grams - ₹28.00',
+    '1 Pack - ₹125.00',
+    '1 Bunch - ₹15.00',
   ];
 
   RxList carousel = [

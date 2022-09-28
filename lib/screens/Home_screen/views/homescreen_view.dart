@@ -74,36 +74,40 @@ class HomeScreenView extends GetView<HomeScreenController> {
             )
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 0,vertical: 10),
             child: SingleChildScrollView(
               // physics: BouncingScrollPhysics(),
               child: Column (
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    height: 45,
-                    child: TextFormField(
-                      controller: controller.search,
-                      maxLines: 1,
-                      onChanged: (value) {
-                      },
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: Container(
+                      height: 45,
+                      child: TextFormField(
+                        controller: controller.search,
+                        maxLines: 1,
+                        onChanged: (value) {
+                        },
 
-                      decoration:  InputDecoration(
-                        prefixIcon: ImageIcon(AssetImage('assets/icons/search.png')),
-                        hintText: "Search for vegetables and fruits",
-                        contentPadding: EdgeInsets.symmetric(vertical: 4),
-                        hintStyle: TextStyle(
-                            color: Color(0xff464646),
-                            fontWeight: FontWeight.w500),
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide.none,borderRadius: BorderRadius.circular(30)),
-                        fillColor: Color(0xfff1f1f1),
-                        filled: true,
+                        decoration:  InputDecoration(
+                          prefixIcon: ImageIcon(AssetImage('assets/icons/search.png')),
+                          hintText: "Search for vegetables and fruits",
+                          contentPadding: EdgeInsets.symmetric(vertical: 4),
+                          hintStyle: TextStyle(
+                              color: Color(0xff464646),
+                              fontWeight: FontWeight.w500),
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide.none,borderRadius: BorderRadius.circular(30)),
+                          fillColor: Color(0xfff1f1f1),
+                          filled: true,
+                        ),
                       ),
                     ),
                   ),
                   AppSize.size.h10,
                   Container(
+                    margin: EdgeInsets.symmetric(horizontal: 15),
                     height: 130,
                     width: Get.width,
                     decoration: BoxDecoration(
@@ -120,8 +124,9 @@ class HomeScreenView extends GetView<HomeScreenController> {
                         itemCount: controller.carousel.length,
                         itemBuilder: (context, index, realIndex) {
                           return Container(
+                            margin: EdgeInsets.symmetric(horizontal: 15),
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                            child: Image.asset(controller.carousel[index],fit: BoxFit.fill,),
+                            child: Image.asset(controller.carousel[index],width: Get.width,fit: BoxFit.fill,),
                           );
                         },
                         options: CarouselOptions(
@@ -160,9 +165,13 @@ controller.pageChanged(index);
                       ),
                     )),
                   AppSize.size.h30,
-                  TextWidget("Shop by Category",fontSize: 16,fontWeight: FontWeight.w600,),
-                  AppSize.size.h10,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: TextWidget("Shop by Category",fontSize: 16,fontWeight: FontWeight.w600,),
+                  ),
+                  AppSize.size.h15,
                   Container(
+                    margin: EdgeInsets.symmetric(horizontal: 15),
                     height: 130,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
@@ -196,9 +205,13 @@ controller.pageChanged(index);
                     }, itemCount: controller.category.length),
                   ),
                   AppSize.size.h30,
-                  TextWidget("Best Sellers",fontSize: 14,fontWeight: FontWeight.w600,),
-                  AppSize.size.h10,
-                  SizedBox(
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: TextWidget("Best Sellers",fontSize: 14,fontWeight: FontWeight.w600,),
+                  ),
+                  AppSize.size.h15,
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 15),
                     height: 170,
                     child: ListView.separated(
                         scrollDirection: Axis.horizontal,
@@ -231,36 +244,66 @@ controller.pageChanged(index);
                                       child: TextWidget(controller.bestSellers[index]['nameInTamil'],fontSize: 9,fontWeight: FontWeight.w500,maxLines: 1,textOverflow: TextOverflow.ellipsis,),
                                     ),
                                     AppSize.size.h5,
-                                    Container(
-                                      height: 20,
-                                    ),
-                                    // Padding(
-                                    //   padding: const EdgeInsets.symmetric(horizontal: 10),
-                                    //   child: Container(
-                                    //     height: 20,
-                                    //     // width:70,
-                                    //     decoration: BoxDecoration(
-                                    //       borderRadius: BorderRadius.circular(5),
-                                    //       border: Border.all(color: Colors.grey,width: 0.5)
+                                    // Container(
+                                    //   height: 20,
+                                    //   child: DropdownButtonFormField2(
+                                    //     value: controller.selectedValue,
+                                    //     isExpanded: true,
+                                    //     items:  controller.itemsList
+                                    //         .map((item) => DropdownMenuItem<String>(
+                                    //       value: item,
+                                    //       child: Text(
+                                    //         item,
+                                    //         style: TextStyle(fontSize: 8),
+                                    //       ),
+                                    //     ))
+                                    //         .toList(),
+                                    //     onChanged: (value) {
+                                    //     },
+                                    //     icon: const Icon(
+                                    //       Icons.keyboard_arrow_down_rounded,
+                                    //       color: Color(0xfff9f9f9),
                                     //     ),
-                                    //     child: DropdownButton<String>(
-                                    //       value: controller.dropdownValue.value,
-                                    //       icon: const Icon(Icons.keyboard_arrow_down),
-                                    //       elevation: 16,
-                                    //       style: const TextStyle(color: Colors.deepPurple),
-                                    //
-                                    //       onChanged: (String? value) {
-                                    //           controller.dropdownValue.value = value!;
-                                    //       },
-                                    //       items: controller.list.map<DropdownMenuItem<String>>((String value) {
-                                    //         return DropdownMenuItem<String>(
-                                    //           value: value,
-                                    //           child: Text(value),
-                                    //         );
-                                    //       }).toList(),
-                                    //     ),
+                                    //     iconSize: 10,
+                                    //     buttonPadding: EdgeInsets.all(2),
+                                    //     scrollbarRadius: const Radius.circular(40),
+                                    //     scrollbarThickness: 6,
+                                    //     scrollbarAlwaysShow: true,
+                                    //     offset: const Offset(0, 5),
                                     //   ),
                                     // ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                                      child: Container(
+                                        height: 20,
+                                        // width:70,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(5),
+                                          border: Border.all(color: Colors.grey,width: 0.5)
+                                        ),
+                                        child: DropdownButton<String>(
+                                          isExpanded: true,
+                                          isDense: true,
+                                          value: controller.selectedValue,
+                                          icon: const Icon(Icons.keyboard_arrow_down,size: 10,),
+                                          elevation: 16,
+                                          style: const TextStyle(color: Colors.grey),
+
+                                          onChanged: (String? value) {
+                                              controller.selectedValue = value!;
+                                          },
+                                          items: controller.itemsList.map<DropdownMenuItem<String>>((String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(left: 3),
+                                                child: Text(value,style: TextStyle(fontSize: 9),),
+                                              ),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ),
+                                    ),
                                     // DropdownButtonHideUnderline(
                                     //   child: DropdownButton2(
                                     //     items: controller.itemsList.map((item) =>
@@ -333,6 +376,7 @@ controller.pageChanged(index);
                       return AppSize.size.w10;
                     }, itemCount: controller.bestSellers.length),
                   ),
+
                   AppSize.size.h40,
 
 
