@@ -8,9 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-class HomeScreenView extends GetView<HomeScreenController> {
-  const HomeScreenView({super.key});
+import '../../../routes/app_pages.dart';
 
+class HomeScreenView extends GetView<HomeScreenController> {
+var controller = Get.put(HomeScreenController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +66,6 @@ class HomeScreenView extends GetView<HomeScreenController> {
       Padding(
         padding: const EdgeInsets.only(top: 10),
         child: Container(
-          height: Get.height,
           decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
@@ -74,7 +74,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
             )
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 0,vertical: 10),
+            padding: const EdgeInsets.only(top: 10),
             child: SingleChildScrollView(
               // physics: BouncingScrollPhysics(),
               child: Column (
@@ -137,7 +137,7 @@ controller.pageChanged(index);
                             })),
                   ),
               GetBuilder<HomeScreenController>(
-                builder: (careController) => Center(
+                builder: (homeController) => Center(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: SizedBox(
@@ -177,27 +177,32 @@ controller.pageChanged(index);
                       scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
                         itemBuilder: (context, index){
-                      return Container(
-                        child: Column(
-                          children: [
-                            Container(
-                              height: 80,
-                              width: 80,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: Color(0xfff9f9f9)
+                      return GestureDetector(
+                        onTap: (){
+                          Get.toNamed(Routes.CATEGORIES_SCREEN);
+                        },
+                        child: Container (
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 80,
+                                width: 80,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: Color(0xfff9f9f9)
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 10),
+                                  child: Image.asset
+                                    (controller.category[index]['image']),
+                                ),
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 10),
-                                child: Image.asset
-                                  (controller.category[index]['image']),
-                              ),
-                            ),
-                            AppSize.size.h10,
-                            Container(
-                              constraints: BoxConstraints(maxWidth: 70),
-                                child: TextWidget(controller.category[index]['name'],fontSize: 11,fontWeight: FontWeight.w600,textAlign: TextAlign.center,height: 1.5,maxLines: 2,textOverflow: TextOverflow.ellipsis,))
-                          ],
+                              AppSize.size.h10,
+                              Container(
+                                constraints: BoxConstraints(maxWidth: 70),
+                                  child: TextWidget(controller.category[index]['name'],fontSize: 11,fontWeight: FontWeight.w600,textAlign: TextAlign.center,height: 1.5,maxLines: 2,textOverflow: TextOverflow.ellipsis,))
+                            ],
+                          ),
                         ),
                       );
                     }, separatorBuilder: (context, index){
@@ -220,7 +225,7 @@ controller.pageChanged(index);
                           return Stack(
                             children: [
                               Container(
-                                width: 110,
+                                width: 115,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(3),
                                   border: Border.all(color: Color(0xffDEDCDC),width: 0.75),
@@ -281,26 +286,28 @@ controller.pageChanged(index);
                                           borderRadius: BorderRadius.circular(5),
                                           border: Border.all(color: Colors.grey,width: 0.5)
                                         ),
-                                        child: DropdownButton<String>(
-                                          isExpanded: true,
-                                          isDense: true,
-                                          value: controller.selectedValue,
-                                          icon: const Icon(Icons.keyboard_arrow_down,size: 10,),
-                                          elevation: 16,
-                                          style: const TextStyle(color: Colors.grey),
+                                        child: DropdownButtonHideUnderline(
+                                          child: DropdownButton<String>(
+                                            isExpanded: true,
+                                            isDense: true,
+                                            value: controller.selectedValue,
+                                            icon: const Icon(Icons.keyboard_arrow_down,size: 10,),
+                                            elevation: 16,
+                                            style: const TextStyle(color: Colors.grey),
 
-                                          onChanged: (String? value) {
-                                              controller.selectedValue = value!;
-                                          },
-                                          items: controller.itemsList.map<DropdownMenuItem<String>>((String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(left: 3),
-                                                child: Text(value,style: TextStyle(fontSize: 9),),
-                                              ),
-                                            );
-                                          }).toList(),
+                                            onChanged: (String? value) {
+                                                controller.selectedValue = value!;
+                                            },
+                                            items: controller.itemsList.map<DropdownMenuItem<String>>((String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(left: 3),
+                                                  child: Text(value,style: TextStyle(fontSize: 9),),
+                                                ),
+                                              );
+                                            }).toList(),
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -377,7 +384,7 @@ controller.pageChanged(index);
                     }, itemCount: controller.bestSellers.length),
                   ),
 
-                  AppSize.size.h40,
+                  AppSize.size.h30,
 
 
                 ],
