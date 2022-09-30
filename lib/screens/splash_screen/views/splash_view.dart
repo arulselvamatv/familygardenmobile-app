@@ -10,10 +10,7 @@ class SplashView extends GetView<SplashController> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Image.asset("assets/images/splash-mdpi.png"),
-        )
+        Center(child: Image.asset("assets/images/splash-mdpi.png",height: 150,width: 150,))
         ],
       ),
     );

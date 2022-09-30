@@ -30,6 +30,7 @@ class ProductListingController extends GetxController{
   ].obs;
 
   RxList selectedItemValue = [].obs;
+  RxList counterList = [].obs;
 
   RxList cartBoolList =[].obs;
 
@@ -41,6 +42,9 @@ class ProductListingController extends GetxController{
     }
     for (int i = 0; i < categoryList.length; i++) {
       cartBoolList.add(false);
+    }
+    for (int i = 0; i < categoryList.length; i++) {
+      counterList.add(0);
     }
   }
 
@@ -55,9 +59,24 @@ class ProductListingController extends GetxController{
   }
 
   cartButton(int index){
-cartBoolList[index] = cartBoolList[index] == false ? true : false;
+cartBoolList[index] = cartBoolList[index] == false ? true : true;
 cartBoolList.refresh();
 update();
+  }
+
+  minus(int index){
+    print("minus");
+    if (counterList[index] == 0) {
+      return;
+    } else {
+      counterList[index] -= 1;
+    }
+      update();
+  }
+
+  add(int index){
+      counterList[index] += 1;
+      update();
   }
 
 }
