@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import '../../../utils/common_import/common_import.dart';
 
-class CategoriesController extends GetxController{
+class ProductListingController extends GetxController{
 
   RxInt categoriesIndex = 0.obs;
   late RxString selectedValue = itemsList.first.obs;
@@ -29,11 +29,19 @@ class CategoriesController extends GetxController{
     '1 Bunch - ₹15.00',
   ].obs;
 
+  RxList selectedItemValue = [].obs;
+
   RxList cartBoolList =[].obs;
 
   @override
   void onInit() async {
     super.onInit();
+    for (int i = 0; i < categoryList.length; i++) {
+      selectedItemValue.add(itemsList[0]);
+    }
+    for (int i = 0; i < categoryList.length; i++) {
+      cartBoolList.add(false);
+    }
   }
 
   void categoriesOnTap(int index){
@@ -41,13 +49,15 @@ class CategoriesController extends GetxController{
     category.refresh();
   }
 
-  dropDownChanged(String? value){
-    selectedValue.value = value!;
+  dropDownChanged(String? value, int index){
+    selectedItemValue[index] = value!;
     update();
   }
 
   cartButton(int index){
-
+cartBoolList[index] = cartBoolList[index] == false ? true : false;
+cartBoolList.refresh();
+update();
   }
 
 }

@@ -1,15 +1,72 @@
+import 'package:family_garden/screens/categories_screen/views/categories_view.dart';
 import 'package:family_garden/screens/dashboard/controllers/dashboard_controller.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
+import '../../../utils/theme/app_colors.dart';
+import '../../../utils/theme/app_sizes.dart';
+import '../../../widgets/custom_text.dart';
 import '../../Home_screen/views/homescreen_view.dart';
-import '../../categories_screen/views/categories_view.dart';
 
 class DashboardView extends GetView<DashboardController> {
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
+          appBar: AppBar(
+            systemOverlayStyle: (SystemUiOverlayStyle.dark),
+            leadingWidth: 50,
+            centerTitle: controller.selectedIndex.value == 0 ? false : true,
+            leading: Container(
+              width: 14,
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15.0),
+                    child: GestureDetector(
+                        onTap: (){
+                          Get.back();
+                        },
+                        child: Image.asset('assets/icons/sideMenu.png',height: 25,width: 25,fit: BoxFit.fill,)),
+                  )
+                ],
+              ),
+            ),
+            title: TextWidget(controller.selectedIndex.value == 0 ? "Family Garden" : controller.selectedIndex.value == 1 ? 'Category' : controller.selectedIndex.value == 2 ? 'Offers': 'Account',fontSize: 24,fontWeight: FontWeight.w600,color: Colors.white,),
+            actions: [
+              Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20,top: 15),
+                    child: Image.asset("assets/icons/cart.png",height: 25,width: 25),
+                  ),
+                  Container(
+                    width: 30,
+                    height: 30,
+                    alignment: Alignment.topRight,
+                    margin: const EdgeInsets.only(top: 10,left: 3.0),
+                    child: Container(
+                      width: 18,
+                      height: 18,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                          border: Border.all(color: Colors.white, width: 1)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(0.0),
+                        child: Center(
+                            child: TextWidget("0",color: Colors.black,fontSize: 14,fontWeight: FontWeight.w600,)
+                        ),
+                      ),
+                    ),
+                  ),
+
+                ],
+              )
+            ],
+            backgroundColor: AppColors.primaryColor,
+            elevation: 0,
+          ),
           body: Center(
             child: TabBarView(
               controller: controller.tabController,
@@ -36,11 +93,10 @@ class DashboardView extends GetView<DashboardController> {
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                  offset: Offset(0, 2),
-                  blurRadius: 5,
-                  spreadRadius: 5,
-                  color: Color(0xffDDDDDD)
-                ),
+                    offset: Offset(0, 2),
+                    blurRadius: 5,
+                    spreadRadius: 5,
+                    color: Color(0xffDDDDDD)),
               ],
             ),
             height: 70,

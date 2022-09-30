@@ -41,17 +41,28 @@ class HomeScreenController extends GetxController {
 
   RxList<String> items = <String>['One', 'Two', 'Three', 'Four'].obs;
 
+  RxList selectedItemValue = [].obs;
+
+
 
   RxBool loader = false.obs;
 
   @override
   void onInit() async {
     super.onInit();
+    for (int i = 0; i < bestSellers.length; i++) {
+      selectedItemValue.add(itemsList[0]);
+    }
   }
 
 
   pageChanged(int index){
     currentIndex.value = index;
+    update();
+  }
+
+  dropDownChanged(String? value, int index) {
+    selectedItemValue[index] = value!;
     update();
   }
 

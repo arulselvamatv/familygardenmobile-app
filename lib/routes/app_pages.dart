@@ -1,9 +1,8 @@
 import 'package:family_garden/screens/Home_screen/views/homescreen_view.dart';
-import 'package:family_garden/screens/categories_screen/bindings/categories_bindings.dart';
-import 'package:family_garden/screens/categories_screen/views/categories_view.dart';
 import 'package:family_garden/screens/dashboard/views/dashboard_view.dart';
+import 'package:family_garden/screens/product_listing_screen/bindings/product_listing_binding.dart';
+import 'package:family_garden/screens/product_listing_screen/views/product_listing_view.dart';
 import 'package:get/get.dart';
-
 import '../screens/Home_screen/bindings/homescreen_binding.dart';
 import '../screens/dashboard/bindings/dashboard_bindings.dart';
 import '../screens/splash_screen/bindings/splash_bindings.dart';
@@ -34,10 +33,15 @@ class AppPages {
       binding: HomeScreenBinding(),
     ),
     GetPage(
-      name: _Paths.CATEGORIES_SCREEN,
-      page: () => CategoriesView(),
-      binding: CategoriesBinding(),
+      name: _Paths.PRODUCT_LISTING_SCREEN,
+      page: () => ProductListingView(),
+      binding: ProductListingBinding(),
     ),
+    // GetPage(
+    //   name: _Paths.CATEGORIES_SCREEN,
+    //   page: () => CategoriesView(),
+    //   binding: CategoriesBinding(),
+    // ),
 
   ];
 }
