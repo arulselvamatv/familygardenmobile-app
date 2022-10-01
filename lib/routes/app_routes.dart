@@ -8,6 +8,7 @@ abstract class Routes {
   static const HOME_SCREEN = _Paths.HOME_SCREEN;
   static const CATEGORIES_SCREEN = _Paths.CATEGORIES_SCREEN;
   static const PRODUCT_LISTING_SCREEN = _Paths.PRODUCT_LISTING_SCREEN;
+  static const PRODUCT_DETAILS_SCREEN = _Paths.PRODUCT_DETAILS_SCREEN;
 
 }
 
@@ -18,5 +19,6 @@ abstract class _Paths {
   static const HOME_SCREEN = '/home_screen';
   static const CATEGORIES_SCREEN = '/categories_screen';
   static const PRODUCT_LISTING_SCREEN = '/product_listing_screen';
+  static const PRODUCT_DETAILS_SCREEN = '/product_details_screen';
 
 }

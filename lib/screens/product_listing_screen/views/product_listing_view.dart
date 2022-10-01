@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../../../routes/app_pages.dart';
 import '../../../utils/theme/app_sizes.dart';
 import '../../../widgets/custom_text.dart';
 
@@ -156,7 +157,7 @@ class ProductListingView extends GetView<ProductListingController>{
 
                           return GestureDetector(
                             onTap: (){
-
+                              Get.toNamed(Routes.PRODUCT_DETAILS_SCREEN);
                             },
                             child: Stack(
                               children: [

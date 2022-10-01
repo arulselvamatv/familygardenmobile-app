@@ -14,10 +14,12 @@ class _AppSizes {
   final h16 = const SizedBox(height: 16);
   final h20 = const SizedBox(height: 20);
   final h24 = const SizedBox(height: 24);
+  final h25 = const SizedBox(height: 25);
   final h30 = const SizedBox(height: 30);
   final h40 = const SizedBox(height: 40);
 
   final w5 = const SizedBox(width: 5);
+  final w7 = const SizedBox(width: 7);
   final w10 = const SizedBox(width: 10);
   final w15 = const SizedBox(width: 15);
   final w16 = const SizedBox(width: 16);
