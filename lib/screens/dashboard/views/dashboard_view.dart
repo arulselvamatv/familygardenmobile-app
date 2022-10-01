@@ -1,5 +1,6 @@
 import 'package:family_garden/screens/categories_screen/views/categories_view.dart';
 import 'package:family_garden/screens/dashboard/controllers/dashboard_controller.dart';
+import 'package:family_garden/screens/drawer_screen/views/drawer_view.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,7 @@ class DashboardView extends GetView<DashboardController> {
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
+        key: controller.scaffoldKey,
           appBar: AppBar(
             systemOverlayStyle: (SystemUiOverlayStyle.dark),
             leadingWidth: 50,
@@ -24,6 +26,7 @@ class DashboardView extends GetView<DashboardController> {
                     padding: const EdgeInsets.only(left: 15.0),
                     child: GestureDetector(
                         onTap: (){
+
                           controller.scaffoldKey.currentState?.openDrawer();
                         },
                         child: Image.asset('assets/icons/sideMenu.png',height: 25,width: 25,fit: BoxFit.fill,)),
@@ -65,7 +68,7 @@ class DashboardView extends GetView<DashboardController> {
             backgroundColor: AppColors.primaryColor,
             elevation: 0,
           ),
-          // drawer_screen: ,
+          drawer: DrawerView(),
           body: Center(
             child: TabBarView(
               controller: controller.tabController,
