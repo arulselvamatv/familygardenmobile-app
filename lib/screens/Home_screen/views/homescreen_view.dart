@@ -15,7 +15,6 @@ var controller = Get.put(HomeScreenController());
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
-      key: controller.scaffoldKey,
       body:
         Padding(
         padding: const EdgeInsets.only(top: 0),

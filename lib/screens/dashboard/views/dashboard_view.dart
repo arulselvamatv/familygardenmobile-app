@@ -4,7 +4,6 @@ import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../../utils/theme/app_colors.dart';
-import '../../../utils/theme/app_sizes.dart';
 import '../../../widgets/custom_text.dart';
 import '../../Home_screen/views/homescreen_view.dart';
 
@@ -25,7 +24,7 @@ class DashboardView extends GetView<DashboardController> {
                     padding: const EdgeInsets.only(left: 15.0),
                     child: GestureDetector(
                         onTap: (){
-                          Get.back();
+                          controller.scaffoldKey.currentState?.openDrawer();
                         },
                         child: Image.asset('assets/icons/sideMenu.png',height: 25,width: 25,fit: BoxFit.fill,)),
                   )
@@ -60,13 +59,13 @@ class DashboardView extends GetView<DashboardController> {
                       ),
                     ),
                   ),
-
                 ],
               )
             ],
             backgroundColor: AppColors.primaryColor,
             elevation: 0,
           ),
+          // drawer_screen: ,
           body: Center(
             child: TabBarView(
               controller: controller.tabController,

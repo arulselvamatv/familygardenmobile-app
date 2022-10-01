@@ -4,7 +4,7 @@ import '../../../utils/common_import/common_import.dart';
 
 class HomeScreenController extends GetxController {
 
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  // final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController search = TextEditingController();
   final CarouselController carouselController = CarouselController();
 
