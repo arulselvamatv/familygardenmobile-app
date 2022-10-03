@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../../../routes/app_pages.dart';
+
 class DrawerWidgetController extends GetxController{
 
   RxList sideMenus = [
@@ -11,5 +13,12 @@ class DrawerWidgetController extends GetxController{
     {'name' : 'Customer Service', 'image' : 'assets/icons/customerCare.png'},
     {'name' : 'FAQ', 'image' : 'assets/icons/Faq.png'},
   ].obs;
+
+  sideMenuNavigation(int index){
+    if(index == 1){
+      Get.toNamed(Routes.CART_SCREEN);
+    }
+
+  }
 
 }

@@ -42,14 +42,16 @@ var controller = Get.put(HomeScreenController());
                         maxLines: 1,
                         onChanged: (value) {
                         },
+                        style: TextStyle(color: Color(0xff000000),fontSize: 15,
+                            fontWeight: FontWeight.w400),
 
                         decoration:  InputDecoration(
                           prefixIcon: ImageIcon(AssetImage('assets/icons/search.png')),
                           hintText: "Search for vegetables and fruits",
                           contentPadding: EdgeInsets.symmetric(vertical: 4),
                           hintStyle: TextStyle(
-                              color: Color(0xff464646),
-                              fontWeight: FontWeight.w500),
+                              color: Color(0xff464646),fontSize: 15,
+                              fontWeight: FontWeight.w400),
                           border: OutlineInputBorder(
                               borderSide: BorderSide.none,borderRadius: BorderRadius.circular(30)),
                           fillColor: Color(0xfff1f1f1),
@@ -125,7 +127,7 @@ controller.pageChanged(index);
                   AppSize.size.h15,
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 15),
-                    height: 130,
+                    height: 140,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
@@ -138,8 +140,8 @@ controller.pageChanged(index);
                           child: Column(
                             children: [
                               Container(
-                                height: 80,
-                                width: 80,
+                                height: 90,
+                                width: Get.width/4,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
                                   color: Color(0xfff9f9f9)

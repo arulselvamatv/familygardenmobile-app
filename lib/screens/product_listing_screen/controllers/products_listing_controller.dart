@@ -65,7 +65,6 @@ update();
   }
 
   minus(int index){
-    print("minus");
     if (counterList[index] == 0) {
       return;
     } else {

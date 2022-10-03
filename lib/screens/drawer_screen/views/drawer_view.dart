@@ -131,7 +131,9 @@ class DrawerView extends GetView<DrawerWidgetController> {
                     child: Container(
                       child: ListTile(
                         dense: true,
-                        onTap: () {},
+                        onTap: () {
+                          controller.sideMenuNavigation(index);
+                        },
                         leading: Image.asset(
                           controller.sideMenus[index]["image"],
                           height: 24,
