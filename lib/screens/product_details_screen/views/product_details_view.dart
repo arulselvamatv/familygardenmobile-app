@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
+import '../../../widgets/common_appbar/custom_appbar_view.dart';
+
 class ProductDetailsView extends GetView<ProductDetailsController> {
   @override
   Widget build(BuildContext context) {
@@ -12,75 +14,30 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
         Obx(() =>
         Scaffold(
             backgroundColor: AppColors.primaryColor,
-            appBar: AppBar(
-              systemOverlayStyle: (SystemUiOverlayStyle.dark),
-              leadingWidth: 50,
-              automaticallyImplyLeading: false,
-              centerTitle: true,
-              leading: Container(
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(55),
+            child: CustomAppbarView (
+              leading_width: 50,
+              appbar_leading: Container(
                 width: 14,
                 child: Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 24.0),
+                      padding: const EdgeInsets.only(left: 15.0),
                       child: GestureDetector(
-                          onTap: () {
+                          onTap: (){
                             Get.back();
                           },
-                          child: Image.asset(
-                            'assets/icons/backButton.png',
-                            height: 24,
-                            width: 24,
-                          )),
+                          child: Image.asset('assets/icons/backButton.png',height: 24,width: 24,)),
                     )
                   ],
                 ),
               ),
-              title: TextWidget(
-                'Order',
-                fontSize: 19,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-                textOverflow: TextOverflow.ellipsis,
-              ),
-              actions: [
-                Stack(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20, top: 15),
-                      child: Image.asset("assets/icons/cart.png",
-                          height: 25, width: 25),
-                    ),
-                    Container(
-                      width: 30,
-                      height: 30,
-                      alignment: Alignment.topRight,
-                      margin: const EdgeInsets.only(top: 10, left: 3.0),
-                      child: Container(
-                        width: 18,
-                        height: 18,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                            border: Border.all(color: Colors.white, width: 1)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(0.0),
-                          child: Center(
-                              child: TextWidget(
-                            "0",
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          )),
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-              backgroundColor: AppColors.primaryColor,
-              elevation: 0,
+              font_size: 19,
+              appbar_title: 'Order',
+              center_title: true,
             ),
+          ),
             body: Container(
               height: Get.height,
               width: Get.width,

@@ -9,6 +9,7 @@ abstract class Routes {
   static const CATEGORIES_SCREEN = _Paths.CATEGORIES_SCREEN;
   static const PRODUCT_LISTING_SCREEN = _Paths.PRODUCT_LISTING_SCREEN;
   static const PRODUCT_DETAILS_SCREEN = _Paths.PRODUCT_DETAILS_SCREEN;
+  static const CART_SCREEN = _Paths.CART_SCREEN;
 
 }
 
@@ -20,5 +21,6 @@ abstract class _Paths {
   static const CATEGORIES_SCREEN = '/categories_screen';
   static const PRODUCT_LISTING_SCREEN = '/product_listing_screen';
   static const PRODUCT_DETAILS_SCREEN = '/product_details_screen';
+  static const CART_SCREEN = '/cart_screen';
 
 }

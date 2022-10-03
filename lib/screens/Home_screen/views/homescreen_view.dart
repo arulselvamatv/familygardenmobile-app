@@ -27,7 +27,7 @@ var controller = Get.put(HomeScreenController());
             )
           ),
           child: Padding(
-            padding: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 15),
             child: SingleChildScrollView(
               // physics: BouncingScrollPhysics(),
               child: Column (

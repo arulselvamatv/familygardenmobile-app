@@ -2,6 +2,7 @@ import 'package:family_garden/screens/categories_screen/views/categories_view.da
 import 'package:family_garden/screens/dashboard/controllers/dashboard_controller.dart';
 import 'package:family_garden/screens/drawer_screen/views/drawer_view.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
+import 'package:family_garden/widgets/common_appbar/custom_appbar_view.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../../utils/theme/app_colors.dart';
@@ -14,59 +15,84 @@ class DashboardView extends GetView<DashboardController> {
     return Obx(
       () => Scaffold(
         key: controller.scaffoldKey,
-          appBar: AppBar(
-            systemOverlayStyle: (SystemUiOverlayStyle.dark),
-            leadingWidth: 50,
-            centerTitle: controller.selectedIndex.value == 0 ? false : true,
-            leading: Container(
-              width: 14,
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0),
-                    child: GestureDetector(
-                        onTap: (){
+          // appBar: AppBar(
+          //   systemOverlayStyle: (SystemUiOverlayStyle.dark),
+          //   leadingWidth: 50,
+          //   centerTitle: controller.selectedIndex.value == 0 ? false : true,
+          //   leading: Container(
+          //     width: 14,
+          //     child: Row(
+          //       children: [
+          //         Padding(
+          //           padding: const EdgeInsets.only(left: 15.0),
+          //           child: GestureDetector(
+          //               onTap: (){
+          //
+          //                 controller.scaffoldKey.currentState?.openDrawer();
+          //               },
+          //               child: Image.asset('assets/icons/sideMenu.png',height: 25,width: 25,fit: BoxFit.fill,)),
+          //         )
+          //       ],
+          //     ),
+          //   ),
+          //   title: TextWidget(controller.selectedIndex.value == 0 ? "Family Garden" : controller.selectedIndex.value == 1 ? 'Category' : controller.selectedIndex.value == 2 ? 'Offers': 'Account',fontSize: 24,fontWeight: FontWeight.w600,color: Colors.white,),
+          //   actions: [
+          //     Stack(
+          //       children: [
+          //         Padding(
+          //           padding: const EdgeInsets.only(right: 20,top: 15),
+          //           child: Image.asset("assets/icons/cart.png",height: 25,width: 25),
+          //         ),
+          //         Container(
+          //           width: 30,
+          //           height: 30,
+          //           alignment: Alignment.topRight,
+          //           margin: const EdgeInsets.only(top: 10,left: 3.0),
+          //           child: Container(
+          //             width: 18,
+          //             height: 18,
+          //             decoration: BoxDecoration(
+          //                 shape: BoxShape.circle,
+          //                 color: Colors.white,
+          //                 border: Border.all(color: Colors.white, width: 1)),
+          //             child: Padding(
+          //               padding: const EdgeInsets.all(0.0),
+          //               child: Center(
+          //                   child: TextWidget("0",color: Colors.black,fontSize: 14,fontWeight: FontWeight.w600,)
+          //               ),
+          //             ),
+          //           ),
+          //         ),
+          //       ],
+          //     )
+          //   ],
+          //   backgroundColor: AppColors.primaryColor,
+          //   elevation: 0,
+          // ),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(55),
+            child: CustomAppbarView (
+              leading_width: 50,
+              font_size: 24,
+              appbar_leading: Container(
+                  width: 14,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15.0),
+                        child: GestureDetector(
+                            onTap: (){
 
-                          controller.scaffoldKey.currentState?.openDrawer();
-                        },
-                        child: Image.asset('assets/icons/sideMenu.png',height: 25,width: 25,fit: BoxFit.fill,)),
-                  )
-                ],
-              ),
+                              controller.scaffoldKey.currentState?.openDrawer();
+                            },
+                            child: Image.asset('assets/icons/sideMenu.png',height: 25,width: 25,fit: BoxFit.fill,)),
+                      )
+                    ],
+                  ),
+                ),
+              appbar_title: controller.selectedIndex.value == 0 ? "Family Garden" : controller.selectedIndex.value == 1 ? 'Category' : controller.selectedIndex.value == 2 ? 'Offers': 'Account',
+              center_title: controller.selectedIndex.value == 0 ? false : true,
             ),
-            title: TextWidget(controller.selectedIndex.value == 0 ? "Family Garden" : controller.selectedIndex.value == 1 ? 'Category' : controller.selectedIndex.value == 2 ? 'Offers': 'Account',fontSize: 24,fontWeight: FontWeight.w600,color: Colors.white,),
-            actions: [
-              Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 20,top: 15),
-                    child: Image.asset("assets/icons/cart.png",height: 25,width: 25),
-                  ),
-                  Container(
-                    width: 30,
-                    height: 30,
-                    alignment: Alignment.topRight,
-                    margin: const EdgeInsets.only(top: 10,left: 3.0),
-                    child: Container(
-                      width: 18,
-                      height: 18,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white,
-                          border: Border.all(color: Colors.white, width: 1)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(0.0),
-                        child: Center(
-                            child: TextWidget("0",color: Colors.black,fontSize: 14,fontWeight: FontWeight.w600,)
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            ],
-            backgroundColor: AppColors.primaryColor,
-            elevation: 0,
           ),
           drawer: DrawerView(),
           body: Center(
@@ -108,6 +134,7 @@ class DashboardView extends GetView<DashboardController> {
               labelColor: Color(0xff000000),
               unselectedLabelColor: Color(0xff9B9B9B),
               labelStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+
               indicator: UnderlineTabIndicator(
                 borderSide: BorderSide(color: Colors.black, width: 4.0),
                 insets: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 66.0),

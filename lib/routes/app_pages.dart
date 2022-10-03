@@ -1,10 +1,12 @@
 import 'package:family_garden/screens/Home_screen/views/homescreen_view.dart';
+import 'package:family_garden/screens/cart_screen/views/cart_view.dart';
 import 'package:family_garden/screens/dashboard/views/dashboard_view.dart';
 import 'package:family_garden/screens/product_details_screen/views/product_details_view.dart';
 import 'package:family_garden/screens/product_listing_screen/bindings/product_listing_binding.dart';
 import 'package:family_garden/screens/product_listing_screen/views/product_listing_view.dart';
 import 'package:get/get.dart';
 import '../screens/Home_screen/bindings/homescreen_binding.dart';
+import '../screens/cart_screen/bindings/cart_binding.dart';
 import '../screens/dashboard/bindings/dashboard_bindings.dart';
 import '../screens/product_details_screen/bindings/product_details_binding.dart';
 import '../screens/splash_screen/bindings/splash_bindings.dart';
@@ -43,6 +45,11 @@ class AppPages {
       name: _Paths.PRODUCT_DETAILS_SCREEN,
       page: () => ProductDetailsView(),
       binding: ProductDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.CART_SCREEN,
+      page: () => CartView(),
+      binding: CartBinding(),
     ),
 
   ];
