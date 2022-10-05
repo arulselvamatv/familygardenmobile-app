@@ -3,7 +3,7 @@ import '../../../utils/common_import/common_import.dart';
 
 class CategoriesController extends GetxController {
 
-  TextEditingController search = TextEditingController();
+  TextEditingController searchController = TextEditingController();
 
   RxList categoryList = [
     {'name' : 'All Fruits & Vegetables', 'image' : 'assets/images/allFruits&Vegetables.png'},

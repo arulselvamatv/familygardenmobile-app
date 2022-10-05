@@ -1,0 +1,21 @@
+class ApiConstants {
+  ApiConstants._();
+
+  //development URL :
+  static const String baseUrl = "https://dev.familygarden.in/";
+
+  //production URL :
+  // static const String baseUrl =;
+
+  // Common headers
+  // static Map<String, String> commonHeaders = {
+  //   'Content-Type': 'application/json',
+  //   'Accept': 'application/json',
+  //   'Authorization':
+  //   'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJEdmN1Yk1XcHl1cm9DVGJKVGZSNDBlZHVZYXJNS2sxQ0RlcTdkRzY4aWZjIn0.eyJleHAiOjE2NjY2MDM4NjEsImlhdCI6MTY2NDAxMTg2MSwianRpIjoiYmU0N2YxOGYtYjBlZi00NjE3LWIwOTUtYTRkZGVhOGVlMmRiIiwiaXNzIjoiaHR0cHM6Ly9pZHAuZHJ5by5hcHAvcmVhbG1zL2RyeW8tZGV2IiwiYXVkIjpbImRyeW93cy1hcGkiLCJhY2NvdW50Il0sInN1YiI6ImY6MWFiYzU2YjMtNTJjNy00Yzg2LWI2ZjItMDdiNTQ1YTRjOTIzOjY3ODExMTIyMjIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJkcnlvd3MtYXBpIiwic2Vzc2lvbl9zdGF0ZSI6ImRiZmI2YWIyLWYzNTAtNGRmNi1hZTA3LTYyYjEwNGI5MzU2YiIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiKiJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1kcnlvLWRldiIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImRyeW93cy1hcGkgcHJvZmlsZSBlbWFpbCIsInNpZCI6ImRiZmI2YWIyLWYzNTAtNGRmNi1hZTA3LTYyYjEwNGI5MzU2YiIsInVpZCI6MzQ4LCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6IkphY2sgQXl0YWdlZCIsInZlbmRvcmlkIjoxLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiI2NzgxMTEyMjIyIiwiZ2l2ZW5fbmFtZSI6IkphY2siLCJtb2JpbGVfbnVtYmVyIjoiNjc4MTExMjIyMiIsImZhbWlseV9uYW1lIjoiQXl0YWdlZCIsImVtYWlsIjoidmVuZG9yQGRyeW9jbGVhbmVycy5jb20ifQ.YBdFNwNEhxNd3mTFFCwztQ22GThHI_rXOuI-kntrXpmOQBEp8ugSOW34rdMwk7KYuO-nTUmeypYWQPVn0VHnSwhseTbSktPASSi2TOTI1G6M72-ZFtM4kqPxN8BRpl7S_vtJwHPBTtQ8wJFKHh-F8TfTiIoELhfkAlWAszU9Usa-mumuz1LdyUc4TTCnEO8v804JbLANMdgRGI-JYCN9olPZuOT3B5JImPERTeSHlxE4Bb11ObiZ44FvJWB5s-Co60YdL-kqzHdPxg27-SIBfQ3WPz4PgNprJtjapwE-ZdXycrBKeWyleb0CZKVsA_CecATaUyGIn1NX4xaNvtHt6Q'
+  // };
+
+  // JWT token
+  static const String jwtToken =
+      'fe32aa2b52f612f3acb1915758';
+}

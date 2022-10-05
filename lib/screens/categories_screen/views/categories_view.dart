@@ -26,7 +26,7 @@ class CategoriesView extends GetView<CategoriesController>{
               )
           ),
           child: Padding(
-            padding: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 15),
             child: SingleChildScrollView(
               // physics: BouncingScrollPhysics(),
               child: Column (
@@ -37,7 +37,7 @@ class CategoriesView extends GetView<CategoriesController>{
                     child: Container(
                       height: 45,
                       child: TextFormField(
-                        controller: controller.search,
+                        controller: controller.searchController,
                         maxLines: 1,
                         onChanged: (value) {
                         },

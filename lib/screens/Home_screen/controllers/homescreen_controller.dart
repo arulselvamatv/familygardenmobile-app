@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_controller.dart';
+import 'package:family_garden/network/api_helper.dart';
 import 'package:get/get.dart';
+import '../../../models/home_slider_model.dart';
 import '../../../utils/common_import/common_import.dart';
 
 class HomeScreenController extends GetxController {
@@ -9,6 +11,8 @@ class HomeScreenController extends GetxController {
   final CarouselController carouselController = CarouselController();
 
   RxInt currentIndex = 0.obs;
+
+  RxBool carouselLoader = false.obs;
 
   late String selectedValue = itemsList.first;
 
@@ -33,11 +37,7 @@ class HomeScreenController extends GetxController {
     '1 Bunch - ₹15.00',
   ];
 
-  RxList carousel = [
-    'assets/images/carouselImage.png',
-    'assets/images/carouselImage.png',
-    'assets/images/carouselImage.png',
-  ].obs;
+  RxList<Banners> carousel = <Banners>[].obs;
 
   RxList<String> items = <String>['One', 'Two', 'Three', 'Four'].obs;
 
@@ -53,7 +53,22 @@ class HomeScreenController extends GetxController {
     for (int i = 0; i < bestSellers.length; i++) {
       selectedItemValue.add(itemsList[0]);
     }
+    getHomeSliderDetails();
+
   }
+
+  getHomeSliderDetails() async {
+    carouselLoader.value = true;
+    var response = await ApiHelper.getHomeSliderDetails();
+    if(response.isSuccessFul){
+      carouselLoader.value = false;
+      carousel.value = (response.data?.modules?[0].banners)!;
+      update();
+    } else {
+      print('something went wrong');
+    }
+  }
+
 
 
   pageChanged(int index){
