@@ -1,5 +1,3 @@
-import 'package:get/get.dart';
-
 import '../../../utils/common_import/common_import.dart';
 
 class ProfileController extends GetxController {
@@ -16,5 +14,4 @@ class ProfileController extends GetxController {
     cityController.text = 'Chennai';
     stateController.text = 'Tamil Nadu';
   }
-
 }

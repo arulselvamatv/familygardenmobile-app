@@ -1,5 +1,5 @@
 import 'package:carousel_slider/carousel_controller.dart';
-import 'package:get/get.dart';
+import 'package:family_garden/utils/common_import/common_import.dart';
 
 class ProductDetailsController extends GetxController {
   final CarouselController carouselController = CarouselController();
@@ -21,34 +21,34 @@ class ProductDetailsController extends GetxController {
     '1 KG',
   ].obs;
 
-  onProductWeightSelected(int index){
-        selecteIndex.value = index;
-        productWeight.refresh();
+  onProductWeightSelected(int index) {
+    selecteIndex.value = index;
+    productWeight.refresh();
   }
 
-  onFavouriteButtonSelected(){
-    if(favourite.value == false){
+  onFavouriteButtonSelected() {
+    if (favourite.value == false) {
       favourite.value = true;
     } else {
       favourite.value = false;
     }
-}
+  }
 
-onAddToCartSelected(){
-    if(addToCart.value == false){
+  onAddToCartSelected() {
+    if (addToCart.value == false) {
       addToCart.value = true;
     }
-}
-
-minus(){
-  if (counter.value == 0) {
-    return;
-  } else {
-    counter.value -= 1;
   }
-}
 
-add(){
-  counter.value += 1;
-}
+  minus() {
+    if (counter.value == 0) {
+      return;
+    } else {
+      counter.value -= 1;
+    }
+  }
+
+  add() {
+    counter.value += 1;
+  }
 }

@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import '../../../utils/common_import/common_import.dart';
 import '../controllers/splash_controller.dart';
 
 class SplashView extends GetView<SplashController> {
@@ -10,7 +9,12 @@ class SplashView extends GetView<SplashController> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-        Center(child: Image.asset("assets/images/splash-mdpi.png",height: 150,width: 150,))
+          Center(
+              child: Image.asset(
+            "assets/images/splash-mdpi.png",
+            height: 150,
+            width: 150,
+          ))
         ],
       ),
     );

@@ -1,7 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:get/get.dart';
-
 import '../../../utils/common_import/common_import.dart';
 import '../controllers/cart_controller.dart';
 
@@ -77,7 +75,9 @@ class CartView extends GetView<CartController> {
                   child: TextFormField(
                     controller: controller.search,
                     maxLines: 1,
-                    style: TextStyle(color: Color(0xff000000),fontSize: 15,
+                    style: TextStyle(
+                        color: Color(0xff000000),
+                        fontSize: 15,
                         fontWeight: FontWeight.w400),
                     onChanged: (value) {},
                     decoration: InputDecoration(
@@ -114,7 +114,7 @@ class CartView extends GetView<CartController> {
                             scrollDirection: Axis.vertical,
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
-                            padding: EdgeInsets.only(bottom: 30,top: 10),
+                            padding: EdgeInsets.only(bottom: 30, top: 10),
                             itemBuilder: (context, index) {
                               return GestureDetector(
                                 onTap: () {},
@@ -135,25 +135,29 @@ class CartView extends GetView<CartController> {
                                                   height: 13,
                                                   width: 13,
                                                   child: Checkbox(
-                                                    shape: RoundedRectangleBorder(
+                                                    shape:
+                                                        RoundedRectangleBorder(
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               2.0),
                                                     ),
-                                                    side: MaterialStateBorderSide
-                                                        .resolveWith(
+                                                    side:
+                                                        MaterialStateBorderSide
+                                                            .resolveWith(
                                                       (states) => BorderSide(
                                                           width: 0.75,
-                                                          color:
-                                                              Color(0xffC0BEBE)),
+                                                          color: Color(
+                                                              0xffC0BEBE)),
                                                     ),
                                                     activeColor:
                                                         AppColors.primaryColor,
-                                                    value: cart
-                                                        .checkBoxBoolList[index],
+                                                    value:
+                                                        cart.checkBoxBoolList[
+                                                            index],
                                                     onChanged: (value) {
-                                                      controller.onCheckBoxClick(
-                                                          value, index);
+                                                      controller
+                                                          .onCheckBoxClick(
+                                                              value, index);
                                                     },
                                                   ),
                                                 ),
@@ -165,7 +169,8 @@ class CartView extends GetView<CartController> {
                                                   height: 80,
                                                   width: 90,
                                                   child: Image.asset(
-                                                    cart.cartList[index]['image'],
+                                                    cart.cartList[index]
+                                                        ['image'],
                                                     fit: BoxFit.contain,
                                                   ),
                                                 ),
@@ -179,9 +184,11 @@ class CartView extends GetView<CartController> {
                                             children: [
                                               Container(
                                                   constraints: BoxConstraints(
-                                                      maxWidth: Get.width / 2.5),
+                                                      maxWidth:
+                                                          Get.width / 2.5),
                                                   child: TextWidget(
-                                                    cart.cartList[index]['name'],
+                                                    cart.cartList[index]
+                                                        ['name'],
                                                     fontSize: 14.5,
                                                     fontWeight: FontWeight.w600,
                                                     color: Colors.black,
@@ -204,8 +211,8 @@ class CartView extends GetView<CartController> {
                                           ),
                                           Spacer(),
                                           Padding(
-                                            padding:
-                                                const EdgeInsets.only(right: 15),
+                                            padding: const EdgeInsets.only(
+                                                right: 15),
                                             child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.end,
@@ -222,8 +229,8 @@ class CartView extends GetView<CartController> {
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w500,
                                                   color: Colors.black,
-                                                  decoration:
-                                                      TextDecoration.lineThrough,
+                                                  decoration: TextDecoration
+                                                      .lineThrough,
                                                 ),
                                                 TextWidget(
                                                   cart.cartList[index]['offer'],
@@ -246,7 +253,8 @@ class CartView extends GetView<CartController> {
                                                           offset: Offset(0, 0),
                                                           blurRadius: 3,
                                                           spreadRadius: 3,
-                                                          color: Color(0xff000000)
+                                                          color: Color(
+                                                                  0xff000000)
                                                               .withOpacity(0.2),
                                                         )
                                                       ],
@@ -254,7 +262,8 @@ class CartView extends GetView<CartController> {
                                                     ),
                                                     child: Row(
                                                       mainAxisAlignment:
-                                                          MainAxisAlignment.start,
+                                                          MainAxisAlignment
+                                                              .start,
                                                       children: [
                                                         GestureDetector(
                                                           onTap: () {
@@ -270,7 +279,8 @@ class CartView extends GetView<CartController> {
                                                         ),
                                                         Spacer(),
                                                         TextWidget(
-                                                          cart.counterList[index]
+                                                          cart.counterList[
+                                                                  index]
                                                               .toString(),
                                                           color: Colors.black,
                                                           fontSize: 13,
@@ -340,7 +350,7 @@ class CartView extends GetView<CartController> {
                         ),
                         style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.all(0),
-                            backgroundColor: AppColors.primaryColor,
+                            primary: AppColors.primaryColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(6),
                             )),
@@ -376,7 +386,7 @@ class CartView extends GetView<CartController> {
                                 color: Colors.white,
                               ),
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.primaryColor,
+                                  primary: AppColors.primaryColor,
                                   padding: EdgeInsets.all(0),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(6),

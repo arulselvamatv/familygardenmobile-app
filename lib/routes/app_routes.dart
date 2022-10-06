@@ -10,11 +10,10 @@ abstract class Routes {
   static const PRODUCT_LISTING_SCREEN = _Paths.PRODUCT_LISTING_SCREEN;
   static const PRODUCT_DETAILS_SCREEN = _Paths.PRODUCT_DETAILS_SCREEN;
   static const CART_SCREEN = _Paths.CART_SCREEN;
-
+  static const MANAGE_ADDRESS_SCREEN = _Paths.MANAGE_ADDRESS_SCREEN;
 }
 
 abstract class _Paths {
-
   static const SPLASH = '/splash';
   static const DASHBOARD = '/dashboard';
   static const HOME_SCREEN = '/home_screen';
@@ -22,5 +21,5 @@ abstract class _Paths {
   static const PRODUCT_LISTING_SCREEN = '/product_listing_screen';
   static const PRODUCT_DETAILS_SCREEN = '/product_details_screen';
   static const CART_SCREEN = '/cart_screen';
-
+  static const MANAGE_ADDRESS_SCREEN = '/manage-address';
 }

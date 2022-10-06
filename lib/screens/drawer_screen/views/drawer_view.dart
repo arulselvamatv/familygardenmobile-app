@@ -1,9 +1,6 @@
 import 'package:family_garden/screens/drawer_screen/controllers/drawer_controller.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
-import 'package:family_garden/utils/theme/app_colors.dart';
-import 'package:family_garden/utils/theme/app_sizes.dart';
 import 'package:family_garden/widgets/custom_text.dart';
-import 'package:get/get.dart';
 
 class DrawerView extends GetView<DrawerWidgetController> {
   @override
@@ -153,7 +150,6 @@ class DrawerView extends GetView<DrawerWidgetController> {
                 },
               ),
               Spacer(),
-
               Container(
                 width: Get.width / 1.3,
                 child: Padding(
@@ -170,7 +166,9 @@ class DrawerView extends GetView<DrawerWidgetController> {
                         ),
                         child: Center(
                           child: TextWidget(
-                            'Login',fontSize: 14,fontWeight: FontWeight.w600,
+                            'Login',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
                             color: Colors.white,
                           ),
                         ),
@@ -184,7 +182,9 @@ class DrawerView extends GetView<DrawerWidgetController> {
                             border: Border.all(color: AppColors.primaryColor)),
                         child: Center(
                           child: TextWidget(
-                            'Sign Up',fontSize: 14,fontWeight: FontWeight.w600,
+                            'Sign Up',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
                             color: AppColors.primaryColor,
                           ),
                         ),
@@ -195,17 +195,20 @@ class DrawerView extends GetView<DrawerWidgetController> {
               ),
               Spacer(),
               SizedBox(
-                width: Get.width / 1.3,
-                child :
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset('assets/icons/c.png'),
-                    AppSize.size.w5,
-                    TextWidget('Family Garden. 2022',fontSize: 12,fontWeight: FontWeight.w600,color: Color(0xff3A3A3A),)
-                  ],
-                )
-              ),
+                  width: Get.width / 1.3,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset('assets/icons/c.png'),
+                      AppSize.size.w5,
+                      TextWidget(
+                        'Family Garden. 2022',
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xff3A3A3A),
+                      )
+                    ],
+                  )),
               AppSize.size.h30
             ],
           ),

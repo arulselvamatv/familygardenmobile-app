@@ -1,6 +1,8 @@
 import 'package:family_garden/screens/Home_screen/views/homescreen_view.dart';
 import 'package:family_garden/screens/cart_screen/views/cart_view.dart';
 import 'package:family_garden/screens/dashboard/views/dashboard_view.dart';
+import 'package:family_garden/screens/manage_address_screen/binding/manage_address_binding.dart';
+import 'package:family_garden/screens/manage_address_screen/view/manage_address_view.dart';
 import 'package:family_garden/screens/product_details_screen/views/product_details_view.dart';
 import 'package:family_garden/screens/product_listing_screen/bindings/product_listing_binding.dart';
 import 'package:family_garden/screens/product_listing_screen/views/product_listing_view.dart';
@@ -18,7 +20,6 @@ class AppPages {
   AppPages._();
 
   static const INITIAL = Routes.SPLASH;
-
 
   static final routes = [
     GetPage(
@@ -51,6 +52,9 @@ class AppPages {
       page: () => CartView(),
       binding: CartBinding(),
     ),
-
+    GetPage(
+        name: _Paths.MANAGE_ADDRESS_SCREEN,
+        page: () => ManageAddressView(),
+        binding: ManageAddressBinding())
   ];
 }

@@ -4,10 +4,6 @@ import 'package:family_garden/screens/drawer_screen/views/drawer_view.dart';
 import 'package:family_garden/screens/profile_screen/views/profile_view.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:family_garden/widgets/common_appbar/custom_appbar_view.dart';
-import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-import '../../../utils/theme/app_colors.dart';
-import '../../../widgets/custom_text.dart';
 import '../../Home_screen/views/homescreen_view.dart';
 
 class DashboardView extends GetView<DashboardController> {
@@ -15,29 +11,39 @@ class DashboardView extends GetView<DashboardController> {
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
-        key: controller.scaffoldKey,
+          key: controller.scaffoldKey,
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(55),
-            child: CustomAppbarView (
+            child: CustomAppbarView(
               leading_width: 50,
               font_size: 24,
               appbar_leading: Container(
-                  width: 14,
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
-                        child: GestureDetector(
-                            onTap: (){
-
-                              controller.scaffoldKey.currentState?.openDrawer();
-                            },
-                            child: Image.asset('assets/icons/sideMenu.png',height: 25,width: 25,fit: BoxFit.fill,)),
-                      )
-                    ],
-                  ),
+                width: 14,
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15.0),
+                      child: GestureDetector(
+                          onTap: () {
+                            controller.scaffoldKey.currentState?.openDrawer();
+                          },
+                          child: Image.asset(
+                            'assets/icons/sideMenu.png',
+                            height: 25,
+                            width: 25,
+                            fit: BoxFit.fill,
+                          )),
+                    )
+                  ],
                 ),
-              appbar_title: controller.selectedIndex.value == 0 ? "Family Garden" : controller.selectedIndex.value == 1 ? 'Category' : controller.selectedIndex.value == 2 ? 'Offers': 'Account',
+              ),
+              appbar_title: controller.selectedIndex.value == 0
+                  ? "Family Garden"
+                  : controller.selectedIndex.value == 1
+                      ? 'Category'
+                      : controller.selectedIndex.value == 2
+                          ? 'Offers'
+                          : 'Account',
               center_title: controller.selectedIndex.value == 0 ? false : true,
             ),
           ),
@@ -53,7 +59,7 @@ class DashboardView extends GetView<DashboardController> {
                   Icons.discount,
                   size: 150,
                 ),
-               ProfileView(),
+                ProfileView(),
               ],
             ),
           ),
@@ -78,7 +84,6 @@ class DashboardView extends GetView<DashboardController> {
               labelColor: Color(0xff000000),
               unselectedLabelColor: Color(0xff9B9B9B),
               labelStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
-
               indicator: UnderlineTabIndicator(
                 borderSide: BorderSide(color: Colors.black, width: 4.0),
                 insets: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 66.0),
