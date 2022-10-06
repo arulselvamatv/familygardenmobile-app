@@ -279,11 +279,11 @@ class ProductListingView extends GetView<ProductListingController> {
                                                                       index);
                                                             },
                                                             items: controller
-                                                                .products[index]
-                                                                .option
-                                                                ?.map<DropdownMenuItem>(
-                                                                    (String
-                                                                        value) {
+                                                                .itemsList
+                                                                .map<
+                                                                    DropdownMenuItem<
+                                                                        String>>((String
+                                                                    value) {
                                                               return DropdownMenuItem<
                                                                   String>(
                                                                 value: value,
