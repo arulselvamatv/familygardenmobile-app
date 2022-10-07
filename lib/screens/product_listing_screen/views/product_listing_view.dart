@@ -87,7 +87,7 @@ class ProductListingView extends GetView<ProductListingController> {
                                               width: 40,
                                               decoration: BoxDecoration(
                                                 shape: BoxShape.circle,
-                                                color: Colors.white,
+                                                color: AppColors.white,
                                               ),
                                               child: Padding(
                                                 padding:
@@ -115,7 +115,7 @@ class ProductListingView extends GetView<ProductListingController> {
                                                       .name,
                                                   fontSize: 10,
                                                   fontWeight: FontWeight.w400,
-                                                  color: Colors.black,
+                                                  color: AppColors.black,
                                                   textAlign: TextAlign.center,
                                                   maxLines: 2,
                                                   textOverflow:
@@ -160,6 +160,7 @@ class ProductListingView extends GetView<ProductListingController> {
                                   shrinkWrap: true,
                                   padding: EdgeInsets.only(bottom: 30),
                                   itemBuilder: (context, index) {
+                                    print("index $index");
                                     return GestureDetector(
                                       onTap: () {
                                         Get.toNamed(
@@ -169,11 +170,14 @@ class ProductListingView extends GetView<ProductListingController> {
                                         children: [
                                           Container(
                                             height: 130,
-                                            color: Colors.white,
+                                            color: AppColors.white,
                                             width: Get.width,
                                             child: Row(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.end,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 Padding(
                                                   padding:
@@ -211,30 +215,36 @@ class ProductListingView extends GetView<ProductListingController> {
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      TextWidget(
-                                                        controller
-                                                            .products[index]
-                                                            .name,
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        maxLines: 1,
-                                                        textOverflow:
-                                                            TextOverflow
-                                                                .ellipsis,
+                                                      Container(
+                                                        width: Get.width / 2.5,
+                                                        child: TextWidget(
+                                                          controller
+                                                              .products[index]
+                                                              .name,
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          maxLines: 1,
+                                                          textOverflow:
+                                                              TextOverflow
+                                                                  .ellipsis,
+                                                        ),
                                                       ),
                                                       AppSize.size.h5,
-                                                      TextWidget(
-                                                        controller
-                                                            .products[index]
-                                                            .pnameTamil,
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        maxLines: 1,
-                                                        textOverflow:
-                                                            TextOverflow
-                                                                .ellipsis,
+                                                      Container(
+                                                        width: Get.width / 2.5,
+                                                        child: TextWidget(
+                                                          controller
+                                                              .products[index]
+                                                              .pnameTamil,
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          maxLines: 1,
+                                                          textOverflow:
+                                                              TextOverflow
+                                                                  .ellipsis,
+                                                        ),
                                                       ),
                                                       AppSize.size.h5,
                                                       Container(
@@ -263,8 +273,8 @@ class ProductListingView extends GetView<ProductListingController> {
                                                               Icons
                                                                   .keyboard_arrow_down,
                                                               size: 15,
-                                                              color:
-                                                                  Colors.black,
+                                                              color: AppColors
+                                                                  .black,
                                                             ),
                                                             elevation: 16,
                                                             style:
@@ -325,7 +335,7 @@ class ProductListingView extends GetView<ProductListingController> {
                                                         decoration:
                                                             TextDecoration
                                                                 .lineThrough,
-                                                      ),
+                                                      )
                                                     ],
                                                   ),
                                                 ),
@@ -367,7 +377,7 @@ class ProductListingView extends GetView<ProductListingController> {
                                                                           .cartBoolList[
                                                                       index] ==
                                                                   true
-                                                              ? Colors.white
+                                                              ? AppColors.white
                                                               : AppColors
                                                                   .primaryColor),
                                                       child:
@@ -394,7 +404,7 @@ class ProductListingView extends GetView<ProductListingController> {
                                                                       ),
                                                                     ),
                                                                     Spacer(),
-                                                                    // TextWidget('-',color: Colors.white,fontSize: 8,),
+                                                                    // TextWidget('-',color: AppColors.white,fontSize: 8,),
                                                                     TextWidget(
                                                                       controller
                                                                           .counterList[
@@ -489,7 +499,7 @@ class ProductListingView extends GetView<ProductListingController> {
                                                       ['offer'],
                                                   fontSize: 10,
                                                   fontWeight: FontWeight.w600,
-                                                  color: Colors.white,
+                                                  color: AppColors.white,
                                                 ),
                                               ),
                                             ),
@@ -501,7 +511,7 @@ class ProductListingView extends GetView<ProductListingController> {
                                   separatorBuilder: (context, index) {
                                     return AppSize.size.h10;
                                   },
-                                  itemCount: controller.categoryList.length),
+                                  itemCount: controller.products.length),
                         ),
                       ),
                     ],

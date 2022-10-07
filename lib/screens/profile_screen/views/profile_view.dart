@@ -1,8 +1,8 @@
 import 'package:family_garden/routes/app_pages.dart';
-import 'package:family_garden/screens/manage_address_screen/view/manage_address_view.dart';
 import 'package:family_garden/screens/profile_screen/controllers/profile_controller.dart';
 import 'package:family_garden/widgets/custom_textfield.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
 import '../../../utils/common_import/common_import.dart';
 
 class ProfileView extends GetView<ProfileController> {

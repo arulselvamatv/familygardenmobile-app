@@ -119,7 +119,7 @@ class ApiHelper {
           'POST',
           Uri.parse(
               'https://dev.familygarden.in//index.php?route=mobileapi/product/category'));
-      request.fields.addAll({'path': '20'});
+      request.fields.addAll({'path': path});
       http.StreamedResponse response = await request.send();
       // var response = await http.post(Uri.parse(url),
       //     body: json.encode(df), headers: header);

@@ -55,14 +55,14 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                   'Carrot',
                   fontSize: 18,
                   fontWeight: FontWeight.w800,
-                  color: Colors.black,
+                  color: AppColors.black,
                 ),
                 AppSize.size.h3,
                 TextWidget(
                   'கேரட்',
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
-                  color: Colors.black,
+                  color: AppColors.black,
                 ),
                 SizedBox(
                   height: 215,
@@ -124,7 +124,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                           child: Container(
                             decoration: BoxDecoration(
                                 color: controller.selecteIndex != index
-                                    ? Colors.white
+                                    ? AppColors.white
                                     : Color(0xffB6F1E7),
                                 borderRadius: BorderRadius.circular(13),
                                 border: Border.all(
@@ -139,7 +139,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                 controller.productWeight[index],
                                 fontSize: 10,
                                 fontWeight: FontWeight.w600,
-                                color: Colors.black,
+                                color: AppColors.black,
                               ),
                             )),
                           ),
@@ -162,7 +162,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                             'Description',
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
-                            color: Colors.black,
+                            color: AppColors.black,
                           ),
                           AppSize.size.h5,
                           Container(
@@ -202,7 +202,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                             'Benefits',
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
-                            color: Colors.black,
+                            color: AppColors.black,
                           ),
                           AppSize.size.h5,
                           TextWidget(
@@ -261,7 +261,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                         controller.addToCart.value ? 0.2 : 0)),
                               ],
                               color: controller.addToCart.value
-                                  ? Colors.white
+                                  ? AppColors.white
                                   : AppColors.primaryColor),
                           child: controller.addToCart.value
                               ? Row(
@@ -280,10 +280,10 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                             child: Image.asset(
                                                 "assets/icons/minus.png"))),
                                     Spacer(),
-                                    // TextWidget('-',color: Colors.white,fontSize: 8,),
+                                    // TextWidget('-',color: AppColors.white,fontSize: 8,),
                                     TextWidget(
                                       controller.counter.toString(),
-                                      color: Colors.black,
+                                      color: AppColors.black,
                                       fontSize: 15,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -308,7 +308,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                     'Add to Cart',
                                     fontSize: 13,
                                     fontWeight: FontWeight.w500,
-                                    color: Colors.white,
+                                    color: AppColors.white,
                                   ),
                                 ),
                         ),
@@ -321,7 +321,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                             '₹32.00',
                             fontSize: 19,
                             fontWeight: FontWeight.w600,
-                            color: Colors.black,
+                            color: AppColors.black,
                           ),
                           TextWidget(
                             '₹35.00',

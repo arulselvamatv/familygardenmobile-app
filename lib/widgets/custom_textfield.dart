@@ -13,8 +13,7 @@ class CustomTextField extends StatefulWidget {
   final Function()? onTap;
 
   final String? Function(String?)? validator;
-  final bool? isPasswordField,
-      hasCaption;
+  final bool? isPasswordField, hasCaption;
   final bool readOnly;
   final int? maxline;
   final List<TextInputFormatter>? inputFormatters;
@@ -59,25 +58,34 @@ class _CustomTextFieldState extends State<CustomTextField> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (widget.hasCaption ?? false)
-            TextWidget( widget.caption ?? '',fontSize: 12,fontWeight: FontWeight.w400,color: Color(0xff535353),),
+            TextWidget(
+              widget.caption ?? '',
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: Color(0xff535353),
+            ),
           SizedBox(
             height: 30,
-            child: TextFormField  (
+            child: TextFormField(
               controller: widget.controller,
-              style: const TextStyle(color: Colors.black,fontSize: 13.5,fontWeight: FontWeight.w600),
+              style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 13.5,
+                  fontWeight: FontWeight.w600),
               textAlign: TextAlign.start,
               cursorColor: Colors.black,
               validator: widget.validator,
               onChanged: widget.onChanged,
               readOnly: widget.readOnly,
-              decoration:  InputDecoration(
+              decoration: InputDecoration(
                   hintText: widget.hint,
                   hintStyle: TextStyle(color: Colors.grey, fontSize: 13.5),
-                  enabledBorder:
-                  UnderlineInputBorder(borderSide: BorderSide(color: Color(0xffE5E5E5))),
-                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Color(0xffE5E5E5),width: 0.75)),
-                  contentPadding: EdgeInsets.only(bottom: 10)
-              ),
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xffE5E5E5))),
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color(0xffE5E5E5), width: 0.75)),
+                  contentPadding: EdgeInsets.only(bottom: 10)),
             ),
           ),
           AppSize.size.h30,

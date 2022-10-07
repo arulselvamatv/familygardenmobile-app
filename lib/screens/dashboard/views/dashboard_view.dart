@@ -68,7 +68,7 @@ class DashboardView extends GetView<DashboardController> {
           // ),
           bottomNavigationBar: Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: AppColors.white,
               boxShadow: [
                 BoxShadow(
                     offset: Offset(0, 2),
@@ -85,7 +85,7 @@ class DashboardView extends GetView<DashboardController> {
               unselectedLabelColor: Color(0xff9B9B9B),
               labelStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
               indicator: UnderlineTabIndicator(
-                borderSide: BorderSide(color: Colors.black, width: 4.0),
+                borderSide: BorderSide(color: AppColors.black, width: 4.0),
                 insets: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 66.0),
               ),
               indicatorColor: Color(0xff000000),
@@ -100,7 +100,7 @@ class DashboardView extends GetView<DashboardController> {
                     height: 21,
                     width: 21,
                     color: controller.selectedIndex == 0
-                        ? Colors.black
+                        ? AppColors.black
                         : Color(0xff6F6F6F),
                   ),
                 ),
@@ -111,7 +111,7 @@ class DashboardView extends GetView<DashboardController> {
                     height: 21,
                     width: 21,
                     color: controller.selectedIndex == 1
-                        ? Colors.black
+                        ? AppColors.black
                         : Color(0xff6F6F6F),
                   ),
                 ),
@@ -122,7 +122,7 @@ class DashboardView extends GetView<DashboardController> {
                     height: 21,
                     width: 21,
                     color: controller.selectedIndex == 2
-                        ? Colors.black
+                        ? AppColors.black
                         : Color(0xff6F6F6F),
                   ),
                 ),
@@ -133,7 +133,7 @@ class DashboardView extends GetView<DashboardController> {
                     height: 21,
                     width: 21,
                     color: controller.selectedIndex == 3
-                        ? Colors.black
+                        ? AppColors.black
                         : Color(0xff6F6F6F),
                   ),
                 ),
@@ -142,8 +142,8 @@ class DashboardView extends GetView<DashboardController> {
           )
           // Theme(
           //   data: Theme.of(context).copyWith(
-          //     primaryColor: Colors.white,
-          //     canvasColor: Colors.white
+          //     primaryColor: AppColors.white,
+          //     canvasColor: AppColors.white
           //   ),
           //   child: BottomNavigationBar(
           //

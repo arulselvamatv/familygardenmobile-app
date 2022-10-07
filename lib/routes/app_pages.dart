@@ -1,11 +1,15 @@
 import 'package:family_garden/screens/Home_screen/views/homescreen_view.dart';
 import 'package:family_garden/screens/cart_screen/views/cart_view.dart';
 import 'package:family_garden/screens/dashboard/views/dashboard_view.dart';
+import 'package:family_garden/screens/login_screen/binding/login_binding.dart';
+import 'package:family_garden/screens/login_screen/view/login_view.dart';
 import 'package:family_garden/screens/manage_address_screen/binding/manage_address_binding.dart';
 import 'package:family_garden/screens/manage_address_screen/view/manage_address_view.dart';
 import 'package:family_garden/screens/product_details_screen/views/product_details_view.dart';
 import 'package:family_garden/screens/product_listing_screen/bindings/product_listing_binding.dart';
 import 'package:family_garden/screens/product_listing_screen/views/product_listing_view.dart';
+import 'package:family_garden/screens/verify_otp_screen/binding/verify_otp_binding.dart';
+import 'package:family_garden/screens/verify_otp_screen/view/verify_otp_view.dart';
 import 'package:get/get.dart';
 import '../screens/Home_screen/bindings/homescreen_binding.dart';
 import '../screens/cart_screen/bindings/cart_binding.dart';
@@ -26,6 +30,16 @@ class AppPages {
       name: _Paths.SPLASH,
       page: () => SplashView(),
       binding: SplashBinding(),
+    ),
+    // GetPage(
+    //   name: _Paths.LOGIN,
+    //   page: () => LoginView(),
+    //   binding: LoginBinding(),
+    // ),
+    GetPage(
+      name: _Paths.VERIFY_OTP,
+      page: () => VerifyOTPView(),
+      binding: VerifyOTPBinding(),
     ),
     GetPage(
       name: _Paths.DASHBOARD,

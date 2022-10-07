@@ -35,7 +35,7 @@ class CustomAppbarView extends GetView<CustomAppbarController> {
         appbar_title,
         fontSize: font_size,
         fontWeight: FontWeight.w600,
-        color: Colors.white,
+        color: AppColors.white,
       ),
       actions: [
         Stack(
@@ -65,14 +65,14 @@ class CustomAppbarView extends GetView<CustomAppbarController> {
                       height: 18,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.white,
-                          border: Border.all(color: Colors.white, width: 1)),
+                          color: AppColors.white,
+                          border: Border.all(color: AppColors.white, width: 1)),
                       child: Padding(
                         padding: const EdgeInsets.all(0.0),
                         child: Center(
                             child: TextWidget(
                           "0",
-                          color: Colors.black,
+                          color: AppColors.black,
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                         )),

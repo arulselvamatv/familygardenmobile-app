@@ -10,7 +10,7 @@ class DrawerView extends GetView<DrawerWidgetController> {
       height: Get.height,
       width: Get.width / 1.3,
       child: Drawer(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.white,
         child: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,7 +31,7 @@ class DrawerView extends GetView<DrawerWidgetController> {
                             'FG',
                             fontSize: 22,
                             fontWeight: FontWeight.w600,
-                            color: Colors.white,
+                            color: AppColors.white,
                           ),
                         ),
                       ),
@@ -57,7 +57,7 @@ class DrawerView extends GetView<DrawerWidgetController> {
                                       alignment: Alignment.topRight,
                                       child: Icon(
                                         Icons.keyboard_arrow_down_outlined,
-                                        color: Colors.black,
+                                        color: AppColors.black,
                                         size: 20,
                                       )),
                                 ],
@@ -102,7 +102,7 @@ class DrawerView extends GetView<DrawerWidgetController> {
                         style: TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.w500,
-                            color: Colors.white),
+                            color: AppColors.white),
                         children: <TextSpan>[
                           TextSpan(
                             text: '100% Care',
@@ -136,11 +136,11 @@ class DrawerView extends GetView<DrawerWidgetController> {
                           height: 24,
                           width: 24,
                           fit: BoxFit.fill,
-                          color: Colors.black,
+                          color: AppColors.black,
                         ),
                         title: TextWidget(
                           controller.sideMenus[index]["name"],
-                          color: Colors.black,
+                          color: AppColors.black,
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
@@ -169,7 +169,7 @@ class DrawerView extends GetView<DrawerWidgetController> {
                             'Login',
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
-                            color: Colors.white,
+                            color: AppColors.white,
                           ),
                         ),
                       ),
@@ -178,7 +178,7 @@ class DrawerView extends GetView<DrawerWidgetController> {
                         width: 110,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(6),
-                            color: Colors.white,
+                            color: AppColors.white,
                             border: Border.all(color: AppColors.primaryColor)),
                         child: Center(
                           child: TextWidget(

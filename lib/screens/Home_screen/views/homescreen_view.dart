@@ -15,7 +15,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
           padding: const EdgeInsets.only(top: 0),
           child: Container(
             decoration: const BoxDecoration(
-                color: Colors.white,
+                color: AppColors.white,
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(30),
                   topLeft: Radius.circular(30),
@@ -195,8 +195,8 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                 itemBuilder: (context, index) {
                                   return GestureDetector(
                                     onTap: () {
-                                      Get.toNamed(
-                                          Routes.PRODUCT_LISTING_SCREEN);
+                                      Get.toNamed(Routes.PRODUCT_LISTING_SCREEN,
+                                          arguments: index);
                                     },
                                     child: Container(
                                       child: Column(
@@ -491,7 +491,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                               ['offer'],
                                           fontSize: 8,
                                           fontWeight: FontWeight.w600,
-                                          color: Colors.white,
+                                          color: AppColors.white,
                                         ),
                                       ),
                                     ),

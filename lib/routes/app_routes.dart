@@ -4,6 +4,8 @@ abstract class Routes {
   Routes._();
 
   static const SPLASH = _Paths.SPLASH;
+  static const LOGIN = _Paths.LOGIN;
+  static const VERIFY_OTP = _Paths.VERIFY_OTP;
   static const DASHBOARD = _Paths.DASHBOARD;
   static const HOME_SCREEN = _Paths.HOME_SCREEN;
   static const CATEGORIES_SCREEN = _Paths.CATEGORIES_SCREEN;
@@ -15,6 +17,8 @@ abstract class Routes {
 
 abstract class _Paths {
   static const SPLASH = '/splash';
+  static const LOGIN = '/login';
+  static const VERIFY_OTP = '/verify-otp';
   static const DASHBOARD = '/dashboard';
   static const HOME_SCREEN = '/home_screen';
   static const CATEGORIES_SCREEN = '/categories_screen';

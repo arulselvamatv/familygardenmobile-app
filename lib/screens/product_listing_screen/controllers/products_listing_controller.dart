@@ -5,7 +5,7 @@ import '../../../models/category_product_model.dart';
 import '../../../utils/common_import/common_import.dart';
 
 class ProductListingController extends GetxController {
-  RxInt categoriesIndex = 0.obs;
+  RxInt categoriesIndex = 1.obs;
   late RxString selectedValue = itemsList.first.obs;
 
   RxList category = [
@@ -92,22 +92,24 @@ class ProductListingController extends GetxController {
   }
 
   getCategory() async {
+    categoriesIndex.value = Get.arguments;
     var respone = await ApiHelper.getCategories();
     if (respone.isSuccessFul) {
       categoriesList.value = (respone.data?.categories)!;
       isCategoryLoader.value = false;
-      getCategoryProduct(categoriesList[0].categoryId);
+      getCategoryProduct(categoriesList[categoriesIndex.value].categoryId);
     }
     update();
   }
 
   getCategoryProduct(categoryId) async {
+    print(categoryId);
     var response = await ApiHelper.getProductCategory(categoryId);
     if (response.responseCode == 200) {
       products.value = (response.data?.products)!;
+      print(products.value.length);
       isCategoryProduct.value = false;
     }
-    print("response code  ${response.responseCode}");
     update();
   }
 

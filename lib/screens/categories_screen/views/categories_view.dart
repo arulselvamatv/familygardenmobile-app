@@ -15,7 +15,7 @@ class CategoriesView extends GetView<CategoriesController> {
         child: Container(
           height: Get.height,
           decoration: const BoxDecoration(
-              color: Colors.white,
+              color: AppColors.white,
               borderRadius: BorderRadius.only(
                 topRight: Radius.circular(30),
                 topLeft: Radius.circular(30),
@@ -89,7 +89,7 @@ class CategoriesView extends GetView<CategoriesController> {
                                         controller.categoryList[index]['name'],
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600,
-                                        color: Colors.black,
+                                        color: AppColors.black,
                                       ),
                                       Spacer(),
                                       Icon(

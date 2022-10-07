@@ -36,7 +36,7 @@ class CartView extends GetView<CartController> {
             'My Cart',
             fontSize: 19,
             fontWeight: FontWeight.w600,
-            color: Colors.white,
+            color: AppColors.white,
             textOverflow: TextOverflow.ellipsis,
           ),
           actions: [
@@ -102,7 +102,7 @@ class CartView extends GetView<CartController> {
                 'Orders',
                 fontSize: 15,
                 fontWeight: FontWeight.w600,
-                color: Colors.black,
+                color: AppColors.black,
               ),
               AppSize.size.h10,
               GetBuilder<CartController>(
@@ -191,7 +191,7 @@ class CartView extends GetView<CartController> {
                                                         ['name'],
                                                     fontSize: 14.5,
                                                     fontWeight: FontWeight.w600,
-                                                    color: Colors.black,
+                                                    color: AppColors.black,
                                                   )),
                                               AppSize.size.h5,
                                               TextWidget(
@@ -199,7 +199,7 @@ class CartView extends GetView<CartController> {
                                                     ['nameInTamil'],
                                                 fontSize: 13,
                                                 fontWeight: FontWeight.w500,
-                                                color: Colors.black,
+                                                color: AppColors.black,
                                               ),
                                               AppSize.size.h5,
                                               TextWidget(
@@ -221,14 +221,14 @@ class CartView extends GetView<CartController> {
                                                   cart.cartList[index]['price'],
                                                   fontSize: 19,
                                                   fontWeight: FontWeight.w600,
-                                                  color: Colors.black,
+                                                  color: AppColors.black,
                                                 ),
                                                 TextWidget(
                                                   cart.cartList[index]
                                                       ['oldPrice'],
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w500,
-                                                  color: Colors.black,
+                                                  color: AppColors.black,
                                                   decoration: TextDecoration
                                                       .lineThrough,
                                                 ),
@@ -258,7 +258,7 @@ class CartView extends GetView<CartController> {
                                                               .withOpacity(0.2),
                                                         )
                                                       ],
-                                                      color: Colors.white,
+                                                      color: AppColors.white,
                                                     ),
                                                     child: Row(
                                                       mainAxisAlignment:
@@ -282,7 +282,8 @@ class CartView extends GetView<CartController> {
                                                           cart.counterList[
                                                                   index]
                                                               .toString(),
-                                                          color: Colors.black,
+                                                          color:
+                                                              AppColors.black,
                                                           fontSize: 13,
                                                           fontWeight:
                                                               FontWeight.w600,
@@ -346,7 +347,7 @@ class CartView extends GetView<CartController> {
                           'Checkout',
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
-                          color: Colors.white,
+                          color: AppColors.white,
                         ),
                         style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.all(0),
@@ -383,7 +384,7 @@ class CartView extends GetView<CartController> {
                                 'Apply',
                                 fontSize: 9.5,
                                 fontWeight: FontWeight.w400,
-                                color: Colors.white,
+                                color: AppColors.white,
                               ),
                               style: ElevatedButton.styleFrom(
                                   primary: AppColors.primaryColor,

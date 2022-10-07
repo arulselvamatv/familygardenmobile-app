@@ -199,7 +199,7 @@ class ManageAddressView extends GetView<ManageAddressController> {
                             borderRadius: BorderRadius.circular(13))),
                     child: TextWidget(
                       'Add',
-                      color: Colors.white,
+                      color: AppColors.white,
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
                     )),

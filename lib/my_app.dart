@@ -14,19 +14,18 @@ class MyApp extends StatelessWidget {
       // initialBinding: InitialBinding(),
       getPages: AppPages.routes,
       theme: ThemeData(
-      //   primarySwatch: AppColors.colorPrimarySwatch,
-      //   visualDensity: VisualDensity.adaptivePlatformDensity,
-      //   brightness: Brightness.light,
-      //   primaryColor: AppColors.colorPrimary,
-      //   textTheme: const TextTheme(
-      //     button: TextStyle(
-      //       color: Colors.white,
-      //       fontSize: 20.0,
-      //       fontWeight: FontWeight.bold,
-      //     ),
-      //   ),
-        textTheme: GoogleFonts.workSansTextTheme()
-      ),
+          //   primarySwatch: AppColors.colorPrimarySwatch,
+          //   visualDensity: VisualDensity.adaptivePlatformDensity,
+          //   brightness: Brightness.light,
+          //   primaryColor: AppColors.colorPrimary,
+          //   textTheme: const TextTheme(
+          //     button: TextStyle(
+          //       color: AppColors.white,
+          //       fontSize: 20.0,
+          //       fontWeight: FontWeight.bold,
+          //     ),
+          //   ),
+          textTheme: GoogleFonts.workSansTextTheme()),
       debugShowCheckedModeBanner: false,
     );
   }
