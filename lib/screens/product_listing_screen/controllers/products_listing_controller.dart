@@ -80,15 +80,6 @@ class ProductListingController extends GetxController {
   void onInit() async {
     super.onInit();
     getCategory();
-    for (int i = 0; i < categoryList.length; i++) {
-      selectedItemValue.add(itemsList[0]);
-    }
-    for (int i = 0; i < categoryList.length; i++) {
-      cartBoolList.add(false);
-    }
-    for (int i = 0; i < categoryList.length; i++) {
-      counterList.add(0);
-    }
   }
 
   getCategory() async {
@@ -108,13 +99,29 @@ class ProductListingController extends GetxController {
     if (response.responseCode == 200) {
       products.value = (response.data?.products)!;
       print(products.value.length);
-      isCategoryProduct.value = false;
+      getDropdownValues();
     }
+    update();
+  }
+
+  getDropdownValues() {
+    for (int i = 0; i < products.value.length; i++) {
+      selectedItemValue.add(itemsList[0]);
+    }
+    for (int i = 0; i < products.length; i++) {
+      cartBoolList.add(false);
+    }
+    for (int i = 0; i < products.value.length; i++) {
+      counterList.add(0);
+    }
+    isCategoryProduct.value = false;
     update();
   }
 
   void categoriesOnTap(int index) {
     categoriesIndex.value = index;
+    isCategoryProduct.value = true;
+    getCategoryProduct(categoriesList.value[index].categoryId);
     category.refresh();
   }
 

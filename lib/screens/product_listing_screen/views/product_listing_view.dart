@@ -495,8 +495,8 @@ class ProductListingView extends GetView<ProductListingController> {
                                                 padding: const EdgeInsets.only(
                                                     left: 5, top: 5),
                                                 child: TextWidget(
-                                                  controller.categoryList[index]
-                                                      ['offer'],
+                                                  controller
+                                                      .products[index].special,
                                                   fontSize: 10,
                                                   fontWeight: FontWeight.w600,
                                                   color: AppColors.white,
@@ -511,7 +511,7 @@ class ProductListingView extends GetView<ProductListingController> {
                                   separatorBuilder: (context, index) {
                                     return AppSize.size.h10;
                                   },
-                                  itemCount: controller.products.length),
+                                  itemCount: controller.products.value.length),
                         ),
                       ),
                     ],
