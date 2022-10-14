@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:family_garden/models/add_cart_model.dart';
 import 'package:family_garden/models/get_token_model.dart';
 import 'package:family_garden/models/home_feature_model.dart';
 import 'package:family_garden/models/home_slider_model.dart';
@@ -25,7 +26,7 @@ class ApiHelper {
   // }
 
   static Future<HTTPResponse<GetTokenModel>> getToken() async {
-    String url = "${ApiConstants.baseUrl}${EndPoints.category}";
+    // String url = "${ApiConstants.baseUrl}${EndPoints.category}";
     try {
       final response = await http.post(
         Uri.parse("${ApiConstants.baseUrl}${EndPoints.getToken}"),
@@ -276,6 +277,62 @@ class ApiHelper {
         // var Listresponse = homeFeatureModelFromJson(body);
         var res = HomeFeatureModel.fromJson(body);
         // print("res.name ${res.name}");
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<AddCartModel>> addCart(
+      productId, optionId, productValueId) async {
+    // String url = "${ApiConstants.baseUrl}${EndPoints.category}";
+    try {
+      final response = await http.post(
+        Uri.parse(
+            "${ApiConstants.baseUrl}${EndPoints.cartAdd}${EndPoints.apiToken}"),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        encoding: Encoding.getByName('utf-8'),
+        body: {
+          'product_id': productId,
+          'qty': '1',
+          'option[$optionId]': productValueId
+        },
+      );
+      if (response.statusCode == 200) {
+        var body = jsonDecode(response.body);
+        var res = AddCartModel.fromJson(body);
         return HTTPResponse(
           true,
           res,

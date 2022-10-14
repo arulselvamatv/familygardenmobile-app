@@ -6,11 +6,13 @@ import '../../../utils/common_import/common_import.dart';
 
 class ProductListingController extends GetxController {
   RxInt categoriesIndex = 1.obs;
-  late RxString selectedValue = itemsList.first.obs;
+  // late RxString selectedValue = itemsList.first.obs;
   RxString title = "".obs;
   RxString staticImage = "assets/images/Fresh Vegetables.png".obs;
   RxString categoryName = "Fresh Vegetables".obs;
   RxList selectedDropdownValue = [].obs;
+  RxString optionId = "".obs;
+  RxString optionValueId = "".obs;
   // RxList category = [
   //   {'name': 'Fresh Vegetables', 'image': 'assets/images/Fresh Vegetables.png'},
   //   {'name': 'Fresh Fruits', 'image': 'assets/images/Fresh Fruits.png'},
@@ -65,11 +67,11 @@ class ProductListingController extends GetxController {
   //   },
   // ].obs;
 
-  RxList<String> itemsList = [
-    '250 grams - ₹28.00',
-    '1 Pack - ₹125.00',
-    '1 Bunch - ₹15.00',
-  ].obs;
+  // RxList<String> itemsList = [
+  //   '250 grams - ₹28.00',
+  //   '1 Pack - ₹125.00',
+  //   '1 Bunch - ₹15.00',
+  // ].obs;
   RxList<ProductOptionValue> dropdownList = <ProductOptionValue>[].obs;
   RxList selectedItemValue = [].obs;
   RxList counterList = [].obs;
@@ -100,7 +102,6 @@ class ProductListingController extends GetxController {
   getCategoryProduct(categoryId) async {
     selectedDropdownValue.value = [];
     var response = await ApiHelper.getProductCategory(categoryId);
-    print(response.responseCode);
     if (response.responseCode == 200) {
       products.value = (response.data?.products)!;
       // selectedDropdownValue.value =
@@ -138,25 +139,45 @@ class ProductListingController extends GetxController {
     update();
   }
 
-  cartButton(int index) {
-    cartBoolList[index] = cartBoolList[index] == false ? true : true;
-    cartBoolList.refresh();
-    update();
-  }
-
-  minus(int index) {
-    if (counterList[index] == 1) {
-      cartBoolList[index] = false;
-      // return;
+  cartButton(int index, String function) {
+    if (cartBoolList[index] == false) {
+      cartBoolList[index] = cartBoolList[index] == false ? true : true;
+    } else if (function == "plus") {
+      counterList[index] += 1;
+      addToCart(index, "plus");
     } else {
-      counterList[index] -= 1;
+      if (counterList[index] == 1) {
+        cartBoolList[index] = false;
+        addToCart(index, "minus");
+      } else {
+        counterList[index] -= 1;
+        addToCart(index, "minus");
+      }
+      cartBoolList.refresh();
     }
-    cartBoolList.refresh();
+    // cartBoolList[index] = cartBoolList[index] == false ? true : true;
+    // cartBoolList.refresh();
     update();
   }
 
-  add(int index) {
-    counterList[index] += 1;
-    update();
+  addToCart(index, value) async {
+    if (optionId.value != "") {}
+    // var response = await ApiHelper.addCart(productId, optionId, productValueId)
   }
+
+  // minus(int index) {
+  //   if (counterList[index] == 1) {
+  //     cartBoolList[index] = false;
+  //     // return;
+  //   } else {
+  //     counterList[index] -= 1;
+  //   }
+  //   cartBoolList.refresh();
+  //   update();
+  // }
+  //
+  // add(int index) {
+  //   counterList[index] += 1;
+  //   update();
+  // }
 }
