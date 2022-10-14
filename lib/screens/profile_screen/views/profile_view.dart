@@ -33,6 +33,7 @@ class ProfileView extends GetView<ProfileController> {
                   CustomTextField(
                     caption: 'Name *',
                     hasCaption: true,
+                    fontSize: 12,
                     controller: controller.nameController,
                     hint: '',
                     readOnly: false,
@@ -40,6 +41,7 @@ class ProfileView extends GetView<ProfileController> {
                   CustomTextField(
                     caption: 'Email',
                     hasCaption: true,
+                    fontSize: 12,
                     controller: controller.emailController,
                     hint: '',
                     readOnly: false,
@@ -47,6 +49,7 @@ class ProfileView extends GetView<ProfileController> {
                   CustomTextField(
                     caption: 'Address *',
                     hasCaption: true,
+                    fontSize: 12,
                     controller: controller.addressController,
                     hint: '',
                     readOnly: false,
@@ -59,6 +62,7 @@ class ProfileView extends GetView<ProfileController> {
                         child: CustomTextField(
                           caption: 'City',
                           hasCaption: true,
+                          fontSize: 12,
                           readOnly: true,
                           controller: controller.cityController,
                           hint: '',
@@ -70,6 +74,7 @@ class ProfileView extends GetView<ProfileController> {
                           caption: 'State',
                           hasCaption: true,
                           readOnly: true,
+                          fontSize: 12,
                           controller: controller.stateController,
                           hint: '',
                         ),
@@ -80,6 +85,7 @@ class ProfileView extends GetView<ProfileController> {
                           caption: 'Pin Code',
                           hasCaption: true,
                           maxline: 1,
+                          fontSize: 12,
                           controller: controller.pinCodeController,
                           hint: '',
                           readOnly: false,

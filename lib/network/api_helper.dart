@@ -1,14 +1,79 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:family_garden/models/get_token_model.dart';
+import 'package:family_garden/models/home_feature_model.dart';
 import 'package:family_garden/models/home_slider_model.dart';
 import '../models/categories_model.dart';
 import '../models/category_product_model.dart';
+import '../models/product_detail_model.dart';
 import 'api_constants/api_constants.dart';
 import 'api_constants/api_end_points.dart';
 import 'http_response_model.dart';
 import 'package:http/http.dart' as http;
 
 class ApiHelper {
+  // static getToken() async {
+  //   final response = await http.post(
+  //     Uri.parse("${ApiConstants.baseUrl}${EndPoints.getToken}"),
+  //     headers: {
+  //       "Content-Type": "application/x-www-form-urlencoded",
+  //     },
+  //     encoding: Encoding.getByName('utf-8'),
+  //     body: {"key": ApiConstants.key},
+  //   );
+  //   print(response.body);
+  // }
+
+  static Future<HTTPResponse<GetTokenModel>> getToken() async {
+    String url = "${ApiConstants.baseUrl}${EndPoints.category}";
+    try {
+      final response = await http.post(
+        Uri.parse("${ApiConstants.baseUrl}${EndPoints.getToken}"),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        encoding: Encoding.getByName('utf-8'),
+        body: {"key": ApiConstants.key},
+      );
+      if (response.statusCode == 200) {
+        var body = jsonDecode(response.body);
+        var res = GetTokenModel.fromJson(body);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
   static Future<HTTPResponse<HomeSliderModel>> getHomeSliderDetails() async {
     String url =
         "${ApiConstants.baseUrl}${EndPoints.homeCarousel}${ApiConstants.jwtToken}";
@@ -108,25 +173,109 @@ class ApiHelper {
 
   static Future<HTTPResponse<ProductCategoryModel>> getProductCategory(
       path) async {
-    // String url = "${ApiConstants.baseUrl}${EndPoints.productCategory}";
-    // Map<String, int> df = {'path': int.parse(path)};
-    // List<int> body = utf8.encode(json.encode(df));
-    // Map<String, String> header = {
-    //   'Content-Type': 'application/json; charset=utf-8'
-    // };
+    String url = "${ApiConstants.baseUrl}${EndPoints.productCategory}";
     try {
-      var request = http.MultipartRequest(
-          'POST',
-          Uri.parse(
-              'https://dev.familygarden.in//index.php?route=mobileapi/product/category'));
-      request.fields.addAll({'path': path});
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.fields.addAll({'path': path, 'limit': '75'});
       http.StreamedResponse response = await request.send();
-      // var response = await http.post(Uri.parse(url),
-      //     body: json.encode(df), headers: header);
       if (response.statusCode == 200) {
         var body = jsonDecode(await response.stream.bytesToString());
-        print("body's $body");
         var res = ProductCategoryModel.fromJson(body);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print(e);
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<ProductDetailsModel>> getProductCategoryDetails(
+      productId) async {
+    String url = "${ApiConstants.baseUrl}${EndPoints.productCategoryList}";
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.fields.addAll({'product_id': "$productId"});
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        var res = ProductDetailsModel.fromJson(body);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<HomeFeatureModel>> homeFeature() async {
+    String url =
+        "${ApiConstants.baseUrl}${EndPoints.homeFeature}${EndPoints.apiRoutes}${EndPoints.apiToken}";
+    try {
+      var response = await http.post(
+        Uri.parse(url),
+      );
+      if (response.statusCode == 200) {
+        var body = jsonDecode(response.body);
+        // var Listresponse = homeFeatureModelFromJson(body);
+        var res = HomeFeatureModel.fromJson(body);
+        // print("res.name ${res.name}");
         return HTTPResponse(
           true,
           res,

@@ -69,71 +69,9 @@ class VerifyOTPView extends GetView<VerifyOTPController> {
                         fontWeight: FontWeight.w400),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    textFieldOTP(
-                        first: true,
-                        last: false,
-                        controllerr: controller.contrller1,
-                        context: context),
-                    textFieldOTP(
-                        first: true,
-                        last: false,
-                        controllerr: controller.contrller2,
-                        context: context),
-                    textFieldOTP(
-                        first: true,
-                        last: false,
-                        controllerr: controller.contrller3,
-                        context: context),
-                    textFieldOTP(
-                        first: true,
-                        last: false,
-                        controllerr: controller.contrller4,
-                        context: context),
-                  ],
-                ),
                 Spacer(),
               ],
             ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget textFieldOTP(
-      {bool? first, last, TextEditingController? controllerr, context}) {
-    return Container(
-      height: Get.height / 12,
-      child: AspectRatio(
-        aspectRatio: 1.0,
-        child: TextField(
-          controller: controllerr,
-          autofocus: true,
-          onChanged: (value) {
-            if (value.length == 1 && last == false) {
-              FocusScope.of(context).nextFocus();
-            }
-            if (value.length == 0 && first == false) {
-              FocusScope.of(context).previousFocus();
-            }
-          },
-          showCursor: false,
-          readOnly: false,
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          keyboardType: TextInputType.number,
-          maxLength: 1,
-          decoration: InputDecoration(
-            counter: Offstage(),
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 2, color: Colors.black54),
-                borderRadius: BorderRadius.circular(12)),
-            focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 2, color: Colors.black54),
-                borderRadius: BorderRadius.circular(12)),
           ),
         ),
       ),

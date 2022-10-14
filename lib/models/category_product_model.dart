@@ -2,7 +2,7 @@ class ProductCategoryModel {
   List<Breadcrumbs>? breadcrumbs;
   String? headingTitle;
   String? textCompare;
-  Null? thumb;
+  String? thumb;
   String? description;
   String? compare;
   List<Null>? categories;
@@ -14,7 +14,7 @@ class ProductCategoryModel {
   String? results;
   String? sort;
   String? order;
-  String? limit;
+  int? limit;
   Null? logged;
 
   ProductCategoryModel(
@@ -40,7 +40,7 @@ class ProductCategoryModel {
     if (json['breadcrumbs'] != null) {
       breadcrumbs = <Breadcrumbs>[];
       json['breadcrumbs'].forEach((v) {
-        breadcrumbs!.add(new Breadcrumbs.fromJson(v));
+        breadcrumbs!.add(Breadcrumbs.fromJson(v));
       });
     }
     headingTitle = json['heading_title'];
@@ -48,34 +48,34 @@ class ProductCategoryModel {
     thumb = json['thumb'];
     description = json['description'];
     compare = json['compare'];
-    // if (json['categories'] != null) {
-    //   categories = <Null>[];
-    //   json['categories'].forEach((v) {
-    //     categories!.add(new Null.fromJson(v));
-    //   });
-    // }
+    if (json['categories'] != null) {
+      categories = <Null>[];
+      // json['categories'].forEach((v) {
+      //   categories!.add(Null.fromJson(v));
+      // });
+    }
     if (json['products'] != null) {
       products = <Products>[];
       json['products'].forEach((v) {
-        products!.add(new Products.fromJson(v));
+        products!.add(Products.fromJson(v));
       });
     }
     if (json['options'] != null) {
       options = <Options>[];
       json['options'].forEach((v) {
-        options!.add(new Options.fromJson(v));
+        options!.add(Options.fromJson(v));
       });
     }
     if (json['sorts'] != null) {
       sorts = <Sorts>[];
       json['sorts'].forEach((v) {
-        sorts!.add(new Sorts.fromJson(v));
+        sorts!.add(Sorts.fromJson(v));
       });
     }
     if (json['limits'] != null) {
       limits = <Limits>[];
       json['limits'].forEach((v) {
-        limits!.add(new Limits.fromJson(v));
+        limits!.add(Limits.fromJson(v));
       });
     }
     pagination = json['pagination'];
@@ -87,7 +87,7 @@ class ProductCategoryModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     if (this.breadcrumbs != null) {
       data['breadcrumbs'] = this.breadcrumbs!.map((v) => v.toJson()).toList();
     }
@@ -133,7 +133,7 @@ class Breadcrumbs {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['text'] = this.text;
     data['href'] = this.href;
     return data;
@@ -177,7 +177,7 @@ class Products {
     if (json['option'] != null) {
       option = <Option>[];
       json['option'].forEach((v) {
-        option!.add(new Option.fromJson(v));
+        option!.add(Option.fromJson(v));
       });
     }
     thumb = json['thumb'];
@@ -195,7 +195,7 @@ class Products {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['product_id'] = this.productId;
     if (this.option != null) {
       data['option'] = this.option!.map((v) => v.toJson()).toList();
@@ -239,7 +239,7 @@ class Option {
     if (json['product_option_value'] != null) {
       productOptionValue = <ProductOptionValue>[];
       json['product_option_value'].forEach((v) {
-        productOptionValue!.add(new ProductOptionValue.fromJson(v));
+        productOptionValue!.add(ProductOptionValue.fromJson(v));
       });
     }
     optionId = json['option_id'];
@@ -250,7 +250,7 @@ class Option {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['product_option_id'] = this.productOptionId;
     if (this.productOptionValue != null) {
       data['product_option_value'] =
@@ -300,7 +300,7 @@ class ProductOptionValue {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['product_option_value_id'] = this.productOptionValueId;
     data['option_value_id'] = this.optionValueId;
     data['name'] = this.name;
@@ -328,7 +328,7 @@ class Sorts {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['text'] = this.text;
     data['value'] = this.value;
     data['href'] = this.href;
@@ -337,20 +337,20 @@ class Sorts {
 }
 
 class Limits {
-  String? text;
-  String? value;
+  int? text;
+  int? value;
   String? href;
 
   Limits({this.text, this.value, this.href});
 
   Limits.fromJson(Map<String, dynamic> json) {
-    text = json['text'].toString();
-    value = json['value'].toString();
+    text = json['text'];
+    value = json['value'];
     href = json['href'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['text'] = this.text;
     data['value'] = this.value;
     data['href'] = this.href;
@@ -381,7 +381,7 @@ class Options {
     if (json['product_option_value'] != null) {
       productOptionValue = <ProductOptionValue>[];
       json['product_option_value'].forEach((v) {
-        productOptionValue!.add(new ProductOptionValue.fromJson(v));
+        productOptionValue!.add(ProductOptionValue.fromJson(v));
       });
     }
     optionId = json['option_id'];
@@ -392,7 +392,7 @@ class Options {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['product_option_id'] = this.productOptionId;
     if (this.productOptionValue != null) {
       data['product_option_value'] =

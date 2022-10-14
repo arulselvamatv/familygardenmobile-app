@@ -2,6 +2,8 @@ import 'package:family_garden/screens/drawer_screen/controllers/drawer_controlle
 import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:family_garden/widgets/custom_text.dart';
 
+import '../../../routes/app_pages.dart';
+
 class DrawerView extends GetView<DrawerWidgetController> {
   @override
   Widget build(BuildContext context) {
@@ -157,35 +159,46 @@ class DrawerView extends GetView<DrawerWidgetController> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        height: 35,
-                        width: 110,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
-                          color: AppColors.primaryColor,
-                        ),
-                        child: Center(
-                          child: TextWidget(
-                            'Login',
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.white,
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed(Routes.LOGIN);
+                        },
+                        child: Container(
+                          height: 35,
+                          width: 110,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(6),
+                            color: AppColors.primaryColor,
+                          ),
+                          child: Center(
+                            child: TextWidget(
+                              'Login',
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.white,
+                            ),
                           ),
                         ),
                       ),
-                      Container(
-                        height: 35,
-                        width: 110,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(6),
-                            color: AppColors.white,
-                            border: Border.all(color: AppColors.primaryColor)),
-                        child: Center(
-                          child: TextWidget(
-                            'Sign Up',
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.primaryColor,
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed(Routes.VERIFY_OTP);
+                        },
+                        child: Container(
+                          height: 35,
+                          width: 110,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              color: AppColors.white,
+                              border:
+                                  Border.all(color: AppColors.primaryColor)),
+                          child: Center(
+                            child: TextWidget(
+                              'Sign Up',
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.primaryColor,
+                            ),
                           ),
                         ),
                       ),

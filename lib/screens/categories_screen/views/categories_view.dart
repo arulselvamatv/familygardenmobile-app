@@ -3,9 +3,10 @@ import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:family_garden/widgets/custom_text.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+import '../../../routes/app_pages.dart';
+
 class CategoriesView extends GetView<CategoriesController> {
   var controller = Get.put(CategoriesController());
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,9 +61,13 @@ class CategoriesView extends GetView<CategoriesController> {
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Get.toNamed(Routes.PRODUCT_LISTING_SCREEN,
+                                arguments: index);
+                          },
                           child: Container(
                             width: Get.width,
+                            color: Colors.white,
                             child: Column(
                               children: [
                                 Padding(
@@ -78,15 +83,26 @@ class CategoriesView extends GetView<CategoriesController> {
                                         child: Container(
                                           height: 70,
                                           width: 70,
-                                          child: Image.asset(
-                                            controller.categoryList[index]
-                                                ['image'],
-                                            fit: BoxFit.fill,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: AppColors.white,
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: controller
+                                                        .categoriesList[index]
+                                                        .image ==
+                                                    null
+                                                ? Image.asset(controller
+                                                    .staticImage.value)
+                                                : Image.network(controller
+                                                    .categoriesList[index]
+                                                    .image),
                                           ),
                                         ),
                                       ),
                                       TextWidget(
-                                        controller.categoryList[index]['name'],
+                                        controller.categoriesList[index].name,
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600,
                                         color: AppColors.black,
@@ -114,7 +130,7 @@ class CategoriesView extends GetView<CategoriesController> {
                           height: 0,
                         );
                       },
-                      itemCount: controller.categoryList.length)
+                      itemCount: controller.categoriesList.length),
                 ],
               ),
             ),

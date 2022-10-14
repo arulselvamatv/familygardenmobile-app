@@ -74,7 +74,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                       builder: (homeController) => Column(
                         children: [
                           SizedBox(
-                            height: 160,
+                            height: 140,
                             width: Get.width,
                             child: CarouselSlider.builder(
                                 carouselController:
@@ -203,7 +203,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                         children: [
                                           Container(
                                             height: 90,
-                                            width: Get.width / 4,
+                                            width: 90,
                                             decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(8),
@@ -217,8 +217,11 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                           .categoryList[index]
                                                           .image ==
                                                       null
-                                                  ? Image.asset(controller
-                                                      .category[index]['image'])
+                                                  ? Image.asset(
+                                                      controller.category[index]
+                                                          ['image'],
+                                                      fit: BoxFit.fill,
+                                                    )
                                                   : Image.network(controller
                                                       .categoryList[index]
                                                       .image),
@@ -321,34 +324,6 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                           ),
                                         ),
                                         AppSize.size.h5,
-                                        // Container(
-                                        //   height: 20,
-                                        //   child: DropdownButtonFormField2(
-                                        //     value: controller.selectedValue,
-                                        //     isExpanded: true,
-                                        //     items:  controller.itemsList
-                                        //         .map((item) => DropdownMenuItem<String>(
-                                        //       value: item,
-                                        //       child: Text(
-                                        //         item,
-                                        //         style: TextStyle(fontSize: 8),
-                                        //       ),
-                                        //     ))
-                                        //         .toList(),
-                                        //     onChanged: (value) {
-                                        //     },
-                                        //     icon: const Icon(
-                                        //       Icons.keyboard_arrow_down_rounded,
-                                        //       color: Color(0xfff9f9f9),
-                                        //     ),
-                                        //     iconSize: 10,
-                                        //     buttonPadding: EdgeInsets.all(2),
-                                        //     scrollbarRadius: const Radius.circular(40),
-                                        //     scrollbarThickness: 6,
-                                        //     scrollbarAlwaysShow: true,
-                                        //     offset: const Offset(0, 5),
-                                        //   ),
-                                        // ),
                                         Padding(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 10),
@@ -402,22 +377,6 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                             ),
                                           ),
                                         ),
-                                        // DropdownButtonHideUnderline(
-                                        //   child: DropdownButton2(
-                                        //     items: controller.itemsList.map((item) =>
-                                        //     DropdownMenuItem<String>(
-                                        //       value: item,
-                                        //         child: TextWidget(item,fontSize: 8,))
-                                        //     ).toList(),
-                                        //     value: controller.selectedValue,
-                                        //     onChanged: (value){
-                                        //       controller.selectedValue = value as String;
-                                        //     },
-                                        //     buttonHeight: 20,
-                                        //     buttonWidth: 70,
-                                        //     itemHeight: 40,
-                                        //   ),
-                                        // ),
                                         AppSize.size.h5,
                                         Padding(
                                           padding: const EdgeInsets.symmetric(

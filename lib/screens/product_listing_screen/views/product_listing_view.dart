@@ -1,4 +1,6 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:family_garden/screens/product_listing_screen/controllers/products_listing_controller.dart';
+import '../../../models/category_product_model.dart';
 import '../../../utils/common_import/common_import.dart';
 import '../../../routes/app_pages.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
@@ -34,9 +36,9 @@ class ProductListingView extends GetView<ProductListingController> {
                 ),
               ),
               font_size: 19,
-              appbar_title: controller
-                  .category[controller.categoriesIndex.value]['name']
-                  .toString(),
+              appbar_title: controller.title.value == ""
+                  ? controller.categoryName.value
+                  : controller.title.value,
               center_title: true,
             ),
           ),
@@ -98,8 +100,7 @@ class ProductListingView extends GetView<ProductListingController> {
                                                             .image ==
                                                         null
                                                     ? Image.asset(controller
-                                                            .category[index]
-                                                        ['image'])
+                                                        .staticImage.value)
                                                     : Image.network(controller
                                                         .categoriesList[index]
                                                         .image),
@@ -153,18 +154,19 @@ class ProductListingView extends GetView<ProductListingController> {
                       AppSize.size.h15,
                       GetBuilder<ProductListingController>(
                         builder: (productListController) => Expanded(
-                          child: controller.isCategoryProduct.value
+                          child: controller.isCategoryProductLoader.value
                               ? Center(child: CircularProgressIndicator())
                               : ListView.separated(
                                   scrollDirection: Axis.vertical,
                                   shrinkWrap: true,
                                   padding: EdgeInsets.only(bottom: 30),
                                   itemBuilder: (context, index) {
-                                    print("index $index");
                                     return GestureDetector(
                                       onTap: () {
                                         Get.toNamed(
-                                            Routes.PRODUCT_DETAILS_SCREEN);
+                                            Routes.PRODUCT_DETAILS_SCREEN,
+                                            arguments: controller
+                                                .products[index].productId);
                                       },
                                       child: Stack(
                                         children: [
@@ -195,8 +197,8 @@ class ProductListingView extends GetView<ProductListingController> {
                                                             null
                                                         ? Image.asset(
                                                             controller
-                                                                    .categoryList[
-                                                                index]['image'],
+                                                                .staticImage
+                                                                .value,
                                                             fit: BoxFit.fill,
                                                           )
                                                         : Image.network(
@@ -247,74 +249,82 @@ class ProductListingView extends GetView<ProductListingController> {
                                                         ),
                                                       ),
                                                       AppSize.size.h5,
-                                                      Container(
-                                                        height: 21,
-                                                        width: 127,
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5),
-                                                            border: Border.all(
-                                                                color:
-                                                                    Colors.grey,
-                                                                width: 0.5)),
-                                                        child:
-                                                            DropdownButtonHideUnderline(
-                                                          child: DropdownButton<
-                                                              String>(
-                                                            isExpanded: true,
-                                                            isDense: true,
-                                                            value: controller
-                                                                .selectedItemValue[
-                                                                    index]
-                                                                .toString(),
-                                                            icon: const Icon(
-                                                              Icons
-                                                                  .keyboard_arrow_down,
-                                                              size: 15,
-                                                              color: AppColors
-                                                                  .black,
-                                                            ),
-                                                            elevation: 16,
-                                                            style:
-                                                                const TextStyle(
-                                                                    color: Colors
-                                                                        .black),
-                                                            onChanged: (String?
-                                                                value) {
-                                                              controller
-                                                                  .dropDownChanged(
-                                                                      value,
-                                                                      index);
-                                                            },
-                                                            items: controller
-                                                                .itemsList
-                                                                .map<
-                                                                    DropdownMenuItem<
-                                                                        String>>((String
-                                                                    value) {
-                                                              return DropdownMenuItem<
-                                                                  String>(
-                                                                value: value,
-                                                                child: Padding(
-                                                                  padding: const EdgeInsets
-                                                                          .only(
-                                                                      left: 6),
-                                                                  child: Text(
-                                                                    value,
-                                                                    style: TextStyle(
-                                                                        fontSize:
-                                                                            12,
-                                                                        color: Colors
-                                                                            .black),
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            }).toList(),
-                                                          ),
-                                                        ),
-                                                      ),
+                                                      controller
+                                                              .products
+                                                              .value[index]
+                                                              .option!
+                                                              .isNotEmpty
+                                                          ? Container(
+                                                              height: 21,
+                                                              width: Get.width /
+                                                                  2.6,
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              5),
+                                                                  border: Border.all(
+                                                                      color: Colors
+                                                                          .grey,
+                                                                      width:
+                                                                          0.5)),
+                                                              child: controller
+                                                                      .isCategoryProductLoader
+                                                                      .value
+                                                                  ? null
+                                                                  : controller
+                                                                          .products
+                                                                          .value[index]
+                                                                          .option!
+                                                                          .isNotEmpty
+                                                                      ? DropdownButtonHideUnderline(
+                                                                          child:
+                                                                              DropdownButton2(
+                                                                            // iconDisabledColor: MyColors.white,
+                                                                            // iconEnabledColor: MyColors.white,
+                                                                            // style: TextStyle(color: MyColors.white, fontSize: 16),
+                                                                            // hint: const Text(
+                                                                            //   'Select Location',
+                                                                            //   style: TextStyle(color: MyColors.white, fontSize: 15),
+                                                                            // ),
+                                                                            items: controller.products.value[index].option?[0].productOptionValue
+                                                                                ?.map((item) => DropdownMenuItem<String>(
+                                                                                      value: item.productOptionValueId.toString(),
+                                                                                      child: SizedBox(
+                                                                                        width: Get.width / 3.2,
+                                                                                        child: Text(
+                                                                                          "${item.name}-${item.price}",
+                                                                                          maxLines: 1,
+                                                                                          // overflow: TextOverflow.ellipsis,
+                                                                                          style: const TextStyle(
+                                                                                            // color: MyColors.gray,
+                                                                                            fontSize: 12,
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ))
+                                                                                .toList(),
+                                                                            value: controller.selectedDropdownValue.value[index].isNotEmpty
+                                                                                ? controller.selectedDropdownValue.value[index]
+                                                                                : controller.products.value[index].option?[0].productOptionValue?[0].productOptionValueId.toString(),
+                                                                            onChanged:
+                                                                                (value) {
+                                                                              controller.selectedDropdownValue.value[index] = value as String;
+                                                                              controller.update();
+                                                                              // controller
+                                                                              //     .changeLocation(
+                                                                              //         value);
+                                                                            },
+                                                                            buttonHeight:
+                                                                                35,
+                                                                            buttonWidth:
+                                                                                160,
+                                                                            itemHeight:
+                                                                                50,
+                                                                          ),
+                                                                        )
+                                                                      : null)
+                                                          : Container(),
                                                       AppSize.size.h5,
                                                       TextWidget(
                                                         controller
@@ -495,8 +505,8 @@ class ProductListingView extends GetView<ProductListingController> {
                                                 padding: const EdgeInsets.only(
                                                     left: 5, top: 5),
                                                 child: TextWidget(
-                                                  controller
-                                                      .products[index].special,
+                                                  controller.products[index]
+                                                      .percentOff,
                                                   fontSize: 10,
                                                   fontWeight: FontWeight.w600,
                                                   color: AppColors.white,

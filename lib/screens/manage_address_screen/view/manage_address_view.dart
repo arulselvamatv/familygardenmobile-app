@@ -86,7 +86,7 @@ class ManageAddressView extends GetView<ManageAddressController> {
                                           child: Container(
                                             height: 20,
                                             width: 20,
-                                            decoration: new BoxDecoration(
+                                            decoration: BoxDecoration(
                                               color:
                                                   controller.selectedAddress ==
                                                           index
@@ -148,6 +148,7 @@ class ManageAddressView extends GetView<ManageAddressController> {
               hasCaption: true,
               controller: controller.addressController,
               hint: '',
+              fontSize: 12,
               readOnly: false,
             ),
             Row(
@@ -159,6 +160,7 @@ class ManageAddressView extends GetView<ManageAddressController> {
                     caption: 'City',
                     hasCaption: true,
                     readOnly: true,
+                    fontSize: 12,
                     controller: controller.cityController,
                     hint: '',
                   ),
@@ -169,6 +171,7 @@ class ManageAddressView extends GetView<ManageAddressController> {
                     caption: 'State',
                     hasCaption: true,
                     readOnly: true,
+                    fontSize: 12,
                     controller: controller.stateController,
                     hint: '',
                   ),
@@ -179,6 +182,7 @@ class ManageAddressView extends GetView<ManageAddressController> {
                     caption: 'Pin Code',
                     hasCaption: true,
                     maxline: 1,
+                    fontSize: 12,
                     controller: controller.pinCodeController,
                     hint: '',
                     readOnly: false,

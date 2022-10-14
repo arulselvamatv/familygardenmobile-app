@@ -1,6 +1,9 @@
 import 'package:carousel_slider/carousel_controller.dart';
+import 'package:family_garden/network/api_constants/api_constants.dart';
 import 'package:family_garden/network/api_helper.dart';
+import 'package:family_garden/network/get_local_datas.dart';
 import '../../../models/categories_model.dart';
+import '../../../models/home_feature_model.dart';
 import '../../../models/home_slider_model.dart';
 import '../../../utils/common_import/common_import.dart';
 
@@ -10,8 +13,9 @@ class HomeScreenController extends GetxController {
   final CarouselController carouselController = CarouselController();
 
   RxInt currentIndex = 0.obs;
-  RxBool iscarouselLoader = false.obs;
+  RxBool iscarouselLoader = true.obs;
   RxBool isCategoryLoader = true.obs;
+  HomeFeatureModel? homeFeatureDatas;
 
   late String selectedValue = itemsList.first;
 
@@ -90,8 +94,24 @@ class HomeScreenController extends GetxController {
     for (int i = 0; i < bestSellers.length; i++) {
       selectedItemValue.add(itemsList[0]);
     }
-    getHomeSliderDetails();
-    getCategories();
+    getToken();
+  }
+
+  getToken() async {
+    var res = await GetLocalDatas.getToken();
+    ApiConstants.jwtToken = res!;
+    if (ApiConstants.jwtToken != "") {
+      getHomeSliderDetails();
+      getCategories();
+      getHomeFeature();
+    }
+  }
+
+  getHomeFeature() async {
+    var response = await ApiHelper.homeFeature();
+    if (response.responseCode == 200) {
+      homeFeatureDatas = response.data;
+    }
   }
 
   getCategories() async {
@@ -104,11 +124,12 @@ class HomeScreenController extends GetxController {
   }
 
   getHomeSliderDetails() async {
-    iscarouselLoader.value = true;
     var response = await ApiHelper.getHomeSliderDetails();
     if (response.isSuccessFul) {
-      iscarouselLoader.value = false;
       carousel.value = (response.data?.modules?[0].banners)!;
+      if (carousel.value.length != 0) {
+        iscarouselLoader.value = false;
+      }
       update();
     } else {}
   }

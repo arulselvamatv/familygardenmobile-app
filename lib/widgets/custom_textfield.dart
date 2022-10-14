@@ -11,8 +11,11 @@ class CustomTextField extends StatefulWidget {
   final Function(String)? onChanged;
   final Function(String)? onSubmitted;
   final Function()? onTap;
-
+  final int? maxlength;
+  final double fontSize;
   final String? Function(String?)? validator;
+  final String? prefixText;
+  final String? counterText;
   final bool? isPasswordField, hasCaption;
   final bool readOnly;
   final int? maxline;
@@ -29,9 +32,13 @@ class CustomTextField extends StatefulWidget {
     this.textInputAction,
     this.isPasswordField,
     this.hasCaption,
+    this.maxlength,
+    this.prefixText,
     this.caption,
+    required this.fontSize,
     required this.readOnly,
     this.maxline,
+    this.counterText,
     this.inputFormatters,
     this.onSubmitted,
     this.validator,
@@ -60,7 +67,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           if (widget.hasCaption ?? false)
             TextWidget(
               widget.caption ?? '',
-              fontSize: 12,
+              fontSize: widget.fontSize,
               fontWeight: FontWeight.w400,
               color: Color(0xff535353),
             ),
@@ -68,17 +75,25 @@ class _CustomTextFieldState extends State<CustomTextField> {
             height: 30,
             child: TextFormField(
               controller: widget.controller,
-              style: const TextStyle(
+              style: TextStyle(
                   color: Colors.black,
-                  fontSize: 13.5,
+                  fontSize: widget.fontSize,
                   fontWeight: FontWeight.w600),
               textAlign: TextAlign.start,
               cursorColor: Colors.black,
               validator: widget.validator,
+              maxLength: widget.maxlength,
               onChanged: widget.onChanged,
+              keyboardType: widget.keyboardType,
               readOnly: widget.readOnly,
               decoration: InputDecoration(
                   hintText: widget.hint,
+                  prefixIcon: widget.prefixText != null
+                      ? Text(
+                          widget.prefixText!,
+                          style: TextStyle(fontSize: widget.fontSize),
+                        )
+                      : null,
                   hintStyle: TextStyle(color: Colors.grey, fontSize: 13.5),
                   enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Color(0xffE5E5E5))),

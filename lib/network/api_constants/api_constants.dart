@@ -4,6 +4,9 @@ class ApiConstants {
   //development URL :
   static const String baseUrl = "https://dev.familygarden.in/";
 
+  static const String key =
+      "cApyvhgchhq5hznUbFXpOe0qaMcZ1ACjwAUfKZ5ptQicT4wFGfaRGuvmqgs0lFQAJi2hXkQucQHFuOXFilstOoEE1bDeCDVjNVBpDC7X3RptnRGjibdO8HxCJm7x8PtSYVHKpALadqD3y33iInwsZJoFXZDzrbm4AGMivpDeOXnwh26yBlZBsDRGHCCctY3nhNO1U1v5h66YH8VBYCkM1gjMTAh8QNqwuH0Ic6AG2DCcKHGjm5GoQAxIaLbMqfME";
+
   //production URL :
   // static const String baseUrl =;
 
@@ -16,6 +19,5 @@ class ApiConstants {
   // };
 
   // JWT token
-  static const String jwtToken =
-      'fe32aa2b52f612f3acb1915758';
+  static String jwtToken = '';
 }

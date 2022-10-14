@@ -7,13 +7,13 @@ class HomeSliderModel {
     if (json['modules'] != null) {
       modules = <Modules>[];
       json['modules'].forEach((v) {
-        modules!.add(new Modules.fromJson(v));
+        modules!.add(Modules.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     if (this.modules != null) {
       data['modules'] = this.modules!.map((v) => v.toJson()).toList();
     }
@@ -31,14 +31,14 @@ class Modules {
     if (json['banners'] != null) {
       banners = <Banners>[];
       json['banners'].forEach((v) {
-        banners!.add(new Banners.fromJson(v));
+        banners!.add(Banners.fromJson(v));
       });
     }
     module = json['module'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     if (this.banners != null) {
       data['banners'] = this.banners!.map((v) => v.toJson()).toList();
     }
@@ -63,7 +63,7 @@ class Banners {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['title'] = this.title;
     data['link'] = this.link;
     data['productid'] = this.productid;
