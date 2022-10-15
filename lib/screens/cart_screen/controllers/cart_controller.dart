@@ -1,9 +1,14 @@
+import 'package:family_garden/models/cart_list_model.dart';
+import 'package:family_garden/network/api_helper.dart';
+
 import '../../../utils/common_import/common_import.dart';
 
 class CartController extends GetxController {
   TextEditingController search = TextEditingController();
   TextEditingController cuponCode = TextEditingController();
-
+  var products = CartListModel().obs;
+  RxBool isProductsLoader = false.obs;
+  String staticImage = "assets/images/Carrot.png";
   RxList cartList = [
     {
       'name': 'Carrot',
@@ -38,10 +43,36 @@ class CartController extends GetxController {
 
   void onInit() async {
     super.onInit();
-    for (int i = 0; i < cartList.length; i++) {
-      counterList.add(0);
+    getCartListDatas();
+    // checkBoxBoolList = RxList<bool>.filled(cartList.length, false);
+  }
+
+  getCartListDatas() async {
+    var response = await ApiHelper.cartList();
+    if (response.isSuccessFul) {
+      products.value = response.data!;
+      isProductsLoader.value = true;
+      getListDatas();
     }
-    checkBoxBoolList = RxList<bool>.filled(cartList.length, false);
+    print(products.value.products?.length);
+    update();
+  }
+
+  getListDatas() {
+    checkBoxBoolList =
+        RxList<bool>.filled((products.value.products?.length)!, false);
+
+    for (int i = 0; i < (products.value.products?.length)!; i++) {
+      counterList.add(products.value.products?[i].quantity);
+    }
+
+    // for (int i = 0; i < (products.value.products?.length)!; i++) {
+    //   checkBoxBoolList.value.add(false);
+    // }
+    // print("products.value.products?.length ${products.value.products?.length}");
+    // print(checkBoxBoolList.length);
+    // checkBoxBoolList.refresh();
+    update();
   }
 
   onCheckBoxClick(bool? value, int index) {

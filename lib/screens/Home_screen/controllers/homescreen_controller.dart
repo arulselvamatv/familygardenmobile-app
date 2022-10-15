@@ -15,7 +15,9 @@ class HomeScreenController extends GetxController {
   RxInt currentIndex = 0.obs;
   RxBool iscarouselLoader = true.obs;
   RxBool isCategoryLoader = true.obs;
-  HomeFeatureModel? homeFeatureDatas;
+  RxBool isVegetableLoader = true.obs;
+  RxBool isFruitLoader = true.obs;
+  // HomeFeatureModel? homeFeatureDatas;
 
   late String selectedValue = itemsList.first;
 
@@ -81,8 +83,14 @@ class HomeScreenController extends GetxController {
   RxList<Banners> carousel = <Banners>[].obs;
   RxList<Category> categoryList = <Category>[].obs;
   CategoriesModel? sf;
-
-  RxList<String> items = <String>['One', 'Two', 'Three', 'Four'].obs;
+  RxList<Vegetables> vegetableList = <Vegetables>[].obs;
+  RxList<Fruits> fruitsList = <Fruits>[].obs;
+  RxList selectedVegDropdownValue = [].obs;
+  RxList selectedFruitDropdownValue = [].obs;
+  String staticImage = "assets/images/Fresh Vegetables.png";
+  // RxList fruitsBool = [].obs;
+  // RxList vegetablesBool = [].obs;
+  // RxList<String> items = <String>['One', 'Two', 'Three', 'Four'].obs;
 
   RxList selectedItemValue = [].obs;
 
@@ -110,7 +118,21 @@ class HomeScreenController extends GetxController {
   getHomeFeature() async {
     var response = await ApiHelper.homeFeature();
     if (response.responseCode == 200) {
-      homeFeatureDatas = response.data;
+      print("HomeFeature ${response.responseCode}");
+      // homeFeatureDatas = response.data;
+      vegetableList.value = (response.data?.vegetables)!;
+      fruitsList.value = (response.data?.fruits)!;
+      getDropdownValues();
+    }
+    update();
+  }
+
+  getDropdownValues() {
+    for (var i = 0; i < vegetableList.value.length; i++) {
+      selectedVegDropdownValue.add("");
+    }
+    for (var i = 0; i < vegetableList.value.length; i++) {
+      selectedFruitDropdownValue.add("");
     }
   }
 

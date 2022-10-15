@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:family_garden/models/add_cart_model.dart';
+import 'package:family_garden/models/cart_list_model.dart';
 import 'package:family_garden/models/get_token_model.dart';
 import 'package:family_garden/models/home_feature_model.dart';
 import 'package:family_garden/models/home_slider_model.dart';
@@ -77,7 +78,7 @@ class ApiHelper {
 
   static Future<HTTPResponse<HomeSliderModel>> getHomeSliderDetails() async {
     String url =
-        "${ApiConstants.baseUrl}${EndPoints.homeCarousel}${ApiConstants.jwtToken}";
+        "${ApiConstants.baseUrl}${EndPoints.homeCarousel}${EndPoints.apiToken}";
     try {
       var response = await http.post(
         Uri.parse(url),
@@ -272,11 +273,11 @@ class ApiHelper {
       var response = await http.post(
         Uri.parse(url),
       );
+      print(response.statusCode);
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
         // var Listresponse = homeFeatureModelFromJson(body);
         var res = HomeFeatureModel.fromJson(body);
-        // print("res.name ${res.name}");
         return HTTPResponse(
           true,
           res,
@@ -317,6 +318,11 @@ class ApiHelper {
       productId, optionId, productValueId) async {
     // String url = "${ApiConstants.baseUrl}${EndPoints.category}";
     try {
+      var body = {
+        'product_id': productId,
+        'qty': '1',
+        'option[$optionId]': productValueId
+      };
       final response = await http.post(
         Uri.parse(
             "${ApiConstants.baseUrl}${EndPoints.cartAdd}${EndPoints.apiToken}"),
@@ -361,6 +367,56 @@ class ApiHelper {
             "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
+      print(e);
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<CartListModel>> cartList() async {
+    String url =
+        "${ApiConstants.baseUrl}${EndPoints.cartList}${EndPoints.apiToken}";
+    try {
+      var response = await http.post(
+        Uri.parse(url),
+      );
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        var body = jsonDecode(response.body);
+        print(body);
+        var res = CartListModel.fromJson(body);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print(e);
       return HTTPResponse(
         false,
         null,

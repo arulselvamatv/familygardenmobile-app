@@ -7,8 +7,7 @@ class EndPoints {
 
   static final apiToken = "&api_token=${ApiConstants.jwtToken}";
 
-  static const homeCarousel =
-      "/index.php?route=mobileapi/homeslider&api_token=";
+  static const homeCarousel = "/index.php?route=mobileapi/homeslider";
 
   static const category = "/index.php?route=mobileapi/menu";
 
@@ -19,4 +18,6 @@ class EndPoints {
   static const homeFeature = "/index.php";
 
   static const cartAdd = "/index.php?route=mobileapi/cart/add";
+
+  static const cartList = "/index.php?route=mobileapi/cart/list";
 }

@@ -11,8 +11,9 @@ class ProductListingController extends GetxController {
   RxString staticImage = "assets/images/Fresh Vegetables.png".obs;
   RxString categoryName = "Fresh Vegetables".obs;
   RxList selectedDropdownValue = [].obs;
-  RxString optionId = "".obs;
-  RxString optionValueId = "".obs;
+  RxList optionId = [].obs;
+  RxList optionValueId = [].obs;
+  RxList productId = [].obs;
   // RxList category = [
   //   {'name': 'Fresh Vegetables', 'image': 'assets/images/Fresh Vegetables.png'},
   //   {'name': 'Fresh Fruits', 'image': 'assets/images/Fresh Fruits.png'},
@@ -99,8 +100,17 @@ class ProductListingController extends GetxController {
     update();
   }
 
+  clearAll() {
+    productId.value.clear();
+    optionId.value.clear();
+    optionValueId.value.clear();
+    cartBoolList.value.clear();
+    counterList.value.clear();
+    selectedDropdownValue.value.clear();
+  }
+
   getCategoryProduct(categoryId) async {
-    selectedDropdownValue.value = [];
+    clearAll();
     var response = await ApiHelper.getProductCategory(categoryId);
     if (response.responseCode == 200) {
       products.value = (response.data?.products)!;
@@ -121,6 +131,15 @@ class ProductListingController extends GetxController {
     for (int i = 0; i < products.value.length; i++) {
       counterList.add(1);
     }
+    for (int i = 0; i < (products.value.length); i++) {
+      productId.value.add("");
+    }
+    for (int i = 0; i < (products.value.length); i++) {
+      optionId.value.add("");
+    }
+    for (int i = 0; i < (products.value.length); i++) {
+      optionValueId.value.add("");
+    }
     isCategoryProductLoader.value = false;
     update();
   }
@@ -139,10 +158,11 @@ class ProductListingController extends GetxController {
     update();
   }
 
-  cartButton(int index, String function) {
+  cartButton(int index, String functionality) {
     if (cartBoolList[index] == false) {
       cartBoolList[index] = cartBoolList[index] == false ? true : true;
-    } else if (function == "plus") {
+      addToCart(index, "plus");
+    } else if (functionality == "plus") {
       counterList[index] += 1;
       addToCart(index, "plus");
     } else {
@@ -161,8 +181,27 @@ class ProductListingController extends GetxController {
   }
 
   addToCart(index, value) async {
-    if (optionId.value != "") {}
-    // var response = await ApiHelper.addCart(productId, optionId, productValueId)
+    if (value == "plus") {
+      if (optionId[index] == "") {
+        productId[index] = products[index].productId!;
+        print(productId[index]);
+        optionId[index] = (products[index].option?[0].productOptionId)!;
+        optionValueId[index] =
+            (products[index].option?[0].productOptionValue?[0].optionValueId)!;
+        var response = await ApiHelper.addCart(
+            productId[index], optionId[index], optionValueId[index]);
+        print(response.responseCode);
+      } else {
+        productId[index] = products[index].productId!;
+        print(productId[index]);
+        optionId[index] = (products[index].option?[0].productOptionId)!;
+        optionValueId[index] =
+            (products[index].option?[0].productOptionValue?[0].optionValueId)!;
+        var response = await ApiHelper.addCart(
+            productId[index], optionId[index], optionValueId[index]);
+        print(response.responseCode);
+      }
+    } else if (value == "minus") {}
   }
 
   // minus(int index) {

@@ -1,11 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:family_garden/screens/Home_screen/controllers/homescreen_controller.dart';
-import 'package:family_garden/widgets/custom_text.dart';
 import '../../../utils/common_import/common_import.dart';
 import '../../../routes/app_pages.dart';
 
 class HomeScreenView extends GetView<HomeScreenController> {
+  @override
   var controller = Get.put(HomeScreenController());
+
+  HomeScreenView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -257,214 +260,517 @@ class HomeScreenView extends GetView<HomeScreenController> {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15),
                       child: TextWidget(
-                        "Best Sellers",
+                        "Vegetables",
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     AppSize.size.h15,
                     GetBuilder<HomeScreenController>(
-                      builder: (homeController) => Container(
-                        margin: EdgeInsets.symmetric(horizontal: 15),
-                        height: 170,
-                        child: ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return Stack(
-                                children: [
-                                  Container(
-                                    width: 115,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(3),
-                                      border: Border.all(
-                                          color: Color(0xffDEDCDC),
-                                          width: 0.75),
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                      builder: (homeController) => homeController
+                              .isVegetableLoader.value
+                          ? Container(
+                              margin: EdgeInsets.symmetric(horizontal: 15),
+                              height: 170,
+                              child: ListView.separated(
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    return Stack(
                                       children: [
-                                        AppSize.size.h10,
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 20),
-                                          child: Image.asset(
-                                            controller.bestSellers[index]
-                                                ['image'],
-                                            height: 60,
-                                            width: 70,
-                                            fit: BoxFit.fill,
+                                        Container(
+                                          width: 140,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(3),
+                                            border: Border.all(
+                                                color: Color(0xffDEDCDC),
+                                                width: 0.75),
                                           ),
-                                        ),
-                                        AppSize.size.h3,
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 10),
-                                          child: TextWidget(
-                                            controller.bestSellers[index]
-                                                ['name'],
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w800,
-                                            maxLines: 1,
-                                            textOverflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                        AppSize.size.h3,
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 10),
-                                          child: TextWidget(
-                                            controller.bestSellers[index]
-                                                ['nameInTamil'],
-                                            fontSize: 9,
-                                            fontWeight: FontWeight.w500,
-                                            maxLines: 1,
-                                            textOverflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                        AppSize.size.h5,
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10),
-                                          child: Container(
-                                            height: 20,
-                                            // width:70,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                                border: Border.all(
-                                                    color: Colors.grey,
-                                                    width: 0.5)),
-                                            child: DropdownButtonHideUnderline(
-                                              child: DropdownButton<String>(
-                                                isExpanded: true,
-                                                isDense: true,
-                                                value: controller
-                                                    .selectedItemValue[index]
-                                                    .toString(),
-                                                icon: const Icon(
-                                                  Icons.keyboard_arrow_down,
-                                                  size: 10,
-                                                ),
-                                                elevation: 16,
-                                                style: const TextStyle(
-                                                    color: Colors.grey),
-                                                onChanged: (String? value) {
-                                                  controller.dropDownChanged(
-                                                      value, index);
-                                                },
-                                                items: controller.itemsList.map<
-                                                        DropdownMenuItem<
-                                                            String>>(
-                                                    (String value) {
-                                                  return DropdownMenuItem<
-                                                      String>(
-                                                    value: value,
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              left: 3),
-                                                      child: Text(
-                                                        value,
-                                                        style: TextStyle(
-                                                            fontSize: 9),
-                                                      ),
-                                                    ),
-                                                  );
-                                                }).toList(),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        AppSize.size.h5,
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10),
-                                          child: Row(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  TextWidget(
-                                                    controller
-                                                            .bestSellers[index]
-                                                        ['price'],
-                                                    fontSize: 13,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                                  TextWidget(
-                                                    controller
-                                                            .bestSellers[index]
-                                                        ['oldPrice'],
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    decoration: TextDecoration
-                                                        .lineThrough,
-                                                  ),
-                                                ],
+                                              AppSize.size.h10,
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 20),
+                                                child: Image.asset(
+                                                  homeController.staticImage,
+                                                  height: 60,
+                                                  width: 70,
+                                                  fit: BoxFit.fill,
+                                                ),
                                               ),
-                                              Spacer(),
-                                              Container(
-                                                height: 29,
-                                                width: 28,
-                                                decoration: BoxDecoration(
-                                                    color:
-                                                        AppColors.primaryColor,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            7)),
-                                                child: Center(
-                                                    child: Image.asset(
-                                                  'assets/icons/addToCart.png',
-                                                  height: 15,
-                                                  width: 15,
-                                                  fit: BoxFit.contain,
-                                                )),
-                                              )
+                                              AppSize.size.h3,
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10),
+                                                child: TextWidget(
+                                                  homeController.vegetableList
+                                                      .value[index].name,
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w800,
+                                                  maxLines: 1,
+                                                  textOverflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                              AppSize.size.h3,
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10),
+                                                child: TextWidget(
+                                                  homeController
+                                                      .vegetableList[index]
+                                                      .productTamilName,
+                                                  fontSize: 9,
+                                                  fontWeight: FontWeight.w500,
+                                                  maxLines: 1,
+                                                  textOverflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                              AppSize.size.h5,
+                                              // DropdownButtonHideUnderline(
+                                              //   child: Padding(
+                                              //     padding: const EdgeInsets.symmetric(
+                                              //         horizontal: 10.0),
+                                              //     child: Container(
+                                              //       height: 20,
+                                              //       child: ,
+                                              //     ),
+                                              //   ),
+                                              // ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 10),
+                                                child: Container(
+                                                  height: 20,
+                                                  // width:70,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5),
+                                                      border: Border.all(
+                                                          color: Colors.grey,
+                                                          width: 0.5)),
+                                                  child:
+                                                      DropdownButtonHideUnderline(
+                                                    child: DropdownButton2(
+                                                      items: controller
+                                                          .vegetableList
+                                                          .value[index]
+                                                          .options?[0]
+                                                          .productOptionValue
+                                                          ?.map((item) =>
+                                                              DropdownMenuItem<
+                                                                  String>(
+                                                                value: item
+                                                                    .productOptionValueId
+                                                                    .toString(),
+                                                                child:
+                                                                    Container(
+                                                                  child: Text(
+                                                                      "${item.name}-${item.price}",
+                                                                      maxLines:
+                                                                          1,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              9)),
+                                                                ),
+                                                              ))
+                                                          .toList(),
+                                                      value: controller
+                                                              .selectedVegDropdownValue
+                                                              .value[index]
+                                                              .isNotEmpty
+                                                          ? controller
+                                                              .selectedVegDropdownValue
+                                                              .value[index]
+                                                          : controller
+                                                              .vegetableList[
+                                                                  index]
+                                                              .options?[0]
+                                                              .productOptionValue?[
+                                                                  0]
+                                                              .productOptionValueId,
+                                                      onChanged: (value) {
+                                                        controller
+                                                                .selectedVegDropdownValue
+                                                                .value[index] =
+                                                            value as String;
+                                                        controller.update();
+                                                        // controller
+                                                        //     .changeLocation(
+                                                        //         value);
+                                                      },
+                                                      buttonHeight: 35,
+                                                      buttonWidth: 160,
+                                                      itemHeight: 50,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              AppSize.size.h5,
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 10),
+                                                child: Row(
+                                                  children: [
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        TextWidget(
+                                                          homeController
+                                                              .vegetableList[
+                                                                  index]
+                                                              .offerPrice,
+                                                          fontSize: 13,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                        TextWidget(
+                                                          homeController
+                                                              .vegetableList[
+                                                                  index]
+                                                              .price,
+                                                          fontSize: 10,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .lineThrough,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Spacer(),
+                                                    Container(
+                                                      height: 29,
+                                                      width: 28,
+                                                      decoration: BoxDecoration(
+                                                          color: AppColors
+                                                              .primaryColor,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(7)),
+                                                      child: Center(
+                                                          child: Image.asset(
+                                                        'assets/icons/addToCart.png',
+                                                        height: 15,
+                                                        width: 15,
+                                                        fit: BoxFit.contain,
+                                                      )),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              AppSize.size.h5,
+                                              AppSize.size.h3,
                                             ],
                                           ),
                                         ),
-                                        AppSize.size.h5,
-                                        AppSize.size.h3,
+                                        Positioned(
+                                          top: 0,
+                                          right: 0,
+                                          child: Container(
+                                            height: 15,
+                                            width: 45,
+                                            decoration: BoxDecoration(
+                                                color: Color(0xffFE6400),
+                                                borderRadius: BorderRadius.only(
+                                                    bottomLeft:
+                                                        Radius.circular(15),
+                                                    topRight:
+                                                        Radius.circular(3))),
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 8, top: 3),
+                                              child: TextWidget(
+                                                "17%",
+                                                fontSize: 8,
+                                                fontWeight: FontWeight.w600,
+                                                color: AppColors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        )
                                       ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 0,
-                                    right: 0,
-                                    child: Container(
-                                      height: 15,
-                                      width: 45,
-                                      decoration: BoxDecoration(
-                                          color: Color(0xffFE6400),
-                                          borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(15),
-                                              topRight: Radius.circular(3))),
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 8, top: 3),
-                                        child: TextWidget(
-                                          controller.bestSellers[index]
-                                              ['offer'],
-                                          fontSize: 8,
-                                          fontWeight: FontWeight.w600,
-                                          color: AppColors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              );
-                            },
-                            separatorBuilder: (context, index) {
-                              return AppSize.size.w10;
-                            },
-                            itemCount: controller.bestSellers.length),
-                      ),
+                                    );
+                                  },
+                                  separatorBuilder: (context, index) {
+                                    return AppSize.size.w10;
+                                  },
+                                  itemCount:
+                                      controller.vegetableList.value.length),
+                            )
+                          : CircularProgressIndicator(),
                     ),
 
+                    AppSize.size.h30,
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      child: TextWidget(
+                        "Fruits",
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    AppSize.size.h15,
+                    GetBuilder<HomeScreenController>(
+                      builder: (homeController) => homeController
+                              .isVegetableLoader.value
+                          ? Container(
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 15),
+                              height: 170,
+                              child: ListView.separated(
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    return Stack(
+                                      children: [
+                                        Container(
+                                          width: 140,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(3),
+                                            border: Border.all(
+                                                color: Color(0xffDEDCDC),
+                                                width: 0.75),
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              AppSize.size.h10,
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 20),
+                                                child: Image.asset(
+                                                  homeController.staticImage,
+                                                  height: 60,
+                                                  width: 70,
+                                                  fit: BoxFit.fill,
+                                                ),
+                                              ),
+                                              AppSize.size.h3,
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10),
+                                                child: TextWidget(
+                                                  homeController.fruitsList
+                                                      .value[index].name,
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w800,
+                                                  maxLines: 1,
+                                                  textOverflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                              AppSize.size.h3,
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10),
+                                                child: TextWidget(
+                                                  homeController
+                                                      .fruitsList[index]
+                                                      .productTamilName,
+                                                  fontSize: 9,
+                                                  fontWeight: FontWeight.w500,
+                                                  maxLines: 1,
+                                                  textOverflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                              AppSize.size.h5,
+                                              // DropdownButtonHideUnderline(
+                                              //   child: Padding(
+                                              //     padding: const EdgeInsets.symmetric(
+                                              //         horizontal: 10.0),
+                                              //     child: Container(
+                                              //       height: 20,
+                                              //       child: ,
+                                              //     ),
+                                              //   ),
+                                              // ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 10),
+                                                child: Container(
+                                                  height: 20,
+                                                  // width:70,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5),
+                                                      border: Border.all(
+                                                          color: Colors.grey,
+                                                          width: 0.5)),
+                                                  child:
+                                                      DropdownButtonHideUnderline(
+                                                    child: DropdownButton2(
+                                                      items: controller
+                                                          .fruitsList
+                                                          .value[index]
+                                                          .options?[0]
+                                                          .productOptionValue
+                                                          ?.map((item) =>
+                                                              DropdownMenuItem<
+                                                                  String>(
+                                                                value: item
+                                                                    .productOptionValueId
+                                                                    .toString(),
+                                                                child:
+                                                                    Container(
+                                                                  child: Text(
+                                                                      "${item.name}-${item.price}",
+                                                                      maxLines:
+                                                                          1,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              9)),
+                                                                ),
+                                                              ))
+                                                          .toList(),
+                                                      value: controller
+                                                              .selectedFruitDropdownValue
+                                                              .value[index]
+                                                              .isNotEmpty
+                                                          ? controller
+                                                              .selectedFruitDropdownValue
+                                                              .value[index]
+                                                          : controller
+                                                              .fruitsList[index]
+                                                              .options?[0]
+                                                              .productOptionValue?[
+                                                                  0]
+                                                              .productOptionValueId,
+                                                      onChanged: (value) {
+                                                        controller
+                                                                .selectedFruitDropdownValue
+                                                                .value[index] =
+                                                            value as String;
+                                                        controller.update();
+                                                        // controller
+                                                        //     .changeLocation(
+                                                        //         value);
+                                                      },
+                                                      buttonHeight: 35,
+                                                      buttonWidth: 160,
+                                                      itemHeight: 50,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              AppSize.size.h5,
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 10),
+                                                child: Row(
+                                                  children: [
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        TextWidget(
+                                                          homeController
+                                                              .fruitsList[index]
+                                                              .offerPrice,
+                                                          fontSize: 13,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                        TextWidget(
+                                                          homeController
+                                                              .fruitsList[index]
+                                                              .price,
+                                                          fontSize: 10,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .lineThrough,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Spacer(),
+                                                    Container(
+                                                      height: 29,
+                                                      width: 28,
+                                                      decoration: BoxDecoration(
+                                                          color: AppColors
+                                                              .primaryColor,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(7)),
+                                                      child: Center(
+                                                          child: Image.asset(
+                                                        'assets/icons/addToCart.png',
+                                                        height: 15,
+                                                        width: 15,
+                                                        fit: BoxFit.contain,
+                                                      )),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              AppSize.size.h5,
+                                              AppSize.size.h3,
+                                            ],
+                                          ),
+                                        ),
+                                        Positioned(
+                                          top: 0,
+                                          right: 0,
+                                          child: Container(
+                                            height: 15,
+                                            width: 45,
+                                            decoration: BoxDecoration(
+                                                color: Color(0xffFE6400),
+                                                borderRadius: BorderRadius.only(
+                                                    bottomLeft:
+                                                        Radius.circular(15),
+                                                    topRight:
+                                                        Radius.circular(3))),
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 8, top: 3),
+                                              child: TextWidget(
+                                                "20%",
+                                                fontSize: 8,
+                                                fontWeight: FontWeight.w600,
+                                                color: AppColors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    );
+                                  },
+                                  separatorBuilder: (context, index) {
+                                    return AppSize.size.w10;
+                                  },
+                                  itemCount:
+                                      controller.fruitsList.value.length),
+                            )
+                          : CircularProgressIndicator(),
+                    ),
                     AppSize.size.h30,
                   ],
                 ),
