@@ -26,4 +26,6 @@ class ManageAddressController extends GetxController {
     selectedAddress.value = index;
     update();
   }
+
+  onPressAddBtn() async {}
 }

@@ -182,24 +182,22 @@ class ProductListingController extends GetxController {
 
   addToCart(index, value) async {
     if (value == "plus") {
-      if (optionId[index] == "") {
+      print(optionId.value[index]);
+      if (optionId.value[index] == "") {
         productId[index] = products[index].productId!;
-        print(productId[index]);
         optionId[index] = (products[index].option?[0].productOptionId)!;
         optionValueId[index] =
             (products[index].option?[0].productOptionValue?[0].optionValueId)!;
         var response = await ApiHelper.addCart(
             productId[index], optionId[index], optionValueId[index]);
-        print(response.responseCode);
       } else {
+        print("We have optionId");
         productId[index] = products[index].productId!;
-        print(productId[index]);
-        optionId[index] = (products[index].option?[0].productOptionId)!;
-        optionValueId[index] =
-            (products[index].option?[0].productOptionValue?[0].optionValueId)!;
+        // optionId[index] = (products[index].option?[0].productOptionId)!;
+        // optionValueId[index] =
+        //     (products[index].option?[0].productOptionValue?[0].optionValueId)!;
         var response = await ApiHelper.addCart(
             productId[index], optionId[index], optionValueId[index]);
-        print(response.responseCode);
       }
     } else if (value == "minus") {}
   }

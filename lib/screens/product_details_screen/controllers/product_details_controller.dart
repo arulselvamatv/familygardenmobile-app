@@ -6,7 +6,7 @@ import '../../../models/product_detail_model.dart';
 class ProductDetailsController extends GetxController {
   final CarouselController carouselController = CarouselController();
 
-  RxInt selecteIndex = 0.obs;
+  RxInt selecteIndex = 10.obs;
   RxInt counter = 1.obs;
   RxBool favourite = false.obs;
   RxString productId = "".obs;
@@ -44,8 +44,9 @@ class ProductDetailsController extends GetxController {
   }
 
   onProductWeightSelected(int index) {
-    selecteIndex.value = index;
     productWeight.refresh();
+    selecteIndex.refresh();
+    update();
   }
 
   onFavouriteButtonSelected() {
@@ -54,6 +55,7 @@ class ProductDetailsController extends GetxController {
     } else {
       favourite.value = false;
     }
+    update();
   }
 
   onAddToCartSelected() {

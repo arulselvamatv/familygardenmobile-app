@@ -273,7 +273,6 @@ class ApiHelper {
       var response = await http.post(
         Uri.parse(url),
       );
-      print(response.statusCode);
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
         // var Listresponse = homeFeatureModelFromJson(body);
@@ -383,11 +382,69 @@ class ApiHelper {
       var response = await http.post(
         Uri.parse(url),
       );
-      print(response.statusCode);
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
-        print(body);
         var res = CartListModel.fromJson(body);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print(e);
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<AddCartModel>> addAddress(
+      firstName, lastName, address1, country_id, telephone, zone_id) async {
+    // String url = "${ApiConstants.baseUrl}${EndPoints.category}";
+    try {
+      final response = await http.post(
+        Uri.parse(
+            "${ApiConstants.baseUrl}${EndPoints.cartAdd}${EndPoints.apiToken}"),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        encoding: Encoding.getByName('utf-8'),
+        body: {
+          'firstname': firstName,
+          'lastname': lastName,
+          'address_1': address1,
+          'country_id': country_id,
+          'telephone': telephone,
+          'zone_id': zone_id
+        },
+      );
+      if (response.statusCode == 200) {
+        var body = jsonDecode(response.body);
+        var res = AddCartModel.fromJson(body);
         return HTTPResponse(
           true,
           res,

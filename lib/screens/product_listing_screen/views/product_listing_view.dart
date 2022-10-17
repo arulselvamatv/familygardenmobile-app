@@ -309,11 +309,10 @@ class ProductListingView extends GetView<ProductListingController> {
                                                                                 : controller.products.value[index].option?[0].productOptionValue?[0].productOptionValueId.toString(),
                                                                             onChanged:
                                                                                 (value) {
+                                                                              controller.optionId.value[index] = controller.products[index].option?[0].productOptionId;
                                                                               controller.selectedDropdownValue.value[index] = value as String;
+                                                                              controller.optionValueId.value[index] = value as String;
                                                                               controller.update();
-                                                                              // controller
-                                                                              //     .changeLocation(
-                                                                              //         value);
                                                                             },
                                                                             buttonHeight:
                                                                                 35,

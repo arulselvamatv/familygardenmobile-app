@@ -87,6 +87,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               keyboardType: widget.keyboardType,
               readOnly: widget.readOnly,
               decoration: InputDecoration(
+                  counterText: widget.counterText,
                   hintText: widget.hint,
                   prefixIcon: widget.prefixText != null
                       ? Text(

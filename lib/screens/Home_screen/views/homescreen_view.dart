@@ -60,18 +60,18 @@ class HomeScreenView extends GetView<HomeScreenController> {
                         ),
                       ),
                     ),
-                    AppSize.size.h10,
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15),
-                      height: 130,
-                      width: Get.width,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                              image: AssetImage(
-                                  'assets/images/freeDeliveryBanner.png'),
-                              fit: BoxFit.fill)),
-                    ),
+                    // AppSize.size.h10,
+                    // Container(
+                    //   margin: EdgeInsets.symmetric(horizontal: 15),
+                    //   height: 130,
+                    //   width: Get.width,
+                    //   decoration: BoxDecoration(
+                    //       borderRadius: BorderRadius.circular(10),
+                    //       image: DecorationImage(
+                    //           image: AssetImage(
+                    //               'assets/images/freeDeliveryBanner.png'),
+                    //           fit: BoxFit.fill)),
+                    // ),
                     AppSize.size.h15,
                     GetBuilder<HomeScreenController>(
                       builder: (homeController) => Column(
@@ -296,8 +296,9 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                 padding:
                                                     const EdgeInsets.symmetric(
                                                         horizontal: 20),
-                                                child: Image.asset(
-                                                  homeController.staticImage,
+                                                child: Image.network(
+                                                  (homeController.vegetableList
+                                                      .value[index].image)!,
                                                   height: 60,
                                                   width: 70,
                                                   fit: BoxFit.fill,
@@ -309,7 +310,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                     left: 10),
                                                 child: TextWidget(
                                                   homeController.vegetableList
-                                                      .value[index].name,
+                                                      .value[index].productName,
                                                   fontSize: 10,
                                                   fontWeight: FontWeight.w800,
                                                   maxLines: 1,
@@ -401,8 +402,19 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                                   0]
                                                               .productOptionValueId,
                                                       onChanged: (value) {
+                                                        controller.vegOptionId
+                                                                .value[index] =
+                                                            controller
+                                                                .vegetableList[
+                                                                    index]
+                                                                .options?[0]
+                                                                .productOptionId;
                                                         controller
                                                                 .selectedVegDropdownValue
+                                                                .value[index] =
+                                                            value as String;
+                                                        controller
+                                                                .vegOptionValueId
                                                                 .value[index] =
                                                             value as String;
                                                         controller.update();
@@ -453,22 +465,29 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                       ],
                                                     ),
                                                     Spacer(),
-                                                    Container(
-                                                      height: 29,
-                                                      width: 28,
-                                                      decoration: BoxDecoration(
-                                                          color: AppColors
-                                                              .primaryColor,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(7)),
-                                                      child: Center(
-                                                          child: Image.asset(
-                                                        'assets/icons/addToCart.png',
-                                                        height: 15,
-                                                        width: 15,
-                                                        fit: BoxFit.contain,
-                                                      )),
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        controller.vegAddToCart(
+                                                            index);
+                                                      },
+                                                      child: Container(
+                                                        height: 29,
+                                                        width: 28,
+                                                        decoration: BoxDecoration(
+                                                            color: AppColors
+                                                                .primaryColor,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        7)),
+                                                        child: Center(
+                                                            child: Image.asset(
+                                                          'assets/icons/addToCart.png',
+                                                          height: 15,
+                                                          width: 15,
+                                                          fit: BoxFit.contain,
+                                                        )),
+                                                      ),
                                                     )
                                                   ],
                                                 ),
@@ -495,7 +514,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                               padding: const EdgeInsets.only(
                                                   left: 8, top: 3),
                                               child: TextWidget(
-                                                "17%",
+                                                "${controller.vegetablePercentage[index]}% off",
                                                 fontSize: 8,
                                                 fontWeight: FontWeight.w600,
                                                 color: AppColors.white,
@@ -512,7 +531,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                   itemCount:
                                       controller.vegetableList.value.length),
                             )
-                          : CircularProgressIndicator(),
+                          : Center(child: CircularProgressIndicator()),
                     ),
 
                     AppSize.size.h30,
@@ -527,7 +546,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                     AppSize.size.h15,
                     GetBuilder<HomeScreenController>(
                       builder: (homeController) => homeController
-                              .isVegetableLoader.value
+                              .isFruitLoader.value
                           ? Container(
                               margin:
                                   const EdgeInsets.symmetric(horizontal: 15),
@@ -556,8 +575,9 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                 padding:
                                                     const EdgeInsets.symmetric(
                                                         horizontal: 20),
-                                                child: Image.asset(
-                                                  homeController.staticImage,
+                                                child: Image.network(
+                                                  homeController
+                                                      .fruitsList[index].image!,
                                                   height: 60,
                                                   width: 70,
                                                   fit: BoxFit.fill,
@@ -569,7 +589,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                     left: 10),
                                                 child: TextWidget(
                                                   homeController.fruitsList
-                                                      .value[index].name,
+                                                      .value[index].productName,
                                                   fontSize: 10,
                                                   fontWeight: FontWeight.w800,
                                                   maxLines: 1,
@@ -660,14 +680,22 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                                   0]
                                                               .productOptionValueId,
                                                       onChanged: (value) {
+                                                        controller.fruitOptionId
+                                                                .value[index] =
+                                                            controller
+                                                                .fruitsList[
+                                                                    index]
+                                                                .options?[0]
+                                                                .productOptionId;
                                                         controller
                                                                 .selectedFruitDropdownValue
                                                                 .value[index] =
                                                             value as String;
+                                                        controller
+                                                                .fruitOptionValueId
+                                                                .value[index] =
+                                                            value as String;
                                                         controller.update();
-                                                        // controller
-                                                        //     .changeLocation(
-                                                        //         value);
                                                       },
                                                       buttonHeight: 35,
                                                       buttonWidth: 160,
@@ -752,7 +780,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                               padding: const EdgeInsets.only(
                                                   left: 8, top: 3),
                                               child: TextWidget(
-                                                "20%",
+                                                "${controller.fruitPercentage[index]}% off",
                                                 fontSize: 8,
                                                 fontWeight: FontWeight.w600,
                                                 color: AppColors.white,
@@ -769,7 +797,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                   itemCount:
                                       controller.fruitsList.value.length),
                             )
-                          : CircularProgressIndicator(),
+                          : Center(child: CircularProgressIndicator()),
                     ),
                     AppSize.size.h30,
                   ],

@@ -54,7 +54,6 @@ class CartController extends GetxController {
       isProductsLoader.value = true;
       getListDatas();
     }
-    print(products.value.products?.length);
     update();
   }
 

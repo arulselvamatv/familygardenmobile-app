@@ -121,10 +121,10 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                         );
                                       },
                                       options: CarouselOptions(
-                                          autoPlay: true,
+                                          // autoPlay: true,
                                           viewportFraction: 1,
-                                          scrollPhysics:
-                                              NeverScrollableScrollPhysics(),
+                                          // scrollPhysics:
+                                          //     NeverScrollableScrollPhysics(),
                                           enableInfiniteScroll: true,
                                           onPageChanged: (index, reason) {
                                             // controller.pageChanged(index);
@@ -164,29 +164,43 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
                                       onTap: () {
+                                        print("onselect");
+                                        controller.selecteIndex.value = index;
                                         controller
                                             .onProductWeightSelected(index);
+                                        controller.update();
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(
                                             color:
-                                                controller.selecteIndex != index
+                                                controller.selecteIndex.value ==
+                                                            10 ||
+                                                        controller.selecteIndex
+                                                                .value !=
+                                                            index
                                                     ? AppColors.white
                                                     : Color(0xffB6F1E7),
                                             borderRadius:
                                                 BorderRadius.circular(13),
                                             border: Border.all(
-                                                color:
-                                                    controller.selecteIndex !=
+                                                color: controller.selecteIndex
+                                                                .value ==
+                                                            10 ||
+                                                        controller.selecteIndex
+                                                                .value !=
                                                             index
-                                                        ? Color(0xffE8E8E7)
-                                                        : Colors.transparent)),
+                                                    ? Color(0xffE8E8E7)
+                                                    : Colors.transparent)),
                                         child: Center(
                                             child: Padding(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 8),
                                           child: TextWidget(
-                                            controller.productWeight[index],
+                                            controller
+                                                .productDetails
+                                                ?.options?[0]
+                                                .productOptionValue?[index]
+                                                .name,
                                             fontSize: 10,
                                             fontWeight: FontWeight.w600,
                                             color: AppColors.black,
@@ -198,7 +212,12 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                   separatorBuilder: (context, index) {
                                     return AppSize.size.w7;
                                   },
-                                  itemCount: controller.productWeight.length),
+                                  itemCount: controller
+                                          .productDetails
+                                          ?.options?[0]
+                                          .productOptionValue
+                                          ?.length ??
+                                      0),
                             ),
                             AppSize.size.h25,
                             Align(

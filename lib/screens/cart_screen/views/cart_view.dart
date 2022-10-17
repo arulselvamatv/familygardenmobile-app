@@ -117,7 +117,6 @@ class CartView extends GetView<CartController> {
                                 shrinkWrap: true,
                                 padding: EdgeInsets.only(bottom: 30, top: 10),
                                 itemBuilder: (context, index) {
-                                  print(index);
                                   return GestureDetector(
                                     onTap: () {},
                                     child: Container(
