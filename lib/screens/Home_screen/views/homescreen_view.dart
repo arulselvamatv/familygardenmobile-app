@@ -60,6 +60,81 @@ class HomeScreenView extends GetView<HomeScreenController> {
                         ),
                       ),
                     ),
+                    AppSize.size.h10,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16.0, right: 16),
+                      child: Container(
+                        height: 42,
+                        width: Get.size.width,
+                        decoration: BoxDecoration(
+                            color: AppColors.limeGreen,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(13, 8, 16, 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                      width: Get.size.width / 2,
+                                      child: RichText(
+                                        text: TextSpan(children: [
+                                          TextSpan(
+                                              text:
+                                                  "Special Launch Offer - Flat ",
+                                              style: TextStyle(
+                                                  fontSize: 10,
+                                                  color: AppColors.black)),
+                                          TextSpan(
+                                              text: "10% ",
+                                              style: TextStyle(
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: AppColors.black)),
+                                          TextSpan(
+                                              text: "Discount",
+                                              style: TextStyle(
+                                                  fontSize: 10,
+                                                  color: AppColors.black)),
+                                        ]),
+                                      )),
+                                  Container(
+                                    width: Get.size.width / 1.50,
+                                    child: RichText(
+                                      text: TextSpan(children: [
+                                        TextSpan(
+                                            text:
+                                                " on all Products. Use Coupon Code ",
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                color: AppColors.black)),
+                                        TextSpan(
+                                            text: "FAMILYGARDEN10",
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.bold,
+                                                color: AppColors.black))
+                                      ]),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(right: 9.0, bottom: 6),
+                              child: Image.asset(
+                                "assets/images/price-tag.png",
+                                height: 36,
+                                width: 36,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
                     // AppSize.size.h10,
                     // Container(
                     //   margin: EdgeInsets.symmetric(horizontal: 15),
@@ -178,6 +253,48 @@ class HomeScreenView extends GetView<HomeScreenController> {
                     //         ),
                     //       )),
                     AppSize.size.h30,
+                    Container(
+                      height: 140,
+                      child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 36,
+                                    width: 36,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: Color(0xfff9f9f9)),
+                                    child: Image.asset(
+                                      controller.category.value[index]["image"],
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                  AppSize.size.h10,
+                                  Container(
+                                      constraints: BoxConstraints(maxWidth: 70),
+                                      child: TextWidget(
+                                        controller.category.value[index]
+                                            ["name"],
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w600,
+                                        textAlign: TextAlign.center,
+                                        height: 1.5,
+                                        maxLines: 2,
+                                        textOverflow: TextOverflow.ellipsis,
+                                      ))
+                                ],
+                              ),
+                            );
+                          },
+                          separatorBuilder: (context, index) {
+                            return AppSize.size.w10;
+                          },
+                          itemCount: controller.category.value.length),
+                    ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15),
                       child: TextWidget(
@@ -221,8 +338,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                           .image ==
                                                       null
                                                   ? Image.asset(
-                                                      controller.category[index]
-                                                          ['image'],
+                                                      controller.staticImage,
                                                       fit: BoxFit.fill,
                                                     )
                                                   : Image.network(controller
@@ -738,22 +854,30 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                       ],
                                                     ),
                                                     Spacer(),
-                                                    Container(
-                                                      height: 29,
-                                                      width: 28,
-                                                      decoration: BoxDecoration(
-                                                          color: AppColors
-                                                              .primaryColor,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(7)),
-                                                      child: Center(
-                                                          child: Image.asset(
-                                                        'assets/icons/addToCart.png',
-                                                        height: 15,
-                                                        width: 15,
-                                                        fit: BoxFit.contain,
-                                                      )),
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        controller
+                                                            .fruitAddToCart(
+                                                                index);
+                                                      },
+                                                      child: Container(
+                                                        height: 29,
+                                                        width: 28,
+                                                        decoration: BoxDecoration(
+                                                            color: AppColors
+                                                                .primaryColor,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        7)),
+                                                        child: Center(
+                                                            child: Image.asset(
+                                                          'assets/icons/addToCart.png',
+                                                          height: 15,
+                                                          width: 15,
+                                                          fit: BoxFit.contain,
+                                                        )),
+                                                      ),
                                                     )
                                                   ],
                                                 ),

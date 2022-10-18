@@ -111,74 +111,83 @@ class Breadcrumb {
 }
 
 class Product {
-  Product({
-    this.productId,
-    this.cartId,
-    this.thumb,
-    this.name,
-    this.pnameTamil,
-    this.model,
-    this.option,
-    this.recurring,
-    this.quantity,
-    this.stock,
-    this.reward,
-    this.price,
-    this.total,
-    this.href,
-  });
-
   String? productId;
   String? cartId;
   String? thumb;
   String? name;
   String? pnameTamil;
   String? model;
-  List<dynamic>? option;
+  List<Null>? option;
   String? recurring;
   String? quantity;
   bool? stock;
   String? reward;
-  String? price;
+  String? offerPrice;
+  String? actualPrice;
   String? total;
   String? href;
 
-  factory Product.fromJson(Map<String, dynamic> json) => Product(
-        productId: json["product_id"] == null ? null : json["product_id"],
-        cartId: json["cart_id"] == null ? null : json["cart_id"],
-        thumb: json["thumb"] == null ? null : json["thumb"],
-        name: json["name"] == null ? null : json["name"],
-        pnameTamil: json["pname_tamil"] == null ? null : json["pname_tamil"],
-        model: json["model"] == null ? null : json["model"],
-        option: json["option"] == null
-            ? null
-            : List<dynamic>.from(json["option"].map((x) => x)),
-        recurring: json["recurring"] == null ? null : json["recurring"],
-        quantity: json["quantity"] == null ? null : json["quantity"],
-        stock: json["stock"] == null ? null : json["stock"],
-        reward: json["reward"] == null ? null : json["reward"],
-        price: json["price"] == null ? null : json["price"],
-        total: json["total"] == null ? null : json["total"],
-        href: json["href"] == null ? null : json["href"],
-      );
+  Product(
+      {this.productId,
+      this.cartId,
+      this.thumb,
+      this.name,
+      this.pnameTamil,
+      this.model,
+      this.option,
+      this.recurring,
+      this.quantity,
+      this.stock,
+      this.reward,
+      this.offerPrice,
+      this.actualPrice,
+      this.total,
+      this.href});
 
-  Map<String, dynamic> toJson() => {
-        "product_id": productId == null ? null : productId,
-        "cart_id": cartId == null ? null : cartId,
-        "thumb": thumb == null ? null : thumb,
-        "name": name == null ? null : name,
-        "pname_tamil": pnameTamil == null ? null : pnameTamil,
-        "model": model == null ? null : model,
-        "option":
-            option == null ? null : List<dynamic>.from(option!.map((x) => x)),
-        "recurring": recurring == null ? null : recurring,
-        "quantity": quantity == null ? null : quantity,
-        "stock": stock == null ? null : stock,
-        "reward": reward == null ? null : reward,
-        "price": price == null ? null : price,
-        "total": total == null ? null : total,
-        "href": href == null ? null : href,
-      };
+  Product.fromJson(Map<String, dynamic> json) {
+    productId = json['product_id'];
+    cartId = json['cart_id'];
+    thumb = json['thumb'];
+    name = json['name'];
+    pnameTamil = json['pname_tamil'];
+    model = json['model'];
+    // if (json['option'] != null) {
+    //   option = <Null>[];
+    //   json['option'].forEach((v) {
+    //     option!.add(new Null.fromJson(v));
+    //   });
+    // }
+    recurring = json['recurring'];
+    quantity = json['quantity'];
+    stock = json['stock'];
+    reward = json['reward'];
+    offerPrice = json['offer_price'];
+    actualPrice = json['actual_price'];
+    total = json['total'];
+    href = json['href'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['product_id'] = this.productId;
+    data['cart_id'] = this.cartId;
+    data['thumb'] = this.thumb;
+    data['name'] = this.name;
+    data['pname_tamil'] = this.pnameTamil;
+    data['model'] = this.model;
+    // if (this.option != null) {
+    //   data['option'] = this.option!.map((v) => v?.toJson()).toList();
+    // }
+    data['recurring'] = this.recurring;
+    data['quantity'] = this.quantity;
+    data['stock'] = this.stock;
+    data['reward'] = this.reward;
+    data['offer_price'] = this.offerPrice;
+    data['actual_price'] = this.actualPrice;
+    data['total'] = this.total;
+    data['href'] = this.href;
+    return data;
+  }
 }
 
 class Total {

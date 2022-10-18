@@ -313,30 +313,35 @@ class ApiHelper {
     }
   }
 
-  static Future<HTTPResponse<AddCartModel>> addCart(
-      productId, optionId, productValueId) async {
+  static Future<HTTPResponse<AddCartModel>> addCart(body) async {
     // String url = "${ApiConstants.baseUrl}${EndPoints.category}";
     try {
-      var body = {
-        'product_id': productId,
-        'qty': '1',
-        'option[$optionId]': productValueId
+      // final response = await http.post(
+      //     Uri.parse(
+      //         "${ApiConstants.baseUrl}${EndPoints.cartAdd}${EndPoints.apiToken}"),
+      //     body: body);
+      print("Running");
+      Map<String, String> headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
       };
-      final response = await http.post(
-        Uri.parse(
-            "${ApiConstants.baseUrl}${EndPoints.cartAdd}${EndPoints.apiToken}"),
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        encoding: Encoding.getByName('utf-8'),
-        body: {
-          'product_id': productId,
-          'qty': '1',
-          'option[$optionId]': productValueId
-        },
-      );
+      var encodedBody = json.encode(body);
+      var response = await http.post(
+          Uri.parse(
+              "${ApiConstants.baseUrl}${EndPoints.cartAdd}${EndPoints.apiToken}"),
+          headers: headers,
+          body: encodedBody);
+      // final uri = Uri.http(
+      //     ,
+      //     '/path',
+      //     body);
+      // final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
+      // final response = await http.post(uri, headers: headers);
+
+      print(response.body);
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
+        print(body);
         var res = AddCartModel.fromJson(body);
         return HTTPResponse(
           true,

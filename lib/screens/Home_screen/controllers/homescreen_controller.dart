@@ -24,18 +24,20 @@ class HomeScreenController extends GetxController {
   RxList vegOptionValueId = [].obs;
   RxList vegProductId = [].obs;
   RxList fruitProductId = [].obs;
+
   // HomeFeatureModel? homeFeatureDatas;
 
   late String selectedValue = itemsList.first;
 
   RxList category = [
-    {'name': 'Fresh Vegetables', 'image': 'assets/images/Fresh Vegetables.png'},
-    {'name': 'Fresh Fruits', 'image': 'assets/images/Fresh Fruits.png'},
-    {'name': 'Cuts & Sprouts', 'image': 'assets/images/Cuts & sprouts.png'},
+    {'name': 'Fresh from Forms', 'image': 'assets/images/home_screen-1.png'},
+    {'name': 'Fast Delivery', 'image': 'assets/images/home_screen-2.png'},
+    {'name': 'For Low Cost', 'image': 'assets/images/home_screen-3.png'},
     {
-      'name': 'Organic Fruits & Vegs',
-      'image': 'assets/images/Organic Vegetables & Fruits.png'
+      'name': 'Mass Production of Vegetables',
+      'image': 'assets/images/home_screen-4.png'
     },
+    {'name': 'Premium Quality', 'image': 'assets/images/home_screen-5.png'},
   ].obs;
 
   List bestSellers = [
@@ -97,6 +99,7 @@ class HomeScreenController extends GetxController {
   String staticImage = "assets/images/Fresh Vegetables.png";
   RxList vegetablePercentage = [].obs;
   RxList fruitPercentage = [].obs;
+
   // RxList fruitsBool = [].obs;
   // RxList vegetablesBool = [].obs;
   // RxList<String> items = <String>['One', 'Two', 'Three', 'Four'].obs;
@@ -176,24 +179,43 @@ class HomeScreenController extends GetxController {
   }
 
   vegAddToCart(index) async {
-    if (vegOptionId.value[index] == "") {
-      vegProductId[index] = vegetableList[index].productId!;
-      vegOptionId[index] = (vegetableList[index].options?[0].productOptionId)!;
-      vegOptionValueId[index] =
-          vegetableList[index].options?[0].productOptionValue?[0].optionValueId;
-      // (products[index].option?[0].productOptionValue?[0].optionValueId)!;
-      var response = await ApiHelper.addCart(
-          vegProductId[index], vegOptionId[index], vegOptionValueId[index]);
-      if (response.responseCode == 200) {
-        Get.toNamed(Routes.PRODUCT_LISTING_SCREEN);
-      }
-    } else {
-      var response = await ApiHelper.addCart(
-          vegProductId[index], vegOptionId[index], vegOptionValueId[index]);
-      if (response.responseCode == 200) {
-        Get.toNamed(Routes.PRODUCT_LISTING_SCREEN);
-      }
-    }
+    // if (vegOptionId.value[index] == "") {
+    //   vegProductId[index] = vegetableList[index].productId!;
+    //   vegOptionId[index] = (vegetableList[index].options?[0].productOptionId)!;
+    //   vegOptionValueId[index] =
+    //       vegetableList[index].options?[0].productOptionValue?[0].optionValueId;
+    //   var response = await ApiHelper.addCart(
+    //       vegProductId[index], vegOptionId[index], vegOptionValueId[index]);
+    //   if (response.responseCode == 200) {
+    //     Get.toNamed(Routes.CART_SCREEN);
+    //   }
+    // } else {
+    //   var response = await ApiHelper.addCart(
+    //       vegProductId[index], vegOptionId[index], vegOptionValueId[index]);
+    //   if (response.responseCode == 200) {
+    //     Get.toNamed(Routes.CART_SCREEN);
+    //   }
+    // }
+  }
+
+  fruitAddToCart(index) async {
+    // if (fruitOptionId.value[index] == "") {
+    //   fruitProductId[index] = fruitsList[index].productId!;
+    //   fruitOptionId[index] = (fruitsList[index].options?[0].productOptionId)!;
+    //   fruitOptionValueId[index] =
+    //       fruitsList[index].options?[0].productOptionValue?[0].optionValueId;
+    //   var response = await ApiHelper.addCart(fruitProductId[index],
+    //       fruitOptionId[index], fruitOptionValueId[index]);
+    //   if (response.responseCode == 200) {
+    //     Get.toNamed(Routes.CART_SCREEN);
+    //   }
+    // } else {
+    //   var response = await ApiHelper.addCart(fruitProductId[index],
+    //       fruitOptionId[index], fruitOptionValueId[index]);
+    //   if (response.responseCode == 200) {
+    //     Get.toNamed(Routes.CART_SCREEN);
+    //   }
+    // }
   }
 
   getCategories() async {

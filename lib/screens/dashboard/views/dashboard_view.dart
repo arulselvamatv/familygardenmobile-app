@@ -4,6 +4,7 @@ import 'package:family_garden/screens/drawer_screen/views/drawer_view.dart';
 import 'package:family_garden/screens/profile_screen/views/profile_view.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:family_garden/widgets/common_appbar/custom_appbar_view.dart';
+import '../../../routes/app_pages.dart';
 import '../../Home_screen/views/homescreen_view.dart';
 
 class DashboardView extends GetView<DashboardController> {

@@ -2,10 +2,12 @@ import 'package:family_garden/network/api_helper.dart';
 import 'package:get/get.dart';
 import '../../../models/categories_model.dart';
 import '../../../models/category_product_model.dart';
+import '../../../models/product_add_cart_model.dart';
 import '../../../utils/common_import/common_import.dart';
 
 class ProductListingController extends GetxController {
   RxInt categoriesIndex = 1.obs;
+
   // late RxString selectedValue = itemsList.first.obs;
   RxString title = "".obs;
   RxString staticImage = "assets/images/Fresh Vegetables.png".obs;
@@ -14,65 +16,6 @@ class ProductListingController extends GetxController {
   RxList optionId = [].obs;
   RxList optionValueId = [].obs;
   RxList productId = [].obs;
-  // RxList category = [
-  //   {'name': 'Fresh Vegetables', 'image': 'assets/images/Fresh Vegetables.png'},
-  //   {'name': 'Fresh Fruits', 'image': 'assets/images/Fresh Fruits.png'},
-  //   {'name': 'Cuts & Sprouts', 'image': 'assets/images/Cuts & sprouts.png'},
-  //   {
-  //     'name': 'Organic Fruits & Vegs',
-  //     'image': 'assets/images/Organic Vegetables & Fruits.png'
-  //   },
-  //   {'name': 'Top Selling', 'image': 'assets/images/topSelling.png'},
-  // ].obs;
-  //
-  // RxList categoryList = [
-  //   {
-  //     'name': 'Carrot',
-  //     'nameInTamil': 'கேரட்',
-  //     'price': '₹28.00',
-  //     'oldPrice': '₹35.00',
-  //     'offer': '20% OFF',
-  //     'image': 'assets/images/Carrot.png'
-  //   },
-  //   {
-  //     'name': 'Cauliflower 1 Piece',
-  //     'nameInTamil': 'காலிஃபிளவர் ',
-  //     'price': '₹35.00',
-  //     'oldPrice': '₹40.00',
-  //     'offer': '13% OFF',
-  //     'image': 'assets/images/cauliflower.png'
-  //   },
-  //   {
-  //     'name': 'Ash gourd pumpkin',
-  //     'nameInTamil': 'சாம்பல் பூசணி',
-  //     'price': '₹30.00',
-  //     'oldPrice': '₹50.00',
-  //     'offer': '40% OFF',
-  //     'image': 'assets/images/AshGroundPumpkin.png'
-  //   },
-  //   {
-  //     'name': 'Avarakkai',
-  //     'nameInTamil': 'அவரைக்காய்',
-  //     'price': '₹14.00',
-  //     'oldPrice': '₹20.00',
-  //     'offer': '30% OFF',
-  //     'image': 'assets/images/Avarakai.png'
-  //   },
-  //   {
-  //     'name': 'Carrot',
-  //     'nameInTamil': 'கேரட்',
-  //     'price': '₹28.00',
-  //     'oldPrice': '₹35.00',
-  //     'offer': '50% OFF',
-  //     'image': 'assets/images/Carrot.png',
-  //   },
-  // ].obs;
-
-  // RxList<String> itemsList = [
-  //   '250 grams - ₹28.00',
-  //   '1 Pack - ₹125.00',
-  //   '1 Bunch - ₹15.00',
-  // ].obs;
   RxList<ProductOptionValue> dropdownList = <ProductOptionValue>[].obs;
   RxList selectedItemValue = [].obs;
   RxList counterList = [].obs;
@@ -81,6 +24,14 @@ class ProductListingController extends GetxController {
   RxList cartBoolList = [].obs;
   RxList<Products> products = <Products>[].obs;
   RxBool isCategoryProductLoader = true.obs;
+  var productData = {"product_info": []}.obs;
+  var dummyProductDatas = {
+    "product_id": 0,
+    "qty": 1,
+    "product_option_id": 0,
+    "prodcut_option_value_id": 0,
+    "action": "ADD"
+  };
 
   @override
   void onInit() async {
@@ -149,7 +100,6 @@ class ProductListingController extends GetxController {
     isCategoryProductLoader.value = true;
     getCategoryProduct(categoriesList.value[index].categoryId);
     title.value = (categoriesList.value[index].name)!;
-    // category.refresh();
     update();
   }
 
@@ -180,41 +130,112 @@ class ProductListingController extends GetxController {
     update();
   }
 
+  addCartDatas(index) {
+    productData.value["product_info"]?.add({
+      "product_id": productId[index],
+      "qty": 1,
+      "product_option_id": products[index].productId!,
+      "prodcut_option_value_id": optionValueId[index],
+      "action": "ADD"
+    });
+    // dummyProductDatas.clear();
+    print(dummyProductDatas);
+    print(productData);
+  }
+
+  hitAddCartAPI() async {
+    print("Hitted API");
+    print(productData);
+    if ((productData.value["product_info"]?.length)! > 0) {
+      print("object");
+      var response = await ApiHelper.addCart(productData.value);
+      print(response.data?.success);
+    } else {
+      print("No Datas Found");
+    }
+    //   if (response.data?.status == 1) {
+    //     print("Successfully Added Data");
+    //   }
+    // } else {
+    //   print("Something went wrong");
+    // }
+  }
+
+  removeCartDatas(index) {
+    productData.value["product_info"]?.clear();
+  }
+
   addToCart(index, value) async {
     if (value == "plus") {
-      print(optionId.value[index]);
+      if ((productData.value["product_info"]?.length)! > 0) {}
       if (optionId.value[index] == "") {
         productId[index] = products[index].productId!;
         optionId[index] = (products[index].option?[0].productOptionId)!;
         optionValueId[index] =
             (products[index].option?[0].productOptionValue?[0].optionValueId)!;
-        var response = await ApiHelper.addCart(
-            productId[index], optionId[index], optionValueId[index]);
       } else {
-        print("We have optionId");
         productId[index] = products[index].productId!;
-        // optionId[index] = (products[index].option?[0].productOptionId)!;
-        // optionValueId[index] =
-        //     (products[index].option?[0].productOptionValue?[0].optionValueId)!;
-        var response = await ApiHelper.addCart(
-            productId[index], optionId[index], optionValueId[index]);
       }
-    } else if (value == "minus") {}
+      addCartDatas(index);
+    } else {
+      if (optionId.value[index] == "") {
+        productId[index] = products[index].productId!;
+        optionId[index] = (products[index].option?[0].productOptionId)!;
+        optionValueId[index] =
+            (products[index].option?[0].productOptionValue?[0].optionValueId)!;
+      } else {
+        productId[index] = products[index].productId!;
+      }
+
+      removeCartDatas(index);
+    }
+
+    // var searchIndex = cartAddModel.value.productInfo
+    //     ?.indexWhere((element) => element == products.value[index].productId);
+    // if (searchIndex != -1) {
+    //   // (cartAddModel.value.productInfo?[searchIndex!].qty)! + 1;
+    // } else {
+    //   productId[index] = products[index].productId!;
+    //   optionId[index] = (products[index].option?[0].productOptionId)!;
+    //   optionValueId[index] =
+    //       (products[index].option?[0].productOptionValue?[0].optionValueId)!;
+    //   int? addingIndex = cartAddModel.value.productInfo?.length;
+    //   cartAddModel.value.productInfo?.add(productData);
+    // }
+    // if (value == "plus") {
+    //   print(optionId.value[index]);
+    //   if (optionId.value[index] == "") {
+    //     productId[index] = products[index].productId!;
+    //     optionId[index] = (products[index].option?[0].productOptionId)!;
+    //     optionValueId[index] =
+    //         (products[index].option?[0].productOptionValue?[0].optionValueId)!;
+    //     var response = await ApiHelper.addCart(
+    //         productId[index], optionId[index], optionValueId[index]);
+    //   } else {
+    //     print("We have optionId");
+    //     productId[index] = products[index].productId!;
+    //     // optionId[index] = (products[index].option?[0].productOptionId)!;
+    //     // optionValueId[index] =
+    //     //     (products[index].option?[0].productOptionValue?[0].optionValueId)!;
+    //     var response = await ApiHelper.addCart(
+    //         productId[index], optionId[index], optionValueId[index]);
+    //   }
+    // } else if (value == "minus") {}
   }
 
-  // minus(int index) {
-  //   if (counterList[index] == 1) {
-  //     cartBoolList[index] = false;
-  //     // return;
-  //   } else {
-  //     counterList[index] -= 1;
-  //   }
-  //   cartBoolList.refresh();
-  //   update();
-  // }
-  //
-  // add(int index) {
-  //   counterList[index] += 1;
-  //   update();
-  // }
+// minus(int index) {
+//   if (counterList[index] == 1) {
+//     cartBoolList[index] = false;
+//     // return;
+//   } else {
+//     counterList[index] -= 1;
+//   }
+//   cartBoolList.refresh();
+//   update();
+// }
+//
+//   add(int index) {
+//     counterList[index] += 1;
+//     update();
+//   }
 }
