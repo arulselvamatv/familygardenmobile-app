@@ -2,12 +2,17 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:family_garden/models/add_cart_model.dart';
 import 'package:family_garden/models/cart_list_model.dart';
+import 'package:family_garden/models/checkout_model.dart';
 import 'package:family_garden/models/get_token_model.dart';
 import 'package:family_garden/models/home_feature_model.dart';
 import 'package:family_garden/models/home_slider_model.dart';
+import 'package:family_garden/models/payment_method_model.dart';
 import '../models/categories_model.dart';
 import '../models/category_product_model.dart';
+import '../models/payment_address_save_model.dart';
 import '../models/product_detail_model.dart';
+import '../models/shipping_method_model.dart';
+import '../models/shipping_method_save_model.dart';
 import 'api_constants/api_constants.dart';
 import 'api_constants/api_end_points.dart';
 import 'http_response_model.dart';
@@ -320,7 +325,6 @@ class ApiHelper {
       //     Uri.parse(
       //         "${ApiConstants.baseUrl}${EndPoints.cartAdd}${EndPoints.apiToken}"),
       //     body: body);
-      print("Running");
       Map<String, String> headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -450,6 +454,294 @@ class ApiHelper {
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
         var res = AddCartModel.fromJson(body);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print(e);
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<CheckoutModel>> checkOut() async {
+    String url =
+        "${ApiConstants.baseUrl}${EndPoints.checkOut}${EndPoints.apiToken}";
+    try {
+      var response = await http.post(
+        Uri.parse(url),
+      );
+      if (response.statusCode == 200) {
+        var body = jsonDecode(response.body);
+        // var Listresponse = homeFeatureModelFromJson(body);
+        var res = CheckoutModel.fromJson(body);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print(e);
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<PaymentMethodModel>> paymentMethod() async {
+    String url =
+        "${ApiConstants.baseUrl}${EndPoints.paymentMethod}${EndPoints.apiToken}";
+    try {
+      var response = await http.post(
+        Uri.parse(url),
+      );
+      print(response.body);
+      if (response.statusCode == 200) {
+        var body = jsonDecode(response.body);
+        print(body);
+        var res = PaymentMethodModel.fromJson(body);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print(e);
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<PaymentAddressSaveModel>> paymentAddressSave(
+      formData) async {
+    try {
+      var request = http.Request(
+          'POST',
+          Uri.parse(
+              "${ApiConstants.baseUrl}${EndPoints.paymentAddressSave}${EndPoints.apiToken}"));
+      print(EndPoints.apiToken);
+      request.bodyFields = {
+        'firstname':
+            formData["firstname"] == "" && formData["firstname"] == null
+                ? "deepa "
+                : formData["firstname"],
+        'lastname': formData["lastname"] == "" && formData["lastname"] == null
+            ? "g"
+            : formData["lastname"],
+        'address_1':
+            formData["address_1"] == "" && formData["address_1"] == null
+                ? "chennai"
+                : formData["address_1"],
+        'city': formData["city"] == "" && formData["city"] == null
+            ? "chennai"
+            : formData["city"],
+        'postcode': "600017",
+        'telephone':
+            formData["telephone"] == "" && formData["telephone"] == null
+                ? "8097700316"
+                : formData["telephone"],
+        'address_2':
+            formData["address_2"] == "" && formData["address_2"] == null
+                ? "chennai"
+                : formData["address_2"],
+        'company': formData["company"] == "" && formData["company"] == null
+            ? "atv"
+            : formData["company"],
+        'email': formData["email"] == "" && formData["email"] == null
+            ? "gdeepacse1@gmail.com"
+            : formData["email"]
+      };
+      var headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      };
+      request.headers.addAll(headers);
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        print(body);
+        var res = PaymentAddressSaveModel.fromJson(body);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print(e);
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<ShippingMethodModel>> shippingMethod() async {
+    String url =
+        "${ApiConstants.baseUrl}${EndPoints.shippingMethod}${EndPoints.apiToken}";
+    try {
+      var response = await http.post(
+        Uri.parse(url),
+      );
+      if (response.statusCode == 200) {
+        var body = jsonDecode(response.body);
+        print(body);
+        var res = ShippingMethodModel.fromJson(body);
+        print(res.shippingMethods.flat.title);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print(e);
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<ShippingMethodSaveModel>>
+      shippingMethodSave() async {
+    try {
+      var request = http.Request(
+          'POST',
+          Uri.parse(
+              "${ApiConstants.baseUrl}${EndPoints.shippingMethodSave}${EndPoints.apiToken}"));
+      print(EndPoints.apiToken);
+      request.bodyFields = {'shipping_method': 'flat.flat', 'comment': ''};
+      var headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      };
+      request.headers.addAll(headers);
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        print(body);
+        var res = ShippingMethodSaveModel.fromJson(body);
         return HTTPResponse(
           true,
           res,

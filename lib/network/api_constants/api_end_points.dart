@@ -20,4 +20,18 @@ class EndPoints {
   static const cartAdd = "/index.php?route=mobileapi/cart/add";
 
   static const cartList = "/index.php?route=mobileapi/cart/list";
+
+  static const checkOut = "/index.php?route=mobileapi/checkout/checkout";
+
+  static const paymentMethod =
+      "/index.php?route=mobileapi/checkout/payment_method";
+
+  static const shippingMethod =
+      "/index.php?route=mobileapi/checkout/shipping_method";
+
+  static const paymentAddressSave =
+      "/index.php?route=mobileapi/checkout/payment_address/save";
+
+  static const shippingMethodSave =
+      "/index.php?route=mobileapi/checkout/shipping_method/save";
 }

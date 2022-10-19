@@ -25,13 +25,6 @@ class ProductListingController extends GetxController {
   RxList<Products> products = <Products>[].obs;
   RxBool isCategoryProductLoader = true.obs;
   var productData = {"product_info": []}.obs;
-  var dummyProductDatas = {
-    "product_id": 0,
-    "qty": 1,
-    "product_option_id": 0,
-    "prodcut_option_value_id": 0,
-    "action": "ADD"
-  };
 
   @override
   void onInit() async {
@@ -138,45 +131,69 @@ class ProductListingController extends GetxController {
       "prodcut_option_value_id": optionValueId[index],
       "action": "ADD"
     });
-    // dummyProductDatas.clear();
-    print(dummyProductDatas);
-    print(productData);
   }
 
   hitAddCartAPI() async {
-    print("Hitted API");
-    print(productData);
     if ((productData.value["product_info"]?.length)! > 0) {
-      print("object");
       var response = await ApiHelper.addCart(productData.value);
-      print(response.data?.success);
-    } else {
-      print("No Datas Found");
-    }
-    //   if (response.data?.status == 1) {
-    //     print("Successfully Added Data");
-    //   }
-    // } else {
-    //   print("Something went wrong");
-    // }
+    } else {}
   }
 
   removeCartDatas(index) {
-    productData.value["product_info"]?.clear();
+    if ((productData.value["product_info"]?.length)! > 0) {
+      int? QuantityIncreasingIndex = productData.value["product_info"]
+          ?.indexWhere(
+              (element) => element["product_id"] == products[index].productId!);
+      if (QuantityIncreasingIndex != -1) {
+        productData.value["product_info"]?[QuantityIncreasingIndex!]["qty"] =
+            productData.value["product_info"]?[QuantityIncreasingIndex]["qty"] -
+                1;
+      }
+    }
+  }
+
+  newAddCart(index) {
+    if (optionId.value[index] == "") {
+      productId[index] = products[index].productId!;
+      optionId[index] = (products[index].option?[0].productOptionId)!;
+      optionValueId[index] =
+          (products[index].option?[0].productOptionValue?[0].optionValueId)!;
+      addCartDatas(index);
+    } else {
+      productId[index] = products[index].productId!;
+      addCartDatas(index);
+    }
+  }
+
+  existingAddCartData(index) {
+    int? QuantityIncreasingIndex = productData.value["product_info"]
+        ?.indexWhere(
+            (element) => element["product_id"] == products[index].productId!);
+    if (QuantityIncreasingIndex != -1) {
+      productData.value["product_info"]?[QuantityIncreasingIndex!]["qty"] =
+          productData.value["product_info"]?[QuantityIncreasingIndex]["qty"] +
+              1;
+      if (optionId.value[index] !=
+          productData.value["product_info"]?[QuantityIncreasingIndex!]
+              ["product_option_id"]) ;
+      {
+        productData.value["product_info"]?[QuantityIncreasingIndex!]
+            ["product_option_id"] = optionId.value[index];
+        productData.value["product_info"]?[QuantityIncreasingIndex!]
+            ["prodcut_option_value_id"] = optionValueId.value[index];
+      }
+    } else {
+      newAddCart(index);
+    }
   }
 
   addToCart(index, value) async {
     if (value == "plus") {
-      if ((productData.value["product_info"]?.length)! > 0) {}
-      if (optionId.value[index] == "") {
-        productId[index] = products[index].productId!;
-        optionId[index] = (products[index].option?[0].productOptionId)!;
-        optionValueId[index] =
-            (products[index].option?[0].productOptionValue?[0].optionValueId)!;
+      if ((productData.value["product_info"]?.length)! > 0) {
+        existingAddCartData(index);
       } else {
-        productId[index] = products[index].productId!;
+        newAddCart(index);
       }
-      addCartDatas(index);
     } else {
       if (optionId.value[index] == "") {
         productId[index] = products[index].productId!;
@@ -186,56 +203,7 @@ class ProductListingController extends GetxController {
       } else {
         productId[index] = products[index].productId!;
       }
-
       removeCartDatas(index);
     }
-
-    // var searchIndex = cartAddModel.value.productInfo
-    //     ?.indexWhere((element) => element == products.value[index].productId);
-    // if (searchIndex != -1) {
-    //   // (cartAddModel.value.productInfo?[searchIndex!].qty)! + 1;
-    // } else {
-    //   productId[index] = products[index].productId!;
-    //   optionId[index] = (products[index].option?[0].productOptionId)!;
-    //   optionValueId[index] =
-    //       (products[index].option?[0].productOptionValue?[0].optionValueId)!;
-    //   int? addingIndex = cartAddModel.value.productInfo?.length;
-    //   cartAddModel.value.productInfo?.add(productData);
-    // }
-    // if (value == "plus") {
-    //   print(optionId.value[index]);
-    //   if (optionId.value[index] == "") {
-    //     productId[index] = products[index].productId!;
-    //     optionId[index] = (products[index].option?[0].productOptionId)!;
-    //     optionValueId[index] =
-    //         (products[index].option?[0].productOptionValue?[0].optionValueId)!;
-    //     var response = await ApiHelper.addCart(
-    //         productId[index], optionId[index], optionValueId[index]);
-    //   } else {
-    //     print("We have optionId");
-    //     productId[index] = products[index].productId!;
-    //     // optionId[index] = (products[index].option?[0].productOptionId)!;
-    //     // optionValueId[index] =
-    //     //     (products[index].option?[0].productOptionValue?[0].optionValueId)!;
-    //     var response = await ApiHelper.addCart(
-    //         productId[index], optionId[index], optionValueId[index]);
-    //   }
-    // } else if (value == "minus") {}
   }
-
-// minus(int index) {
-//   if (counterList[index] == 1) {
-//     cartBoolList[index] = false;
-//     // return;
-//   } else {
-//     counterList[index] -= 1;
-//   }
-//   cartBoolList.refresh();
-//   update();
-// }
-//
-//   add(int index) {
-//     counterList[index] += 1;
-//     update();
-//   }
 }

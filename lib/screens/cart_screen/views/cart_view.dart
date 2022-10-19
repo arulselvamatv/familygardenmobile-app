@@ -509,7 +509,9 @@ class CartView extends GetView<CartController> {
                         height: 33,
                         width: 82,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.toNamed(Routes.ADDRESS);
+                          },
                           child: TextWidget(
                             'Checkout',
                             fontSize: 12,
@@ -592,7 +594,7 @@ class CartView extends GetView<CartController> {
                                         ? '${controller.products.value.totals?[1].text}'
                                         : "₹0.00",
                                     style: TextStyle(
-                                        fontSize: 16,
+                                        fontSize: 13,
                                         fontWeight: FontWeight.w600,
                                         color: Color(0xff000000)),
                                   )

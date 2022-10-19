@@ -164,7 +164,6 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
                                       onTap: () {
-                                        print("onselect");
                                         controller.selecteIndex.value = index;
                                         controller
                                             .onProductWeightSelected(index);

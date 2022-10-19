@@ -8,7 +8,10 @@ abstract class Routes {
   static const VERIFY_OTP = _Paths.VERIFY_OTP;
   static const REGISTER = _Paths.REGISTER;
   static const DASHBOARD = _Paths.DASHBOARD;
+  static const ADDADDRESS = _Paths.ADDADDRESS;
+  static const ADDRESS = _Paths.ADDRESS;
   static const HOME_SCREEN = _Paths.HOME_SCREEN;
+  static const PAYMENT = _Paths.PAYMENT;
   static const CATEGORIES_SCREEN = _Paths.CATEGORIES_SCREEN;
   static const PRODUCT_LISTING_SCREEN = _Paths.PRODUCT_LISTING_SCREEN;
   static const PRODUCT_DETAILS_SCREEN = _Paths.PRODUCT_DETAILS_SCREEN;
@@ -22,6 +25,9 @@ abstract class _Paths {
   static const VERIFY_OTP = '/verify-otp';
   static const REGISTER = '/register';
   static const DASHBOARD = '/dashboard';
+  static const ADDADDRESS = '/add-address';
+  static const PAYMENT = '/payment';
+  static const ADDRESS = '/address';
   static const HOME_SCREEN = '/home_screen';
   static const CATEGORIES_SCREEN = '/categories_screen';
   static const PRODUCT_LISTING_SCREEN = '/product_listing_screen';

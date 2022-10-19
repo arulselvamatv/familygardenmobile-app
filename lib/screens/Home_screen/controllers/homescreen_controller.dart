@@ -107,6 +107,7 @@ class HomeScreenController extends GetxController {
   RxList selectedItemValue = [].obs;
 
   RxBool loader = false.obs;
+  var productData = {"product_info": []}.obs;
 
   @override
   void onInit() async {
@@ -178,44 +179,69 @@ class HomeScreenController extends GetxController {
     isFruitLoader.value = true;
   }
 
+  vegaddCartDatas(index) {
+    productData.value["product_info"]?.add({
+      "product_id": vegProductId[index],
+      "qty": 1,
+      "product_option_id": vegetableList[index].productId!,
+      "prodcut_option_value_id": vegOptionValueId[index],
+      "action": "ADD"
+    });
+    hitAddCartAPI();
+  }
+
+  fruitaddCartDatas(index) {
+    productData.value["product_info"]?.add({
+      "product_id": fruitProductId[index],
+      "qty": 1,
+      "product_option_id": fruitsList[index].productId!,
+      "prodcut_option_value_id": fruitOptionValueId[index],
+      "action": "ADD"
+    });
+    hitAddCartAPI();
+  }
+
+  hitAddCartAPI() async {
+    if ((productData.value["product_info"]?.length)! > 0) {
+      var response = await ApiHelper.addCart(productData.value);
+      Get.toNamed(Routes.CART_SCREEN)?.then((value) => clearDatas());
+    } else {
+      print("No Datas Found");
+    }
+  }
+
+  clearDatas() {
+    productData.value["product_info"]?.clear();
+  }
+
   vegAddToCart(index) async {
-    // if (vegOptionId.value[index] == "") {
-    //   vegProductId[index] = vegetableList[index].productId!;
-    //   vegOptionId[index] = (vegetableList[index].options?[0].productOptionId)!;
-    //   vegOptionValueId[index] =
-    //       vegetableList[index].options?[0].productOptionValue?[0].optionValueId;
-    //   var response = await ApiHelper.addCart(
-    //       vegProductId[index], vegOptionId[index], vegOptionValueId[index]);
-    //   if (response.responseCode == 200) {
-    //     Get.toNamed(Routes.CART_SCREEN);
-    //   }
-    // } else {
-    //   var response = await ApiHelper.addCart(
-    //       vegProductId[index], vegOptionId[index], vegOptionValueId[index]);
-    //   if (response.responseCode == 200) {
-    //     Get.toNamed(Routes.CART_SCREEN);
-    //   }
-    // }
+    if (vegOptionId.value[index] == "") {
+      vegProductId[index] = vegetableList[index].productId!;
+      vegOptionId[index] =
+          (vegetableList.value[index].options?[0].productOptionId)!;
+      vegOptionValueId[index] = (vegetableList[index]
+          .options?[0]
+          .productOptionValue?[0]
+          .optionValueId)!;
+      vegaddCartDatas(index);
+    } else {
+      vegProductId[index] = vegetableList[index].productId!;
+      vegaddCartDatas(index);
+    }
   }
 
   fruitAddToCart(index) async {
-    // if (fruitOptionId.value[index] == "") {
-    //   fruitProductId[index] = fruitsList[index].productId!;
-    //   fruitOptionId[index] = (fruitsList[index].options?[0].productOptionId)!;
-    //   fruitOptionValueId[index] =
-    //       fruitsList[index].options?[0].productOptionValue?[0].optionValueId;
-    //   var response = await ApiHelper.addCart(fruitProductId[index],
-    //       fruitOptionId[index], fruitOptionValueId[index]);
-    //   if (response.responseCode == 200) {
-    //     Get.toNamed(Routes.CART_SCREEN);
-    //   }
-    // } else {
-    //   var response = await ApiHelper.addCart(fruitProductId[index],
-    //       fruitOptionId[index], fruitOptionValueId[index]);
-    //   if (response.responseCode == 200) {
-    //     Get.toNamed(Routes.CART_SCREEN);
-    //   }
-    // }
+    if (fruitOptionId.value[index] == "") {
+      fruitProductId[index] = fruitsList[index].productId!;
+      fruitOptionId[index] =
+          (fruitsList.value[index].options?[0].productOptionId)!;
+      fruitOptionValueId[index] =
+          (fruitsList[index].options?[0].productOptionValue?[0].optionValueId)!;
+      fruitaddCartDatas(index);
+    } else {
+      fruitProductId[index] = fruitsList[index].productId!;
+      fruitaddCartDatas(index);
+    }
   }
 
   getCategories() async {

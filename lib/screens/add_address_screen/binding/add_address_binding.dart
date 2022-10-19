@@ -1,10 +1,10 @@
 import 'package:family_garden/screens/add_address_screen/controller/add_address_controller.dart';
-import 'package:family_garden/screens/cart_screen/controllers/cart_controller.dart';
+
 import '../../../utils/common_import/common_import.dart';
 
-class CartBinding extends Bindings {
+class AddAddressBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<CartController>(() => CartController());
+    Get.lazyPut<AddAddressController>(() => AddAddressController());
   }
 }

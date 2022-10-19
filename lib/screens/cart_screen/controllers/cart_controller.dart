@@ -67,21 +67,25 @@ class CartController extends GetxController {
     for (int i = 0; i < (products.value.products?.length)!; i++) {
       counterList.add(products.value.products?[i].quantity);
     }
-    // for (int i = 0; i < (products.value.products?.length)!; i++) {
-    //   String actualPrice = (products.value.products?[i].actualPrice)!;
-    //   savedPrice.value = savedPrice.value + double.parse(actualPrice);
-    // }
-    // print(savedPrice.value);
-    // print(products.value.totals?[1].text);
-    // savedPrice.value =
-    //     double.parse((products.value.totals?[1].text)!.substring(1)) -
-    //         savedPrice.value;
-    // for (int i = 0; i < (products.value.products?.length)!; i++) {
-    //   checkBoxBoolList.value.add(false);
-    // }
-    // print("products.value.products?.length ${products.value.products?.length}");
-    // print(checkBoxBoolList.length);
-    // checkBoxBoolList.refresh();
+    for (int i = 0; i < (products.value.products?.length)!; i++) {
+      String actualPrice = (products.value.products?[i].actualPrice)!;
+      if (products.value.products?[i].quantity != "1") {
+        var data = double.parse((products.value.products?[i].quantity)!) *
+            double.parse(actualPrice);
+        actualPrice = "$data";
+      }
+      savedPrice.value = savedPrice.value + double.parse(actualPrice);
+    }
+    print(savedPrice.value);
+    print(products.value.totals?[1].text);
+    savedPrice.value = savedPrice.value -
+        double.parse((products.value.totals?[1].text)!.substring(1));
+    for (int i = 0; i < (products.value.products?.length)!; i++) {
+      checkBoxBoolList.value.add(false);
+    }
+    print("products.value.products?.length ${products.value.products?.length}");
+    print(checkBoxBoolList.length);
+    checkBoxBoolList.refresh();
     update();
   }
 
@@ -91,8 +95,6 @@ class CartController extends GetxController {
   }
 
   minus(int index) {
-    print(counterList.value[index]);
-    print(counterList.value[index].runtimeType);
     if (counterList.value[index] == "1") {
       return;
     } else {
