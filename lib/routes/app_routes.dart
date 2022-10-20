@@ -12,6 +12,7 @@ abstract class Routes {
   static const ADDRESS = _Paths.ADDRESS;
   static const HOME_SCREEN = _Paths.HOME_SCREEN;
   static const PAYMENT = _Paths.PAYMENT;
+  static const INITIATEPAYMENT = _Paths.INITIATEPAYMENT;
   static const CATEGORIES_SCREEN = _Paths.CATEGORIES_SCREEN;
   static const PRODUCT_LISTING_SCREEN = _Paths.PRODUCT_LISTING_SCREEN;
   static const PRODUCT_DETAILS_SCREEN = _Paths.PRODUCT_DETAILS_SCREEN;
@@ -27,6 +28,7 @@ abstract class _Paths {
   static const DASHBOARD = '/dashboard';
   static const ADDADDRESS = '/add-address';
   static const PAYMENT = '/payment';
+  static const INITIATEPAYMENT = '/initiate-payment';
   static const ADDRESS = '/address';
   static const HOME_SCREEN = '/home_screen';
   static const CATEGORIES_SCREEN = '/categories_screen';

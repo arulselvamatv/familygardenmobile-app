@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:family_garden/screens/product_details_screen/controllers/product_details_controller.dart';
 import 'package:flutter_html/flutter_html.dart';
+import '../../../routes/app_pages.dart';
 import '../../../utils/common_import/common_import.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
 import '../../../widgets/custom_textfield.dart';
@@ -12,33 +13,68 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
       backgroundColor: AppColors.primaryColor,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(55),
-        child: Obx(
-          () => CustomAppbarView(
-            leading_width: 50,
-            appbar_leading: Container(
-              width: 14,
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0),
-                    child: GestureDetector(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: Image.asset(
-                          'assets/icons/backButton.png',
-                          height: 24,
-                          width: 24,
-                        )),
-                  )
-                ],
-              ),
+        child: CustomAppbarView(
+          leading_width: 50,
+          appbar_leading: Container(
+            width: 14,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 15.0),
+                  child: GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Image.asset(
+                        'assets/icons/backButton.png',
+                        height: 24,
+                        width: 24,
+                      )),
+                )
+              ],
             ),
-            font_size: 19,
-            appbar_title: controller.productDetailLoader.value
-                ? "Product Details"
-                : controller.productDetails?.productName,
-            center_title: true,
+          ),
+          font_size: 19,
+          appbar_title: 'My Cart',
+          center_title: true,
+          leading_image: "Add",
+          appBarActions: Stack(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed(Routes.CART_SCREEN);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 20, top: 15),
+                  child: Image.asset("assets/icons/cart.png",
+                      height: 25, width: 25),
+                ),
+              ),
+              Container(
+                width: 30,
+                height: 30,
+                alignment: Alignment.topRight,
+                margin: const EdgeInsets.only(top: 10, left: 3.0),
+                child: Container(
+                  width: 18,
+                  height: 18,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.white,
+                      border: Border.all(color: AppColors.white, width: 1)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(0.0),
+                    child: Center(
+                        child: TextWidget(
+                      "0",
+                      color: AppColors.black,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    )),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

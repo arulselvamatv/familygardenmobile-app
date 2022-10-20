@@ -34,4 +34,9 @@ class EndPoints {
 
   static const shippingMethodSave =
       "/index.php?route=mobileapi/checkout/shipping_method/save";
+
+  static const paymentMethodSave =
+      "/index.php?route=mobileapi/checkout/payment_method/save";
+
+  static const checkoutConfirm = "/index.php?route=mobileapi/checkout/confirm";
 }

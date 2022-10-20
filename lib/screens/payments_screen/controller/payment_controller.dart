@@ -1,14 +1,17 @@
 import 'package:family_garden/network/api_helper.dart';
 
+import '../../../models/checkout_confirm_model.dart';
 import '../../../models/payment_method_model.dart';
+import '../../../routes/app_pages.dart';
 import '../../../utils/common_import/common_import.dart';
 
 class PaymentController extends GetxController {
   RxBool isPaymentScreenLoader = false.obs;
   RxBool isCCavenueSelected = false.obs;
   RxBool isCODselected = false.obs;
+  CheckoutConfirmModel? paymentRes;
 
-  var paymentMethod = PaymentMethodModel().obs;
+  var paymentMethod;
   @override
   void onInit() {
     super.onInit();
@@ -17,10 +20,15 @@ class PaymentController extends GetxController {
 
   getPaymentMethodDetails() async {
     var response = await ApiHelper.paymentMethod();
-    if (response.responseCode == 200) {
-      paymentMethod.value = response.data!;
-      isPaymentScreenLoader.value = true;
-    }
+    paymentMethod = response;
+    // print(response.responseCode);
+    // if (response.responseCode == 200) {
+    //   print(response.body);
+    isPaymentScreenLoader.value = true;
+    var res = await ApiHelper.paymentMethodSave();
+    var checkoutResponse = await ApiHelper.checkOutConfirm();
+    paymentRes = checkoutResponse.data!;
+    // }
 
     update();
   }
@@ -43,5 +51,9 @@ class PaymentController extends GetxController {
       isCODselected.value = value;
     }
     update();
+  }
+
+  continueBtn(context) {
+    Get.toNamed(Routes.INITIATEPAYMENT, arguments: paymentRes);
   }
 }

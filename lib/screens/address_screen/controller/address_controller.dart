@@ -89,8 +89,8 @@ class AddressController extends GetxController {
       if (response.responseCode == 200) {
         var response = await ApiHelper.shippingMethod();
         var response1 = await ApiHelper.shippingMethodSave();
+        Get.toNamed(Routes.PAYMENT);
         if (response1.responseCode == 200) {
-          Get.toNamed(Routes.PAYMENT);
         } else {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text("Something went wrong"),

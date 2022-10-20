@@ -12,42 +12,13 @@ class CartController extends GetxController {
   RxBool isProductsLoader = false.obs;
   String staticImage = "assets/images/Carrot.png";
   RxDouble savedPrice = 0.0.obs;
-  // RxList cartList = [
-  //   {
-  //     'name': 'Carrot',
-  //     'nameInTamil': 'கேரட்',
-  //     'price': '₹32.00',
-  //     'oldPrice': '₹35.00',
-  //     'offer': '9% OFF',
-  //     'image': 'assets/images/Carrot.png',
-  //     'grams': '250 grams'
-  //   },
-  //   {
-  //     'name': 'Coriander Leaves',
-  //     'nameInTamil': 'கொத்தமல்லி தழை ',
-  //     'price': '₹15.00',
-  //     'oldPrice': '₹30.00',
-  //     'offer': '50% OFF',
-  //     'image': 'assets/images/coriander.png',
-  //     'grams': '1 bunch'
-  //   },
-  //   {
-  //     'name': 'Apple 3piece-450-550gm',
-  //     'nameInTamil': 'ஆப்பிள் ',
-  //     'price': '₹125.00',
-  //     'oldPrice': '₹150.00',
-  //     'offer': '17% OFF',
-  //     'image': 'assets/images/apple.png',
-  //     'grams': '1 pack'
-  //   },
-  // ].obs;
+  RxInt productListLength = 0.obs;
   RxList counterList = [].obs;
   RxList checkBoxBoolList = [].obs;
 
   void onInit() async {
     super.onInit();
     getCartListDatas();
-    // checkBoxBoolList = RxList<bool>.filled(cartList.length, false);
   }
 
   getCartListDatas() async {
@@ -78,11 +49,14 @@ class CartController extends GetxController {
     }
     print(savedPrice.value);
     print(products.value.totals?[1].text);
-    savedPrice.value = savedPrice.value -
-        double.parse((products.value.totals?[1].text)!.substring(1));
-    for (int i = 0; i < (products.value.products?.length)!; i++) {
-      checkBoxBoolList.value.add(false);
-    }
+    // if ((products.value.products?.length)! > 0) {
+    //   savedPrice.value = savedPrice.value -
+    //       double.parse((products.value.totals?[1].text)!.substring(1));
+    //   for (int i = 0; i < (products.value.products?.length)!; i++) {
+    //     checkBoxBoolList.value.add(false);
+    //   }
+    // }
+    productListLength.value = (products.value.products?.length)!;
     print("products.value.products?.length ${products.value.products?.length}");
     print(checkBoxBoolList.length);
     checkBoxBoolList.refresh();

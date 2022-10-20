@@ -1,5 +1,5 @@
-class PaymentMethodModel {
-  PaymentMethodModel({
+class AutoGenerate {
+  AutoGenerate({
     this.errorWarning,
     this.paymentMethods,
     this.code,
@@ -16,7 +16,7 @@ class PaymentMethodModel {
   late final String? textAgree;
   late final String? agree;
 
-  PaymentMethodModel.fromJson(Map<String, dynamic> json) {
+  AutoGenerate.fromJson(Map<String, dynamic> json) {
     errorWarning = json['error_warning'];
     paymentMethods = PaymentMethods.fromJson(json['payment_methods']);
     code = json['code'];

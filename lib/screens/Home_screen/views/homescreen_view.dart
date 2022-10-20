@@ -253,47 +253,53 @@ class HomeScreenView extends GetView<HomeScreenController> {
                     //         ),
                     //       )),
                     AppSize.size.h30,
-                    Container(
-                      height: 140,
-                      child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              child: Column(
-                                children: [
-                                  Container(
-                                    height: 36,
-                                    width: 36,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        color: Color(0xfff9f9f9)),
-                                    child: Image.asset(
-                                      controller.category.value[index]["image"],
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                  AppSize.size.h10,
-                                  Container(
-                                      constraints: BoxConstraints(maxWidth: 70),
-                                      child: TextWidget(
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 5),
+                      child: Container(
+                        height: 140,
+                        child: ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: 36,
+                                      width: 36,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          color: Color(0xfff9f9f9)),
+                                      child: Image.asset(
                                         controller.category.value[index]
-                                            ["name"],
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.w600,
-                                        textAlign: TextAlign.center,
-                                        height: 1.5,
-                                        maxLines: 2,
-                                        textOverflow: TextOverflow.ellipsis,
-                                      ))
-                                ],
-                              ),
-                            );
-                          },
-                          separatorBuilder: (context, index) {
-                            return AppSize.size.w10;
-                          },
-                          itemCount: controller.category.value.length),
+                                            ["image"],
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                    AppSize.size.h10,
+                                    Container(
+                                        constraints:
+                                            BoxConstraints(maxWidth: 70),
+                                        child: TextWidget(
+                                          controller.category.value[index]
+                                              ["name"],
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w600,
+                                          textAlign: TextAlign.center,
+                                          height: 1.5,
+                                          maxLines: 2,
+                                          textOverflow: TextOverflow.ellipsis,
+                                        ))
+                                  ],
+                                ),
+                              );
+                            },
+                            separatorBuilder: (context, index) {
+                              return AppSize.size.w10;
+                            },
+                            itemCount: controller.category.value.length),
+                      ),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15),
@@ -490,16 +496,23 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                                     .toString(),
                                                                 child:
                                                                     Container(
-                                                                  child: Text(
-                                                                      "${item.name}-${item.price}",
-                                                                      maxLines:
-                                                                          1,
-                                                                      overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                      style: TextStyle(
-                                                                          fontSize:
-                                                                              9)),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .only(
+                                                                        left:
+                                                                            5.0),
+                                                                    child: Text(
+                                                                        "${item.name}-${item.price?.substring(0, item.price!.length - 2)}",
+                                                                        maxLines:
+                                                                            1,
+                                                                        overflow:
+                                                                            TextOverflow
+                                                                                .ellipsis,
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                9)),
+                                                                  ),
                                                                 ),
                                                               ))
                                                           .toList(),
@@ -561,7 +574,15 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                           homeController
                                                               .vegetableList[
                                                                   index]
-                                                              .offerPrice,
+                                                              .offerPrice
+                                                              ?.substring(
+                                                                  0,
+                                                                  homeController
+                                                                          .vegetableList[
+                                                                              index]
+                                                                          .offerPrice!
+                                                                          .length -
+                                                                      2),
                                                           fontSize: 13,
                                                           fontWeight:
                                                               FontWeight.w600,
@@ -570,7 +591,15 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                           homeController
                                                               .vegetableList[
                                                                   index]
-                                                              .price,
+                                                              .price
+                                                              ?.substring(
+                                                                  0,
+                                                                  homeController
+                                                                          .vegetableList[
+                                                                              index]
+                                                                          .price!
+                                                                          .length -
+                                                                      2),
                                                           fontSize: 10,
                                                           fontWeight:
                                                               FontWeight.w500,
@@ -581,29 +610,100 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                       ],
                                                     ),
                                                     Spacer(),
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        controller.vegAddToCart(
-                                                            index);
-                                                      },
-                                                      child: Container(
-                                                        height: 29,
-                                                        width: 28,
-                                                        decoration: BoxDecoration(
-                                                            color: AppColors
-                                                                .primaryColor,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        7)),
-                                                        child: Center(
-                                                            child: Image.asset(
-                                                          'assets/icons/addToCart.png',
-                                                          height: 15,
-                                                          width: 15,
-                                                          fit: BoxFit.contain,
-                                                        )),
-                                                      ),
+                                                    Obx(
+                                                      () =>
+                                                          controller.vegBoolList
+                                                                  .value[index]
+                                                              ? Container(
+                                                                  height: 26,
+                                                                  width: 71,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                          borderRadius: BorderRadius.circular(
+                                                                              20),
+                                                                          // border: Border.all(),
+
+                                                                          boxShadow: [
+                                                                            BoxShadow(
+                                                                                offset: Offset(0, 0),
+                                                                                blurRadius: 3,
+                                                                                spreadRadius: 3,
+                                                                                color: Color(0xff000000).withOpacity(controller.vegBoolList[index] == true ? 0.2 : 0)),
+                                                                          ],
+                                                                          color: controller.vegBoolList[index] == true
+                                                                              ? AppColors.white
+                                                                              : AppColors.primaryColor),
+                                                                  child: Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      GestureDetector(
+                                                                        onTap:
+                                                                            () {
+                                                                          // controller
+                                                                          //     .minus(index);
+                                                                        },
+                                                                        child:
+                                                                            Container(
+                                                                          width:
+                                                                              30,
+                                                                          padding:
+                                                                              const EdgeInsets.all(8.0),
+                                                                          child:
+                                                                              Image.asset("assets/icons/minus.png"),
+                                                                        ),
+                                                                      ),
+                                                                      Spacer(),
+                                                                      // TextWidget('-',color: AppColors.white,fontSize: 8,),
+                                                                      TextWidget(
+                                                                        controller
+                                                                            .vegCounterList[index]
+                                                                            .toString(),
+                                                                        color: Colors
+                                                                            .black,
+                                                                        fontSize:
+                                                                            13,
+                                                                        fontWeight:
+                                                                            FontWeight.w600,
+                                                                      ),
+                                                                      Spacer(),
+                                                                      GestureDetector(
+                                                                        onTap:
+                                                                            () {
+                                                                          // controller
+                                                                          //     .add(index);
+                                                                        },
+                                                                        child:
+                                                                            Container(
+                                                                          padding:
+                                                                              const EdgeInsets.all(8.0),
+                                                                          child:
+                                                                              Image.asset("assets/icons/add.png"),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                )
+                                                              : Container(
+                                                                  height: 29,
+                                                                  width: 28,
+                                                                  decoration: BoxDecoration(
+                                                                      color: AppColors
+                                                                          .primaryColor,
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              7)),
+                                                                  child: Center(
+                                                                      child: Image
+                                                                          .asset(
+                                                                    'assets/icons/addToCart.png',
+                                                                    height: 15,
+                                                                    width: 15,
+                                                                    fit: BoxFit
+                                                                        .contain,
+                                                                  )),
+                                                                ),
                                                     )
                                                   ],
                                                 ),
@@ -769,16 +869,23 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                                     .toString(),
                                                                 child:
                                                                     Container(
-                                                                  child: Text(
-                                                                      "${item.name}-${item.price}",
-                                                                      maxLines:
-                                                                          1,
-                                                                      overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                      style: TextStyle(
-                                                                          fontSize:
-                                                                              9)),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .only(
+                                                                        left:
+                                                                            5.0),
+                                                                    child: Text(
+                                                                        "${item.name}-${item.price?.substring(0, item.price!.length - 2)}",
+                                                                        maxLines:
+                                                                            1,
+                                                                        overflow:
+                                                                            TextOverflow
+                                                                                .ellipsis,
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                9)),
+                                                                  ),
                                                                 ),
                                                               ))
                                                           .toList(),
@@ -835,7 +942,15 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                         TextWidget(
                                                           homeController
                                                               .fruitsList[index]
-                                                              .offerPrice,
+                                                              .offerPrice
+                                                              ?.substring(
+                                                                  0,
+                                                                  homeController
+                                                                          .fruitsList[
+                                                                              index]
+                                                                          .offerPrice!
+                                                                          .length -
+                                                                      2),
                                                           fontSize: 13,
                                                           fontWeight:
                                                               FontWeight.w600,
@@ -843,7 +958,15 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                         TextWidget(
                                                           homeController
                                                               .fruitsList[index]
-                                                              .price,
+                                                              .price
+                                                              ?.substring(
+                                                                  0,
+                                                                  homeController
+                                                                          .fruitsList[
+                                                                              index]
+                                                                          .price!
+                                                                          .length -
+                                                                      2),
                                                           fontSize: 10,
                                                           fontWeight:
                                                               FontWeight.w500,

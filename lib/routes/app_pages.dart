@@ -3,6 +3,8 @@ import 'package:family_garden/screens/add_address_screen/binding/add_address_bin
 import 'package:family_garden/screens/add_address_screen/view/add_address_view.dart';
 import 'package:family_garden/screens/cart_screen/views/cart_view.dart';
 import 'package:family_garden/screens/dashboard/views/dashboard_view.dart';
+import 'package:family_garden/screens/initiate_payment_screen/binding/initiate_payment_binding.dart';
+import 'package:family_garden/screens/initiate_payment_screen/view/initiate_payment_view.dart';
 import 'package:family_garden/screens/login_screen/binding/login_binding.dart';
 import 'package:family_garden/screens/login_screen/view/login_view.dart';
 import 'package:family_garden/screens/manage_address_screen/binding/manage_address_binding.dart';
@@ -68,6 +70,11 @@ class AppPages {
       name: _Paths.PAYMENT,
       page: () => PaymentView(),
       binding: PaymentBinding(),
+    ),
+    GetPage(
+      name: _Paths.INITIATEPAYMENT,
+      page: () => InitiatePaymentView(),
+      binding: InitiatePaymentBinding(),
     ),
     GetPage(
       name: _Paths.ADDRESS,

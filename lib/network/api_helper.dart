@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:family_garden/models/add_cart_model.dart';
 import 'package:family_garden/models/cart_list_model.dart';
+import 'package:family_garden/models/checkout_confirm_model.dart';
 import 'package:family_garden/models/checkout_model.dart';
 import 'package:family_garden/models/get_token_model.dart';
 import 'package:family_garden/models/home_feature_model.dart';
@@ -10,6 +11,7 @@ import 'package:family_garden/models/payment_method_model.dart';
 import '../models/categories_model.dart';
 import '../models/category_product_model.dart';
 import '../models/payment_address_save_model.dart';
+import '../models/payment_method_save_model.dart';
 import '../models/product_detail_model.dart';
 import '../models/shipping_method_model.dart';
 import '../models/shipping_method_save_model.dart';
@@ -539,53 +541,54 @@ class ApiHelper {
     }
   }
 
-  static Future<HTTPResponse<PaymentMethodModel>> paymentMethod() async {
+  static Future paymentMethod() async {
     String url =
         "${ApiConstants.baseUrl}${EndPoints.paymentMethod}${EndPoints.apiToken}";
-    try {
-      var response = await http.post(
-        Uri.parse(url),
-      );
-      print(response.body);
-      if (response.statusCode == 200) {
-        var body = jsonDecode(response.body);
-        print(body);
-        var res = PaymentMethodModel.fromJson(body);
-        return HTTPResponse(
-          true,
-          res,
-          responseCode: response.statusCode,
-        );
-      } else {
-        return HTTPResponse(
-          false,
-          null,
-          message:
-              "Invalid response received from server! Please try again in a minute or two.",
-        );
-      }
-    } on SocketException {
-      return HTTPResponse(
-        false,
-        null,
-        message:
-            "Unable to reach the internet! Please try again in a minute or two.",
-      );
-    } on FormatException {
-      return HTTPResponse(
-        false,
-        null,
-        message:
-            "Invalid response received from server! Please try again in a minute or two.",
-      );
-    } catch (e) {
-      print(e);
-      return HTTPResponse(
-        false,
-        null,
-        message: "Something went wrong! Please try again in a minute or two.",
-      );
+    var response = await http.post(
+      Uri.parse(url),
+    );
+    print(response.body);
+    if (response.statusCode == 200) {
+      var body = jsonDecode(response.body);
+      print(body);
+      return body;
     }
+    // var res = AutoGenerate.fromJson(body);
+    //     return HTTPResponse(
+    //       true,
+    //       body,
+    //       responseCode: response.statusCode,
+    //     );
+    //   } else {
+    //     return HTTPResponse(
+    //       false,
+    //       null,
+    //       message:
+    //           "Invalid response received from server! Please try again in a minute or two.",
+    //     );
+    //   }
+    // } on SocketException {
+    //   return HTTPResponse(
+    //     false,
+    //     null,
+    //     message:
+    //         "Unable to reach the internet! Please try again in a minute or two.",
+    //   );
+    // } on FormatException {
+    //   return HTTPResponse(
+    //     false,
+    //     null,
+    //     message:
+    //         "Invalid response received from server! Please try again in a minute or two.",
+    //   );
+    // } catch (e) {
+    //   print(e);
+    //   return HTTPResponse(
+    //     false,
+    //     null,
+    //     message: "Something went wrong! Please try again in a minute or two.",
+    //   );
+    // }
   }
 
   static Future<HTTPResponse<PaymentAddressSaveModel>> paymentAddressSave(
@@ -742,6 +745,113 @@ class ApiHelper {
         var body = jsonDecode(await response.stream.bytesToString());
         print(body);
         var res = ShippingMethodSaveModel.fromJson(body);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print(e);
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<PaymentMethodSaveModel>>
+      paymentMethodSave() async {
+    try {
+      var request = http.Request(
+          'POST',
+          Uri.parse(
+              "${ApiConstants.baseUrl}${EndPoints.paymentMethodSave}${EndPoints.apiToken}"));
+      request.bodyFields = {
+        'comment': '',
+        'payment_method': 'ccavenuepay',
+        'agree': '1'
+      };
+      var headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      };
+      request.headers.addAll(headers);
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        print(body);
+        var res = PaymentMethodSaveModel.fromJson(body);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print(e);
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<CheckoutConfirmModel>> checkOutConfirm() async {
+    String url =
+        "${ApiConstants.baseUrl}${EndPoints.checkoutConfirm}${EndPoints.apiToken}";
+    try {
+      var response = await http.post(
+        Uri.parse(url),
+      );
+      if (response.statusCode == 200) {
+        var body = jsonDecode(response.body);
+        print(body);
+        var res = CheckoutConfirmModel.fromJson(body);
         return HTTPResponse(
           true,
           res,

@@ -15,12 +15,14 @@ class CustomAppbarView extends GetView<CustomAppbarController> {
     this.leading_width,
     this.font_size,
     this.leading_image,
+    this.appBarActions,
   }) : super(key: key);
   final Widget? appbar_leading;
   final String? appbar_title;
   final bool? center_title;
   final double? leading_width;
   final double? font_size;
+  final Widget? appBarActions;
   final String? leading_image;
 
   @override
@@ -37,51 +39,7 @@ class CustomAppbarView extends GetView<CustomAppbarController> {
         fontWeight: FontWeight.w600,
         color: AppColors.white,
       ),
-      actions: [
-        Stack(
-          children: [
-            GestureDetector(
-              onTap: () {
-                Get.toNamed(Routes.CART_SCREEN);
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(right: 20, top: 15),
-                child: leading_image == "Add"
-                    ? Image.asset("assets/icons/plus.png",
-                        height: 25, width: 25)
-                    : Image.asset("assets/icons/cart.png",
-                        height: 25, width: 25),
-              ),
-            ),
-            leading_image == "Add"
-                ? Container()
-                : Container(
-                    width: 30,
-                    height: 30,
-                    alignment: Alignment.topRight,
-                    margin: const EdgeInsets.only(top: 10, left: 3.0),
-                    child: Container(
-                      width: 18,
-                      height: 18,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColors.white,
-                          border: Border.all(color: AppColors.white, width: 1)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(0.0),
-                        child: Center(
-                            child: TextWidget(
-                          "0",
-                          color: AppColors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                        )),
-                      ),
-                    ),
-                  ),
-          ],
-        )
-      ],
+      actions: [appBarActions ?? Container()],
       backgroundColor: AppColors.primaryColor,
       elevation: 0,
     );

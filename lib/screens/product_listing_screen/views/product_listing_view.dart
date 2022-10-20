@@ -20,33 +20,73 @@ class ProductListingView extends GetView<ProductListingController> {
             backgroundColor: AppColors.primaryColor,
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(55),
-              child: CustomAppbarView(
-                leading_width: 50,
-                appbar_leading: Container(
-                  width: 14,
-                  child: Row(
+              child: Obx(
+                () => CustomAppbarView(
+                  leading_width: 50,
+                  appbar_leading: Container(
+                    width: 14,
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15.0),
+                          child: GestureDetector(
+                              onTap: () {
+                                Get.back();
+                              },
+                              child: Image.asset(
+                                'assets/icons/backButton.png',
+                                height: 24,
+                                width: 24,
+                              )),
+                        )
+                      ],
+                    ),
+                  ),
+                  font_size: 19,
+                  appbar_title: controller.title.value ?? "Proudct List",
+                  center_title: true,
+                  leading_image: "Add",
+                  appBarActions: Stack(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
-                        child: GestureDetector(
-                            onTap: () {
-                              controller.hitAddCartAPI();
-                              Get.back();
-                            },
-                            child: Image.asset(
-                              'assets/icons/backButton.png',
-                              height: 24,
-                              width: 24,
+                      GestureDetector(
+                        onTap: () {
+                          controller.hitAddCartAPI();
+                          Get.toNamed(Routes.CART_SCREEN);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 20, top: 15),
+                          child: Image.asset("assets/icons/cart.png",
+                              height: 25, width: 25),
+                        ),
+                      ),
+                      Container(
+                        width: 30,
+                        height: 30,
+                        alignment: Alignment.topRight,
+                        margin: const EdgeInsets.only(top: 10, left: 3.0),
+                        child: Container(
+                          width: 18,
+                          height: 18,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: AppColors.white,
+                              border:
+                                  Border.all(color: AppColors.white, width: 1)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(0.0),
+                            child: Center(
+                                child: TextWidget(
+                              "0",
+                              color: AppColors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
                             )),
-                      )
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                font_size: 19,
-                appbar_title: controller.title.value == ""
-                    ? controller.categoryName.value
-                    : controller.title.value,
-                center_title: true,
               ),
             ),
             body: Container(
@@ -131,20 +171,22 @@ class ProductListingView extends GetView<ProductListingController> {
                                                         TextOverflow.ellipsis,
                                                   )),
                                               Spacer(),
-                                              Visibility(
-                                                visible: controller
-                                                        .categoriesIndex
-                                                        .value ==
-                                                    index,
-                                                child: Container(
-                                                  height: 4.5,
-                                                  width: 45,
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                      color: AppColors
-                                                          .primaryColor),
+                                              Obx(
+                                                () => Visibility(
+                                                  visible: controller
+                                                          .categoriesIndex
+                                                          .value ==
+                                                      index,
+                                                  child: Container(
+                                                    height: 4.5,
+                                                    width: 45,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        color: AppColors
+                                                            .primaryColor),
+                                                  ),
                                                 ),
                                               )
                                             ],
@@ -173,11 +215,14 @@ class ProductListingView extends GetView<ProductListingController> {
                                     itemBuilder: (context, index) {
                                       return GestureDetector(
                                         onTap: () {
+                                          controller.categoriesIndex.value =
+                                              index;
                                           controller.hitAddCartAPI();
                                           Get.toNamed(
                                               Routes.PRODUCT_DETAILS_SCREEN,
                                               arguments: controller
                                                   .products[index].productId);
+                                          controller.update();
                                         },
                                         child: Stack(
                                           children: [

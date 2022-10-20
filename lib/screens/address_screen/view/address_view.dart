@@ -38,6 +38,17 @@ class AddressView extends GetView<AddressController> {
           appbar_title: 'Address',
           center_title: true,
           leading_image: "Add",
+          appBarActions: GestureDetector(
+            onTap: () {
+              Get.toNamed(Routes.CART_SCREEN);
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(right: 20, top: 15),
+              child: Image.asset(
+                "assets/icons/plus.png",
+              ),
+            ),
+          ),
         ),
       ),
       body: Obx(
