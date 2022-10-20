@@ -43,7 +43,7 @@ class ProductListingView extends GetView<ProductListingController> {
                     ),
                   ),
                   font_size: 19,
-                  appbar_title: controller.title.value ?? "Proudct List",
+                  appbar_title: controller.title.value,
                   center_title: true,
                   leading_image: "Add",
                   appBarActions: Stack(

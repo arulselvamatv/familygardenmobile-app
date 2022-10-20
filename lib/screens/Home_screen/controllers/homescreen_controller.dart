@@ -172,6 +172,9 @@ class HomeScreenController extends GetxController {
     for (var i = 0; i < vegetableList.value.length; i++) {
       vegCounterList.add(0);
     }
+    for (var i = 0; i < fruitsList.value.length; i++) {
+      fruitCounterList.value.add(0);
+    }
     for (var i = 0; i < vegetableList.value.length; i++) {
       double price = double.parse(vegetableList[i].price!);
       double offerprice = double.parse(vegetableList[i].offerPrice!);
@@ -248,19 +251,59 @@ class HomeScreenController extends GetxController {
     // }
   }
 
-  fruitAddToCart(index) async {
-    if (fruitOptionId.value[index] == "") {
-      fruitProductId[index] = fruitsList[index].productId!;
-      fruitOptionId[index] =
-          (fruitsList.value[index].options?[0].productOptionId)!;
-      fruitOptionValueId[index] =
-          (fruitsList[index].options?[0].productOptionValue?[0].optionValueId)!;
-      fruitaddCartDatas(index);
+  vegMinusBtn(index) {
+    print("object");
+    if (vegCounterList.value[index] == 1) {
+      vegBoolList.value[index] = false;
     } else {
-      fruitProductId[index] = fruitsList[index].productId!;
-      fruitaddCartDatas(index);
+      vegCounterList.value[index] -= 1;
+    }
+    update();
+  }
+
+  vegAddBtn(index) {
+    print("object");
+    vegCounterList.value[index] += 1;
+    update();
+  }
+
+  fruitAddToCart(index) async {
+    print("object ${fruitBoolList.value[index]}");
+    if (fruitBoolList.value[index] == false) {
+      fruitBoolList.value[index] = true;
+      update();
     }
   }
+
+  fruitMinusBtn(index) {
+    print("object");
+    if (fruitCounterList.value[index] == 1) {
+      fruitBoolList.value[index] = false;
+    } else {
+      fruitCounterList.value[index] -= 1;
+    }
+    update();
+  }
+
+  fruitAddBtn(index) {
+    print("object");
+    fruitCounterList.value[index] += 1;
+    update();
+  }
+
+  // fruitAddToCart(index) async {
+  //   if (fruitOptionId.value[index] == "") {
+  //     fruitProductId[index] = fruitsList[index].productId!;
+  //     fruitOptionId[index] =
+  //         (fruitsList.value[index].options?[0].productOptionId)!;
+  //     fruitOptionValueId[index] =
+  //         (fruitsList[index].options?[0].productOptionValue?[0].optionValueId)!;
+  //     fruitaddCartDatas(index);
+  //   } else {
+  //     fruitProductId[index] = fruitsList[index].productId!;
+  //     fruitaddCartDatas(index);
+  //   }
+  // }
 
   getCategories() async {
     var response = await ApiHelper.getCategories();

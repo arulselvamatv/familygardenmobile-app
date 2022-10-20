@@ -25,12 +25,12 @@ class DashboardView extends GetView<DashboardController> {
                       padding: const EdgeInsets.only(left: 15.0),
                       child: GestureDetector(
                           onTap: () {
-                            Get.back();
+                            controller.scaffoldKey.currentState?.openDrawer();
                           },
                           child: Image.asset(
-                            'assets/icons/backButton.png',
-                            height: 24,
-                            width: 24,
+                            'assets/icons/sideMenu.png',
+                            height: 25,
+                            width: 25,
                           )),
                     )
                   ],

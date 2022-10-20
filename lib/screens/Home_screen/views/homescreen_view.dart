@@ -641,8 +641,8 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                                       GestureDetector(
                                                                         onTap:
                                                                             () {
-                                                                          // controller
-                                                                          //     .minus(index);
+                                                                          controller
+                                                                              .vegMinusBtn(index);
                                                                         },
                                                                         child:
                                                                             Container(
@@ -671,8 +671,8 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                                       GestureDetector(
                                                                         onTap:
                                                                             () {
-                                                                          // controller
-                                                                          //     .add(index);
+                                                                          controller
+                                                                              .vegAddBtn(index);
                                                                         },
                                                                         child:
                                                                             Container(
@@ -685,24 +685,31 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                                     ],
                                                                   ),
                                                                 )
-                                                              : Container(
-                                                                  height: 29,
-                                                                  width: 28,
-                                                                  decoration: BoxDecoration(
-                                                                      color: AppColors
-                                                                          .primaryColor,
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              7)),
-                                                                  child: Center(
-                                                                      child: Image
-                                                                          .asset(
-                                                                    'assets/icons/addToCart.png',
-                                                                    height: 15,
-                                                                    width: 15,
-                                                                    fit: BoxFit
-                                                                        .contain,
-                                                                  )),
+                                                              : GestureDetector(
+                                                                  onTap: () {
+                                                                    controller
+                                                                        .vegAddToCart(
+                                                                            index);
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    height: 29,
+                                                                    width: 28,
+                                                                    decoration: BoxDecoration(
+                                                                        color: AppColors
+                                                                            .primaryColor,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(7)),
+                                                                    child: Center(
+                                                                        child: Image.asset(
+                                                                      'assets/icons/addToCart.png',
+                                                                      height:
+                                                                          15,
+                                                                      width: 15,
+                                                                      fit: BoxFit
+                                                                          .contain,
+                                                                    )),
+                                                                  ),
                                                                 ),
                                                     )
                                                   ],
@@ -977,30 +984,109 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                       ],
                                                     ),
                                                     Spacer(),
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        controller
-                                                            .fruitAddToCart(
-                                                                index);
-                                                      },
-                                                      child: Container(
-                                                        height: 29,
-                                                        width: 28,
-                                                        decoration: BoxDecoration(
-                                                            color: AppColors
-                                                                .primaryColor,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        7)),
-                                                        child: Center(
-                                                            child: Image.asset(
-                                                          'assets/icons/addToCart.png',
-                                                          height: 15,
-                                                          width: 15,
-                                                          fit: BoxFit.contain,
-                                                        )),
-                                                      ),
+                                                    Obx(
+                                                      () =>
+                                                          controller
+                                                                  .fruitBoolList
+                                                                  .value[index]
+                                                              ? Container(
+                                                                  height: 26,
+                                                                  width: 71,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                          borderRadius: BorderRadius.circular(
+                                                                              20),
+                                                                          // border: Border.all(),
+
+                                                                          boxShadow: [
+                                                                            BoxShadow(
+                                                                                offset: Offset(0, 0),
+                                                                                blurRadius: 3,
+                                                                                spreadRadius: 3,
+                                                                                color: Color(0xff000000).withOpacity(controller.fruitBoolList[index] == true ? 0.2 : 0)),
+                                                                          ],
+                                                                          color: controller.fruitBoolList[index] == true
+                                                                              ? AppColors.white
+                                                                              : AppColors.primaryColor),
+                                                                  child: Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      GestureDetector(
+                                                                        onTap:
+                                                                            () {
+                                                                          controller
+                                                                              .fruitMinusBtn(index);
+                                                                        },
+                                                                        child:
+                                                                            Container(
+                                                                          width:
+                                                                              30,
+                                                                          padding:
+                                                                              const EdgeInsets.all(8.0),
+                                                                          child:
+                                                                              Image.asset("assets/icons/minus.png"),
+                                                                        ),
+                                                                      ),
+                                                                      Spacer(),
+                                                                      // TextWidget('-',color: AppColors.white,fontSize: 8,),
+                                                                      TextWidget(
+                                                                        controller
+                                                                            .fruitCounterList
+                                                                            .value[index]
+                                                                            .toString(),
+                                                                        color: Colors
+                                                                            .black,
+                                                                        fontSize:
+                                                                            13,
+                                                                        fontWeight:
+                                                                            FontWeight.w600,
+                                                                      ),
+                                                                      Spacer(),
+                                                                      GestureDetector(
+                                                                        onTap:
+                                                                            () {
+                                                                          controller
+                                                                              .fruitAddBtn(index);
+                                                                        },
+                                                                        child:
+                                                                            Container(
+                                                                          padding:
+                                                                              const EdgeInsets.all(8.0),
+                                                                          child:
+                                                                              Image.asset("assets/icons/add.png"),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                )
+                                                              : GestureDetector(
+                                                                  onTap: () {
+                                                                    controller
+                                                                        .fruitAddToCart(
+                                                                            index);
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    height: 29,
+                                                                    width: 28,
+                                                                    decoration: BoxDecoration(
+                                                                        color: AppColors
+                                                                            .primaryColor,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(7)),
+                                                                    child: Center(
+                                                                        child: Image.asset(
+                                                                      'assets/icons/addToCart.png',
+                                                                      height:
+                                                                          15,
+                                                                      width: 15,
+                                                                      fit: BoxFit
+                                                                          .contain,
+                                                                    )),
+                                                                  ),
+                                                                ),
                                                     )
                                                   ],
                                                 ),
@@ -1046,7 +1132,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                             )
                           : Center(child: CircularProgressIndicator()),
                     ),
-                    AppSize.size.h30,
+                    AppSize.size.h55,
                   ],
                 ),
               ),

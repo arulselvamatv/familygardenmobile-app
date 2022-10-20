@@ -182,7 +182,7 @@ class DrawerView extends GetView<DrawerWidgetController> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Get.toNamed(Routes.VERIFY_OTP);
+                          Get.toNamed(Routes.SIGNUP);
                         },
                         child: Container(
                           height: 35,

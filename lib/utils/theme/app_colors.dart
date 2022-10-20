@@ -2,6 +2,7 @@ import 'package:family_garden/utils/common_import/common_import.dart';
 
 abstract class AppColors {
   static const Color primaryColor = Color(0xff3b9081);
+  static const Color darkGreen = Color(0xff0F6D5C);
   static const Color lightGrey = Color(0xffE5E5E5);
   static const Color opacityGrey = Color(0xff535353);
   static const Color grey = Color(0xff747474);

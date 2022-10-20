@@ -4,6 +4,7 @@ abstract class Routes {
   Routes._();
 
   static const SPLASH = _Paths.SPLASH;
+  static const SIGNUP = _Paths.SIGNUP;
   static const LOGIN = _Paths.LOGIN;
   static const VERIFY_OTP = _Paths.VERIFY_OTP;
   static const REGISTER = _Paths.REGISTER;
@@ -22,6 +23,7 @@ abstract class Routes {
 
 abstract class _Paths {
   static const SPLASH = '/splash';
+  static const SIGNUP = '/signup';
   static const LOGIN = '/login';
   static const VERIFY_OTP = '/verify-otp';
   static const REGISTER = '/register';

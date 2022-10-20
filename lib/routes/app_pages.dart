@@ -25,6 +25,8 @@ import '../screens/cart_screen/bindings/cart_binding.dart';
 import '../screens/dashboard/bindings/dashboard_bindings.dart';
 import '../screens/product_details_screen/bindings/product_details_binding.dart';
 import '../screens/product_details_screen/views/product_detail_view.dart';
+import '../screens/signup/binding/signup_binding.dart';
+import '../screens/signup/view/signup_view.dart';
 import '../screens/splash_screen/bindings/splash_bindings.dart';
 import '../screens/splash_screen/views/splash_view.dart';
 
@@ -75,6 +77,11 @@ class AppPages {
       name: _Paths.INITIATEPAYMENT,
       page: () => InitiatePaymentView(),
       binding: InitiatePaymentBinding(),
+    ),
+    GetPage(
+      name: _Paths.SIGNUP,
+      page: () => SignupView(),
+      binding: SignupBinding(),
     ),
     GetPage(
       name: _Paths.ADDRESS,
