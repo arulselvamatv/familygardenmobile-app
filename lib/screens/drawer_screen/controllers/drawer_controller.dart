@@ -1,4 +1,5 @@
 import 'package:family_garden/utils/common_import/common_import.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../routes/app_pages.dart';
 
 class DrawerWidgetController extends GetxController {
@@ -11,10 +12,19 @@ class DrawerWidgetController extends GetxController {
     {'name': 'Customer Service', 'image': 'assets/icons/customerCare.png'},
     {'name': 'FAQ', 'image': 'assets/icons/Faq.png'},
   ].obs;
+  RxString login = "".obs;
 
   sideMenuNavigation(int index) {
+    getDatas();
     if (index == 1) {
       Get.toNamed(Routes.CART_SCREEN);
+    }
+  }
+
+  getDatas() async {
+    var prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey("Login")) {
+      login.value = prefs.getString("Login")!;
     }
   }
 }

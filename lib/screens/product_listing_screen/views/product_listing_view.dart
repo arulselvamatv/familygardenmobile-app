@@ -51,7 +51,9 @@ class ProductListingView extends GetView<ProductListingController> {
                       GestureDetector(
                         onTap: () {
                           controller.hitAddCartAPI();
-                          Get.toNamed(Routes.CART_SCREEN);
+                          Get.toNamed(Routes.CART_SCREEN)?.then((value) =>
+                              controller.getCategoryProduct(
+                                  controller.categoryId.value));
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(right: 20, top: 15),
@@ -219,9 +221,13 @@ class ProductListingView extends GetView<ProductListingController> {
                                               index;
                                           controller.hitAddCartAPI();
                                           Get.toNamed(
-                                              Routes.PRODUCT_DETAILS_SCREEN,
-                                              arguments: controller
-                                                  .products[index].productId);
+                                                  Routes.PRODUCT_DETAILS_SCREEN,
+                                                  arguments: controller
+                                                      .products[index]
+                                                      .productId)
+                                              ?.then((value) => controller
+                                                  .getCategoryProduct(controller
+                                                      .categoryId.value));
                                           controller.update();
                                         },
                                         child: Stack(

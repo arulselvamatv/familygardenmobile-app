@@ -9,7 +9,7 @@ import '../../../models/checkout_confirm_model.dart';
 class InitatePaymentController extends GetxController {
   CheckoutConfirmModel? paymentRes;
   String postData = '', url = "";
-  String paymentUrl = "https://tamilfarmers.in/checkout-msuccess";
+  String paymentUrl = "https://dev.familygarden.in/checkout-msuccess";
   WebViewController? webController;
   String data = "";
   // InAppWebViewController? webViewController;

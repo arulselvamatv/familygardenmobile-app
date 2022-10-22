@@ -3,6 +3,12 @@ import 'package:family_garden/network/api_constants/api_constants.dart';
 class EndPoints {
   static const getToken = "/index.php?route=mobileapi/login/getToken";
 
+  static const login = "/index.php?route=mobileapi/login";
+
+  static const signup = "/index.php?route=mobileapi/signup";
+
+  static const addAddress = "/index.php?route=mobileapi/account/address/add";
+
   static const apiRoutes = "?route=mobileapi/homefeature";
 
   static final apiToken = "&api_token=${ApiConstants.jwtToken}";
@@ -39,4 +45,9 @@ class EndPoints {
       "/index.php?route=mobileapi/checkout/payment_method/save";
 
   static const checkoutConfirm = "/index.php?route=mobileapi/checkout/confirm";
+
+  static const orderSuccess =
+      "/index.php?route=mobileapi/mobileapi/checkout/ordersuccess";
+
+  static const codConfirm = "/index.php?route=mobileapi/payment/cod/confirm";
 }

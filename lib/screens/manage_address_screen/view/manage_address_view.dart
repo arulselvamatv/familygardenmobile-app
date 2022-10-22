@@ -155,6 +155,7 @@ class ManageAddressView extends GetView<ManageAddressController> {
                 fontSize: 12,
                 readOnly: false,
               ),
+              AppSize.size.h30,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -197,6 +198,7 @@ class ManageAddressView extends GetView<ManageAddressController> {
                   ),
                 ],
               ),
+              AppSize.size.h30,
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: SizedBox(
@@ -240,6 +242,7 @@ class ManageAddressView extends GetView<ManageAddressController> {
                       )),
                 ),
               ),
+              AppSize.size.h30,
             ],
           ),
         ),

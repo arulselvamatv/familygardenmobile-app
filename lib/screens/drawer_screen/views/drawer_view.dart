@@ -152,60 +152,62 @@ class DrawerView extends GetView<DrawerWidgetController> {
                 },
               ),
               Spacer(),
-              Container(
-                width: Get.width / 1.3,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Get.toNamed(Routes.LOGIN);
-                        },
-                        child: Container(
-                          height: 35,
-                          width: 110,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(6),
-                            color: AppColors.primaryColor,
-                          ),
-                          child: Center(
-                            child: TextWidget(
-                              'Login',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.white,
+              controller.login.value == "true"
+                  ? Container(
+                      width: Get.width / 1.3,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.LOGIN);
+                              },
+                              child: Container(
+                                height: 35,
+                                width: 110,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6),
+                                  color: AppColors.primaryColor,
+                                ),
+                                child: Center(
+                                  child: TextWidget(
+                                    'Login',
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.white,
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
+                            GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.SIGNUP);
+                              },
+                              child: Container(
+                                height: 35,
+                                width: 110,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(6),
+                                    color: AppColors.white,
+                                    border: Border.all(
+                                        color: AppColors.primaryColor)),
+                                child: Center(
+                                  child: TextWidget(
+                                    'Sign Up',
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.primaryColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Get.toNamed(Routes.SIGNUP);
-                        },
-                        child: Container(
-                          height: 35,
-                          width: 110,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6),
-                              color: AppColors.white,
-                              border:
-                                  Border.all(color: AppColors.primaryColor)),
-                          child: Center(
-                            child: TextWidget(
-                              'Sign Up',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.primaryColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+                    )
+                  : Container(),
               Spacer(),
               SizedBox(
                   width: Get.width / 1.3,

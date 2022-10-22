@@ -9,6 +9,8 @@ import 'package:family_garden/screens/login_screen/binding/login_binding.dart';
 import 'package:family_garden/screens/login_screen/view/login_view.dart';
 import 'package:family_garden/screens/manage_address_screen/binding/manage_address_binding.dart';
 import 'package:family_garden/screens/manage_address_screen/view/manage_address_view.dart';
+import 'package:family_garden/screens/order_success_screen/binding/order_success_binding.dart';
+import 'package:family_garden/screens/order_success_screen/view/order_success_view.dart';
 import 'package:family_garden/screens/payments_screen/binding/payment_binding.dart';
 import 'package:family_garden/screens/payments_screen/view/payment_view.dart';
 import 'package:family_garden/screens/product_listing_screen/bindings/product_listing_binding.dart';
@@ -111,6 +113,10 @@ class AppPages {
     GetPage(
         name: _Paths.MANAGE_ADDRESS_SCREEN,
         page: () => ManageAddressView(),
-        binding: ManageAddressBinding())
+        binding: ManageAddressBinding()),
+    GetPage(
+        name: _Paths.ORDER_SUCCESS_SCREEN,
+        page: () => OrderSuccessView(),
+        binding: OrdersuccessBinding())
   ];
 }

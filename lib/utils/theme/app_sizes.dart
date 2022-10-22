@@ -7,6 +7,7 @@ class AppSize {
 class _AppSizes {
   final h3 = const SizedBox(height: 3);
   final h5 = const SizedBox(height: 5);
+  final h8 = const SizedBox(height: 8);
   final h10 = const SizedBox(height: 10);
   final h15 = const SizedBox(height: 15);
   final h16 = const SizedBox(height: 16);

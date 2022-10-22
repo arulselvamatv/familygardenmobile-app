@@ -3,6 +3,8 @@ import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'main.dart';
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -11,6 +13,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: "Family Garden",
       initialRoute: AppPages.INITIAL,
+      navigatorObservers: [routeObserver],
       // initialBinding: InitialBinding(),
       getPages: AppPages.routes,
       theme: ThemeData(

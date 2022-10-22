@@ -7,8 +7,7 @@ import '../../../utils/common_import/common_import.dart';
 
 class ProductListingController extends GetxController {
   RxInt categoriesIndex = 1.obs;
-
-  // late RxString selectedValue = itemsList.first.obs;
+  RxString categoryId = ''.obs;
   RxString title = "".obs;
   RxString staticImage = "assets/images/Fresh Vegetables.png".obs;
   RxString categoryName = "Fresh Vegetables".obs;
@@ -39,18 +38,10 @@ class ProductListingController extends GetxController {
       categoriesList.value = (respone.data?.categories)!;
       isCategoryLoader.value = false;
       title.value = categoriesList.value[categoriesIndex.value].name!;
+      categoryId.value = categoriesList[categoriesIndex.value].categoryId!;
       getCategoryProduct(categoriesList[categoriesIndex.value].categoryId);
     }
     update();
-  }
-
-  clearAll() {
-    productId.value.clear();
-    optionId.value.clear();
-    optionValueId.value.clear();
-    cartBoolList.value.clear();
-    counterList.value.clear();
-    selectedDropdownValue.value.clear();
   }
 
   getCategoryProduct(categoryId) async {
@@ -62,6 +53,18 @@ class ProductListingController extends GetxController {
       //     (products[0].option?[0].productOptionValue?[0].productOptionValueId)!;
       getDropdownValues();
     }
+    update();
+  }
+
+  clearAll() {
+    selectedDropdownValue.value.clear();
+    cartBoolList.value.clear();
+    counterList.value.clear();
+    productId.value.clear();
+    optionId.value.clear();
+    optionValueId.value.clear();
+    isCategoryProductLoader.value = true;
+    productData.value = {"product_info": []};
     update();
   }
 
@@ -85,6 +88,12 @@ class ProductListingController extends GetxController {
       optionValueId.value.add("");
     }
     isCategoryProductLoader.value = false;
+    selectedDropdownValue.refresh();
+    cartBoolList.refresh();
+    counterList.refresh();
+    productId.refresh();
+    optionId.refresh();
+    optionValueId.refresh();
     update();
   }
 
@@ -134,13 +143,14 @@ class ProductListingController extends GetxController {
   }
 
   hitAddCartAPI() async {
-    if ((productData.value["product_info"]?.length)! > 0) {
+    if ((productData.value["product_info"]?.length ?? 0) > 0) {
+      print(productData);
       var response = await ApiHelper.addCart(productData.value);
     } else {}
   }
 
   removeCartDatas(index) {
-    if ((productData.value["product_info"]?.length)! > 0) {
+    if ((productData.value["product_info"]?.length ?? 0) > 0) {
       int? QuantityIncreasingIndex = productData.value["product_info"]
           ?.indexWhere(
               (element) => element["product_id"] == products[index].productId!);
@@ -156,8 +166,10 @@ class ProductListingController extends GetxController {
     if (optionId.value[index] == "") {
       productId[index] = products[index].productId!;
       optionId[index] = (products[index].option?[0].productOptionId)!;
-      optionValueId[index] =
-          (products[index].option?[0].productOptionValue?[0].optionValueId)!;
+      optionValueId[index] = (products[index]
+          .option?[0]
+          .productOptionValue?[0]
+          .productOptionValueId)!;
       addCartDatas(index);
     } else {
       productId[index] = products[index].productId!;
@@ -189,7 +201,7 @@ class ProductListingController extends GetxController {
 
   addToCart(index, value) async {
     if (value == "plus") {
-      if ((productData.value["product_info"]?.length)! > 0) {
+      if ((productData.value["product_info"]?.length ?? 0) > 0) {
         existingAddCartData(index);
       } else {
         newAddCart(index);
@@ -198,8 +210,10 @@ class ProductListingController extends GetxController {
       if (optionId.value[index] == "") {
         productId[index] = products[index].productId!;
         optionId[index] = (products[index].option?[0].productOptionId)!;
-        optionValueId[index] =
-            (products[index].option?[0].productOptionValue?[0].optionValueId)!;
+        optionValueId[index] = (products[index]
+            .option?[0]
+            .productOptionValue?[0]
+            .productOptionValueId)!;
       } else {
         productId[index] = products[index].productId!;
       }

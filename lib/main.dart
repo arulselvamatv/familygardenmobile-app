@@ -3,8 +3,9 @@ import 'package:flutter/services.dart';
 
 import 'my_app.dart';
 
+final RouteObserver<ModalRoute<void>> routeObserver =
+    RouteObserver<ModalRoute<void>>();
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -16,8 +17,7 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-
   runApp(
-      MyApp(),
-    );
+    MyApp(),
+  );
 }

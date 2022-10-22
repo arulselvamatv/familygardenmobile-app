@@ -7,6 +7,7 @@ import '../../../utils/common_import/common_import.dart';
 class AddressController extends GetxController {
   var addressModel = CheckoutModel().obs;
   RxBool isaddressScreenLoader = false.obs;
+  RxBool isEmptyAddress = true.obs;
   RxList checkBoxBoolList = [].obs;
   RxBool pickCheckBox = false.obs;
   var selectedAddressIndex = 0.obs;
@@ -30,13 +31,15 @@ class AddressController extends GetxController {
   }
 
   getCheckout() async {
-    print("object");
     var response = await ApiHelper.checkOut();
     addressModel.value = response.data!;
     if ((addressModel.value.addresses?.length)! > 0) {
       getDatas();
+      isEmptyAddress.value = false;
+    } else {
+      isaddressScreenLoader.value = true;
     }
-    print(response.data?.countryId);
+    update();
   }
 
   getDatas() {
@@ -93,13 +96,13 @@ class AddressController extends GetxController {
         if (response1.responseCode == 200) {
         } else {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text("Something went wrong"),
+            content: Text("something went wrong"),
           ));
         }
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Something went wrong"),
+        content: Text("Add address to continue"),
       ));
     }
   }

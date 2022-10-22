@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:family_garden/network/api_constants/api_constants.dart';
+import 'package:family_garden/network/api_constants/api_end_points.dart';
 import 'package:family_garden/network/api_helper.dart';
 import 'package:family_garden/network/get_local_datas.dart';
 import '../../../models/categories_model.dart';
@@ -8,11 +9,9 @@ import '../../../models/home_slider_model.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/common_import/common_import.dart';
 
-class HomeScreenController extends GetxController {
-  // final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+class HomeScreenController extends GetxController with RouteAware {
   TextEditingController search = TextEditingController();
   final CarouselController carouselController = CarouselController();
-
   RxInt currentIndex = 0.obs;
   RxBool iscarouselLoader = true.obs;
   RxBool isCategoryLoader = true.obs;
@@ -29,10 +28,6 @@ class HomeScreenController extends GetxController {
   RxList vegCounterList = [].obs;
   RxList fruitCounterList = [].obs;
 
-  // HomeFeatureModel? homeFeatureDatas;
-
-  late String selectedValue = itemsList.first;
-
   RxList category = [
     {'name': 'Fresh from Forms', 'image': 'assets/images/home_screen-1.png'},
     {'name': 'Fast Delivery', 'image': 'assets/images/home_screen-2.png'},
@@ -44,55 +39,6 @@ class HomeScreenController extends GetxController {
     {'name': 'Premium Quality', 'image': 'assets/images/home_screen-5.png'},
   ].obs;
 
-  List bestSellers = [
-    {
-      'name': 'Carrot',
-      'nameInTamil': 'கேரட்',
-      'price': '₹28.00',
-      'oldPrice': '₹35.00',
-      'offer': '20% OFF',
-      'image': 'assets/images/Carrot.png'
-    },
-    {
-      'name': 'Apple 3piece-450.',
-      'nameInTamil': 'ஆப்பிள் ',
-      'price': '₹125.00',
-      'oldPrice': '₹150.00',
-      'offer': '17% OFF',
-      'image': 'assets/images/apple.png'
-    },
-    {
-      'name': 'Coriander Leaves',
-      'nameInTamil': 'கொத்தமல்லி தழை ',
-      'price': '₹15.00',
-      'oldPrice': '₹30.00',
-      'offer': '50% OFF',
-      'image': 'assets/images/coriander.png'
-    },
-    {
-      'name': 'Carrot',
-      'nameInTamil': 'கேரட்',
-      'price': '₹28.00',
-      'oldPrice': '₹35.00',
-      'offer': '70% OFF',
-      'image': 'assets/images/Carrot.png'
-    },
-    {
-      'name': 'Carrot',
-      'nameInTamil': 'கேரட்',
-      'price': '₹28.00',
-      'oldPrice': '₹35.00',
-      'offer': '50% OFF',
-      'image': 'assets/images/Carrot.png',
-    },
-  ];
-
-  final List<String> itemsList = [
-    '250 grams - ₹28.00',
-    '1 Pack - ₹125.00',
-    '1 Bunch - ₹15.00',
-  ];
-
   RxList<Banners> carousel = <Banners>[].obs;
   RxList<Category> categoryList = <Category>[].obs;
   CategoriesModel? sf;
@@ -103,23 +49,40 @@ class HomeScreenController extends GetxController {
   String staticImage = "assets/images/Fresh Vegetables.png";
   RxList vegetablePercentage = [].obs;
   RxList fruitPercentage = [].obs;
-
-  // RxList fruitsBool = [].obs;
-  // RxList vegetablesBool = [].obs;
-  // RxList<String> items = <String>['One', 'Two', 'Three', 'Four'].obs;
-
   RxList selectedItemValue = [].obs;
 
   RxBool loader = false.obs;
   var productData = {"product_info": []}.obs;
+  var vegProductData = {"product_info": []}.obs;
 
   @override
   void onInit() async {
     super.onInit();
-    for (int i = 0; i < bestSellers.length; i++) {
-      selectedItemValue.add(itemsList[0]);
-    }
+    // getHomeSliderDetails();
+    // getCategories();
+    // getHomeFeature();
     getToken();
+  }
+
+  @override
+  void didPop() {
+    super.didPop();
+    debugPrint("viewWillAppear");
+  }
+
+  clearAll() {
+    selectedVegDropdownValue.value.clear();
+    selectedFruitDropdownValue.value.clear();
+    vegOptionId.value.clear();
+    vegOptionValueId.value.clear();
+    fruitOptionId.value.clear();
+    vegCounterList.value.clear();
+    fruitCounterList.value.clear();
+    fruitPercentage.value.clear();
+    vegBoolList.value.clear();
+    fruitBoolList.value.clear();
+    productData.value = {"product_info": []};
+    vegProductData.value = {"product_info": []};
   }
 
   getToken() async {
@@ -133,11 +96,11 @@ class HomeScreenController extends GetxController {
   }
 
   getHomeFeature() async {
+    clearAll();
     var response = await ApiHelper.homeFeature();
     if (response.responseCode == 200) {
       vegetableList.value = (response.data?.vegetables)!;
       fruitsList.value = (response.data?.fruits)!;
-
       getDropdownValues();
     }
     update();
@@ -170,10 +133,10 @@ class HomeScreenController extends GetxController {
       fruitProductId.add("");
     }
     for (var i = 0; i < vegetableList.value.length; i++) {
-      vegCounterList.add(0);
+      vegCounterList.add(1);
     }
     for (var i = 0; i < fruitsList.value.length; i++) {
-      fruitCounterList.value.add(0);
+      fruitCounterList.value.add(1);
     }
     for (var i = 0; i < vegetableList.value.length; i++) {
       double price = double.parse(vegetableList[i].price!);
@@ -195,6 +158,227 @@ class HomeScreenController extends GetxController {
     isFruitLoader.value = true;
   }
 
+  vegAddToCart(index) {
+    vegBoolList.value[index] = true;
+    if ((productData.value["product_info"]?.length)! > 0) {
+      vegExistingAddCartData(index);
+    } else {
+      vegNewAddCart(index);
+    }
+    update();
+  }
+
+  vegAddCartDatas(index) {
+    vegProductData.value["product_info"]?.add({
+      "product_id": vegProductId[index],
+      "qty": 1,
+      "product_option_id": vegOptionId[index]!,
+      "prodcut_option_value_id": vegOptionValueId[index],
+      "action": "ADD"
+    });
+    update();
+  }
+
+  vegExistingAddCartData(index) {
+    int? QuantityIncreasingIndex = vegProductData.value["product_info"]
+        ?.indexWhere((element) =>
+            element["product_id"] == vegetableList.value[index].productId!);
+    if (QuantityIncreasingIndex != -1) {
+      vegProductData.value["product_info"]?[QuantityIncreasingIndex!]["qty"] =
+          vegProductData.value["product_info"]?[QuantityIncreasingIndex]
+                  ["qty"] +
+              1;
+      if (vegOptionId.value[index] !=
+          vegProductData.value["product_info"]?[QuantityIncreasingIndex!]
+              ["product_option_id"]) ;
+      {
+        vegProductData.value["product_info"]?[QuantityIncreasingIndex!]
+            ["product_option_id"] = vegOptionId.value[index];
+        vegProductData.value["product_info"]?[QuantityIncreasingIndex!]
+            ["prodcut_option_value_id"] = vegOptionValueId.value[index];
+      }
+    } else {
+      vegAddCartDatas(index);
+    }
+    update();
+  }
+
+  vegNewAddCart(index) {
+    if (vegOptionId.value[index] == "") {
+      vegProductId[index] = vegetableList.value[index].productId!;
+      vegOptionId[index] =
+          (vegetableList.value[index].options?[0].productOptionId)!;
+      vegOptionValueId[index] = (vegetableList.value[index].options?[0]
+          .productOptionValue?[0].productOptionValueId)!;
+      vegAddCartDatas(index);
+    } else {
+      vegProductId[index] = vegetableList.value[index].productId!;
+      vegAddCartDatas(index);
+    }
+    update();
+  }
+
+  vegRemove(index) {
+    if (vegOptionId.value[index] == "") {
+      vegProductId[index] = vegetableList.value[index].productId!;
+      vegOptionId[index] =
+          (vegetableList.value[index].options?[0].productOptionId)!;
+      vegOptionValueId[index] = (vegetableList.value[index].options?[0]
+          .productOptionValue?[0].productOptionValueId)!;
+    } else {
+      vegOptionId[index] = vegetableList.value[index].productId!;
+    }
+    removeVegCartDatas(index);
+    update();
+  }
+
+  removeVegCartDatas(index) {
+    if ((vegProductData.value["product_info"]?.length)! > 0) {
+      int? QuantityIncreasingIndex = vegProductData.value["product_info"]
+          ?.indexWhere((element) =>
+              element["product_id"] == vegetableList.value[index].productId!);
+      if (QuantityIncreasingIndex != -1) {
+        vegProductData.value["product_info"]?[QuantityIncreasingIndex!]["qty"] =
+            vegProductData.value["product_info"]?[QuantityIncreasingIndex]
+                    ["qty"] -
+                1;
+      }
+    }
+    update();
+  }
+
+  vegMinusBtn(index) {
+    print("object");
+    if (vegCounterList.value[index] == 1) {
+      vegBoolList.value[index] = false;
+      vegRemove(index);
+    } else {
+      vegCounterList.value[index] -= 1;
+      vegRemove(index);
+    }
+    update();
+  }
+
+  vegAddBtn(index) {
+    print("object");
+    vegCounterList.value[index] += 1;
+    vegAddToCart(index);
+    update();
+  }
+
+  vegHitAddCartAPI() async {
+    print("vegProductData $vegProductData}");
+    if ((vegProductData.value["product_info"]?.length)! > 0) {
+      var response = await ApiHelper.addCart(vegProductData.value);
+      // Get.toNamed(Routes.CART_SCREEN)?.then((value) => clearDatas());
+    } else {
+      print("No Datas Found");
+    }
+  }
+
+  fruitAddToCart(index) {
+    fruitBoolList.value[index] = true;
+    if ((productData.value["product_info"]?.length)! > 0) {
+      fruitExistingAddCartData(index);
+    } else {
+      fruitNewAddCart(index);
+    }
+    update();
+  }
+
+  fruitAddCartDatas(index) {
+    productData.value["product_info"]?.add({
+      "product_id": fruitProductId[index],
+      "qty": 1,
+      "product_option_id": fruitOptionId[index]!,
+      "prodcut_option_value_id": fruitOptionValueId[index],
+      "action": "ADD"
+    });
+  }
+
+  fruitExistingAddCartData(index) {
+    int? QuantityIncreasingIndex = productData.value["product_info"]
+        ?.indexWhere((element) =>
+            element["product_id"] == fruitsList.value[index].productId!);
+    if (QuantityIncreasingIndex != -1) {
+      productData.value["product_info"]?[QuantityIncreasingIndex!]["qty"] =
+          productData.value["product_info"]?[QuantityIncreasingIndex]["qty"] +
+              1;
+      if (fruitOptionId.value[index] !=
+          productData.value["product_info"]?[QuantityIncreasingIndex!]
+              ["product_option_id"]) ;
+      {
+        productData.value["product_info"]?[QuantityIncreasingIndex!]
+            ["product_option_id"] = fruitOptionId.value[index];
+        productData.value["product_info"]?[QuantityIncreasingIndex!]
+            ["prodcut_option_value_id"] = fruitOptionValueId.value[index];
+      }
+    } else {
+      fruitAddCartDatas(index);
+    }
+  }
+
+  fruitNewAddCart(index) {
+    if (fruitOptionId.value[index] == "") {
+      fruitProductId[index] = fruitsList.value[index].productId!;
+      fruitOptionId[index] =
+          (fruitsList.value[index].options?[0].productOptionId)!;
+      fruitOptionValueId[index] = (fruitsList.value[index].options?[0]
+          .productOptionValue?[0].productOptionValueId)!;
+      fruitAddCartDatas(index);
+    } else {
+      fruitProductId[index] = fruitsList.value[index].productId!;
+      fruitAddCartDatas(index);
+    }
+  }
+
+  fruitRemove(index) {
+    if (fruitOptionId.value[index] == "") {
+      fruitProductId[index] = fruitsList.value[index].productId!;
+      fruitOptionId[index] =
+          (fruitsList.value[index].options?[0].productOptionId)!;
+      fruitOptionValueId[index] = (fruitsList[index]
+          .options?[0]
+          .productOptionValue?[0]
+          .productOptionValueId)!;
+    } else {
+      fruitOptionId[index] = vegetableList.value[index].productId!;
+    }
+    removeFruitCartDatas(index);
+  }
+
+  removeFruitCartDatas(index) {
+    if ((productData.value["product_info"]?.length)! > 0) {
+      int? QuantityIncreasingIndex = productData.value["product_info"]
+          ?.indexWhere((element) =>
+              element["product_id"] == fruitsList.value[index].productId!);
+      if (QuantityIncreasingIndex != -1) {
+        productData.value["product_info"]?[QuantityIncreasingIndex!]["qty"] =
+            productData.value["product_info"]?[QuantityIncreasingIndex]["qty"] -
+                1;
+      }
+    }
+  }
+
+  fruitMinusBtn(index) {
+    print("object");
+    if (fruitCounterList.value[index] == 1) {
+      fruitBoolList.value[index] = false;
+      fruitRemove(index);
+    } else {
+      fruitCounterList.value[index] -= 1;
+      fruitRemove(index);
+    }
+    update();
+  }
+
+  fruitAddBtn(index) {
+    print("object");
+    fruitCounterList.value[index] += 1;
+    fruitAddToCart(index);
+    update();
+  }
+
   vegaddCartDatas(index) {
     productData.value["product_info"]?.add({
       "product_id": vegProductId[index],
@@ -203,7 +387,6 @@ class HomeScreenController extends GetxController {
       "prodcut_option_value_id": vegOptionValueId[index],
       "action": "ADD"
     });
-    hitAddCartAPI();
   }
 
   fruitaddCartDatas(index) {
@@ -214,13 +397,13 @@ class HomeScreenController extends GetxController {
       "prodcut_option_value_id": fruitOptionValueId[index],
       "action": "ADD"
     });
-    hitAddCartAPI();
   }
 
-  hitAddCartAPI() async {
+  fruitsHitAddCartAPI() async {
+    print(EndPoints.apiToken);
     if ((productData.value["product_info"]?.length)! > 0) {
       var response = await ApiHelper.addCart(productData.value);
-      Get.toNamed(Routes.CART_SCREEN)?.then((value) => clearDatas());
+      // Get.toNamed(Routes.CART_SCREEN)?.then((value) => clearDatas());
     } else {
       print("No Datas Found");
     }
@@ -229,81 +412,6 @@ class HomeScreenController extends GetxController {
   clearDatas() {
     productData.value["product_info"]?.clear();
   }
-
-  vegAddToCart(index) async {
-    print("object ${vegBoolList.value[index]}");
-    if (vegBoolList.value[index] == false) {
-      vegBoolList.value[index] = true;
-      update();
-    }
-    // if (vegOptionId.value[index] == "") {
-    //   vegProductId[index] = vegetableList[index].productId!;
-    //   vegOptionId[index] =
-    //       (vegetableList.value[index].options?[0].productOptionId)!;
-    //   vegOptionValueId[index] = (vegetableList[index]
-    //       .options?[0]
-    //       .productOptionValue?[0]
-    //       .optionValueId)!;
-    //   vegaddCartDatas(index);
-    // } else {
-    //   vegProductId[index] = vegetableList[index].productId!;
-    //   vegaddCartDatas(index);
-    // }
-  }
-
-  vegMinusBtn(index) {
-    print("object");
-    if (vegCounterList.value[index] == 1) {
-      vegBoolList.value[index] = false;
-    } else {
-      vegCounterList.value[index] -= 1;
-    }
-    update();
-  }
-
-  vegAddBtn(index) {
-    print("object");
-    vegCounterList.value[index] += 1;
-    update();
-  }
-
-  fruitAddToCart(index) async {
-    print("object ${fruitBoolList.value[index]}");
-    if (fruitBoolList.value[index] == false) {
-      fruitBoolList.value[index] = true;
-      update();
-    }
-  }
-
-  fruitMinusBtn(index) {
-    print("object");
-    if (fruitCounterList.value[index] == 1) {
-      fruitBoolList.value[index] = false;
-    } else {
-      fruitCounterList.value[index] -= 1;
-    }
-    update();
-  }
-
-  fruitAddBtn(index) {
-    print("object");
-    fruitCounterList.value[index] += 1;
-    update();
-  }
-
-  // fruitAddToCart(index) async {
-  //   if (fruitOptionId.value[index] == "") {
-  //     fruitProductId[index] = fruitsList[index].productId!;
-  //     fruitOptionId[index] =
-  //         (fruitsList.value[index].options?[0].productOptionId)!;
-  //     fruitOptionValueId[index] =
-  //         (fruitsList[index].options?[0].productOptionValue?[0].optionValueId)!;
-  //     fruitaddCartDatas(index);
-  //   } else {
-  //     fruitProductId[index] = fruitsList[index].productId!;
-  //     fruitaddCartDatas(index);
-  //   }
-  // }
 
   getCategories() async {
     var response = await ApiHelper.getCategories();

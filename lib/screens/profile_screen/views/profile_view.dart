@@ -38,6 +38,7 @@ class ProfileView extends GetView<ProfileController> {
                     hint: '',
                     readOnly: false,
                   ),
+                  AppSize.size.h30,
                   CustomTextField(
                     caption: 'Email',
                     hasCaption: true,
@@ -46,6 +47,7 @@ class ProfileView extends GetView<ProfileController> {
                     hint: '',
                     readOnly: false,
                   ),
+                  AppSize.size.h30,
                   CustomTextField(
                     caption: 'Address *',
                     hasCaption: true,
@@ -54,6 +56,7 @@ class ProfileView extends GetView<ProfileController> {
                     hint: '',
                     readOnly: false,
                   ),
+                  AppSize.size.h30,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -93,6 +96,7 @@ class ProfileView extends GetView<ProfileController> {
                       ),
                     ],
                   ),
+                  AppSize.size.h30,
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: SizedBox(

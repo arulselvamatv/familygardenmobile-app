@@ -104,7 +104,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   contentPadding: EdgeInsets.only(bottom: 10)),
             ),
           ),
-          AppSize.size.h30,
         ],
       ),
     );

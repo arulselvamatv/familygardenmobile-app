@@ -1,3 +1,4 @@
+import 'package:family_garden/screens/Home_screen/controllers/homescreen_controller.dart';
 import 'package:family_garden/screens/categories_screen/views/categories_view.dart';
 import 'package:family_garden/screens/dashboard/controllers/dashboard_controller.dart';
 import 'package:family_garden/screens/drawer_screen/views/drawer_view.dart';
@@ -50,7 +51,11 @@ class DashboardView extends GetView<DashboardController> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Get.toNamed(Routes.CART_SCREEN);
+                      Get.find<HomeScreenController>().vegHitAddCartAPI();
+                      Get.find<HomeScreenController>().fruitsHitAddCartAPI();
+                      controller.update();
+                      Get.toNamed(Routes.CART_SCREEN)?.then((value) =>
+                          Get.find<HomeScreenController>().getHomeFeature());
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(right: 20, top: 15),
