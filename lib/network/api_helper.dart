@@ -10,6 +10,7 @@ import 'package:family_garden/models/home_feature_model.dart';
 import 'package:family_garden/models/home_slider_model.dart';
 import 'package:family_garden/models/login_model.dart';
 import 'package:family_garden/models/payment_method_model.dart';
+import 'package:family_garden/models/wishlistmodel.dart';
 import '../models/categories_model.dart';
 import '../models/category_product_model.dart';
 import '../models/payment_address_save_model.dart';
@@ -230,9 +231,10 @@ class ApiHelper {
     }
   }
 
-  static Future<HTTPResponse<ProductDetailsModel>> getProductCategoryDetails(
-      productId) async {
+  static Future<HTTPResponse<ProductDetailsModel>> getProductCategoryDetails(productId) async {
     String url = "${ApiConstants.baseUrl}${EndPoints.productCategoryList}";
+    print(url);
+    print(EndPoints.apiToken);
     try {
       var request = http.MultipartRequest('POST', Uri.parse(url));
       request.fields.addAll({'product_id': "$productId"});
@@ -240,6 +242,7 @@ class ApiHelper {
       if (response.statusCode == 200) {
         var body = jsonDecode(await response.stream.bytesToString());
         var res = ProductDetailsModel.fromJson(body);
+        print(ProductDetailsModel.fromJson(body).toJson());
         return HTTPResponse(
           true,
           res,
@@ -391,6 +394,103 @@ class ApiHelper {
     }
   }
 
+
+  static Future<HTTPResponse<AddCartModel>> addWishList(productId) async {
+    String url = "${ApiConstants.baseUrl}${EndPoints.addWishList}${EndPoints.apiToken}";
+    print(url);
+    print(EndPoints.apiToken);
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.fields.addAll({'product_id': "$productId"});
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        var res = AddCartModel.fromJson(body);
+        print(AddCartModel.fromJson(body).toJson());
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+          "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+        "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+        "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<AddCartModel>> removeWishList(productId) async {
+    String url = "${ApiConstants.baseUrl}${EndPoints.wishList}${EndPoints.apiToken}";
+    print(url);
+    print(EndPoints.apiToken);
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.fields.addAll({'remove': "$productId"});
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        var res = AddCartModel.fromJson(body);
+        print(AddCartModel.fromJson(body).toJson());
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+          "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+        "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+        "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
   static Future<HTTPResponse<CartListModel>> cartList() async {
     String url =
         "${ApiConstants.baseUrl}${EndPoints.cartList}${EndPoints.apiToken}";
@@ -430,6 +530,54 @@ class ApiHelper {
       );
     } catch (e) {
       print(e);
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+
+  static Future<HTTPResponse<WishListModel>> showWishList() async {
+    String url = "${ApiConstants.baseUrl}${EndPoints.wishList}${EndPoints.apiToken}";
+    print(url);
+    print(EndPoints.apiToken);
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        var res = WishListModel.fromJson(body);
+        print(WishListModel.fromJson(body).toJson());
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+          "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+        "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+        "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
       return HTTPResponse(
         false,
         null,
@@ -487,6 +635,66 @@ class ApiHelper {
         null,
         message:
             "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print(e);
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+
+  static Future<HTTPResponse<AddCartModel>> profileUpdate(firstName, lastName, address1, country_id, telephone, zone_id) async {
+    // String url = "${ApiConstants.baseUrl}${EndPoints.category}";
+    try {
+      final response = await http.post(
+        Uri.parse(
+            "${ApiConstants.baseUrl}${EndPoints.cartAdd}${EndPoints.apiToken}"),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        encoding: Encoding.getByName('utf-8'),
+        body: {
+          'firstname': firstName,
+          'lastname': lastName,
+          'address_1': address1,
+          'country_id': country_id,
+          'telephone': telephone,
+          'zone_id': zone_id
+        },
+      );
+      if (response.statusCode == 200) {
+        var body = jsonDecode(response.body);
+        var res = AddCartModel.fromJson(body);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+          "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+        "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);

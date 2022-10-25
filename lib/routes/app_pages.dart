@@ -1,4 +1,6 @@
 import 'package:family_garden/screens/Home_screen/views/homescreen_view.dart';
+import 'package:family_garden/screens/account_screen/bindings/account_binding.dart';
+import 'package:family_garden/screens/account_screen/views/account_view.dart';
 import 'package:family_garden/screens/add_address_screen/binding/add_address_binding.dart';
 import 'package:family_garden/screens/add_address_screen/view/add_address_view.dart';
 import 'package:family_garden/screens/cart_screen/views/cart_view.dart';
@@ -15,10 +17,14 @@ import 'package:family_garden/screens/payments_screen/binding/payment_binding.da
 import 'package:family_garden/screens/payments_screen/view/payment_view.dart';
 import 'package:family_garden/screens/product_listing_screen/bindings/product_listing_binding.dart';
 import 'package:family_garden/screens/product_listing_screen/views/product_listing_view.dart';
+import 'package:family_garden/screens/profile_screen/bindings/profile_binding.dart';
+import 'package:family_garden/screens/profile_screen/views/profile_view.dart';
 import 'package:family_garden/screens/register_screen/binding/register_binding.dart';
 import 'package:family_garden/screens/register_screen/view/register_view.dart';
 import 'package:family_garden/screens/verify_otp_screen/binding/verify_otp_binding.dart';
 import 'package:family_garden/screens/verify_otp_screen/view/verify_otp_view.dart';
+import 'package:family_garden/screens/wishlist_screen/bindings/wishlist_screen_binding.dart';
+import 'package:family_garden/screens/wishlist_screen/views/wishlist_screen_view.dart';
 import 'package:get/get.dart';
 import '../screens/Home_screen/bindings/homescreen_binding.dart';
 import '../screens/address_screen/binding/address_binding.dart';
@@ -95,6 +101,18 @@ class AppPages {
       page: () => HomeScreenView(),
       binding: HomeScreenBinding(),
     ),
+    GetPage(
+      name: _Paths.WISH_LIST_SCREEN,
+      page: () => WishListScreenView(),
+      binding: WishListScreenBinding(),
+    ),
+
+    GetPage(
+      name: _Paths.EDIT_PROFILE,
+      page: () => ProfileView(),
+      binding: ProfileBinding(),
+    ),
+
     GetPage(
       name: _Paths.PRODUCT_LISTING_SCREEN,
       page: () => ProductListingView(),

@@ -622,7 +622,8 @@ class ProductListingView extends GetView<ProductListingController> {
                         ),
                       ],
                     ),
-            )),
+            )
+        ),
       ),
     );
   }

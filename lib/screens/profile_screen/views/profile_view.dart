@@ -4,6 +4,7 @@ import 'package:family_garden/widgets/custom_textfield.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import '../../../utils/common_import/common_import.dart';
+import '../../../widgets/common_appbar/custom_appbar_view.dart';
 
 class ProfileView extends GetView<ProfileController> {
   var controller = Get.put(ProfileController());
@@ -12,6 +13,35 @@ class ProfileView extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(55),
+        child: CustomAppbarView(
+          leading_width: 50,
+          appbar_leading: Container(
+            width: 14,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 15.0),
+                  child: GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Image.asset(
+                        'assets/icons/backButton.png',
+                        height: 24,
+                        width: 24,
+                      )),
+                )
+              ],
+            ),
+          ),
+          font_size: 19,
+          appbar_title: 'Profile',
+          center_title: true,
+          leading_image: "Add",
+        ),
+      ),
       body: SingleChildScrollView(
         physics: NeverScrollableScrollPhysics(),
         child: Padding(
@@ -97,6 +127,8 @@ class ProfileView extends GetView<ProfileController> {
                     ],
                   ),
                   AppSize.size.h30,
+                  AppSize.size.h30,
+
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: SizedBox(
@@ -116,66 +148,7 @@ class ProfileView extends GetView<ProfileController> {
                           )),
                     ),
                   ),
-                  Spacer(),
-                  Divider(
-                    color: Color(0xffE5E5E5),
-                    thickness: 1,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed(Routes.MANAGE_ADDRESS_SCREEN);
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 6),
-                          child: Container(
-                              height: 15,
-                              width: 12,
-                              child: Image.asset(
-                                'assets/icons/address book.png',
-                                fit: BoxFit.fill,
-                              )),
-                        ),
-                        AppSize.size.w7,
-                        TextWidget(
-                          'Manage Address',
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xff282828),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Divider(
-                    color: Color(0xffE5E5E5),
-                    thickness: 1,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 6),
-                        child: Container(
-                            height: 15,
-                            width: 12,
-                            child: Image.asset(
-                              'assets/icons/delete.png',
-                              fit: BoxFit.fill,
-                              color: Color(0xffFF1111),
-                            )),
-                      ),
-                      AppSize.size.w7,
-                      TextWidget(
-                        'Delete Account',
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xffFF1111),
-                      ),
-                    ],
-                  ),
-                  AppSize.size.h30
+
                 ],
               ),
             ),

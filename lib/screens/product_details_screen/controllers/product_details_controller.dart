@@ -38,6 +38,7 @@ class ProductDetailsController extends GetxController {
     if (response.responseCode == 200) {
       productDetails = response.data;
       carousalImages.value = (productDetails?.images)!;
+      print(productDetails!.iswishlist);
       productDetailLoader.value = false;
     }
     update();
@@ -55,7 +56,17 @@ class ProductDetailsController extends GetxController {
     } else {
       favourite.value = false;
     }
+    onAddWishList();
     update();
+
+  }
+
+  onAddWishList() async {
+    var response = await ApiHelper.addWishList(productId);
+    if (response.responseCode == 200) {
+      productDetailLoader.value = false;
+      getProductDetails(int.parse(productId.value));
+    }
   }
 
   onAddToCartSelected() {

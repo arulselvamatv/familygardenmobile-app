@@ -1,4 +1,5 @@
 import 'package:family_garden/screens/Home_screen/controllers/homescreen_controller.dart';
+import 'package:family_garden/screens/account_screen/views/account_view.dart';
 import 'package:family_garden/screens/categories_screen/views/categories_view.dart';
 import 'package:family_garden/screens/dashboard/controllers/dashboard_controller.dart';
 import 'package:family_garden/screens/drawer_screen/views/drawer_view.dart';
@@ -138,7 +139,7 @@ class DashboardView extends GetView<DashboardController> {
                   Icons.discount,
                   size: 150,
                 ),
-                ProfileView(),
+                AccountView(),
               ],
             ),
           ),

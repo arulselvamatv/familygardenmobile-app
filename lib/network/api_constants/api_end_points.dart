@@ -50,4 +50,7 @@ class EndPoints {
       "/index.php?route=mobileapi/mobileapi/checkout/ordersuccess";
 
   static const codConfirm = "/index.php?route=mobileapi/payment/cod/confirm";
+
+  static const addWishList = "/index.php?route=mobileapi/account/wishlist/add";
+  static const wishList = "/index.php?route=mobileapi/account/wishlist";
 }

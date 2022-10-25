@@ -19,7 +19,9 @@ abstract class Routes {
   static const PRODUCT_DETAILS_SCREEN = _Paths.PRODUCT_DETAILS_SCREEN;
   static const CART_SCREEN = _Paths.CART_SCREEN;
   static const MANAGE_ADDRESS_SCREEN = _Paths.MANAGE_ADDRESS_SCREEN;
+  static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
   static const ORDER_SUCCESS_SCREEN = _Paths.ORDER_SUCCESS_SCREEN;
+  static const WISH_LIST_SCREEN = _Paths.WISH_LIST_SCREEN;
 }
 
 abstract class _Paths {
@@ -39,5 +41,7 @@ abstract class _Paths {
   static const PRODUCT_DETAILS_SCREEN = '/product_details_screen';
   static const CART_SCREEN = '/cart_screen';
   static const MANAGE_ADDRESS_SCREEN = '/manage-address';
+  static const EDIT_PROFILE = '/edit-profile';
   static const ORDER_SUCCESS_SCREEN = '/order-success-screen';
+  static const WISH_LIST_SCREEN = '/wishlist-screen';
 }

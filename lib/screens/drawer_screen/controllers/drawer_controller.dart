@@ -19,6 +19,9 @@ class DrawerWidgetController extends GetxController {
     if (index == 1) {
       Get.toNamed(Routes.CART_SCREEN);
     }
+    else if(index == 2){
+      Get.toNamed(Routes.WISH_LIST_SCREEN);
+    }
   }
 
   getDatas() async {
