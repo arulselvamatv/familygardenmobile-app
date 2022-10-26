@@ -126,28 +126,6 @@ class ProfileView extends GetView<ProfileController> {
                       ),
                     ],
                   ),
-                  AppSize.size.h30,
-                  AppSize.size.h30,
-
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: SizedBox(
-                      height: 50,
-                      width: Get.width,
-                      child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                              primary: AppColors.primaryColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(13))),
-                          child: TextWidget(
-                            'Update',
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14,
-                          )),
-                    ),
-                  ),
 
                 ],
               ),
@@ -155,6 +133,173 @@ class ProfileView extends GetView<ProfileController> {
           ),
         ),
       ),
+      bottomNavigationBar: Container(
+        color: AppColors.white,
+          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+          child: Container(
+            height: 50,
+            width: Get.width,
+            child: ElevatedButton(
+                onPressed: () {
+                  openAlertBox(context,controller);
+                },
+                style: ElevatedButton.styleFrom(
+                    primary: AppColors.primaryColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(13))),
+                child: TextWidget(
+                  'Update',
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+           )),
+          ),
+        ),
     );
   }
+}
+
+openAlertBox(BuildContext context, ProfileController controller) {
+  return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(32.0))),
+          contentPadding: EdgeInsets.only(top: 10.0),
+          content: Stack(
+            children: [
+
+          Container(
+                padding: EdgeInsets.only(left:20.0,right: 20.0,top: 15,bottom: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+
+                 TextWidget(
+                'Change Your Password',
+                  color: Colors.black,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14,),
+
+                    Padding(padding: EdgeInsets.only(top: 20.0),),
+
+                    TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'please enter password';
+                        }
+                        return null;
+                      },
+                      controller: controller.passwordController,
+                      decoration: InputDecoration(
+                        suffixIcon: Icon(
+                          Icons.visibility_outlined,
+                          color: Color(0xff909094),
+                        ),
+                        suffixIconConstraints: BoxConstraints(minWidth: 10,minHeight: 10),
+                        prefixIcon: Icon(
+                        Icons.lock,
+                        color: Color(0xff909094),
+                      ),
+                        prefixIconConstraints: BoxConstraints(minWidth: 10,minHeight: 10),
+                        labelText: "Enter new password *",
+                        labelStyle: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xff535353)),
+                        enabledBorder: UnderlineInputBorder(
+                            borderSide:
+                            BorderSide(color: AppColors.dividerColor)),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: AppColors.dividerColor,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'please enter password';
+                        }
+                        return null;
+                      },
+                      controller: controller.passwordController,
+                      decoration: InputDecoration(
+                        suffixIcon: Icon(
+                          Icons.visibility_outlined,
+                          color: Color(0xff909094),
+                        ),
+                        suffixIconConstraints: BoxConstraints(minWidth: 10,minHeight: 10),
+                        prefixIcon: Icon(
+                          Icons.lock,
+                          color: Color(0xff909094),
+                        ),
+                        prefixIconConstraints: BoxConstraints(minWidth: 10,minHeight: 10),
+                        labelText: "Confirm new password *",
+                        labelStyle: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xff535353)),
+                        enabledBorder: UnderlineInputBorder(
+                            borderSide:
+                            BorderSide(color: AppColors.dividerColor)),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: AppColors.dividerColor,
+                          ),
+                        ),
+                      ),
+                    ),
+
+
+                    Padding(padding: EdgeInsets.only(top: 20.0),),
+
+                    Container(
+                      height: 50,
+                      width: Get.width,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            openAlertBox(context,controller);
+                          },
+                          style: ElevatedButton.styleFrom(
+                              primary: AppColors.primaryColor,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(13))),
+                          child: TextWidget(
+                            'Change Password',
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                          )),),
+
+
+
+                  ],
+                ),
+              ),
+
+          Positioned(
+            right: 0.0,
+            child: GestureDetector(
+              onTap: (){
+                Navigator.of(context).pop();
+              },
+              child: Align(
+                alignment: Alignment.topRight,
+                child: CircleAvatar(
+                  radius: 14.0,
+                  backgroundColor: Colors.white,
+                  child: Icon(Icons.close, color: Colors.orange),
+                ),
+              ),
+            ),),
+            ],
+          ),
+        );
+      });
 }

@@ -11,6 +11,8 @@ import 'package:family_garden/screens/login_screen/binding/login_binding.dart';
 import 'package:family_garden/screens/login_screen/view/login_view.dart';
 import 'package:family_garden/screens/manage_address_screen/binding/manage_address_binding.dart';
 import 'package:family_garden/screens/manage_address_screen/view/manage_address_view.dart';
+import 'package:family_garden/screens/order_history_screen/bindings/order_history_screen_binding.dart';
+import 'package:family_garden/screens/order_history_screen/views/order_history_screen_view.dart';
 import 'package:family_garden/screens/order_success_screen/binding/order_success_binding.dart';
 import 'package:family_garden/screens/order_success_screen/view/order_success_view.dart';
 import 'package:family_garden/screens/payments_screen/binding/payment_binding.dart';
@@ -111,6 +113,12 @@ class AppPages {
       name: _Paths.EDIT_PROFILE,
       page: () => ProfileView(),
       binding: ProfileBinding(),
+    ),
+
+    GetPage(
+      name: _Paths.ORDER_HISTORY_SCREEN,
+      page: () => OrderHistoryView(),
+      binding: OrderHistoryScreenBinding(),
     ),
 
     GetPage(

@@ -7,6 +7,8 @@ class ProfileController extends GetxController {
   TextEditingController cityController = TextEditingController();
   TextEditingController stateController = TextEditingController();
   TextEditingController pinCodeController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
 
   @override
   void onInit() async {

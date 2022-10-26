@@ -84,7 +84,7 @@ class AccountView extends GetView<AccountController> {
                                       ),
                                     ),
                                     onTap: (){
-                                      Get.toNamed(Routes.WISH_LIST_SCREEN);
+                                      Get.toNamed(Routes.ORDER_HISTORY_SCREEN);
                                     },
                                   ),
                                 ),

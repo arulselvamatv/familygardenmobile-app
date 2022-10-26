@@ -1,8 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:family_garden/screens/product_details_screen/controllers/product_details_controller.dart';
-import 'package:flutter_html/flutter_html.dart';
-import '../../../routes/app_pages.dart';
+
 import '../../../utils/common_import/common_import.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
 import '../../../widgets/custom_textfield.dart';

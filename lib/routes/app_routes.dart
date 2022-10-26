@@ -22,6 +22,7 @@ abstract class Routes {
   static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
   static const ORDER_SUCCESS_SCREEN = _Paths.ORDER_SUCCESS_SCREEN;
   static const WISH_LIST_SCREEN = _Paths.WISH_LIST_SCREEN;
+  static const ORDER_HISTORY_SCREEN = _Paths.ORDER_HISTORY_SCREEN;
 }
 
 abstract class _Paths {
@@ -44,4 +45,5 @@ abstract class _Paths {
   static const EDIT_PROFILE = '/edit-profile';
   static const ORDER_SUCCESS_SCREEN = '/order-success-screen';
   static const WISH_LIST_SCREEN = '/wishlist-screen';
+  static const ORDER_HISTORY_SCREEN = '/order-history-screen';
 }
