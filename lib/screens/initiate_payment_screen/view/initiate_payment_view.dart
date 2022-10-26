@@ -4,6 +4,7 @@ import 'package:family_garden/routes/app_pages.dart';
 import 'package:family_garden/screens/initiate_payment_screen/controller/initiate_payment_controller.dart';
 import 'package:family_garden/screens/order_success_screen/view/order_success_view.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 // import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
@@ -67,7 +68,7 @@ class InitiatePaymentView extends GetView<InitatePaymentController> {
               print(e);
             }
           },
-          onPageFinished: (String url) {
+          onPageFinished: (String url) async {
             try {
               controller.url = url.toString();
               print("URL $url");
@@ -76,19 +77,19 @@ class InitiatePaymentView extends GetView<InitatePaymentController> {
                 Uri uri = Uri.parse(url.toString());
                 if (url.toString().contains("order_id")) {
                   controller.showLog("FINAL $url");
-                  /*
-                        String route = uri.queryParameters['route'];
-                        Uri uriForOrder = Uri.parse(route.toString());
-                        String orderNumber = uriForOrder.queryParameters['order_id'];
-                        showLog("ORDER $orderNumber");
-                        */
                   String? orderNumber = uri.queryParameters['order_id'];
+                  var prefs = await SharedPreferences.getInstance();
+                  await prefs.setString("orderNumber", orderNumber!);
                   print("orderNumber ::::$orderNumber");
-                  // Navigator.pop(context);
-                  // Navigator.pushNamed(context, RoutePaths.CCAOrderStatusView,
-                  //     arguments: orderNumber);
                   Get.back();
-                  Get.toNamed(Routes.ORDER_SUCCESS_SCREEN);
+                  Get.toNamed(Routes.ORDER_SUCCESS_SCREEN, arguments: [
+                    {"orderNumber": orderNumber}
+                  ]);
+                  // Get.to(() => Routes.ORDER_SUCCESS_SCREEN, arguments: [
+                  //   {"first": 'First data'},
+                  //   {"second": 'Second data'}
+                  // ]);
+                  // Get.toNamed<void>(Routes.ORDER_SUCCESS_SCREEN, arguments: {"orderNumber": orderNumber});
                 }
               }
             } catch (e) {

@@ -1,10 +1,11 @@
 import 'package:family_garden/models/checkout_model.dart';
 
+import '../../../main.dart';
 import '../../../network/api_helper.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/common_import/common_import.dart';
 
-class AddressController extends GetxController {
+class AddressController extends GetxController with RouteAware {
   var addressModel = CheckoutModel().obs;
   RxBool isaddressScreenLoader = false.obs;
   RxBool isEmptyAddress = true.obs;
@@ -28,6 +29,24 @@ class AddressController extends GetxController {
   void onInit() {
     super.onInit();
     getCheckout();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context)!);
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPopNext() {
+    super.didPopNext();
+    debugPrint("viewWillAppear");
   }
 
   getCheckout() async {
@@ -71,8 +90,8 @@ class AddressController extends GetxController {
       formData["company"] =
           (addressModel.value.addresses?[index].company) ?? "";
       print(formData);
-      //want to add a email
-      // formData["email"] = (addressModel.value.addresses?[index].) ?? "";
+      // want to add a email
+      // formData["email"] = (addressModel.value.addresses?[index].email) ?? "";
     }
     int? searchIndex =
         checkBoxBoolList.indexWhere((element) => element == true);
@@ -90,14 +109,20 @@ class AddressController extends GetxController {
     if (pickCheckBox.value == true) {
       var response = await ApiHelper.paymentAddressSave(formData);
       if (response.responseCode == 200) {
-        var response = await ApiHelper.shippingMethod();
-        var response1 = await ApiHelper.shippingMethodSave();
-        Get.toNamed(Routes.PAYMENT);
-        if (response1.responseCode == 200) {
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text("something went wrong"),
-          ));
+        print('paymentAddressSave');
+        var shippingMethodResponse = await ApiHelper.shippingMethod();
+        if (shippingMethodResponse.responseCode == 200) {
+          print('shippingMethod');
+          var shippingMethodSaveResponse = await ApiHelper.shippingMethodSave();
+          if (shippingMethodSaveResponse.responseCode == 200) {
+            print('shippingMethodSave');
+            Get.toNamed(Routes.PAYMENT);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text("something went wrong"),
+            ));
+          }
+
         }
       }
     } else {

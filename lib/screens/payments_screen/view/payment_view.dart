@@ -81,7 +81,7 @@ class PaymentView extends GetView<PaymentController> {
                                                 fontSize: 14,
                                                 color: AppColors.black)),
                                         TextSpan(
-                                            text: " ₹81",
+                                            text: "Rs. ${controller.savedPrice.value}",
                                             style: TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.bold,
@@ -257,7 +257,7 @@ class PaymentView extends GetView<PaymentController> {
                                               fontWeight: FontWeight.w500,
                                               color: AppColors.opacityGrey),
                                         ),
-                                        Text("Rs. 250.00",
+                                        Text("Rs. ${controller.actulPrice}",
                                             style: TextStyle(
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w500,
@@ -278,7 +278,7 @@ class PaymentView extends GetView<PaymentController> {
                                               fontWeight: FontWeight.w500,
                                               color: AppColors.opacityGrey),
                                         ),
-                                        Text("Free!",
+                                        Text("${controller.deliveryCharges}",
                                             style: TextStyle(
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w500,
@@ -304,7 +304,7 @@ class PaymentView extends GetView<PaymentController> {
                                         fontWeight: FontWeight.w600,
                                         color: AppColors.black),
                                   ),
-                                  Text("Rs. 250.00",
+                                  Text("Rs. ${controller.payableAmount}",
                                       style: TextStyle(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w600,

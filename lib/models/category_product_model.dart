@@ -153,7 +153,7 @@ class Products {
   String? minimum;
   int? rating;
   String? percentOff;
-  String? quantity;
+  int? quantity;
   String? href;
 
   Products(

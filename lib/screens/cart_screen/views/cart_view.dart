@@ -276,7 +276,8 @@ class CartView extends GetView<CartController> {
                                                 ),
                                                 AppSize.size.h5,
                                                 TextWidget(
-                                                    cart.products.value.weight,
+                                                    "${cart.products.value.products?[index].option?[0]["name"]}: ${cart.products.value.products?[index].option?.first["value"]}",
+                                                  // "Just to check",
                                                     fontSize: 10.5,
                                                     fontWeight: FontWeight.w400,
                                                     color: Color(0xff666666)),
@@ -323,7 +324,11 @@ class CartView extends GetView<CartController> {
                                                         .lineThrough,
                                                   ),
                                                   TextWidget(
-                                                    "17%",
+                                                    cart
+                                                        .products
+                                                        .value
+                                                        .products?[index]
+                                                        .offerPercentage,
                                                     fontSize: 13,
                                                     fontWeight: FontWeight.w500,
                                                     color: Color(0xffFF8A00),
@@ -555,10 +560,7 @@ class CartView extends GetView<CartController> {
                             color: Color(0xff141414)),
                         children: <TextSpan>[
                           TextSpan(
-                            text: controller.products.value.totals?[1].text !=
-                                    null
-                                ? '${controller.products.value.totals?[1].text}'
-                                : "₹0.00",
+                            text: controller.total.value,
                             style: TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.w600,

@@ -34,6 +34,7 @@ class CartListModel {
   final List<Product>? products;
   final List<dynamic>? vouchers;
   final List<Total>? totals;
+  String? savedAmount = "";
   final String? cartListModelContinue;
   final String? checkout;
   final dynamic logged;
@@ -143,6 +144,7 @@ class Product {
   final String? reward;
   final String? offerPrice;
   final String? actualPrice;
+  String? offerPercentage = "";
   final String? total;
   final String? href;
   final List<Option>? options;

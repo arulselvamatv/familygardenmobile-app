@@ -192,6 +192,7 @@ class ApiHelper {
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
         var body = jsonDecode(await response.stream.bytesToString());
+        print('getProductCategory $body');
         var res = ProductCategoryModel.fromJson(body);
         return HTTPResponse(
           true,
@@ -635,6 +636,7 @@ class ApiHelper {
             ? "gdeepacse1@gmail.com"
             : formData["email"]
       };
+      print("Add address ${request.bodyFields}");
       var headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
       };
@@ -691,12 +693,12 @@ class ApiHelper {
       );
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
-        print(body);
-        var res = ShippingMethodModel.fromJson(body);
-        print(res.shippingMethods.flat.title);
+        print("ShippingMethodModel ${body}");
+        // var res = ShippingMethodModel.fromJson(body);
+        // print("ShippingMethodModel ${res.shippingMethods.flat.title}");
         return HTTPResponse(
           true,
-          res,
+          null,
           responseCode: response.statusCode,
         );
       } else {
@@ -748,11 +750,11 @@ class ApiHelper {
 
       if (response.statusCode == 200) {
         var body = jsonDecode(await response.stream.bytesToString());
-        print(body);
-        var res = ShippingMethodSaveModel.fromJson(body);
+        print("shippingMethodSave ${body}");
+        // var res = ShippingMethodSaveModel.fromJson(body);
         return HTTPResponse(
           true,
-          res,
+          null,
           responseCode: response.statusCode,
         );
       } else {
@@ -897,6 +899,7 @@ class ApiHelper {
   static Future<HTTPResponse<LoginModel>> login(email, password) async {
     String url =
         "${ApiConstants.baseUrl}${EndPoints.login}${EndPoints.apiToken}";
+    print("login url ${url}");
     try {
       var request = http.MultipartRequest('POST', Uri.parse(url));
       request.fields.addAll({'email': email, 'password': password});

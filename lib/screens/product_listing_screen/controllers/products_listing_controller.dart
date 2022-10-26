@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:family_garden/network/api_helper.dart';
 import 'package:get/get.dart';
 import '../../../models/categories_model.dart';
@@ -144,7 +146,7 @@ class ProductListingController extends GetxController {
 
   hitAddCartAPI() async {
     if ((productData.value["product_info"]?.length ?? 0) > 0) {
-      print(productData);
+      print("AddCartAPI $productData");
       var response = await ApiHelper.addCart(productData.value);
     } else {}
   }

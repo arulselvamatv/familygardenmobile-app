@@ -29,7 +29,7 @@ class HomeScreenController extends GetxController with RouteAware {
   RxList fruitCounterList = [].obs;
 
   RxList category = [
-    {'name': 'Fresh from Forms', 'image': 'assets/images/home_screen-1.png'},
+    {'name': 'Fresh from Farm', 'image': 'assets/images/home_screen-1.png'},
     {'name': 'Fast Delivery', 'image': 'assets/images/home_screen-2.png'},
     {'name': 'For Low Cost', 'image': 'assets/images/home_screen-3.png'},
     {

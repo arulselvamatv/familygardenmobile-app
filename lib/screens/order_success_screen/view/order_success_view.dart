@@ -53,7 +53,7 @@ class OrderSuccessView extends GetView<OrderSuccessController> {
               ),
               AppSize.size.h15,
               TextWidget(
-                "- Order No : 4XXXXXX -",
+                "- Order No : ${controller.argumentData[0]['orderNumber']} -",
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: AppColors.white,

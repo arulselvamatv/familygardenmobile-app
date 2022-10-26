@@ -5,10 +5,10 @@ class ShippingMethodModel {
     required this.code,
     required this.comment,
   });
-  late final String errorWarning;
+  late final String? errorWarning;
   late final ShippingMethods shippingMethods;
-  late final String code;
-  late final String comment;
+  late final String? code;
+  late final String? comment;
 
   ShippingMethodModel.fromJson(Map<String, dynamic> json) {
     errorWarning = json['error_warning'];
