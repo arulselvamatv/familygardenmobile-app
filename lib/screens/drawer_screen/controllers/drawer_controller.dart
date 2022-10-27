@@ -15,10 +15,24 @@ class DrawerWidgetController extends GetxController {
   RxString login = "".obs;
 
   sideMenuNavigation(int index) {
-    getDatas();
-    if (index == 1) {
+    print(index);
+    if (index == 0) {
+      // print("Hitted");
+      Get.toNamed(Routes.DASHBOARD);
+    } else if (index == 1) {
       Get.toNamed(Routes.CART_SCREEN);
+    } else if (index == 2) {
+      // Get.toNamed(Routes.CART_SCREEN);
+    } else if (index == 3) {
+      // Get.toNamed(Routes.CART_SCREEN);
+    } else if (index == 4) {
+      // Get.toNamed(Routes.CART_SCREEN);
+    } else if (index == 5) {
+      // Get.toNamed(Routes.CART_SCREEN);
+    } else if (index == 6) {
+      // Get.toNamed(Routes.CART_SCREEN);
     }
+    getDatas();
   }
 
   getDatas() async {

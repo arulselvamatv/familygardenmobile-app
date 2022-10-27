@@ -27,7 +27,6 @@ class HomeScreenController extends GetxController with RouteAware {
   RxList fruitBoolList = [].obs;
   RxList vegCounterList = [].obs;
   RxList fruitCounterList = [].obs;
-
   RxList category = [
     {'name': 'Fresh from Farm', 'image': 'assets/images/home_screen-1.png'},
     {'name': 'Fast Delivery', 'image': 'assets/images/home_screen-2.png'},
@@ -99,9 +98,9 @@ class HomeScreenController extends GetxController with RouteAware {
     clearAll();
     var response = await ApiHelper.homeFeature();
     if (response.responseCode == 200) {
-      vegetableList.value = (response.data?.vegetables)!;
-      fruitsList.value = (response.data?.fruits)!;
-      getDropdownValues();
+      // vegetableList.value = (response.data?.vegetables)!;
+      // fruitsList.value = (response.data?.fruits)!;
+      // getDropdownValues();
     }
     update();
   }

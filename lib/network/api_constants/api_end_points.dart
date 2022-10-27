@@ -46,6 +46,8 @@ class EndPoints {
 
   static const checkoutConfirm = "/index.php?route=mobileapi/checkout/confirm";
 
+  static const cartCount = "/index.php?route=mobileapi/cart/count";
+
   static const orderSuccess =
       "/index.php?route=mobileapi/mobileapi/checkout/ordersuccess";
 

@@ -27,7 +27,7 @@ class CartController extends GetxController {
   RxList optionValueId = [].obs;
   RxList productId = [].obs;
   RxList minusCounterList = [].obs;
-  late Timer addCartTimer = Timer(const Duration(seconds: 300), () { });
+  late Timer addCartTimer = Timer(const Duration(seconds: 300), () {});
 
   void onInit() async {
     super.onInit();
@@ -37,6 +37,7 @@ class CartController extends GetxController {
   getCartListDatas() async {
     print(EndPoints.apiToken);
     var response = await ApiHelper.cartList();
+    print(response.responseCode);
     if (response.isSuccessFul) {
       print('getCartListDatas successful');
       products.value = response.data!;
@@ -66,14 +67,18 @@ class CartController extends GetxController {
 
     for (int i = 0; i < (products.value.products?.length)!; i++) {
       counterList.add(products.value.products?[i].quantity);
-      var offerPrice = double.parse((products.value.products?[i].offerPrice?.substring(1))!);
-      var actualPrice = double.parse((products.value.products?[i].actualPrice)!);
-      var percentage = ((actualPrice-offerPrice)/actualPrice)*100;
-      products.value.products?[i].offerPercentage = "${percentage.toInt()}%";
-      print("$actualPriceAmount, $offerPriceAmount");
-      actualPriceAmount += actualPrice * double.parse((products.value.products?[i].quantity)!);
-      offerPriceAmount += offerPrice * double.parse((products.value.products?[i].quantity)!);
-      print("$actualPriceAmount, $offerPriceAmount");
+      var offerPrice =
+          double.parse((products.value.products?[i].offerPrice?.substring(1))!);
+      // var actualPrice =
+      //     double.parse((products.value.products?[i].actualPrice)!);
+      // var percentage = ((actualPrice - offerPrice) / actualPrice) * 100;
+      // products.value.products?[i].offerPercentage = "${percentage.toInt()}%";
+      // print("$actualPriceAmount, $offerPriceAmount");
+      // actualPriceAmount +=
+      //     actualPrice * double.parse((products.value.products?[i].quantity)!);
+      // offerPriceAmount +=
+      //     offerPrice * double.parse((products.value.products?[i].quantity)!);
+      // print("$actualPriceAmount, $offerPriceAmount");
     }
     savedPrice.value = actualPriceAmount - offerPriceAmount;
     for (int i = 0; i < (products.value.products?.length)!; i++) {

@@ -217,8 +217,8 @@ class ProductListingView extends GetView<ProductListingController> {
                                     itemBuilder: (context, index) {
                                       return GestureDetector(
                                         onTap: () {
-                                          controller.categoriesIndex.value =
-                                              index;
+                                          // controller.categoriesIndex.value =
+                                          //     index;
                                           controller.hitAddCartAPI();
                                           Get.toNamed(
                                                   Routes.PRODUCT_DETAILS_SCREEN,

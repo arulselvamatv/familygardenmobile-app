@@ -35,7 +35,7 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
             ),
           ),
           font_size: 19,
-          appbar_title: 'My Cart',
+          appbar_title: controller.productDetails?.productName ?? "Orders",
           center_title: true,
           leading_image: "Add",
           appBarActions: Stack(

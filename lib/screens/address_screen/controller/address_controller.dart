@@ -31,11 +31,11 @@ class AddressController extends GetxController with RouteAware {
     getCheckout();
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    routeObserver.subscribe(this, ModalRoute.of(context)!);
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   // super.didChangeDependencies();
+  //   routeObserver.subscribe(this, ModalRoute.of(context)!);
+  // }
 
   @override
   void dispose() {

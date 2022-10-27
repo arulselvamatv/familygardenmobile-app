@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:family_garden/network/api_constants/api_constants.dart';
 import 'package:family_garden/network/api_helper.dart';
 import 'package:get/get.dart';
 import '../../../models/categories_model.dart';
@@ -34,6 +35,7 @@ class ProductListingController extends GetxController {
   }
 
   getCategory() async {
+    print(ApiConstants.jwtToken);
     categoriesIndex.value = Get.arguments;
     var respone = await ApiHelper.getCategories();
     if (respone.isSuccessFul) {
@@ -47,6 +49,7 @@ class ProductListingController extends GetxController {
   }
 
   getCategoryProduct(categoryId) async {
+    // print(getCategory());
     clearAll();
     var response = await ApiHelper.getProductCategory(categoryId);
     if (response.responseCode == 200) {
@@ -102,6 +105,7 @@ class ProductListingController extends GetxController {
   void categoriesOnTap(int index) {
     categoriesIndex.value = index;
     isCategoryProductLoader.value = true;
+    print("Category ID : ${categoriesList.value[index].categoryId}");
     getCategoryProduct(categoriesList.value[index].categoryId);
     title.value = (categoriesList.value[index].name)!;
     update();

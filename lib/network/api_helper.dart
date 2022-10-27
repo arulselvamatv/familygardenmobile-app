@@ -10,6 +10,7 @@ import 'package:family_garden/models/home_feature_model.dart';
 import 'package:family_garden/models/home_slider_model.dart';
 import 'package:family_garden/models/login_model.dart';
 import 'package:family_garden/models/payment_method_model.dart';
+import '../models/cart_count_model.dart';
 import '../models/categories_model.dart';
 import '../models/category_product_model.dart';
 import '../models/payment_address_save_model.dart';
@@ -185,6 +186,7 @@ class ApiHelper {
 
   static Future<HTTPResponse<ProductCategoryModel>> getProductCategory(
       path) async {
+    // print(path);
     String url = "${ApiConstants.baseUrl}${EndPoints.productCategory}";
     try {
       var request = http.MultipartRequest('POST', Uri.parse(url));
@@ -192,7 +194,7 @@ class ApiHelper {
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
         var body = jsonDecode(await response.stream.bytesToString());
-        print('getProductCategory $body');
+        // print('getProductCategory $body');
         var res = ProductCategoryModel.fromJson(body);
         return HTTPResponse(
           true,
@@ -401,7 +403,9 @@ class ApiHelper {
       );
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
+        print(body);
         var res = CartListModel.fromJson(body);
+        print("Cart List Model ${res.checkout}");
         return HTTPResponse(
           true,
           res,
@@ -1087,5 +1091,54 @@ class ApiHelper {
         message: "Something went wrong! Please try again in a minute or two.",
       );
     }
+  }
+
+  static cartCount() async {
+    String url =
+        "${ApiConstants.baseUrl}${EndPoints.cartCount}${EndPoints.apiToken}";
+    // try {
+    var response = await http.post(
+      Uri.parse(url),
+    );
+    return jsonDecode(response.body);
+    //   if (response.statusCode == 200) {
+    //     var body = jsonDecode(response.body);
+    //     print("body ${body}");
+    //     var res = cartCountModel.fromJson(body);
+    //     return HTTPResponse(
+    //       true,
+    //       res,
+    //       responseCode: response.statusCode,
+    //     );
+    //   } else {
+    //     return HTTPResponse(
+    //       false,
+    //       null,
+    //       message:
+    //           "Invalid response received from server! Please try again in a minute or two.",
+    //     );
+    //   }
+    // } on SocketException {
+    //   return HTTPResponse(
+    //     false,
+    //     null,
+    //     message:
+    //         "Unable to reach the internet! Please try again in a minute or two.",
+    //   );
+    // } on FormatException {
+    //   return HTTPResponse(
+    //     false,
+    //     null,
+    //     message:
+    //         "Invalid response received from server! Please try again in a minute or two.",
+    //   );
+    // } catch (e) {
+    //   print(e);
+    //   return HTTPResponse(
+    //     false,
+    //     null,
+    //     message: "Something went wrong! Please try again in a minute or two.",
+    //   );
+    // }
   }
 }

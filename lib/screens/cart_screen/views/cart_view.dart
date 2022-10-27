@@ -275,12 +275,22 @@ class CartView extends GetView<CartController> {
                                                   ),
                                                 ),
                                                 AppSize.size.h5,
-                                                TextWidget(
-                                                    "${cart.products.value.products?[index].option?[0]["name"]}: ${cart.products.value.products?[index].option?.first["value"]}",
-                                                  // "Just to check",
-                                                    fontSize: 10.5,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Color(0xff666666)),
+                                                (cart
+                                                            .products
+                                                            .value
+                                                            .products?[index]
+                                                            .option
+                                                            ?.length)! >
+                                                        0
+                                                    ? TextWidget(
+                                                        "${cart.products.value.products?[index].option?[0]["name"]}: ${cart.products.value.products?[index].option?.first["value"]}",
+                                                        // "Just to check",
+                                                        fontSize: 10.5,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color:
+                                                            Color(0xff666666))
+                                                    : Container(),
                                               ],
                                             ),
                                             Spacer(),

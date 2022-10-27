@@ -2,6 +2,7 @@ import 'package:family_garden/screens/Home_screen/controllers/homescreen_control
 import 'package:family_garden/screens/categories_screen/views/categories_view.dart';
 import 'package:family_garden/screens/dashboard/controllers/dashboard_controller.dart';
 import 'package:family_garden/screens/drawer_screen/views/drawer_view.dart';
+import 'package:family_garden/screens/offers_screen/view/offer_screen_view.dart';
 import 'package:family_garden/screens/profile_screen/views/profile_view.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:family_garden/widgets/common_appbar/custom_appbar_view.dart';
@@ -54,8 +55,10 @@ class DashboardView extends GetView<DashboardController> {
                       Get.find<HomeScreenController>().vegHitAddCartAPI();
                       Get.find<HomeScreenController>().fruitsHitAddCartAPI();
                       controller.update();
-                      Get.toNamed(Routes.CART_SCREEN)?.then((value) =>
-                          Get.find<HomeScreenController>().getHomeFeature());
+                      Get.toNamed(Routes.CART_SCREEN)?.then((value) {
+                        Get.find<HomeScreenController>().getHomeFeature();
+                        controller.getCartCount();
+                      });
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(right: 20, top: 15),
@@ -79,7 +82,7 @@ class DashboardView extends GetView<DashboardController> {
                         padding: const EdgeInsets.all(0.0),
                         child: Center(
                             child: TextWidget(
-                          "0",
+                          controller.cartCount.value.toString(),
                           color: AppColors.black,
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
@@ -134,10 +137,12 @@ class DashboardView extends GetView<DashboardController> {
               children: [
                 HomeScreenView(),
                 CategoriesView(),
-                Icon(
-                  Icons.discount,
-                  size: 150,
-                ),
+                OffersView(),
+                // Icon(
+                //   Icons.light,
+                //   size: 150,
+                // ),
+
                 ProfileView(),
               ],
             ),

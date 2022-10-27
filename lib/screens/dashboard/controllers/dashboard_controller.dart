@@ -1,4 +1,5 @@
 import 'package:family_garden/screens/Home_screen/views/homescreen_view.dart';
+import '../../../network/api_helper.dart';
 import '../../../utils/common_import/common_import.dart';
 
 class DashboardController extends GetxController
@@ -6,6 +7,7 @@ class DashboardController extends GetxController
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   RxInt selectedIndex = 0.obs;
   TabController? tabController;
+  RxInt cartCount = 0.obs;
 
   RxList<Widget> pages = <Widget>[
     HomeScreenView(),
@@ -31,5 +33,17 @@ class DashboardController extends GetxController
   void onInit() async {
     super.onInit();
     tabController = TabController(vsync: this, length: 4);
+    getCartCount();
+  }
+
+  getCartCount() async {
+    var response = await ApiHelper.cartCount();
+    // print("CartCount response ${response.responseCode}");
+    cartCount.value = int.parse(response["text_items"]);
+    // if (response.responseCode == 200) {
+    //   cartCount.value = int.parse((text_items);
+    //   update();
+    // }
+    update();
   }
 }
