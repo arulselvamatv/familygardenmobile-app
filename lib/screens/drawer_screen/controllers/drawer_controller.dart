@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../routes/app_pages.dart';
 
 class DrawerWidgetController extends GetxController {
+  final formGlobalKey = GlobalKey<FormState>();
   RxList sideMenus = [
     {'name': 'Home', 'image': 'assets/icons/homeSideMenu.png'},
     {'name': 'My Cart', 'image': 'assets/icons/myCart.png'},
@@ -13,6 +14,10 @@ class DrawerWidgetController extends GetxController {
     {'name': 'FAQ', 'image': 'assets/icons/Faq.png'},
   ].obs;
   RxString login = "".obs;
+  RxBool isLoggedin = false.obs;
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   sideMenuNavigation(int index) {
     print(index);
@@ -37,8 +42,14 @@ class DrawerWidgetController extends GetxController {
 
   getDatas() async {
     var prefs = await SharedPreferences.getInstance();
+    // if (prefs.containsKey("Login")) {
+    //   login.value = prefs.getString("Login")!;
+    // }
     if (prefs.containsKey("Login")) {
-      login.value = prefs.getString("Login")!;
+      String nameText = prefs.getString('Login') ?? '';
+      if (nameText == "true") {
+        login.value = prefs.getString("Login")!;
+      }
     }
   }
 }

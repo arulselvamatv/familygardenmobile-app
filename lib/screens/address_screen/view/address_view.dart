@@ -40,7 +40,8 @@ class AddressView extends GetView<AddressController> {
           leading_image: "Add",
           appBarActions: GestureDetector(
             onTap: () {
-              Get.toNamed(Routes.ADDADDRESS);
+              Get.toNamed(Routes.ADDADDRESS)
+                  ?.then((value) => controller.getCheckout());
             },
             child: Padding(
               padding: const EdgeInsets.only(right: 20, top: 15),
@@ -68,29 +69,6 @@ class AddressView extends GetView<AddressController> {
                       children: [
                         Center(
                           child: Text("Add Address to continue"),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: SizedBox(
-                            height: 50,
-                            width: Get.width,
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  controller.deliverHereBtn(context);
-                                  // controller.onPressAddBtn();
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    primary: AppColors.primaryColor,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(13))),
-                                child: TextWidget(
-                                  'Deliver Here',
-                                  color: AppColors.white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14,
-                                )),
-                          ),
                         ),
                       ],
                     )

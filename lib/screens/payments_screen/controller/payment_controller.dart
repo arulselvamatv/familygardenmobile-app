@@ -19,6 +19,7 @@ class PaymentController extends GetxController {
   RxDouble actulPrice = 0.00.obs;
   RxDouble payableAmount = 0.00.obs;
   RxString deliveryCharges = "".obs;
+  String code = '';
   // RxDouble savedPrice = 0.0.obs;
 
   var paymentMethod;
@@ -36,13 +37,11 @@ class PaymentController extends GetxController {
     // if (response.responseCode == 200) {
     //   print(response.body);
     isPaymentScreenLoader.value = true;
-    var res = await ApiHelper.paymentMethodSave();
-    var checkoutResponse = await ApiHelper.checkOutConfirm();
-    if (checkoutResponse.data == null) {
-      isCartEmpty.value = true;
-    } else {
-      paymentRes = checkoutResponse.data!;
-    }
+    // if (checkoutResponse.data == null) {
+    //   isCartEmpty.value = true;
+    // } else {
+    //   paymentRes = checkoutResponse.data!;
+    // }
     // }
 
     update();
@@ -82,8 +81,12 @@ class PaymentController extends GetxController {
     if (isCODselected.value == true) {
       isCODselected.value = !value;
       isCCavenueSelected.value = value;
+      code = 'ccavenuepay';
+      // code = paymentMethod["payment_methods"]["ccavenuepay"]["code"];
     } else {
       isCCavenueSelected.value = value;
+      code = 'ccavenuepay';
+      // code = paymentMethod["payment_methods"]["ccavenuepay"]["code"];
     }
     update();
   }
@@ -92,33 +95,51 @@ class PaymentController extends GetxController {
     if (isCCavenueSelected.value == true) {
       isCCavenueSelected.value = !value;
       isCODselected.value = value;
+      code = 'cod';
+      // code = paymentMethod["payment_methods"]["cod"]["code"];
     } else {
       isCODselected.value = value;
+      code = 'cod';
+      // code = paymentMethod["payment_methods"]["cod"]["code"];
     }
     update();
   }
 
   codMethod() async {
-    var request = http.Request(
-        'POST',
-        Uri.parse(
-            '${ApiConstants.baseUrl}/index.php?route=mobileapi/payment/cod/confirm&api_token=${ApiConstants.jwtToken}'));
-    http.StreamedResponse response = await request.send();
-    if (response.statusCode == 200) {
+    var res = await http.post(Uri.parse(
+        "${ApiConstants.baseUrl}/index.php?route=mobileapi/payment/cod/confirm&api_token=${ApiConstants.jwtToken}"));
+
+    // var request = http.Request(
+    //     'POST',
+    //     Uri.parse(
+    //         ''));
+    // http.StreamedResponse response = await request.send();
+    print("res code ${res.statusCode}");
+    if (res.statusCode == 200) {
+      var response = res.body;
+      // print(response)
+      print("cod confirm res ${response}");
       Get.toNamed(Routes.ORDER_SUCCESS_SCREEN, arguments: [
         {"orderNumber": ''}
       ]);
     } else {
-      print(response.reasonPhrase);
+      // print(response.reasonPhrase);
     }
   }
 
-  continueBtn(context) {
+  continueBtn(context) async {
     if (isCCavenueSelected.value || isCODselected.value) {
       if (isCCavenueSelected.value) {
         Get.toNamed(Routes.INITIATEPAYMENT, arguments: paymentRes);
       } else {
-        codMethod();
+        var res = await ApiHelper.paymentMethodSave('cod');
+        if (res.responseCode == 200) {
+          var checkoutResponse = await ApiHelper.checkOutConfirm();
+          if (checkoutResponse.responseCode == 200) {
+            paymentRes = checkoutResponse.data!;
+            codMethod();
+          }
+        }
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

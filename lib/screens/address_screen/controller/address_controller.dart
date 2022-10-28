@@ -14,6 +14,7 @@ class AddressController extends GetxController with RouteAware {
   var selectedAddressIndex = 0.obs;
   RxInt addressId = 0.obs;
   var formData = {
+    "address_id": "",
     "firstname": "",
     "lastname": "",
     "address_1": "",
@@ -59,6 +60,7 @@ class AddressController extends GetxController with RouteAware {
     } else {
       isaddressScreenLoader.value = true;
     }
+    addressModel.refresh();
     update();
   }
 
@@ -73,7 +75,7 @@ class AddressController extends GetxController with RouteAware {
   onCheckBoxClick(value, index) {
     if (addressModel.value.addresses?[index].addressId != "" &&
         addressModel.value.addresses?[index].addressId != " ") {
-      addressId.value =
+      addressId.value = formData["address_id"] =
           int.parse((addressModel.value.addresses?[index].addressId)!);
       formData["firstname"] =
           (addressModel.value.addresses?[index].firstname) ?? "";
@@ -108,7 +110,7 @@ class AddressController extends GetxController with RouteAware {
 
   deliverHereBtn(context) async {
     if (pickCheckBox.value == true) {
-      var response = await ApiHelper.paymentAddressSave(formData);
+      var response = await ApiHelper.existingPaymentAddressSave(formData);
       if (response.responseCode == 200) {
         print('paymentAddressSave');
         var shippingMethodResponse = await ApiHelper.shippingMethod();

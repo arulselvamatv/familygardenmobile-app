@@ -52,11 +52,12 @@ class DashboardView extends GetView<DashboardController> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Get.find<HomeScreenController>().vegHitAddCartAPI();
-                      Get.find<HomeScreenController>().fruitsHitAddCartAPI();
+                      // Get.find<HomeScreenController>().vegHitAddCartAPI();
+                      Get.find<HomeScreenController>().hitAddCartAPI();
+                      // Get.find<HomeScreenController>().fruitsHitAddCartAPI();
                       controller.update();
                       Get.toNamed(Routes.CART_SCREEN)?.then((value) {
-                        Get.find<HomeScreenController>().getHomeFeature();
+                        Get.find<HomeScreenController>().getHomeFeatures();
                         controller.getCartCount();
                       });
                     },

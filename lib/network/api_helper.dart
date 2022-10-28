@@ -410,9 +410,9 @@ class ApiHelper {
       );
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
-        print(body);
+        // print(body);
         var res = CartListModel.fromJson(body);
-        print("Cart List Model ${res.checkout}");
+        // print("Cart List Model ${res.checkout}");
         return HTTPResponse(
           true,
           res,
@@ -802,8 +802,8 @@ class ApiHelper {
     }
   }
 
-  static Future<HTTPResponse<PaymentMethodSaveModel>>
-      paymentMethodSave() async {
+  static Future<HTTPResponse<PaymentMethodSaveModel>> paymentMethodSave(
+      data) async {
     try {
       var request = http.Request(
           'POST',
@@ -811,9 +811,10 @@ class ApiHelper {
               "${ApiConstants.baseUrl}${EndPoints.paymentMethodSave}&api_token=${ApiConstants.jwtToken}"));
       request.bodyFields = {
         'comment': '',
-        'payment_method': 'ccavenuepay',
+        'payment_method': 'cod',
         'agree': '1'
       };
+      print(request.bodyFields);
       var headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
       };
@@ -822,7 +823,7 @@ class ApiHelper {
 
       if (response.statusCode == 200) {
         var body = jsonDecode(await response.stream.bytesToString());
-        print(body);
+        print("payment method save $body");
         var res = PaymentMethodSaveModel.fromJson(body);
         return HTTPResponse(
           true,
@@ -900,7 +901,7 @@ class ApiHelper {
             "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
-      print(e);
+      // print(e);
       return HTTPResponse(
         false,
         null,
@@ -918,7 +919,7 @@ class ApiHelper {
       request.fields.addAll({'email': email, 'password': password});
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
-        // var body = jsonDecode(response.body);
+        print(url);
         var body = jsonDecode(await response.stream.bytesToString());
         print(body);
         var res = LoginModel.fromJson(body);
@@ -1444,6 +1445,95 @@ class ApiHelper {
         return HTTPResponse(
           true,
           null,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print(e);
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<PaymentAddressSaveModel>>
+      existingPaymentAddressSave(formData) async {
+    try {
+      var request = http.Request(
+          'POST',
+          Uri.parse(
+              "${ApiConstants.baseUrl}/index.php?route=mobileapi/checkout/payment_address/save&api_token=${ApiConstants.jwtToken}"));
+      print("&api_token=${ApiConstants.jwtToken}");
+      request.bodyFields = {
+        'payment_address': 'existing',
+        'address_id': '${formData['address_id']}'
+        // 'firstname':
+        //     formData["firstname"] == "" && formData["firstname"] == null
+        //         ? "deepa "
+        //         : formData["firstname"],
+        // 'lastname': formData["lastname"] == "" && formData["lastname"] == null
+        //     ? "g"
+        //     : formData["lastname"],
+        // 'address_1':
+        //     formData["address_1"] == "" && formData["address_1"] == null
+        //         ? "chennai"
+        //         : formData["address_1"],
+        // 'city': formData["city"] == "" && formData["city"] == null
+        //     ? "chennai"
+        //     : formData["city"],
+        // 'postcode': "600017",
+        // 'telephone':
+        //     formData["telephone"] == "" && formData["telephone"] == null
+        //         ? "8097700316"
+        //         : formData["telephone"],
+        // 'address_2':
+        //     formData["address_2"] == "" && formData["address_2"] == null
+        //         ? "chennai"
+        //         : formData["address_2"],
+        // 'company': formData["company"] == "" && formData["company"] == null
+        //     ? "atv"
+        //     : formData["company"],
+        // 'email': formData["email"] == "" && formData["email"] == null
+        //     ? "gdeepacse1@gmail.com"
+        //     : formData["email"]
+      };
+      print("Add address ${request.bodyFields}");
+      var headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      };
+      request.headers.addAll(headers);
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        print('paymentAddressSave $body');
+        var res = PaymentAddressSaveModel.fromJson(body);
+        return HTTPResponse(
+          true,
+          res,
           responseCode: response.statusCode,
         );
       } else {

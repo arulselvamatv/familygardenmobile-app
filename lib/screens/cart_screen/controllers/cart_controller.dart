@@ -1,10 +1,6 @@
 import 'dart:async';
-
 import 'package:family_garden/models/cart_list_model.dart';
-import 'package:family_garden/network/api_constants/api_end_points.dart';
 import 'package:family_garden/network/api_helper.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../../models/product_add_cart_model.dart';
 import '../../../utils/common_import/common_import.dart';
 
 class CartController extends GetxController {
@@ -73,12 +69,12 @@ class CartController extends GetxController {
           (products.value.products?[i].actualPrice?.substring(1))!);
       var percentage = ((actualPrice - offerPrice) / actualPrice) * 100;
       products.value.products?[i].offerPercentage = "${percentage.toInt()}%";
-      // print("$actualPriceAmount, $offerPriceAmount");
-      // actualPriceAmount +=
-      //     actualPrice * double.parse((products.value.products?[i].quantity)!);
-      // offerPriceAmount +=
-      //     offerPrice * double.parse((products.value.products?[i].quantity)!);
-      // print("$actualPriceAmount, $offerPriceAmount");
+      print("$actualPriceAmount, $offerPriceAmount");
+      actualPriceAmount +=
+          actualPrice * double.parse((products.value.products?[i].quantity)!);
+      offerPriceAmount +=
+          offerPrice * double.parse((products.value.products?[i].quantity)!);
+      print("$actualPriceAmount, $offerPriceAmount");
     }
     savedPrice.value = actualPriceAmount - offerPriceAmount;
     for (int i = 0; i < (products.value.products?.length)!; i++) {

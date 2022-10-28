@@ -323,14 +323,16 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
                                       onTap: () {
-                                        controller.fruitsHitAddCartAPI();
-                                        controller.vegHitAddCartAPI();
+                                        controller.hitAddCartAPI();
+                                        // controller.vegHitAddCartAPI();
                                         Get.toNamed(
                                                 Routes.PRODUCT_LISTING_SCREEN,
                                                 arguments: index)
-                                            ?.then((value) =>
-                                                Get.find<DashboardController>()
-                                                    .getCartCount());
+                                            ?.then((value) {
+                                          controller.getHomeFeatures();
+                                          Get.find<DashboardController>()
+                                              .getCartCount();
+                                        });
                                       },
                                       child: Container(
                                         child: Column(
