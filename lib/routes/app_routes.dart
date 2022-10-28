@@ -20,6 +20,14 @@ abstract class Routes {
   static const CART_SCREEN = _Paths.CART_SCREEN;
   static const MANAGE_ADDRESS_SCREEN = _Paths.MANAGE_ADDRESS_SCREEN;
   static const ORDER_SUCCESS_SCREEN = _Paths.ORDER_SUCCESS_SCREEN;
+  static const WISH_LIST_SCREEN = _Paths.WISH_LIST_SCREEN;
+  static const ORDER_HISTORY_SCREEN = _Paths.ORDER_HISTORY_SCREEN;
+  static const ORDER_DETAIL = _Paths.ORDER_DETAIL;
+  static const TERMS_AND_CONDITIONS = _Paths.TERMS_AND_CONDITIONS;
+  static const FAQ = _Paths.FAQ;
+  static const PRIVACY_POLICY = _Paths.PRIVACY_POLICY;
+  static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
+  static const HELP_CENTER = _Paths.HELP_CENTER;
 }
 
 abstract class _Paths {
@@ -40,4 +48,12 @@ abstract class _Paths {
   static const CART_SCREEN = '/cart_screen';
   static const MANAGE_ADDRESS_SCREEN = '/manage-address';
   static const ORDER_SUCCESS_SCREEN = '/order-success-screen';
+  static const WISH_LIST_SCREEN = '/wishlist-screen';
+  static const ORDER_HISTORY_SCREEN = '/order-history-screen';
+  static const ORDER_DETAIL = '/order-detail';
+  static const TERMS_AND_CONDITIONS = '/terms-and-conditions';
+  static const FAQ = '/faq';
+  static const PRIVACY_POLICY = '/privacy-policy';
+  static const EDIT_PROFILE = '/edit-profile';
+  static const HELP_CENTER = '/help-center';
 }

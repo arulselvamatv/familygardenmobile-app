@@ -51,9 +51,11 @@ class ProductListingView extends GetView<ProductListingController> {
                       GestureDetector(
                         onTap: () {
                           controller.hitAddCartAPI();
-                          Get.toNamed(Routes.CART_SCREEN)?.then((value) =>
-                              controller.getCategoryProduct(
-                                  controller.categoryId.value));
+                          Get.toNamed(Routes.CART_SCREEN)?.then((value) {
+                            controller.getCategoryProduct(
+                                controller.categoryId.value);
+                            controller.getCartCount();
+                          });
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(right: 20, top: 15),
@@ -77,11 +79,13 @@ class ProductListingView extends GetView<ProductListingController> {
                           child: Padding(
                             padding: const EdgeInsets.all(0.0),
                             child: Center(
-                                child: TextWidget(
-                              "0",
-                              color: AppColors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
+                                child: Obx(
+                              () => TextWidget(
+                                controller.cartCount.value.toString(),
+                                color: AppColors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
                             )),
                           ),
                         ),
@@ -225,9 +229,11 @@ class ProductListingView extends GetView<ProductListingController> {
                                                   arguments: controller
                                                       .products[index]
                                                       .productId)
-                                              ?.then((value) => controller
-                                                  .getCategoryProduct(controller
-                                                      .categoryId.value));
+                                              ?.then((value) {
+                                            controller.getCategoryProduct(
+                                                controller.categoryId.value);
+                                            controller.getCartCount();
+                                          });
                                           controller.update();
                                         },
                                         child: Stack(

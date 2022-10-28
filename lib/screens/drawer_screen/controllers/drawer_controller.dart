@@ -22,15 +22,15 @@ class DrawerWidgetController extends GetxController {
     } else if (index == 1) {
       Get.toNamed(Routes.CART_SCREEN);
     } else if (index == 2) {
-      // Get.toNamed(Routes.CART_SCREEN);
+      Get.toNamed(Routes.WISH_LIST_SCREEN);
     } else if (index == 3) {
-      // Get.toNamed(Routes.CART_SCREEN);
+      Get.toNamed(Routes.ORDER_HISTORY_SCREEN);
     } else if (index == 4) {
       // Get.toNamed(Routes.CART_SCREEN);
     } else if (index == 5) {
-      // Get.toNamed(Routes.CART_SCREEN);
+      // Get.toNamed(Routes.C);
     } else if (index == 6) {
-      // Get.toNamed(Routes.CART_SCREEN);
+      Get.toNamed(Routes.FAQ);
     }
     getDatas();
   }

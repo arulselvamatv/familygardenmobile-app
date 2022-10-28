@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:family_garden/models/add_address_model.dart';
 import 'package:family_garden/models/add_cart_model.dart';
 import 'package:family_garden/models/cart_list_model.dart';
@@ -13,12 +14,16 @@ import 'package:family_garden/models/payment_method_model.dart';
 import '../models/cart_count_model.dart';
 import '../models/categories_model.dart';
 import '../models/category_product_model.dart';
+import '../models/home_features_model.dart';
+import '../models/order_history_model.dart';
+import '../models/order_info_model.dart';
 import '../models/payment_address_save_model.dart';
 import '../models/payment_method_save_model.dart';
 import '../models/product_detail_model.dart';
 import '../models/shipping_method_model.dart';
 import '../models/shipping_method_save_model.dart';
 import '../models/signupModel.dart';
+import '../models/wishlistmodel.dart';
 import 'api_constants/api_constants.dart';
 import 'api_constants/api_end_points.dart';
 import 'http_response_model.dart';
@@ -36,6 +41,8 @@ class ApiHelper {
   //   );
   //   print(response.body);
   // }
+
+  // static String apiToken = "&api_token=${ApiConstants.jwtToken}";
 
   static Future<HTTPResponse<GetTokenModel>> getToken() async {
     // String url = "${ApiConstants.baseUrl}${EndPoints.category}";
@@ -89,7 +96,7 @@ class ApiHelper {
 
   static Future<HTTPResponse<HomeSliderModel>> getHomeSliderDetails() async {
     String url =
-        "${ApiConstants.baseUrl}${EndPoints.homeCarousel}${EndPoints.apiToken}";
+        "${ApiConstants.baseUrl}${EndPoints.homeCarousel}&api_token=${ApiConstants.jwtToken}";
     try {
       var response = await http.post(
         Uri.parse(url),
@@ -281,7 +288,7 @@ class ApiHelper {
 
   static Future<HTTPResponse<HomeFeatureModel>> homeFeature() async {
     String url =
-        "${ApiConstants.baseUrl}${EndPoints.homeFeature}${EndPoints.apiRoutes}${EndPoints.apiToken}";
+        "${ApiConstants.baseUrl}${EndPoints.homeFeature}${EndPoints.apiRoutes}&api_token=${ApiConstants.jwtToken}";
     try {
       var response = await http.post(
         Uri.parse(url),
@@ -338,11 +345,11 @@ class ApiHelper {
         'Accept': 'application/json',
       };
       var encodedBody = json.encode(body);
-      print(EndPoints.apiToken);
+      print("&api_token=${ApiConstants.jwtToken}");
       print(encodedBody);
       var response = await http.post(
           Uri.parse(
-              "${ApiConstants.baseUrl}${EndPoints.cartAdd}${EndPoints.apiToken}"),
+              "${ApiConstants.baseUrl}${EndPoints.cartAdd}&api_token=${ApiConstants.jwtToken}"),
           headers: headers,
           body: encodedBody);
       // final uri = Uri.http(
@@ -396,7 +403,7 @@ class ApiHelper {
 
   static Future<HTTPResponse<CartListModel>> cartList() async {
     String url =
-        "${ApiConstants.baseUrl}${EndPoints.cartList}${EndPoints.apiToken}";
+        "${ApiConstants.baseUrl}${EndPoints.cartList}&api_token=${ApiConstants.jwtToken}";
     try {
       var response = await http.post(
         Uri.parse(url),
@@ -449,7 +456,7 @@ class ApiHelper {
     try {
       final response = await http.post(
         Uri.parse(
-            "${ApiConstants.baseUrl}${EndPoints.cartAdd}${EndPoints.apiToken}"),
+            "${ApiConstants.baseUrl}${EndPoints.cartAdd}&api_token=${ApiConstants.jwtToken}"),
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -505,8 +512,10 @@ class ApiHelper {
 
   static Future<HTTPResponse<CheckoutModel>> checkOut() async {
     String url =
-        "${ApiConstants.baseUrl}${EndPoints.checkOut}${EndPoints.apiToken}";
+        "${ApiConstants.baseUrl}${EndPoints.checkOut}&api_token=${ApiConstants.jwtToken}";
     try {
+      print("ApiConstants.jwtToken ${ApiConstants.jwtToken}");
+      print("Checkout url : $url");
       var response = await http.post(
         Uri.parse(url),
       );
@@ -553,7 +562,7 @@ class ApiHelper {
 
   static Future paymentMethod() async {
     String url =
-        "${ApiConstants.baseUrl}${EndPoints.paymentMethod}${EndPoints.apiToken}";
+        "${ApiConstants.baseUrl}${EndPoints.paymentMethod}&api_token=${ApiConstants.jwtToken}";
     var response = await http.post(
       Uri.parse(url),
     );
@@ -607,8 +616,8 @@ class ApiHelper {
       var request = http.Request(
           'POST',
           Uri.parse(
-              "${ApiConstants.baseUrl}${EndPoints.paymentAddressSave}${EndPoints.apiToken}"));
-      print(EndPoints.apiToken);
+              "${ApiConstants.baseUrl}${EndPoints.paymentAddressSave}&api_token=${ApiConstants.jwtToken}"));
+      print("&api_token=${ApiConstants.jwtToken}");
       request.bodyFields = {
         'firstname':
             formData["firstname"] == "" && formData["firstname"] == null
@@ -690,7 +699,7 @@ class ApiHelper {
 
   static Future<HTTPResponse<ShippingMethodModel>> shippingMethod() async {
     String url =
-        "${ApiConstants.baseUrl}${EndPoints.shippingMethod}${EndPoints.apiToken}";
+        "${ApiConstants.baseUrl}${EndPoints.shippingMethod}&api_token=${ApiConstants.jwtToken}";
     try {
       var response = await http.post(
         Uri.parse(url),
@@ -743,8 +752,8 @@ class ApiHelper {
       var request = http.Request(
           'POST',
           Uri.parse(
-              "${ApiConstants.baseUrl}${EndPoints.shippingMethodSave}${EndPoints.apiToken}"));
-      print(EndPoints.apiToken);
+              "${ApiConstants.baseUrl}${EndPoints.shippingMethodSave}&api_token=${ApiConstants.jwtToken}"));
+      print("&api_token=${ApiConstants.jwtToken}");
       request.bodyFields = {'shipping_method': 'flat.flat', 'comment': ''};
       var headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -799,7 +808,7 @@ class ApiHelper {
       var request = http.Request(
           'POST',
           Uri.parse(
-              "${ApiConstants.baseUrl}${EndPoints.paymentMethodSave}${EndPoints.apiToken}"));
+              "${ApiConstants.baseUrl}${EndPoints.paymentMethodSave}&api_token=${ApiConstants.jwtToken}"));
       request.bodyFields = {
         'comment': '',
         'payment_method': 'ccavenuepay',
@@ -854,7 +863,7 @@ class ApiHelper {
 
   static Future<HTTPResponse<CheckoutConfirmModel>> checkOutConfirm() async {
     String url =
-        "${ApiConstants.baseUrl}${EndPoints.checkoutConfirm}${EndPoints.apiToken}";
+        "${ApiConstants.baseUrl}${EndPoints.checkoutConfirm}&api_token=${ApiConstants.jwtToken}";
     try {
       var response = await http.post(
         Uri.parse(url),
@@ -902,7 +911,7 @@ class ApiHelper {
 
   static Future<HTTPResponse<LoginModel>> login(email, password) async {
     String url =
-        "${ApiConstants.baseUrl}${EndPoints.login}${EndPoints.apiToken}";
+        "${ApiConstants.baseUrl}${EndPoints.login}&api_token=${ApiConstants.jwtToken}";
     print("login url ${url}");
     try {
       var request = http.MultipartRequest('POST', Uri.parse(url));
@@ -954,7 +963,7 @@ class ApiHelper {
   static Future<HTTPResponse<SignupModel>> signup(
       firstname, lastname, email, telephone, password, confirm, agree) async {
     String url =
-        "${ApiConstants.baseUrl}${EndPoints.signup}${EndPoints.apiToken}";
+        "${ApiConstants.baseUrl}${EndPoints.signup}&api_token=${ApiConstants.jwtToken}";
     try {
       print({
         'firstname': firstname,
@@ -1032,7 +1041,7 @@ class ApiHelper {
       company,
       address_2) async {
     String url =
-        "${ApiConstants.baseUrl}${EndPoints.addAddress}${EndPoints.apiToken}";
+        "${ApiConstants.baseUrl}${EndPoints.addAddress}&api_token=${ApiConstants.jwtToken}";
     try {
       var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
       var request = http.Request('POST', Uri.parse(url));
@@ -1095,7 +1104,7 @@ class ApiHelper {
 
   static cartCount() async {
     String url =
-        "${ApiConstants.baseUrl}${EndPoints.cartCount}${EndPoints.apiToken}";
+        "${ApiConstants.baseUrl}${EndPoints.cartCount}&api_token=${ApiConstants.jwtToken}";
     // try {
     var response = await http.post(
       Uri.parse(url),
@@ -1140,5 +1149,332 @@ class ApiHelper {
     //     message: "Something went wrong! Please try again in a minute or two.",
     //   );
     // }
+  }
+
+  static Future<HTTPResponse<HomeFeaturesModel>> getHomeFeatures() async {
+    String url =
+        "${ApiConstants.baseUrl}${EndPoints.homeFeature}${EndPoints.apiRoutes}&api_token=${ApiConstants.jwtToken}";
+    try {
+      var response = await http.post(
+        Uri.parse(url),
+      );
+      if (response.statusCode == 200) {
+        var body = jsonDecode(response.body);
+        // var Listresponse = homeFeatureModelFromJson(body);
+        var res = HomeFeaturesModel.fromJson(body);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print(e);
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<OrderInfoModel>> getOrderInfo(
+      String orderID) async {
+    String url =
+        "${ApiConstants.baseUrl}${EndPoints.getOrderInfoEndpoint}&api_token=${ApiConstants.jwtToken}";
+    print(url);
+
+    var dio = Dio();
+    try {
+      var map = new Map<String, dynamic>();
+      map['order_id'] = orderID;
+      FormData formData = FormData.fromMap(map);
+      var response = await dio.post(url, data: formData);
+      print(response.data.toString());
+      var res = OrderInfoModel.fromJson(jsonDecode(response.data));
+      return HTTPResponse(
+        true,
+        res,
+        responseCode: response.statusCode,
+      );
+    } catch (e) {
+      print(e);
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    }
+    // print(orderID);
+    // try {
+    // }
+    //   var request = new http.MultipartRequest("POST", Uri.parse(url));
+    //
+    //   request.fields['order_id'] = orderID;
+    //   http.Response response =
+    //       await http.Response.fromStream(await request.send());
+    //   print(response.statusCode.toString());
+    //
+    //   if (response.statusCode == 200) {
+    //     var res = OrderInfoModel.fromJson(jsonDecode(response.body));
+    //     return HTTPResponse(
+    //       true,
+    //       res,
+    //       responseCode: response.statusCode,
+    //     );
+    //   } else {
+    //     return HTTPResponse(
+    //       false,
+    //       null,
+    //       message:
+    //           "Invalid response received from server! Please try again in a minute or two.",
+    //     );
+    //   }
+    // } on SocketException {
+    //   return HTTPResponse(
+    //     false,
+    //     null,
+    //     message:
+    //         "Unable to reach the internet! Please try again in a minute or two.",
+    //   );
+    // } on FormatException {
+    //   return HTTPResponse(
+    //     false,
+    //     null,
+    //     message:
+    //         "Invalid response received from server! Please try again in a minute or two.",
+    //   );
+    // } catch (e, stacktrace) {
+    //   print({e, stacktrace.toString()});
+    //   return HTTPResponse(
+    //     false,
+    //     null,
+    //     message: "Something went wrong! Please try again in a minute or two.",
+    //   );
+    // }
+  }
+
+  static Future<HTTPResponse<OrderHistoryModel>> getOrders() async {
+    String url =
+        "${ApiConstants.baseUrl}${EndPoints.getOrdersEndpoint}&api_token=${ApiConstants.jwtToken}";
+    print(url);
+    // print(EndPoints.apiToken);
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        var res = OrderHistoryModel.fromJson(body);
+        print(OrderHistoryModel.fromJson(body).toJson());
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<WishListModel>> getWishList() async {
+    String url =
+        "${ApiConstants.baseUrl}${EndPoints.wishList}&api_token=${ApiConstants.jwtToken}";
+    print(url);
+    // print(EndPoints.apiToken);
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        var body = json.decode(await response.stream.bytesToString());
+        var res = WishListModel.fromJson(body);
+        print(res);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<AddCartModel>> removeWishList(productId) async {
+    String url =
+        "${ApiConstants.baseUrl}${EndPoints.wishList}&api_token=${ApiConstants.jwtToken}";
+    print(url);
+    // print(EndPoints.apiToken);
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.fields.addAll({'remove': "$productId"});
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        var res = AddCartModel.fromJson(body);
+        print(AddCartModel.fromJson(body).toJson());
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<Null>> updatePassword(
+      String password, String confirmPassword) async {
+    // String url = "${ApiConstants.baseUrl}${EndPoints.category}";
+    try {
+      final response = await http.post(
+        Uri.parse(
+            "${ApiConstants.baseUrl}${EndPoints.updatePassword}&api_token=${ApiConstants.jwtToken}"),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        encoding: Encoding.getByName('utf-8'),
+        body: {
+          'password': password,
+          'confirm': confirmPassword,
+        },
+      );
+      var body = jsonDecode(response.body);
+      print(body);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        return HTTPResponse(
+          true,
+          null,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print(e);
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
   }
 }

@@ -49,6 +49,7 @@ dependencies:
   cc_avenue: ^1.0.3
   flutter_svg: ^0.23.0+1
   webview_flutter: ^2.8.0
+  dio: ^4.0.6
 
 dev_dependencies:
   flutter_test:

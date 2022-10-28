@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_controller.dart';
+import 'package:family_garden/models/home_features_model.dart';
 import 'package:family_garden/network/api_constants/api_constants.dart';
 import 'package:family_garden/network/api_constants/api_end_points.dart';
 import 'package:family_garden/network/api_helper.dart';
@@ -41,6 +42,7 @@ class HomeScreenController extends GetxController with RouteAware {
   RxList<Banners> carousel = <Banners>[].obs;
   RxList<Category> categoryList = <Category>[].obs;
   CategoriesModel? sf;
+  var homeFeaturesData = HomeFeaturesModel().obs;
   RxList<Vegetables> vegetableList = <Vegetables>[].obs;
   RxList<Fruits> fruitsList = <Fruits>[].obs;
   RxList selectedVegDropdownValue = [].obs;
@@ -49,7 +51,7 @@ class HomeScreenController extends GetxController with RouteAware {
   RxList vegetablePercentage = [].obs;
   RxList fruitPercentage = [].obs;
   RxList selectedItemValue = [].obs;
-
+  RxBool ishomeFeatureLoader = true.obs;
   RxBool loader = false.obs;
   var productData = {"product_info": []}.obs;
   var vegProductData = {"product_info": []}.obs;
@@ -91,6 +93,7 @@ class HomeScreenController extends GetxController with RouteAware {
       getHomeSliderDetails();
       getCategories();
       getHomeFeature();
+      getHomeFeatures();
     }
   }
 
@@ -102,6 +105,115 @@ class HomeScreenController extends GetxController with RouteAware {
       // fruitsList.value = (response.data?.fruits)!;
       // getDropdownValues();
     }
+    update();
+  }
+
+  getHomeFeatures() async {
+    var response = await ApiHelper.getHomeFeatures();
+    print("Response : ${response.responseCode}");
+    if (response.responseCode == 200) {
+      homeFeaturesData.value = response.data!;
+      ishomeFeatureLoader.value = false;
+    }
+    update();
+  }
+
+  homeFeatureAddToCart(int index, int indexx) {
+    homeFeaturesData.value.categories![index].products![indexx].count =
+        (homeFeaturesData.value.categories![index].products![indexx].count)! +
+            1;
+    update();
+    homeFeaturesData.refresh();
+  }
+
+  homeFeatureMinusBtn(int index, int indexx) {
+    if (homeFeaturesData.value.categories![index].products![indexx].count ==
+        0) {
+    } else {
+      homeFeaturesData.value.categories![index].products![indexx].count =
+          (homeFeaturesData.value.categories![index].products![indexx].count)! -
+              1;
+    }
+    homeFeaturesData.refresh();
+  }
+
+  homeFeatureAddBtn(int index, int indexx) {
+    homeFeaturesData.value.categories![index].products![indexx].count =
+        (homeFeaturesData.value.categories![index].products![indexx].count)! +
+            1;
+    AddToCart(index, indexx);
+    homeFeaturesData.refresh();
+  }
+
+  AddToCart(index, indexx) {
+    // vegBoolList.value[index] = true;
+    if ((productData.value["product_info"]?.length)! > 0) {
+      ExistingAddCartData(index, indexx);
+    } else {
+      AddCartDatas(index, indexx);
+    }
+    update();
+  }
+
+  ExistingAddCartData(index, indexx) {
+    int? QuantityIncreasingIndex = vegProductData.value["product_info"]
+        ?.indexWhere((element) =>
+            element["product_id"] ==
+            homeFeaturesData
+                .value.categories?[index].products?[indexx].productId);
+    if (QuantityIncreasingIndex != -1) {
+      productData.value["product_info"]?[QuantityIncreasingIndex!]["qty"] =
+          productData.value["product_info"]?[QuantityIncreasingIndex]["qty"] +
+              1;
+      if (homeFeaturesData.value.categories?[index].products?[indexx]
+              .options?[0].selectedDropdownValue !=
+          vegProductData.value["product_info"]?[QuantityIncreasingIndex!]
+              ["prodcut_option_value_id"]) {
+        vegProductData.value["product_info"]?[QuantityIncreasingIndex!]
+                ["product_option_id"] =
+            homeFeaturesData.value.categories?[index].products?[indexx]
+                .options?[0].productOptionId;
+        vegProductData.value["product_info"]?[QuantityIncreasingIndex!]
+                ["prodcut_option_value_id"] =
+            homeFeaturesData.value.categories?[index].products?[indexx]
+                .options?[0].productOptionValue?[0].productOptionValueId;
+      }
+    } else {
+      AddCartDatas(index, indexx);
+    }
+    update();
+  }
+
+  NewAddCart(index, indexx) {
+    if (vegOptionId.value[index] == "") {
+      vegProductId[index] = vegetableList.value[index].productId!;
+      vegOptionId[index] =
+          (vegetableList.value[index].options?[0].productOptionId)!;
+      vegOptionValueId[index] = (vegetableList.value[index].options?[0]
+          .productOptionValue?[0].productOptionValueId)!;
+    } else {
+      vegProductId[index] = vegetableList.value[index].productId!;
+      vegAddCartDatas(index);
+    }
+    update();
+  }
+
+  AddCartDatas(index, indexx) {
+    productData.value["product_info"]?.add({
+      "product_id":
+          homeFeaturesData.value.categories?[index].products?[indexx].productId,
+      "qty": 1,
+      "product_option_id": homeFeaturesData.value.categories?[index]
+          .products?[indexx].options?[0].productOptionId,
+      "prodcut_option_value_id": homeFeaturesData
+          .value
+          .categories?[index]
+          .products?[indexx]
+          .options?[0]
+          .productOptionValue?[0]
+          .productOptionValueId,
+      "action": "ADD"
+    });
     update();
   }
 
@@ -399,7 +511,7 @@ class HomeScreenController extends GetxController with RouteAware {
   }
 
   fruitsHitAddCartAPI() async {
-    print(EndPoints.apiToken);
+    // print(apiToken);
     if ((productData.value["product_info"]?.length)! > 0) {
       var response = await ApiHelper.addCart(productData.value);
       // Get.toNamed(Routes.CART_SCREEN)?.then((value) => clearDatas());

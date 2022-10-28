@@ -3,11 +3,11 @@ import 'package:family_garden/screens/categories_screen/views/categories_view.da
 import 'package:family_garden/screens/dashboard/controllers/dashboard_controller.dart';
 import 'package:family_garden/screens/drawer_screen/views/drawer_view.dart';
 import 'package:family_garden/screens/offers_screen/view/offer_screen_view.dart';
-import 'package:family_garden/screens/profile_screen/views/profile_view.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:family_garden/widgets/common_appbar/custom_appbar_view.dart';
 import '../../../routes/app_pages.dart';
 import '../../Home_screen/views/homescreen_view.dart';
+import '../../account_screen/views/account_view.dart';
 
 class DashboardView extends GetView<DashboardController> {
   @override
@@ -67,29 +67,31 @@ class DashboardView extends GetView<DashboardController> {
                     ),
                   ),
                   Container(
-                    width: 30,
-                    height: 30,
-                    alignment: Alignment.topRight,
-                    margin: const EdgeInsets.only(top: 10, left: 3.0),
-                    child: Container(
-                      width: 18,
-                      height: 18,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColors.white,
-                          border: Border.all(color: AppColors.white, width: 1)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(0.0),
-                        child: Center(
-                            child: TextWidget(
-                          controller.cartCount.value.toString(),
-                          color: AppColors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                        )),
-                      ),
-                    ),
-                  ),
+                      width: 30,
+                      height: 30,
+                      alignment: Alignment.topRight,
+                      margin: const EdgeInsets.only(top: 10, left: 3.0),
+                      child: Container(
+                        width: 18,
+                        height: 18,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.white,
+                            border:
+                                Border.all(color: AppColors.white, width: 1)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(0.0),
+                          child: Center(
+                              child: Obx(
+                            () => TextWidget(
+                              controller.cartCount.value.toString(),
+                              color: AppColors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          )),
+                        ),
+                      )),
                 ],
               ),
             ),
@@ -143,7 +145,7 @@ class DashboardView extends GetView<DashboardController> {
                 //   size: 150,
                 // ),
 
-                ProfileView(),
+                AccountView(),
               ],
             ),
           ),

@@ -27,11 +27,12 @@ class ProductListingController extends GetxController {
   RxList<Products> products = <Products>[].obs;
   RxBool isCategoryProductLoader = true.obs;
   var productData = {"product_info": []}.obs;
-
+  RxInt cartCount = 0.obs;
   @override
   void onInit() async {
     super.onInit();
     getCategory();
+    getCartCount();
   }
 
   getCategory() async {
@@ -225,5 +226,16 @@ class ProductListingController extends GetxController {
       }
       removeCartDatas(index);
     }
+  }
+
+  getCartCount() async {
+    var response = await ApiHelper.cartCount();
+    // print("CartCount response ${response.responseCode}");
+    cartCount.value = int.parse(response["text_items"]);
+    // if (response.responseCode == 200) {
+    //   cartCount.value = int.parse((text_items);
+    //   update();
+    // }
+    update();
   }
 }

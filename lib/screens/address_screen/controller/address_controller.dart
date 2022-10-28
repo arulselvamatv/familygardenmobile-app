@@ -50,6 +50,7 @@ class AddressController extends GetxController with RouteAware {
   }
 
   getCheckout() async {
+    // is
     var response = await ApiHelper.checkOut();
     addressModel.value = response.data!;
     if ((addressModel.value.addresses?.length)! > 0) {
@@ -122,7 +123,6 @@ class AddressController extends GetxController with RouteAware {
               content: Text("something went wrong"),
             ));
           }
-
         }
       }
     } else {

@@ -11,8 +11,6 @@ class EndPoints {
 
   static const apiRoutes = "?route=mobileapi/homefeature";
 
-  static final apiToken = "&api_token=${ApiConstants.jwtToken}";
-
   static const homeCarousel = "/index.php?route=mobileapi/homeslider";
 
   static const category = "/index.php?route=mobileapi/menu";
@@ -52,4 +50,15 @@ class EndPoints {
       "/index.php?route=mobileapi/mobileapi/checkout/ordersuccess";
 
   static const codConfirm = "/index.php?route=mobileapi/payment/cod/confirm";
+
+  static const addWishList = "/index.php?route=mobileapi/account/wishlist/add";
+
+  static const wishList = "index.php?route=mobileapi/account/wishlist";
+
+  static const getOrdersEndpoint = "/index.php?route=mobileapi/account/order";
+
+  static const getOrderInfoEndpoint =
+      "index.php?route=mobileapi/account/order/info";
+
+  static const updatePassword = "index.php?route=mobileapi/account/password";
 }

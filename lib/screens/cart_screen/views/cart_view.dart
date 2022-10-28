@@ -316,17 +316,7 @@ class CartView extends GetView<CartController> {
                                                         .products
                                                         .value
                                                         .products?[index]
-                                                        .actualPrice
-                                                        ?.substring(
-                                                            0,
-                                                            (cart
-                                                                    .products
-                                                                    .value
-                                                                    .products?[
-                                                                        index]
-                                                                    .actualPrice!
-                                                                    .length)! -
-                                                                2),
+                                                        .actualPrice,
                                                     fontSize: 12,
                                                     fontWeight: FontWeight.w500,
                                                     color: AppColors.black,

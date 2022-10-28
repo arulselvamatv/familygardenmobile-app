@@ -49,7 +49,7 @@ class PaymentController extends GetxController {
   }
 
   getCartListDatas() async {
-    print(EndPoints.apiToken);
+    // print(apiToken);
     var response = await ApiHelper.cartList();
     if (response.isSuccessFul) {
       products.value = response.data!;
@@ -61,13 +61,14 @@ class PaymentController extends GetxController {
   getListDatas() {
     var actualPriceAmount = 0.0;
     var offerPriceAmount = 0.0;
-print("products.value.products?.length ${products.value.products?.length}");
+    print("products.value.products?.length ${products.value.products?.length}");
     for (int i = 0; i < (products.value.products?.length)!; i++) {
-      var offerPrice = double.parse((products.value.products?[i].offerPrice?.substring(1))!);
-      var actualPrice = double.parse((products.value.products?[i].actualPrice)!);
-      var percentage = ((actualPrice-offerPrice)/actualPrice)*100;
-      actualPriceAmount += actualPrice * double.parse((products.value.products?[i].quantity)!);
-      offerPriceAmount += offerPrice * double.parse((products.value.products?[i].quantity)!);
+      var offerPrice =
+          double.parse((products.value.products?[i].offerPrice?.substring(1))!);
+      // var actualPrice = double.parse((products.value.products?[i].actualPrice)!);
+      // var percentage = ((actualPrice-offerPrice)/actualPrice)*100;
+      // actualPriceAmount += actualPrice * double.parse((products.value.products?[i].quantity)!);
+      // offerPriceAmount += offerPrice * double.parse((products.value.products?[i].quantity)!);
     }
     savedPrice.value = actualPriceAmount - offerPriceAmount;
     actulPrice.value = offerPriceAmount;
@@ -101,7 +102,7 @@ print("products.value.products?.length ${products.value.products?.length}");
     var request = http.Request(
         'POST',
         Uri.parse(
-            '${ApiConstants.baseUrl}/index.php?route=mobileapi/payment/cod/confirm${EndPoints.apiToken}'));
+            '${ApiConstants.baseUrl}/index.php?route=mobileapi/payment/cod/confirm&api_token=${ApiConstants.jwtToken}'));
     http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
       Get.toNamed(Routes.ORDER_SUCCESS_SCREEN, arguments: [

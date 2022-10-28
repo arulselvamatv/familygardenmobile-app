@@ -35,7 +35,7 @@ class CartController extends GetxController {
   }
 
   getCartListDatas() async {
-    print(EndPoints.apiToken);
+    // print(apiToken);
     var response = await ApiHelper.cartList();
     print(response.responseCode);
     if (response.isSuccessFul) {
@@ -48,7 +48,7 @@ class CartController extends GetxController {
   }
 
   hitAddCartAPI() async {
-    print('hitAddCartAPI()');
+    print('hitAddCartAPI() ${productData.value}');
     if ((productData.value["product_info"]?.length)! > 0) {
       var response = await ApiHelper.addCart(productData.value);
       if (response.isSuccessFul) {
@@ -69,10 +69,10 @@ class CartController extends GetxController {
       counterList.add(products.value.products?[i].quantity);
       var offerPrice =
           double.parse((products.value.products?[i].offerPrice?.substring(1))!);
-      // var actualPrice =
-      //     double.parse((products.value.products?[i].actualPrice)!);
-      // var percentage = ((actualPrice - offerPrice) / actualPrice) * 100;
-      // products.value.products?[i].offerPercentage = "${percentage.toInt()}%";
+      var actualPrice = double.parse(
+          (products.value.products?[i].actualPrice?.substring(1))!);
+      var percentage = ((actualPrice - offerPrice) / actualPrice) * 100;
+      products.value.products?[i].offerPercentage = "${percentage.toInt()}%";
       // print("$actualPriceAmount, $offerPriceAmount");
       // actualPriceAmount +=
       //     actualPrice * double.parse((products.value.products?[i].quantity)!);
@@ -82,12 +82,12 @@ class CartController extends GetxController {
     }
     savedPrice.value = actualPriceAmount - offerPriceAmount;
     for (int i = 0; i < (products.value.products?.length)!; i++) {
-      String actualPrice = (products.value.products?[i].actualPrice)!;
-      if (products.value.products?[i].quantity != "1") {
-        var data = double.parse((products.value.products?[i].quantity)!) *
-            double.parse(actualPrice);
-        actualPrice = "$data";
-      }
+      // String actualPrice = (products.value.products?[i].actualPrice)!;
+      // if (products.value.products?[i].quantity != "1") {
+      //   var data = double.parse((products.value.products?[i].quantity)!) *
+      //       double.parse(actualPrice);
+      //   actualPrice = "$data";
+      // }
       for (int i = 0; i < (products.value.products?.length ?? 0); i++) {
         productId.value.add("");
       }
@@ -155,8 +155,9 @@ class CartController extends GetxController {
   }
 
   minus(int index) {
-    print('minus called');
-    if (counterList.value[index] == "1") {
+    print('minus called ${counterList.value[index]}');
+    print('minus called ${counterList.value[index].runtimeType}');
+    if (counterList.value[index] == "0") {
       return;
     } else {
       counterList.value[index] = int.parse(counterList.value[index]) - 1;

@@ -37,6 +37,7 @@ class DashboardController extends GetxController
   }
 
   getCartCount() async {
+    print("Called here");
     var response = await ApiHelper.cartCount();
     // print("CartCount response ${response.responseCode}");
     cartCount.value = int.parse(response["text_items"]);
@@ -44,6 +45,7 @@ class DashboardController extends GetxController
     //   cartCount.value = int.parse((text_items);
     //   update();
     // }
+    cartCount.refresh();
     update();
   }
 }
