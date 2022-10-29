@@ -143,7 +143,7 @@ class ProductListingController extends GetxController {
     productData.value["product_info"]?.add({
       "product_id": productId[index],
       "qty": 1,
-      "product_option_id": products[index].productId!,
+      "product_option_id": optionId.value[index]!,
       "prodcut_option_value_id": optionValueId[index],
       "action": "ADD"
     });

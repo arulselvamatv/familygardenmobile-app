@@ -25,19 +25,18 @@ class CartListModel {
     this.logged,
   });
 
-  final List<Breadcrumb>? breadcrumbs;
-  final String? errorWarning;
-  final String? attention;
-  final String? success;
-  final String? action;
-  final String? weight;
-  final List<Product>? products;
-  final List<dynamic>? vouchers;
-  final List<Total>? totals;
-  String? savedAmount = "";
-  final String? cartListModelContinue;
-  final String? checkout;
-  final dynamic logged;
+  List<Breadcrumb>? breadcrumbs;
+  String? errorWarning;
+  String? attention;
+  String? success;
+  String? action;
+  String? weight;
+  List<Product>? products;
+  List<dynamic>? vouchers;
+  List<Total>? totals;
+  String? cartListModelContinue;
+  String? checkout;
+  dynamic logged;
 
   factory CartListModel.fromJson(Map<String, dynamic> json) => CartListModel(
         breadcrumbs: json["breadcrumbs"] == null
@@ -97,8 +96,8 @@ class Breadcrumb {
     this.text,
   });
 
-  final String? href;
-  final String? text;
+  String? href;
+  String? text;
 
   factory Breadcrumb.fromJson(Map<String, dynamic> json) => Breadcrumb(
         href: json["href"] == null ? null : json["href"],
@@ -119,7 +118,6 @@ class Product {
     this.name,
     this.pnameTamil,
     this.model,
-    this.option,
     this.recurring,
     this.quantity,
     this.stock,
@@ -128,26 +126,46 @@ class Product {
     this.actualPrice,
     this.total,
     this.href,
-    this.options,
+    this.value,
+    this.productOptionId,
+    this.productOptionValueId,
+    this.optionId,
+    this.optionValueId,
+    this.type,
+    this.points,
+    this.pricePrefix,
+    this.offerPercentage = 0,
+    this.pointsPrefix,
+    this.weight,
+    this.weightPrefix,
   });
 
-  final String? productId;
-  final String? cartId;
-  final String? thumb;
-  final String? name;
-  final String? pnameTamil;
-  final String? model;
-  final List<dynamic>? option;
-  final String? recurring;
-  final String? quantity;
-  final bool? stock;
-  final String? reward;
-  final String? offerPrice;
-  final String? actualPrice;
-  String? offerPercentage = "";
-  final String? total;
-  final String? href;
-  final List<Option>? options;
+  String? productId;
+  String? cartId;
+  String? thumb;
+  String? name;
+  String? pnameTamil;
+  String? model;
+  String? recurring;
+  String? quantity;
+  bool? stock;
+  String? reward;
+  String? offerPrice;
+  String? actualPrice;
+  String? total;
+  String? href;
+  String? value;
+  String? productOptionId;
+  String? productOptionValueId;
+  String? optionId;
+  String? optionValueId;
+  String? type;
+  String? points;
+  String? pricePrefix;
+  int? offerPercentage;
+  String? pointsPrefix;
+  String? weight;
+  String? weightPrefix;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         productId: json["product_id"] == null ? null : json["product_id"],
@@ -156,9 +174,6 @@ class Product {
         name: json["name"] == null ? null : json["name"],
         pnameTamil: json["pname_tamil"] == null ? null : json["pname_tamil"],
         model: json["model"] == null ? null : json["model"],
-        option: json["option"] == null
-            ? null
-            : List<dynamic>.from(json["option"].map((x) => x)),
         recurring: json["recurring"] == null ? null : json["recurring"],
         quantity: json["quantity"] == null ? null : json["quantity"],
         stock: json["stock"] == null ? null : json["stock"],
@@ -167,9 +182,24 @@ class Product {
         actualPrice: json["actual_price"] == null ? null : json["actual_price"],
         total: json["total"] == null ? null : json["total"],
         href: json["href"] == null ? null : json["href"],
-        options: json["options"] == null
+        value: json["value"] == null ? null : json["value"],
+        productOptionId: json["product_option_id"] == null
             ? null
-            : List<Option>.from(json["options"].map((x) => Option.fromJson(x))),
+            : json["product_option_id"],
+        productOptionValueId: json["product_option_value_id"] == null
+            ? null
+            : json["product_option_value_id"],
+        optionId: json["option_id"] == null ? null : json["option_id"],
+        optionValueId:
+            json["option_value_id"] == null ? null : json["option_value_id"],
+        type: json["type"] == null ? null : json["type"],
+        points: json["points"] == null ? null : json["points"],
+        pricePrefix: json["price_prefix"] == null ? null : json["price_prefix"],
+        pointsPrefix:
+            json["points_prefix"] == null ? null : json["points_prefix"],
+        weight: json["weight"] == null ? null : json["weight"],
+        weightPrefix:
+            json["weight_prefix"] == null ? null : json["weight_prefix"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -179,8 +209,6 @@ class Product {
         "name": name == null ? null : name,
         "pname_tamil": pnameTamil == null ? null : pnameTamil,
         "model": model == null ? null : model,
-        "option":
-            option == null ? null : List<dynamic>.from(option!.map((x) => x)),
         "recurring": recurring == null ? null : recurring,
         "quantity": quantity == null ? null : quantity,
         "stock": stock == null ? null : stock,
@@ -189,121 +217,16 @@ class Product {
         "actual_price": actualPrice == null ? null : actualPrice,
         "total": total == null ? null : total,
         "href": href == null ? null : href,
-        "options": options == null
-            ? null
-            : List<dynamic>.from(options!.map((x) => x.toJson())),
-      };
-}
-
-class Option {
-  Option({
-    this.productOptionId,
-    this.productOptionValue,
-    this.optionId,
-    this.name,
-    this.type,
-    this.value,
-    this.required,
-  });
-
-  final String? productOptionId;
-  final List<ProductOptionValue>? productOptionValue;
-  final String? optionId;
-  final String? name;
-  final String? type;
-  final String? value;
-  final String? required;
-
-  factory Option.fromJson(Map<String, dynamic> json) => Option(
-        productOptionId: json["product_option_id"] == null
-            ? null
-            : json["product_option_id"],
-        productOptionValue: json["product_option_value"] == null
-            ? null
-            : List<ProductOptionValue>.from(json["product_option_value"]
-                .map((x) => ProductOptionValue.fromJson(x))),
-        optionId: json["option_id"] == null ? null : json["option_id"],
-        name: json["name"] == null ? null : json["name"],
-        type: json["type"] == null ? null : json["type"],
-        value: json["value"] == null ? null : json["value"],
-        required: json["required"] == null ? null : json["required"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "product_option_id": productOptionId == null ? null : productOptionId,
-        "product_option_value": productOptionValue == null
-            ? null
-            : List<dynamic>.from(productOptionValue!.map((x) => x.toJson())),
-        "option_id": optionId == null ? null : optionId,
-        "name": name == null ? null : name,
-        "type": type == null ? null : type,
         "value": value == null ? null : value,
-        "required": required == null ? null : required,
-      };
-}
-
-class ProductOptionValue {
-  ProductOptionValue({
-    this.productOptionValueId,
-    this.optionValueId,
-    this.name,
-    this.image,
-    this.quantity,
-    this.offer,
-    this.priceDefault,
-    this.subtract,
-    this.price,
-    this.pricePrefix,
-    this.weight,
-    this.weightPrefix,
-  });
-
-  final String? productOptionValueId;
-  final String? optionValueId;
-  final String? name;
-  final String? image;
-  final String? quantity;
-  final String? offer;
-  final String? priceDefault;
-  final String? subtract;
-  final String? price;
-  final String? pricePrefix;
-  final String? weight;
-  final String? weightPrefix;
-
-  factory ProductOptionValue.fromJson(Map<String, dynamic> json) =>
-      ProductOptionValue(
-        productOptionValueId: json["product_option_value_id"] == null
-            ? null
-            : json["product_option_value_id"],
-        optionValueId:
-            json["option_value_id"] == null ? null : json["option_value_id"],
-        name: json["name"] == null ? null : json["name"],
-        image: json["image"] == null ? null : json["image"],
-        quantity: json["quantity"] == null ? null : json["quantity"],
-        offer: json["offer"] == null ? null : json["offer"],
-        priceDefault:
-            json["price_default"] == null ? null : json["price_default"],
-        subtract: json["subtract"] == null ? null : json["subtract"],
-        price: json["price"] == null ? null : json["price"],
-        pricePrefix: json["price_prefix"] == null ? null : json["price_prefix"],
-        weight: json["weight"] == null ? null : json["weight"],
-        weightPrefix:
-            json["weight_prefix"] == null ? null : json["weight_prefix"],
-      );
-
-  Map<String, dynamic> toJson() => {
+        "product_option_id": productOptionId == null ? null : productOptionId,
         "product_option_value_id":
             productOptionValueId == null ? null : productOptionValueId,
+        "option_id": optionId == null ? null : optionId,
         "option_value_id": optionValueId == null ? null : optionValueId,
-        "name": name == null ? null : name,
-        "image": image == null ? null : image,
-        "quantity": quantity == null ? null : quantity,
-        "offer": offer == null ? null : offer,
-        "price_default": priceDefault == null ? null : priceDefault,
-        "subtract": subtract == null ? null : subtract,
-        "price": price == null ? null : price,
+        "type": type == null ? null : type,
+        "points": points == null ? null : points,
         "price_prefix": pricePrefix == null ? null : pricePrefix,
+        "points_prefix": pointsPrefix == null ? null : pointsPrefix,
         "weight": weight == null ? null : weight,
         "weight_prefix": weightPrefix == null ? null : weightPrefix,
       };
@@ -315,8 +238,8 @@ class Total {
     this.text,
   });
 
-  final String? title;
-  final String? text;
+  String? title;
+  String? text;
 
   factory Total.fromJson(Map<String, dynamic> json) => Total(
         title: json["title"] == null ? null : json["title"],

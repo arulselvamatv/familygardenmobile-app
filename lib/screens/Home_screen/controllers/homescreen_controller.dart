@@ -17,14 +17,14 @@ class HomeScreenController extends GetxController with RouteAware {
   RxBool iscarouselLoader = true.obs;
   RxBool isCategoryLoader = true.obs;
   RxList category = [
-    {'name': 'Fresh from Farm', 'image': 'assets/images/home_screen-1.png'},
-    {'name': 'Fast Delivery', 'image': 'assets/images/home_screen-2.png'},
-    {'name': 'For Low Cost', 'image': 'assets/images/home_screen-3.png'},
+    {'name': 'Fresh from Farm', 'image': 'assets/images/home_screen1.svg'},
+    {'name': 'Fast Delivery', 'image': 'assets/images/singup_image.svg'},
+    {'name': 'For Low Cost', 'image': 'assets/images/home_screen3.svg'},
     {
       'name': 'Mass Production of Vegetables',
-      'image': 'assets/images/home_screen-4.png'
+      'image': 'assets/images/home_screen4.svg'
     },
-    {'name': 'Premium Quality', 'image': 'assets/images/home_screen-5.png'},
+    {'name': 'Premium Quality', 'image': 'assets/images/home_screen5.svg'},
   ].obs;
 
   RxList<Banners> carousel = <Banners>[].obs;

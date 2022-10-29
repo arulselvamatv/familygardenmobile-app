@@ -410,7 +410,7 @@ class ApiHelper {
       );
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
-        // print(body);
+        print(body);
         var res = CartListModel.fromJson(body);
         // print("Cart List Model ${res.checkout}");
         return HTTPResponse(
@@ -569,7 +569,7 @@ class ApiHelper {
     print(response.body);
     if (response.statusCode == 200) {
       var body = jsonDecode(response.body);
-      print(body);
+      print('paymentMethod $body');
       return body;
     }
     // var res = AutoGenerate.fromJson(body);
@@ -763,7 +763,6 @@ class ApiHelper {
 
       if (response.statusCode == 200) {
         var body = jsonDecode(await response.stream.bytesToString());
-        print("shippingMethodSave ${body}");
         // var res = ShippingMethodSaveModel.fromJson(body);
         return HTTPResponse(
           true,
@@ -805,24 +804,41 @@ class ApiHelper {
   static Future<HTTPResponse<PaymentMethodSaveModel>> paymentMethodSave(
       data) async {
     try {
-      var request = http.Request(
-          'POST',
-          Uri.parse(
-              "${ApiConstants.baseUrl}${EndPoints.paymentMethodSave}&api_token=${ApiConstants.jwtToken}"));
-      request.bodyFields = {
-        'comment': '',
-        'payment_method': 'cod',
-        'agree': '1'
-      };
-      print(request.bodyFields);
-      var headers = {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      };
-      request.headers.addAll(headers);
-      http.StreamedResponse response = await request.send();
+      var body = {"payment_method": "cod", "comment": "test", "agree": "1"};
+      var data = json.encode(body);
+      final response = await http.post(
+        Uri.parse(
+            "https://dev.familygarden.in/${EndPoints.paymentMethodSave}&api_token=${ApiConstants.jwtToken}"),
+        headers: {"Content-Type": "application/json"},
+        // encoding: Encoding.getByName('utf-8'),
+        body: data,
+      );
+      print("payment save body ${response.body}");
+      //   var request = http.Request(
+      //       'POST',
+      //       Uri.parse(
+      //           "${ApiConstants.baseUrl}${EndPoints.paymentMethodSave}&api_token=${ApiConstants.jwtToken}"));
+      //
+      //   // encoding: Encoding.getByName('utf-8'),
+      // //   headers: {
+      // //     "Content-Type": "application/x-www-form-urlencoded",
+      // // },
+      //   request.bodyFields = {
+      //     'comment': '',
+      //     'payment_method': 'cod',
+      //     'agree': '1'
+      //   };
+      //   var data = {'comment': '', 'payment_method': 'cod', 'agree': '1'};
+      //   print(ApiConstants.jwtToken);
+      //   var headers = {
+      //     'Content-Type': 'application/x-www-form-urlencoded',
+      //   };
+      //   request.headers.addAll(headers);
+      //   print('request.headers ${request.bodyFields}');
+      //   http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
-        var body = jsonDecode(await response.stream.bytesToString());
+        var body = jsonDecode(response.body);
         print("payment method save $body");
         var res = PaymentMethodSaveModel.fromJson(body);
         return HTTPResponse(
@@ -901,7 +917,7 @@ class ApiHelper {
             "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
-      // print(e);
+      print("Error on checkout confirm $e");
       return HTTPResponse(
         false,
         null,

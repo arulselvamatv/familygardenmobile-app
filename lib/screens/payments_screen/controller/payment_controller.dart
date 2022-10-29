@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:family_garden/network/api_constants/api_constants.dart';
 import 'package:family_garden/network/api_helper.dart';
 import 'package:http/http.dart' as http;
@@ -95,42 +97,63 @@ class PaymentController extends GetxController {
     if (isCCavenueSelected.value == true) {
       isCCavenueSelected.value = !value;
       isCODselected.value = value;
-      code = 'cod';
-      // code = paymentMethod["payment_methods"]["cod"]["code"];
     } else {
       isCODselected.value = value;
-      code = 'cod';
-      // code = paymentMethod["payment_methods"]["cod"]["code"];
     }
     update();
   }
 
   codMethod() async {
-    var res = await http.post(Uri.parse(
-        "${ApiConstants.baseUrl}/index.php?route=mobileapi/payment/cod/confirm&api_token=${ApiConstants.jwtToken}"));
+    print("Cod start");
+    var request = http.Request(
+        'POST',
+        Uri.parse(
+            'https://www.familygarden.in//index.php?route=mobileapi/payment/cod/confirm&api_token=${ApiConstants.jwtToken}'));
 
-    // var request = http.Request(
-    //     'POST',
-    //     Uri.parse(
-    //         ''));
-    // http.StreamedResponse response = await request.send();
-    print("res code ${res.statusCode}");
-    if (res.statusCode == 200) {
-      var response = res.body;
-      // print(response)
-      print("cod confirm res ${response}");
-      Get.toNamed(Routes.ORDER_SUCCESS_SCREEN, arguments: [
-        {"orderNumber": ''}
-      ]);
+    // request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+      var body = jsonDecode(await response.stream.bytesToString());
+      print(body);
     } else {
-      // print(response.reasonPhrase);
+      print(response.reasonPhrase);
     }
+    // var res = await http.post(Uri.parse(
+    //     "${ApiConstants.baseUrl}/index.php?route=mobileapi/payment/cod/confirm&api_token=${ApiConstants.jwtToken}"));
+    //
+    // // var request = http.Request(
+    // //     'POST',
+    // //     Uri.parse(
+    // //         ''));
+    // // http.StreamedResponse response = await request.send();
+    // print("res code ${res.statusCode}");
+    // if (res.statusCode == 200) {
+    //   var response = res.body;
+    //   // print(response)
+    //   print("cod confirm res ${response}");
+    //   Get.toNamed(Routes.ORDER_SUCCESS_SCREEN, arguments: [
+    //     {"orderNumber": ''}
+    //   ]);
+    // } else {
+    //   // print(response.reasonPhrase);
+    // }
   }
 
   continueBtn(context) async {
     if (isCCavenueSelected.value || isCODselected.value) {
       if (isCCavenueSelected.value) {
-        Get.toNamed(Routes.INITIATEPAYMENT, arguments: paymentRes);
+        var res = await ApiHelper.paymentMethodSave('ccavenuepay');
+        if (res.responseCode == 200) {
+          var checkoutResponse = await ApiHelper.checkOutConfirm();
+          if (checkoutResponse.responseCode == 200) {
+            print(checkoutResponse.data);
+            paymentRes = checkoutResponse.data!;
+            Get.toNamed(Routes.INITIATEPAYMENT, arguments: paymentRes);
+          }
+        }
       } else {
         var res = await ApiHelper.paymentMethodSave('cod');
         if (res.responseCode == 200) {

@@ -112,20 +112,23 @@ class AddressController extends GetxController with RouteAware {
     if (pickCheckBox.value == true) {
       var response = await ApiHelper.existingPaymentAddressSave(formData);
       if (response.responseCode == 200) {
-        print('paymentAddressSave');
-        var shippingMethodResponse = await ApiHelper.shippingMethod();
-        if (shippingMethodResponse.responseCode == 200) {
-          print('shippingMethod');
-          var shippingMethodSaveResponse = await ApiHelper.shippingMethodSave();
-          if (shippingMethodSaveResponse.responseCode == 200) {
-            print('shippingMethodSave');
-            Get.toNamed(Routes.PAYMENT);
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text("something went wrong"),
-            ));
+        print('Success existingPaymentAddressSave');
+        Future.delayed(Duration(seconds: 1), () async {
+          var shippingMethodResponse = await ApiHelper.shippingMethod();
+          if (shippingMethodResponse.responseCode == 200) {
+            Future.delayed(Duration(seconds: 1), () async {
+              var shippingMethodSaveResponse =
+                  await ApiHelper.shippingMethodSave();
+              if (shippingMethodSaveResponse.responseCode == 200) {
+                Get.toNamed(Routes.PAYMENT);
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("something went wrong"),
+                ));
+              }
+            });
           }
-        }
+        });
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

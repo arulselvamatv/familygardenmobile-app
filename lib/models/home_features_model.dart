@@ -56,6 +56,7 @@ class Products {
   String? quantity;
   String? image;
   String? price;
+  int? percentage;
   String? offerPrice;
   String? productOptionId;
   String? optionId;
@@ -73,6 +74,7 @@ class Products {
     this.quantity,
     this.image,
     this.price,
+    this.percentage = 0,
     this.offerPrice,
     this.productOptionId,
     this.optionId,

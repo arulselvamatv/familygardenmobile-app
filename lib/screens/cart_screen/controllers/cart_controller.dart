@@ -14,6 +14,7 @@ class CartController extends GetxController {
   RxBool isProductsLoader = false.obs;
   String staticImage = "assets/images/Carrot.png";
   RxDouble savedPrice = 0.0.obs;
+  RxDouble totalPrice = 0.0.obs;
   RxString total = ''.obs;
   RxInt productListLength = 0.obs;
   RxList counterList = [].obs;
@@ -68,7 +69,8 @@ class CartController extends GetxController {
       var actualPrice = double.parse(
           (products.value.products?[i].actualPrice?.substring(1))!);
       var percentage = ((actualPrice - offerPrice) / actualPrice) * 100;
-      products.value.products?[i].offerPercentage = "${percentage.toInt()}%";
+      products.value.products?[i].offerPercentage = percentage.toInt();
+      print("Calculated Percentage ${products.value.products?[i].value}");
       print("$actualPriceAmount, $offerPriceAmount");
       actualPriceAmount +=
           actualPrice * double.parse((products.value.products?[i].quantity)!);
@@ -76,6 +78,7 @@ class CartController extends GetxController {
           offerPrice * double.parse((products.value.products?[i].quantity)!);
       print("$actualPriceAmount, $offerPriceAmount");
     }
+    totalPrice.value = offerPriceAmount;
     savedPrice.value = actualPriceAmount - offerPriceAmount;
     for (int i = 0; i < (products.value.products?.length)!; i++) {
       // String actualPrice = (products.value.products?[i].actualPrice)!;
@@ -186,10 +189,9 @@ class CartController extends GetxController {
       }
     } else {
       productId[index] = products.value.products?[index].productId!;
-      optionId[index] =
-          (products.value.products?[index].options?[0].productOptionId)!;
-      optionValueId[index] = (products.value.products?[index].options?[0]
-          .productOptionValue?[0].productOptionValueId)!;
+      optionId[index] = (products.value.products?[index].productOptionId)!;
+      optionValueId[index] =
+          (products.value.products?[index].productOptionValueId)!;
       removeCartDatas(index);
     }
   }
@@ -220,10 +222,9 @@ class CartController extends GetxController {
   newAddCart(index) {
     if (optionId.value[index] == "") {
       productId[index] = products.value.products?[index].productId!;
-      optionId[index] =
-          (products.value.products?[index].options?[0].productOptionId)!;
-      optionValueId[index] = (products.value.products?[index].options?[0]
-          .productOptionValue?[0].productOptionValueId)!;
+      optionId[index] = (products.value.products?[index].productOptionId)!;
+      optionValueId[index] =
+          (products.value.products?[index].productOptionValueId)!;
       addCartDatas(index);
     } else {
       productId[index] = products.value.products?[index].productId!;

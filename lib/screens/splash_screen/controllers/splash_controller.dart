@@ -14,15 +14,19 @@ class SplashController extends GetxController {
   }
 
   getToken() async {
+    print("Get Token");
     final prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey("api_token")) {
+      print("Condition Successful");
       ApiConstants.jwtToken = prefs.getString("api_token")!;
       print('API token ${prefs.getString("api_token")}');
       Timer(const Duration(seconds: 2), () => Get.offNamed(Routes.DASHBOARD));
     } else {
+      print("Condition Failure");
       var response = await ApiHelper.getToken();
       if (response.data?.apiToken != null) {
         SetLocalDatas.setToken((response.data?.apiToken)!);
+        SetLocalDatas.loginBool();
         Timer(const Duration(seconds: 2), () => Get.offNamed(Routes.DASHBOARD));
       }
     }

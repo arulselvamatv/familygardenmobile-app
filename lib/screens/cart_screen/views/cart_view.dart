@@ -275,22 +275,14 @@ class CartView extends GetView<CartController> {
                                                   ),
                                                 ),
                                                 AppSize.size.h5,
-                                                (cart
-                                                            .products
-                                                            .value
-                                                            .products?[index]
-                                                            .option
-                                                            ?.length)! >
-                                                        0
-                                                    ? TextWidget(
-                                                        "${cart.products.value.products?[index].option?[0]["name"]}: ${cart.products.value.products?[index].option?.first["value"]}",
-                                                        // "Just to check",
-                                                        fontSize: 10.5,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color:
-                                                            Color(0xff666666))
-                                                    : Container(),
+                                                TextWidget(
+                                                    cart.products.value
+                                                        .products?[index].value
+                                                        .toString(),
+                                                    // "Just to check",
+                                                    fontSize: 10.5,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Color(0xff666666)),
                                               ],
                                             ),
                                             Spacer(),
@@ -324,11 +316,7 @@ class CartView extends GetView<CartController> {
                                                         .lineThrough,
                                                   ),
                                                   TextWidget(
-                                                    cart
-                                                        .products
-                                                        .value
-                                                        .products?[index]
-                                                        .offerPercentage,
+                                                    "${cart.products.value.products?[index].offerPercentage} %",
                                                     fontSize: 13,
                                                     fontWeight: FontWeight.w500,
                                                     color: Color(0xffFF8A00),
@@ -473,15 +461,19 @@ class CartView extends GetView<CartController> {
                 width: 82,
                 child: ElevatedButton(
                   onPressed: () async {
-                    controller.hitAddCartAPI();
                     final prefs = await SharedPreferences.getInstance();
                     if (prefs.containsKey("Login")) {
                       String nameText = prefs.getString('Login') ?? '';
                       if (nameText == "true") {
                         Get.toNamed(Routes.ADDRESS);
+                        controller.hitAddCartAPI();
+                      } else {
+                        loginDialog(context);
+                        controller.hitAddCartAPI();
                       }
                     } else {
                       loginDialog(context);
+                      controller.hitAddCartAPI();
                     }
                   },
                   child: TextWidget(
@@ -560,7 +552,7 @@ class CartView extends GetView<CartController> {
                             color: Color(0xff141414)),
                         children: <TextSpan>[
                           TextSpan(
-                            text: controller.total.value,
+                            text: controller.totalPrice.value.toString(),
                             style: TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.w600,

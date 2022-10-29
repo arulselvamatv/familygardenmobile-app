@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:family_garden/screens/Home_screen/controllers/homescreen_controller.dart';
 import 'package:family_garden/screens/dashboard/controllers/dashboard_controller.dart';
+import 'package:flutter_svg/svg.dart';
 import '../../../utils/common_import/common_import.dart';
 import '../../../routes/app_pages.dart';
 
@@ -264,6 +265,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
                               return Container(
+                                width: 120,
                                 child: Column(
                                   children: [
                                     Container(
@@ -273,7 +275,11 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                           borderRadius:
                                               BorderRadius.circular(8),
                                           color: Color(0xfff9f9f9)),
-                                      child: Image.asset(
+                                      // child: ScalableImageWidget.fromSISource(
+                                      //     si: ScalableImageSource
+                                      //         .fromSvgHttpUrl(Uri.parse(
+                                      //             'https://jovial.com/images/jupiter.svg'))),
+                                      child: SvgPicture.asset(
                                         controller.category.value[index]
                                             ["image"],
                                         fit: BoxFit.contain,
@@ -282,7 +288,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                     AppSize.size.h10,
                                     Container(
                                         constraints:
-                                            BoxConstraints(maxWidth: 70),
+                                            BoxConstraints(maxWidth: 90),
                                         child: TextWidget(
                                           controller.category.value[index]
                                               ["name"],
@@ -659,7 +665,8 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                                         index]
                                                                     .products?[
                                                                         indexx]
-                                                                    .price,
+                                                                    .price
+                                                                    .toString(),
                                                                 fontSize: 10,
                                                                 fontWeight:
                                                                     FontWeight
@@ -812,7 +819,13 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                             left: 8, top: 3),
                                                     child: TextWidget(
                                                       // "${controller.fruitPercentage[index]}% off",
-                                                      "20% off",
+                                                      controller
+                                                          .homeFeaturesData
+                                                          .value
+                                                          .categories?[index]
+                                                          .products?[indexx]
+                                                          .percentage
+                                                          .toString(),
                                                       fontSize: 8,
                                                       fontWeight:
                                                           FontWeight.w600,

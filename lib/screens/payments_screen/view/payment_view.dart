@@ -81,7 +81,8 @@ class PaymentView extends GetView<PaymentController> {
                                                 fontSize: 14,
                                                 color: AppColors.black)),
                                         TextSpan(
-                                            text: "Rs. ${controller.savedPrice.value}",
+                                            text:
+                                                "Rs. ${controller.savedPrice.value}",
                                             style: TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.bold,
@@ -136,11 +137,13 @@ class PaymentView extends GetView<PaymentController> {
                                 child: SizedBox(
                                   height: 100,
                                   width: Get.width / 1.4,
-                                  child: Html(
-                                    data: controller
-                                            .paymentMethod["payment_methods"]
-                                        ["ccavenuepay"]["title"],
-                                  ),
+                                  // child: Text("CC Avenue"),
+                                  // child: Html(
+                                  //   data: controller
+                                  //           .paymentMethod["payment_methods"]
+                                  //       ["ccavenuepay"]["title"],
+                                  // ),
+                                  child: Text("CC Avenue"),
                                 ),
                               )
                             ],
@@ -183,10 +186,7 @@ class PaymentView extends GetView<PaymentController> {
                                   child: SizedBox(
                                     height: 61,
                                     width: Get.width / 1.4,
-                                    child: Text((controller.paymentMethod[
-                                                "payment_methods"]["cod"]
-                                            ["title"] ??
-                                        "")),
+                                    child: Text("cod"),
                                   ),
                                 )
                               ],

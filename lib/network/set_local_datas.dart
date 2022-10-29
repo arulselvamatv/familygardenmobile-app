@@ -7,4 +7,9 @@ class SetLocalDatas {
     await prefs.setString("api_token", value);
     ApiConstants.jwtToken = value;
   }
+
+  static loginBool() async {
+    var prefs = await SharedPreferences.getInstance();
+    await prefs.setString("Login", "");
+  }
 }

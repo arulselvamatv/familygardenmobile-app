@@ -245,32 +245,41 @@ class AddressView extends GetView<AddressController> {
                                                           ?.length)! -
                                                       1 ==
                                                   index,
-                                              child: Container(
-                                                height: 48,
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 24.0),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: [
-                                                      Icon(
-                                                        Icons.add,
-                                                        size: 32,
-                                                      ),
-                                                      SizedBox(
-                                                        width: 21,
-                                                      ),
-                                                      Text(
-                                                        "Add New Address",
-                                                        style: TextStyle(
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w500),
-                                                      )
-                                                    ],
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  Get.toNamed(Routes.ADDADDRESS)
+                                                      ?.then((value) =>
+                                                          controller
+                                                              .getCheckout());
+                                                },
+                                                child: Container(
+                                                  height: 48,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 24.0),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.add,
+                                                          size: 32,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 21,
+                                                        ),
+                                                        Text(
+                                                          "Add New Address",
+                                                          style: TextStyle(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
+                                                        )
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               ))
