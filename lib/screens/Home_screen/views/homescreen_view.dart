@@ -283,6 +283,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                         controller.category.value[index]
                                             ["image"],
                                         fit: BoxFit.contain,
+                                        matchTextDirection: false,
                                       ),
                                     ),
                                     AppSize.size.h10,
@@ -511,57 +512,108 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                       ),
                                                     ),
                                                     AppSize.size.h5,
-                                                    Padding(
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          horizontal: 10),
-                                                      child: Container(
-                                                        height: 20,
-                                                        // width:70,
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5),
-                                                            border: Border.all(
-                                                                color:
-                                                                    Colors.grey,
-                                                                width: 0.5)),
-                                                        child:
-                                                            DropdownButtonHideUnderline(
-                                                          child:
-                                                              DropdownButton2(
-                                                            items: controller
+                                                    (controller
                                                                 .homeFeaturesData
                                                                 .value
                                                                 .categories?[
                                                                     index]
                                                                 .products?[
                                                                     indexx]
-                                                                .options?[0]
-                                                                .productOptionValue
-                                                                ?.map((item) =>
-                                                                    DropdownMenuItem<
-                                                                        String>(
-                                                                      value: item
-                                                                          .productOptionValueId
-                                                                          .toString(),
-                                                                      child:
-                                                                          Container(
-                                                                        child:
-                                                                            Padding(
-                                                                          padding:
-                                                                              const EdgeInsets.only(left: 5.0),
-                                                                          child: Text(
-                                                                              "${item.name}-${item.price}",
-                                                                              maxLines: 1,
-                                                                              overflow: TextOverflow.ellipsis,
-                                                                              style: TextStyle(fontSize: 9)),
-                                                                        ),
-                                                                      ),
-                                                                    ))
-                                                                .toList(),
-                                                            value: controller
+                                                                .options
+                                                                ?.length)! >
+                                                            0
+                                                        ? Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        10),
+                                                            child: Container(
+                                                              height: 20,
+                                                              // width:70,
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              5),
+                                                                  border: Border.all(
+                                                                      color: Colors
+                                                                          .grey,
+                                                                      width:
+                                                                          0.5)),
+                                                              child:
+                                                                  DropdownButtonHideUnderline(
+                                                                child:
+                                                                    DropdownButton2(
+                                                                  items: controller
+                                                                      .homeFeaturesData
+                                                                      .value
+                                                                      .categories?[
+                                                                          index]
+                                                                      .products?[
+                                                                          indexx]
+                                                                      .options?[
+                                                                          0]
+                                                                      .productOptionValue
+                                                                      ?.map((item) =>
+                                                                          DropdownMenuItem<
+                                                                              String>(
+                                                                            value:
+                                                                                item.productOptionValueId.toString(),
+                                                                            child:
+                                                                                Container(
+                                                                              child: Padding(
+                                                                                padding: const EdgeInsets.only(left: 5.0),
+                                                                                child: Text("${item.name}-${item.price}", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 9)),
+                                                                              ),
+                                                                            ),
+                                                                          ))
+                                                                      .toList(),
+                                                                  value: controller
+                                                                              .homeFeaturesData
+                                                                              .value
+                                                                              .categories?[
+                                                                                  index]
+                                                                              .products?[
+                                                                                  indexx]
+                                                                              .options?[
+                                                                                  0]
+                                                                              .selectedDropdownValue !=
+                                                                          ""
+                                                                      ? (controller
+                                                                          .homeFeaturesData
+                                                                          .value
+                                                                          .categories?[
+                                                                              index]
+                                                                          .products?[
+                                                                              indexx]
+                                                                          .options?[
+                                                                              0]
+                                                                          .selectedDropdownValue)!
+                                                                      : (controller
+                                                                          .homeFeaturesData
+                                                                          .value
+                                                                          .categories?[
+                                                                              index]
+                                                                          .products?[
+                                                                              indexx]
+                                                                          .options?[
+                                                                              0]
+                                                                          .productOptionValue?[
+                                                                              0]
+                                                                          .productOptionValueId)!,
+                                                                  onChanged:
+                                                                      (value) {
+                                                                    // controller.fruitOptionId
+                                                                    //             .value[
+                                                                    //         index] =
+                                                                    //     controller
+                                                                    //         .fruitsList[
+                                                                    //             index]
+                                                                    //         .options?[
+                                                                    //             0]
+                                                                    //         .productOptionId;
+                                                                    controller
                                                                         .homeFeaturesData
                                                                         .value
                                                                         .categories?[
@@ -570,67 +622,29 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                                             indexx]
                                                                         .options?[
                                                                             0]
-                                                                        .selectedDropdownValue !=
-                                                                    ""
-                                                                ? (controller
-                                                                    .homeFeaturesData
-                                                                    .value
-                                                                    .categories?[
-                                                                        index]
-                                                                    .products?[
-                                                                        indexx]
-                                                                    .options?[0]
-                                                                    .selectedDropdownValue)!
-                                                                : (controller
-                                                                    .homeFeaturesData
-                                                                    .value
-                                                                    .categories?[
-                                                                        index]
-                                                                    .products?[
-                                                                        indexx]
-                                                                    .options?[0]
-                                                                    .productOptionValue?[
-                                                                        0]
-                                                                    .productOptionValueId)!,
-                                                            onChanged: (value) {
-                                                              // controller.fruitOptionId
-                                                              //             .value[
-                                                              //         index] =
-                                                              //     controller
-                                                              //         .fruitsList[
-                                                              //             index]
-                                                              //         .options?[
-                                                              //             0]
-                                                              //         .productOptionId;
-                                                              controller
-                                                                      .homeFeaturesData
-                                                                      .value
-                                                                      .categories?[
-                                                                          index]
-                                                                      .products?[
-                                                                          indexx]
-                                                                      .options?[0]
-                                                                      .selectedDropdownValue =
-                                                                  value
-                                                                      as String;
-                                                              controller
-                                                                  .homeFeaturesData
-                                                                  .refresh();
-                                                              // controller.fruitOptionValueId
-                                                              //             .value[
-                                                              //         index] =
-                                                              //     value
-                                                              //         as String;
-                                                              controller
-                                                                  .update();
-                                                            },
-                                                            buttonHeight: 35,
-                                                            buttonWidth: 160,
-                                                            itemHeight: 50,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
+                                                                        .selectedDropdownValue = value as String;
+                                                                    controller
+                                                                        .homeFeaturesData
+                                                                        .refresh();
+                                                                    // controller.fruitOptionValueId
+                                                                    //             .value[
+                                                                    //         index] =
+                                                                    //     value
+                                                                    //         as String;
+                                                                    controller
+                                                                        .update();
+                                                                  },
+                                                                  buttonHeight:
+                                                                      35,
+                                                                  buttonWidth:
+                                                                      160,
+                                                                  itemHeight:
+                                                                      50,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          )
+                                                        : Container(),
                                                     AppSize.size.h5,
                                                     Padding(
                                                       padding: const EdgeInsets

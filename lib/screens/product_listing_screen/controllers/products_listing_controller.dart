@@ -31,17 +31,21 @@ class ProductListingController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    categoriesIndex.value = Get.arguments;
     getCategory();
     getCartCount();
   }
 
   getCategory() async {
+    isCategoryLoader.value = true;
     print(ApiConstants.jwtToken);
-    categoriesIndex.value = Get.arguments;
     var respone = await ApiHelper.getCategories();
     if (respone.isSuccessFul) {
       categoriesList.value = (respone.data?.categories)!;
       isCategoryLoader.value = false;
+      print("categoriesIndex.value ${categoriesIndex.value}");
+      print(
+          "categoriesList[categoriesIndex.value].categoryId ${categoriesList[categoriesIndex.value].categoryId}");
       title.value = categoriesList.value[categoriesIndex.value].name!;
       categoryId.value = categoriesList[categoriesIndex.value].categoryId!;
       getCategoryProduct(categoriesList[categoriesIndex.value].categoryId);
@@ -119,16 +123,20 @@ class ProductListingController extends GetxController {
 
   cartButton(int index, String functionality) {
     if (cartBoolList[index] == false) {
+      cartCount.value += 1;
       cartBoolList[index] = cartBoolList[index] == false ? true : true;
       addToCart(index, "plus");
     } else if (functionality == "plus") {
+      cartCount.value += 1;
       counterList[index] += 1;
       addToCart(index, "plus");
     } else {
       if (counterList[index] == 1) {
+        cartCount.value -= 1;
         cartBoolList[index] = false;
         addToCart(index, "minus");
       } else {
+        cartCount.value -= 1;
         counterList[index] -= 1;
         addToCart(index, "minus");
       }

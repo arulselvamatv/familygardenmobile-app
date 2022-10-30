@@ -763,6 +763,7 @@ class ApiHelper {
 
       if (response.statusCode == 200) {
         var body = jsonDecode(await response.stream.bytesToString());
+        print("Streamed shipping method response ${body}");
         // var res = ShippingMethodSaveModel.fromJson(body);
         return HTTPResponse(
           true,
@@ -803,17 +804,28 @@ class ApiHelper {
 
   static Future<HTTPResponse<PaymentMethodSaveModel>> paymentMethodSave(
       data) async {
+    var url =
+        "https://dev.familygarden.in/${EndPoints.paymentMethodSave}&api_token=${ApiConstants.jwtToken}";
+    var dio = Dio();
     try {
-      var body = {"payment_method": "cod", "comment": "test", "agree": "1"};
-      var data = json.encode(body);
-      final response = await http.post(
-        Uri.parse(
-            "https://dev.familygarden.in/${EndPoints.paymentMethodSave}&api_token=${ApiConstants.jwtToken}"),
-        headers: {"Content-Type": "application/json"},
-        // encoding: Encoding.getByName('utf-8'),
-        body: data,
-      );
-      print("payment save body ${response.body}");
+      var params = {"payment_method": "cod", "comment": "test", "agree": "1"};
+      // var map = new Map<String, dynamic>();
+      // map['payment_method'] = "cod";
+      // map['comment'] = "";
+      // map['agree'] = 1;
+      // FormData formData = FormData.fromMap(map);
+      var response = await dio.post(url, data: jsonEncode(params));
+      print("payment save res ${response.data.toString()}");
+      // var body = {"payment_method": "cod", "comment": "test", "agree": "1"};
+      // var data = json.encode(body);
+      // final response = await http.post(
+      //   Uri.parse(
+      //       "https://dev.familygarden.in/${EndPoints.paymentMethodSave}&api_token=${ApiConstants.jwtToken}"),
+      //   headers: {"Content-Type": "application/json"},
+      //   // encoding: Encoding.getByName('utf-8'),
+      //   body: data,
+      // );
+      // print("payment save body ${response.body}");
       //   var request = http.Request(
       //       'POST',
       //       Uri.parse(
@@ -838,12 +850,12 @@ class ApiHelper {
       //   http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
-        var body = jsonDecode(response.body);
-        print("payment method save $body");
-        var res = PaymentMethodSaveModel.fromJson(body);
+        // var body = jsonDecode(response);
+        // print("payment method save $body");
+        // var res = PaymentMethodSaveModel.fromJson(body);
         return HTTPResponse(
           true,
-          res,
+          null,
           responseCode: response.statusCode,
         );
       } else {

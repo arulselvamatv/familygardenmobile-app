@@ -4,6 +4,7 @@ import 'package:family_garden/network/api_constants/api_constants.dart';
 import 'package:family_garden/network/api_constants/api_end_points.dart';
 import 'package:family_garden/network/api_helper.dart';
 import 'package:family_garden/network/get_local_datas.dart';
+import 'package:family_garden/screens/dashboard/controllers/dashboard_controller.dart';
 import '../../../models/categories_model.dart';
 import '../../../models/home_feature_model.dart';
 import '../../../models/home_slider_model.dart';
@@ -68,6 +69,8 @@ class HomeScreenController extends GetxController with RouteAware {
   }
 
   homeFeatureAddToCart(int index, int indexx) {
+    var count = Get.find<DashboardController>().cartCount.value + 1;
+    Get.find<DashboardController>().cartCount.value = count;
     homeFeaturesData.value.categories![index].products![indexx].count =
         (homeFeaturesData.value.categories![index].products![indexx].count)! +
             1;
@@ -85,6 +88,8 @@ class HomeScreenController extends GetxController with RouteAware {
   }
 
   homeFeatureMinusBtn(int index, int indexx) {
+    var count = Get.find<DashboardController>().cartCount.value + 1;
+    Get.find<DashboardController>().cartCount.value = count;
     if (homeFeaturesData.value.categories![index].products![indexx].count ==
         0) {
     } else {
@@ -94,14 +99,18 @@ class HomeScreenController extends GetxController with RouteAware {
     }
     removeCartDatas(index, indexx);
     homeFeaturesData.refresh();
+    update();
   }
 
   homeFeatureAddBtn(int index, int indexx) {
+    var count = Get.find<DashboardController>().cartCount.value + 1;
+    Get.find<DashboardController>().cartCount.value = count;
     homeFeaturesData.value.categories![index].products![indexx].count =
         (homeFeaturesData.value.categories![index].products![indexx].count)! +
             1;
     AddToCart(index, indexx);
     homeFeaturesData.refresh();
+    update();
   }
 
   AddToCart(index, indexx) {

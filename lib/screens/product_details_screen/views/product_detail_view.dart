@@ -124,70 +124,76 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                               textOverflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             ),
-                            SizedBox(
-                              height: 215,
-                              width: Get.width,
-                              child: Stack(
-                                children: [
-                                  CarouselSlider.builder(
-                                      carouselController:
-                                          controller.carouselController,
-                                      itemCount: controller
-                                              .carousalImages.isEmpty
-                                          ? controller.carouselImage.length
-                                          : controller.carousalImages.length,
-                                      itemBuilder: (context, index, realIndex) {
-                                        return Container(
-                                          margin: EdgeInsets.symmetric(
-                                              horizontal: 15),
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          child:
-                                              controller.carousalImages.isEmpty
-                                                  ? Image.asset(
-                                                      controller
-                                                          .carouselImage[index],
-                                                      width: Get.width / 1.5,
-                                                      fit: BoxFit.fill,
-                                                    )
-                                                  : Image.network(controller
-                                                      .carousalImages[index]
-                                                      .thumb!),
-                                        );
-                                      },
-                                      options: CarouselOptions(
-                                          // autoPlay: true,
-                                          viewportFraction: 1,
-                                          // scrollPhysics:
-                                          //     NeverScrollableScrollPhysics(),
-                                          enableInfiniteScroll: true,
-                                          onPageChanged: (index, reason) {
-                                            // controller.pageChanged(index);
-                                          })),
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: IconButton(
-                                        onPressed: () {
-                                          controller.carouselController
-                                              .nextPage();
-                                        },
-                                        icon: Icon(
-                                            Icons.arrow_forward_ios_outlined)),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: IconButton(
-                                        onPressed: () {
-                                          controller.carouselController
-                                              .previousPage();
-                                        },
-                                        icon: Icon(
-                                            Icons.arrow_back_ios_outlined)),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            controller.carousalImages.value.length > 0
+                                ? SizedBox(
+                                    height: 215,
+                                    width: Get.width,
+                                    child: Stack(
+                                      children: [
+                                        CarouselSlider.builder(
+                                            carouselController:
+                                                controller.carouselController,
+                                            itemCount: controller
+                                                    .carousalImages.isEmpty
+                                                ? 0
+                                                : controller
+                                                    .carousalImages.length,
+                                            itemBuilder:
+                                                (context, index, realIndex) {
+                                              return Container(
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: 15),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                                child: controller
+                                                        .carousalImages.isEmpty
+                                                    ? Image.asset(
+                                                        controller
+                                                                .carouselImage[
+                                                            index],
+                                                        width: Get.width / 1.5,
+                                                        fit: BoxFit.fill,
+                                                      )
+                                                    : Image.network(controller
+                                                        .carousalImages[index]
+                                                        .thumb!),
+                                              );
+                                            },
+                                            options: CarouselOptions(
+                                                // autoPlay: true,
+                                                viewportFraction: 1,
+                                                // scrollPhysics:
+                                                //     NeverScrollableScrollPhysics(),
+                                                enableInfiniteScroll: true,
+                                                onPageChanged: (index, reason) {
+                                                  // controller.pageChanged(index);
+                                                })),
+                                        Align(
+                                          alignment: Alignment.centerRight,
+                                          child: IconButton(
+                                              onPressed: () {
+                                                controller.carouselController
+                                                    .nextPage();
+                                              },
+                                              icon: Icon(Icons
+                                                  .arrow_forward_ios_outlined)),
+                                        ),
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: IconButton(
+                                              onPressed: () {
+                                                controller.carouselController
+                                                    .previousPage();
+                                              },
+                                              icon: Icon(Icons
+                                                  .arrow_back_ios_outlined)),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : Container(),
                             SizedBox(
                               height: 20,
                             ),

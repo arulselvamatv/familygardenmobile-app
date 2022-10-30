@@ -52,8 +52,7 @@ class ProductListingView extends GetView<ProductListingController> {
                         onTap: () {
                           controller.hitAddCartAPI();
                           Get.toNamed(Routes.CART_SCREEN)?.then((value) {
-                            controller.getCategoryProduct(
-                                controller.categoryId.value);
+                            controller.getCategory();
                             controller.getCartCount();
                           });
                         },
@@ -230,8 +229,7 @@ class ProductListingView extends GetView<ProductListingController> {
                                                       .products[index]
                                                       .productId)
                                               ?.then((value) {
-                                            controller.getCategoryProduct(
-                                                controller.categoryId.value);
+                                            controller.getCategory();
                                             controller.getCartCount();
                                           });
                                           controller.update();
