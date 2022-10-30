@@ -558,6 +558,7 @@ class Products {
   String? price;
   String? special;
   String? tax;
+  int? counter;
   String? minimum;
   int? rating;
   String? percentOff;

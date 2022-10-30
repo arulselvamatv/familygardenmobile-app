@@ -279,7 +279,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                       //     si: ScalableImageSource
                                       //         .fromSvgHttpUrl(Uri.parse(
                                       //             'https://jovial.com/images/jupiter.svg'))),
-                                      child: SvgPicture.asset(
+                                      child: Image.asset(
                                         controller.category.value[index]
                                             ["image"],
                                         fit: BoxFit.contain,

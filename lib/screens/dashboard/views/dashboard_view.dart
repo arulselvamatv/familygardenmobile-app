@@ -2,6 +2,7 @@ import 'package:family_garden/screens/Home_screen/controllers/homescreen_control
 import 'package:family_garden/screens/categories_screen/views/categories_view.dart';
 import 'package:family_garden/screens/dashboard/controllers/dashboard_controller.dart';
 import 'package:family_garden/screens/drawer_screen/views/drawer_view.dart';
+import 'package:family_garden/screens/offers_screen/controller/offers_controller.dart';
 import 'package:family_garden/screens/offers_screen/view/offer_screen_view.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:family_garden/widgets/common_appbar/custom_appbar_view.dart';
@@ -59,6 +60,14 @@ class DashboardView extends GetView<DashboardController> {
                       Get.toNamed(Routes.CART_SCREEN)?.then((value) {
                         Get.find<HomeScreenController>().getHomeFeatures();
                         controller.getCartCount();
+                        if (Get.find<OffersController>()
+                                .productData
+                                .value["product_info"]
+                                ?.length !=
+                            0) {
+                          Get.find<OffersController>().hitAddCartAPI();
+                          Get.find<OffersController>().getsCategory();
+                        }
                       });
                     },
                     child: Padding(

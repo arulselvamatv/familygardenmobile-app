@@ -12,6 +12,7 @@ class OffersController extends GetxController {
   RxList productId = [].obs;
   RxBool isCategoryProductLoader = true.obs;
   RxString categoryId = ''.obs;
+  var productData = {"product_info": []}.obs;
   @override
   void onInit() async {
     super.onInit();
@@ -19,6 +20,7 @@ class OffersController extends GetxController {
   }
 
   getsCategory() async {
+    clearAll();
     var response = await ApiHelper.getProductCategory("24");
     if (response.responseCode == 200) {
       products.value = (response.data?.products)!;
@@ -32,47 +34,92 @@ class OffersController extends GetxController {
       productId.value.add("");
       counterList.add(1);
     }
-    // for (int i = 0; i < products.value.length; i++) {
-    //
-    // }
-    // for (int i = 0; i < (products.value.length); i++) {
-    //
-    // }
-    // for (int i = 0; i < (products.value.length); i++) {
-    //   optionId.value.add("");
-    // }
-    // for (int i = 0; i < (products.value.length); i++) {
-    //   optionValueId.value.add("");
-    // }
     isCategoryProductLoader.value = false;
-    // selectedDropdownValue.refresh();
     cartBoolList.refresh();
     counterList.refresh();
     productId.refresh();
-    // optionId.refresh();
-    // optionValueId.refresh();
     update();
   }
 
   cartButton(int index, String functionality) {
     if (cartBoolList[index] == false) {
       cartBoolList[index] = cartBoolList[index] == false ? true : true;
-      // addToCart(index, "plus");
+      addToCart(index, "plus");
     } else if (functionality == "plus") {
       counterList[index] += 1;
-      // addToCart(index, "plus");
     } else {
       if (counterList[index] == 1) {
         cartBoolList[index] = false;
-        // addToCart(index, "minus");
       } else {
         counterList[index] -= 1;
-        // addToCart(index, "minus");
       }
       cartBoolList.refresh();
     }
-    // cartBoolList[index] = cartBoolList[index] == false ? true : true;
-    // cartBoolList.refresh();
     update();
+  }
+
+  addToCart(index, value) async {
+    if (value == "plus") {
+      if ((productData.value["product_info"]?.length ?? 0) > 0) {
+        existingAddCartData(index);
+      } else {
+        newAddCart(index);
+      }
+    } else {
+      removeCartDatas(index);
+    }
+  }
+
+  hitAddCartAPI() async {
+    if ((productData.value["product_info"]?.length ?? 0) > 0) {
+      print("AddCartAPI $productData");
+      var response = await ApiHelper.addCart(productData.value);
+    } else {}
+    update();
+  }
+
+  clearAll() {
+    productData.value = {"product_info": []};
+    cartBoolList.clear();
+    productId.clear();
+    counterList.clear();
+    update();
+  }
+
+  removeCartDatas(index) {
+    if ((productData.value["product_info"]?.length ?? 0) > 0) {
+      int? QuantityIncreasingIndex = productData.value["product_info"]
+          ?.indexWhere(
+              (element) => element["product_id"] == products[index].productId!);
+      if (QuantityIncreasingIndex != -1) {
+        productData.value["product_info"]?[QuantityIncreasingIndex!]["qty"] =
+            productData.value["product_info"]?[QuantityIncreasingIndex]["qty"] -
+                1;
+      }
+    }
+  }
+
+  existingAddCartData(index) {
+    int? QuantityIncreasingIndex = productData.value["product_info"]
+        ?.indexWhere(
+            (element) => element["product_id"] == products[index].productId!);
+    print(QuantityIncreasingIndex);
+    if (QuantityIncreasingIndex != -1) {
+      productData.value["product_info"]?[QuantityIncreasingIndex!]["qty"] =
+          productData.value["product_info"]?[QuantityIncreasingIndex]["qty"] +
+              1;
+    } else {
+      newAddCart(index);
+    }
+  }
+
+  newAddCart(index) {
+    productId[index] = products[index].productId!;
+    addCartDatas(index);
+  }
+
+  addCartDatas(index) {
+    productData.value["product_info"]
+        ?.add({"product_id": productId[index], "qty": 1, "action": "ADD"});
   }
 }

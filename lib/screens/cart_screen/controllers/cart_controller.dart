@@ -188,11 +188,16 @@ class CartController extends GetxController {
         print("Something went wrong");
       }
     } else {
-      productId[index] = products.value.products?[index].productId!;
-      optionId[index] = (products.value.products?[index].productOptionId)!;
-      optionValueId[index] =
-          (products.value.products?[index].productOptionValueId)!;
-      removeCartDatas(index);
+      if (products.value.products?[index].productOptionId != null) {
+        productId[index] = products.value.products?[index].productId!;
+        optionId[index] = (products.value.products?[index].productOptionId)!;
+        optionValueId[index] =
+            (products.value.products?[index].productOptionValueId)!;
+        removeCartDatas(index);
+      } else {
+        productId[index] = products.value.products?[index].productId!;
+        removeCartDatas(index);
+      }
     }
   }
 
@@ -220,12 +225,14 @@ class CartController extends GetxController {
   }
 
   newAddCart(index) {
-    if (optionId.value[index] == "") {
-      productId[index] = products.value.products?[index].productId!;
-      optionId[index] = (products.value.products?[index].productOptionId)!;
-      optionValueId[index] =
-          (products.value.products?[index].productOptionValueId)!;
-      addCartDatas(index);
+    if (products.value.products?[index].productOptionId != null) {
+      if (optionId.value[index] == "") {
+        productId[index] = products.value.products?[index].productId!;
+        optionId[index] = (products.value.products?[index].productOptionId)!;
+        optionValueId[index] =
+            (products.value.products?[index].productOptionValueId)!;
+        addCartDatas(index);
+      }
     } else {
       productId[index] = products.value.products?[index].productId!;
       addCartDatas(index);
