@@ -67,4 +67,6 @@ class EndPoints {
       "/index.php?route=mobileapi/checkout/payment_address/save";
 
   static const editAccount = "/index.php?route=mobileapi/account/edit/update";
+
+  static const search = "/index.php?route=mobileapi/product/search";
 }

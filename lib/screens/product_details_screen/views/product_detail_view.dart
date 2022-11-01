@@ -193,7 +193,12 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                       ],
                                     ),
                                   )
-                                : Container(),
+                                : SizedBox(
+                                    height: 215,
+                                    width: Get.width,
+                                    child: Image.network(
+                                        (controller.productDetails?.thumb)!),
+                                  ),
                             SizedBox(
                               height: 20,
                             ),

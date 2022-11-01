@@ -14,10 +14,34 @@ class DrawerWidgetController extends GetxController {
     {'name': 'FAQ', 'image': 'assets/icons/Faq.png'},
   ].obs;
   RxString login = "".obs;
-  RxBool isLoggedin = false.obs;
+  RxBool isLoggedin = true.obs;
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  void onInit() {
+    super.onInit();
+    getLocalDatas();
+  }
+
+  logout(context) {
+    isLoggedin.value == false;
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text("Logout successfully"),
+    ));
+    update();
+  }
+
+  getLocalDatas() async {
+    var prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey("Login")) {
+      if (prefs.getString("Login") == "true") {
+        isLoggedin.value = false;
+      }
+      isLoggedin.refresh();
+    }
+    update();
+  }
 
   sideMenuNavigation(int index) {
     print(index);

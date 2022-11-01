@@ -7,6 +7,7 @@ import '../../../routes/app_pages.dart';
 import '../../../utils/common_import/common_import.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
 import '../../account_screen/controllers/account_controller.dart';
+import '../../drawer_screen/controllers/drawer_controller.dart';
 import '../controllers/cart_controller.dart';
 
 class CartView extends GetView<CartController> {
@@ -785,6 +786,9 @@ class CartView extends GetView<CartController> {
                                   Get.put(AccountController());
                                   Get.find<AccountController>()
                                       .getLoginDetails();
+                                  Get.put(DrawerWidgetController());
+                                  Get.find<DrawerWidgetController>()
+                                      .getLocalDatas();
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(SnackBar(
                                     content: Text("Succesfully Logged in"),

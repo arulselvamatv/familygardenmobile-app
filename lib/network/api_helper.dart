@@ -1677,7 +1677,8 @@ class ApiHelper {
     return "0";
   }
 
-  static accountUpdate(firstName, lastName, emailId, telephone) async {
+  static Future<int> accountUpdate(
+      firstName, lastName, emailId, telephone) async {
     var req = await http.post(
       Uri.parse(
           "${ApiConstants.baseUrl}${EndPoints.editAccount}&api_token=${ApiConstants.jwtToken}"),
@@ -1692,6 +1693,11 @@ class ApiHelper {
         'telephone': telephone,
       },
     );
-    if (req.statusCode == 200) {}
+    if (req.statusCode == 200) {
+      var body = json.decode(req.body);
+      print(body);
+      return body["status"];
+    }
+    return 0;
   }
 }

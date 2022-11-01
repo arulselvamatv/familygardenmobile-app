@@ -138,7 +138,6 @@ class HomeScreenController extends GetxController with RouteAware {
   }
 
   AddToCart(index, indexx) {
-    // vegBoolList.value[index] = true;
     if ((productData.value["product_info"]?.length)! > 0) {
       ExistingAddCartData(index, indexx);
     } else {

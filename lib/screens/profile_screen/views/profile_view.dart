@@ -47,7 +47,7 @@ class ProfileView extends GetView<ProfileController> {
         child: Padding(
           padding: const EdgeInsets.only(top: 0),
           child: Container(
-            height: Get.height - 140,
+            height: Get.height,
             width: Get.width,
             decoration: const BoxDecoration(
                 color: Colors.white,
@@ -79,55 +79,39 @@ class ProfileView extends GetView<ProfileController> {
                   ),
                   AppSize.size.h30,
                   CustomTextField(
-                    caption: 'Address *',
+                    caption: 'telephone',
                     hasCaption: true,
                     fontSize: 12,
-                    controller: controller.addressController,
+                    controller: controller.telephoneController,
                     hint: '',
                     readOnly: false,
                   ),
                   AppSize.size.h30,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(
-                        flex: 1,
-                        child: CustomTextField(
-                          caption: 'City',
-                          hasCaption: true,
-                          fontSize: 12,
-                          readOnly: true,
-                          controller: controller.cityController,
-                          hint: '',
-                        ),
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: CustomTextField(
-                          caption: 'State',
-                          hasCaption: true,
-                          readOnly: true,
-                          fontSize: 12,
-                          controller: controller.stateController,
-                          hint: '',
-                        ),
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: CustomTextField(
-                          caption: 'Pin Code',
-                          hasCaption: true,
-                          maxline: 1,
-                          fontSize: 12,
-                          controller: controller.pinCodeController,
-                          hint: '',
-                          readOnly: false,
-                        ),
-                      ),
-                    ],
-                  ),
                   Padding(
                     padding: EdgeInsets.only(top: 80.0),
+                  ),
+                  Container(
+                    color: AppColors.white,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    child: Container(
+                      height: 50,
+                      width: Get.width,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            controller.onPressSaveChangesBtn(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.primaryColor,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(13))),
+                          child: TextWidget(
+                            'Save Changes',
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                          )),
+                    ),
                   ),
                   Divider(
                     color: Color(0xffE5E5E5),
@@ -169,26 +153,7 @@ class ProfileView extends GetView<ProfileController> {
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        color: AppColors.white,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Container(
-          height: 50,
-          width: Get.width,
-          child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                  primary: AppColors.primaryColor,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(13))),
-              child: TextWidget(
-                'Update',
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-                fontSize: 14,
-              )),
-        ),
-      ),
+      // bottomNavigationBar:
     );
   }
 }

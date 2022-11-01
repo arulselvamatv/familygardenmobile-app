@@ -39,6 +39,8 @@ import '../screens/product_details_screen/bindings/product_details_binding.dart'
 import '../screens/product_details_screen/views/product_detail_view.dart';
 import '../screens/profile_screen/bindings/profile_binding.dart';
 import '../screens/profile_screen/views/profile_view.dart';
+import '../screens/search_screen/binding/search_binding.dart';
+import '../screens/search_screen/view/search_view.dart';
 import '../screens/signup/binding/signup_binding.dart';
 import '../screens/signup/view/signup_view.dart';
 import '../screens/splash_screen/bindings/splash_bindings.dart';
@@ -173,6 +175,11 @@ class AppPages {
       name: _Paths.EDIT_PROFILE,
       page: () => ProfileView(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.SEARCH_SCREEN,
+      page: () => SearchView(),
+      binding: SearchBinding(),
     ),
   ];
 }

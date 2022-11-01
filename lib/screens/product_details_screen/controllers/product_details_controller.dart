@@ -12,6 +12,7 @@ class ProductDetailsController extends GetxController {
   RxString productId = "".obs;
   RxBool addToCart = false.obs;
   ProductDetailsModel? productDetails;
+  RxBool isImageEmpty = false.obs;
   RxBool productDetailLoader = true.obs;
   RxList carouselImage = [
     'assets/images/Carrot 1.png',
@@ -25,6 +26,12 @@ class ProductDetailsController extends GetxController {
     '500 grams',
     '1 KG',
   ].obs;
+  RxString staticImage = "assets/images/Fresh Vegetables.png".obs;
+  // RxList counterList = [].obs;
+  // RxList cartBoolList = [].obs;
+  // RxBool isCategoryProductLoader = true.obs;
+  // RxString categoryId = ''.obs;
+  var productData = {"product_info": []}.obs;
 
   @override
   void onInit() {
@@ -37,6 +44,8 @@ class ProductDetailsController extends GetxController {
     var response = await ApiHelper.getProductCategoryDetails(productId);
     if (response.responseCode == 200) {
       productDetails = response.data;
+      // if (productDetails?.images?.isEmpty) {}
+      isImageEmpty.value = true;
       carousalImages.value = (productDetails?.images)!;
       productDetailLoader.value = false;
     }
