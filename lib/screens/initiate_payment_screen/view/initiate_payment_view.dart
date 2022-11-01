@@ -82,9 +82,7 @@ class InitiatePaymentView extends GetView<InitatePaymentController> {
                   await prefs.setString("orderNumber", orderNumber!);
                   print("orderNumber ::::$orderNumber");
                   Get.back();
-                  Get.toNamed(Routes.ORDER_SUCCESS_SCREEN, arguments: [
-                    {"orderNumber": orderNumber}
-                  ]);
+                  Get.offAndToNamed(Routes.ORDER_SUCCESS_SCREEN);
                   // Get.to(() => Routes.ORDER_SUCCESS_SCREEN, arguments: [
                   //   {"first": 'First data'},
                   //   {"second": 'Second data'}

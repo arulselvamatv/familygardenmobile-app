@@ -21,10 +21,7 @@ class HomeScreenController extends GetxController with RouteAware {
     {'name': 'Fresh from Farm', 'image': 'assets/images/home_screen1.png'},
     {'name': 'Fast Delivery', 'image': 'assets/images/home_screen2.png'},
     {'name': 'For Low Cost', 'image': 'assets/images/home_screen3.png'},
-    {
-      'name': 'Mass Production of Vegetables',
-      'image': 'assets/images/home_screen4.png'
-    },
+    {'name': 'Mass Production', 'image': 'assets/images/home_screen4.png'},
     {'name': 'Premium Quality', 'image': 'assets/images/home_screen5.png'},
   ].obs;
 
@@ -59,10 +56,33 @@ class HomeScreenController extends GetxController with RouteAware {
   getHomeFeatures() async {
     clearHomeFeatureDatas();
     var response = await ApiHelper.getHomeFeatures();
-    print("Response : ${response.responseCode}");
     if (response.responseCode == 200) {
       homeFeaturesData.value = response.data!;
+      getPercentage();
       ishomeFeatureLoader.value = false;
+    }
+    homeFeaturesData.refresh();
+    update();
+  }
+
+  getPercentage() {
+    for (var i = 0; i < (homeFeaturesData.value.categories?.length)!; i++) {
+      for (var j = 0;
+          j < (homeFeaturesData.value.categories?[i].products?.length)!;
+          j++) {
+        var offerPrice = double.parse((homeFeaturesData
+            .value.categories?[i].products?[j].offerPrice
+            ?.substring(1))!);
+        // print(
+        //     "Percentage ${homeFeaturesData.value.categories?[i].products?[j].price}");
+        var removeComma = homeFeaturesData
+            .value.categories?[i].products?[j].price
+            ?.replaceAll(',', '');
+        var actualPrice = double.parse(removeComma!.substring(1));
+        var percentage = ((actualPrice - offerPrice) / actualPrice) * 100;
+        homeFeaturesData.value.categories?[i].products?[j].percentage =
+            percentage.toInt();
+      }
     }
     homeFeaturesData.refresh();
     update();
@@ -74,13 +94,17 @@ class HomeScreenController extends GetxController with RouteAware {
     homeFeaturesData.value.categories![index].products![indexx].count =
         (homeFeaturesData.value.categories![index].products![indexx].count)! +
             1;
-    if (homeFeaturesData.value.categories?[index].products?[indexx].options?[0]
-            .selectedDropdownValue ==
-        "") {
-      homeFeaturesData.value.categories?[index].products?[indexx].options?[0]
-              .selectedDropdownValue =
-          homeFeaturesData.value.categories?[index].products?[indexx]
-              .options?[0].productOptionValue?[0].productOptionValueId;
+    if (homeFeaturesData
+            .value.categories?[index].products?[indexx].options?.isNotEmpty ??
+        false) {
+      if (homeFeaturesData.value.categories?[index].products?[indexx]
+              .options?[0].selectedDropdownValue ==
+          "") {
+        homeFeaturesData.value.categories?[index].products?[indexx].options?[0]
+                .selectedDropdownValue =
+            homeFeaturesData.value.categories?[index].products?[indexx]
+                .options?[0].productOptionValue?[0].productOptionValueId;
+      }
     }
     addCartDatas(index, indexx);
     update();
@@ -124,33 +148,28 @@ class HomeScreenController extends GetxController with RouteAware {
   }
 
   ExistingAddCartData(index, indexx) {
-    print("Existing Data");
-    print(productData.value["product_info"]?[0]["product_id"].runtimeType);
-    print(productData.value["product_info"]?[0]["product_id"]);
-    print(homeFeaturesData
-        .value.categories?[index].products?[indexx].productId.runtimeType);
-    print(
-        homeFeaturesData.value.categories?[index].products?[indexx].productId);
     int? QuantityIncreasingIndex = productData.value["product_info"]
         ?.indexWhere((element) =>
             element["product_id"] ==
             homeFeaturesData
                 .value.categories?[index].products?[indexx].productId);
-    print("QuantityIncreasingIndex ${QuantityIncreasingIndex}");
     if (QuantityIncreasingIndex != -1) {
       productData.value["product_info"]?[QuantityIncreasingIndex!]["qty"] =
           productData.value["product_info"]?[QuantityIncreasingIndex]["qty"] +
               1;
-      if (homeFeaturesData.value.categories?[index].products?[indexx]
-              .options?[0].selectedDropdownValue !=
+      if (homeFeaturesData
+              .value.categories?[index].products?[indexx].options?.isNotEmpty ??
+          false) {
+        if (homeFeaturesData.value.categories?[index].products?[indexx]
+                .options?[0].selectedDropdownValue !=
+            productData.value["product_info"]?[QuantityIncreasingIndex!]
+                ["prodcut_option_value_id"]) {
           productData.value["product_info"]?[QuantityIncreasingIndex!]
-              ["prodcut_option_value_id"]) {
-        productData.value["product_info"]?[QuantityIncreasingIndex!]
-                ["prodcut_option_value_id"] =
-            homeFeaturesData.value.categories?[index].products?[indexx]
-                .options?[0].selectedDropdownValue;
+                  ["prodcut_option_value_id"] =
+              homeFeaturesData.value.categories?[index].products?[indexx]
+                  .options?[0].selectedDropdownValue;
+        }
       }
-      print(productData);
     } else {
       addCartDatas(index, indexx);
     }
@@ -158,16 +177,28 @@ class HomeScreenController extends GetxController with RouteAware {
   }
 
   addCartDatas(index, indexx) {
-    productData.value["product_info"]?.add({
-      "product_id":
-          homeFeaturesData.value.categories?[index].products?[indexx].productId,
-      "qty": 1,
-      "product_option_id": homeFeaturesData.value.categories?[index]
-          .products?[indexx].options?[0].productOptionId,
-      "prodcut_option_value_id": homeFeaturesData.value.categories?[index]
-          .products?[indexx].options?[0].selectedDropdownValue,
-      "action": "ADD"
-    });
+    if (homeFeaturesData
+            .value.categories?[index].products?[indexx].options?.isNotEmpty ??
+        false) {
+      productData.value["product_info"]?.add({
+        "product_id": homeFeaturesData
+            .value.categories?[index].products?[indexx].productId,
+        "qty": 1,
+        "product_option_id": homeFeaturesData.value.categories?[index]
+            .products?[indexx].options?[0].productOptionId,
+        "prodcut_option_value_id": homeFeaturesData.value.categories?[index]
+            .products?[indexx].options?[0].selectedDropdownValue,
+        "action": "ADD"
+      });
+    } else {
+      productData.value["product_info"]?.add({
+        "product_id": homeFeaturesData
+            .value.categories?[index].products?[indexx].productId,
+        "qty": 1,
+        "action": "ADD"
+      });
+    }
+
     update();
   }
 

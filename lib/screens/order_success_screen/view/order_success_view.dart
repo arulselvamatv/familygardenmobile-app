@@ -52,12 +52,14 @@ class OrderSuccessView extends GetView<OrderSuccessController> {
                 textAlign: TextAlign.center,
               ),
               AppSize.size.h15,
-              TextWidget(
-                "- Order No : ${controller.argumentData[0]['orderNumber']} -",
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: AppColors.white,
-                textAlign: TextAlign.center,
+              Obx(
+                () => TextWidget(
+                  "- Order No : ${controller.orderId.value} -",
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.white,
+                  textAlign: TextAlign.center,
+                ),
               ),
               AppSize.size.h20,
               Padding(
@@ -96,7 +98,7 @@ class OrderSuccessView extends GetView<OrderSuccessController> {
                           Get.offAllNamed(Routes.DASHBOARD);
                         },
                         style: ElevatedButton.styleFrom(
-                            primary: AppColors.bgColor,
+                            backgroundColor: AppColors.bgColor,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(13))),
                         child: TextWidget(

@@ -155,7 +155,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                       builder: (homeController) => Column(
                         children: [
                           SizedBox(
-                            height: 140,
+                            height: 150,
                             width: Get.width,
                             child: CarouselSlider.builder(
                                 carouselController:
@@ -256,58 +256,201 @@ class HomeScreenView extends GetView<HomeScreenController> {
                     //         ),
                     //       )),
                     AppSize.size.h30,
+
                     Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 5),
+                      padding: EdgeInsets.symmetric(horizontal: 15),
                       child: Container(
-                        height: 140,
-                        child: ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                width: 120,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      height: 36,
-                                      width: 36,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          color: Color(0xfff9f9f9)),
-                                      // child: ScalableImageWidget.fromSISource(
-                                      //     si: ScalableImageSource
-                                      //         .fromSvgHttpUrl(Uri.parse(
-                                      //             'https://jovial.com/images/jupiter.svg'))),
-                                      child: Image.asset(
-                                        controller.category.value[index]
-                                            ["image"],
-                                        fit: BoxFit.contain,
-                                        matchTextDirection: false,
-                                      ),
+                        height: 160,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              width: 53,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 36,
+                                    width: 36,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: Color(0xfff9f9f9)),
+                                    // child: ScalableImageWidget.fromSISource(
+                                    //     si: ScalableImageSource
+                                    //         .fromSvgHttpUrl(Uri.parse(
+                                    //             'https://jovial.com/images/jupiter.svg'))),
+                                    child: Image.asset(
+                                      controller.category.value[0]["image"],
+                                      fit: BoxFit.contain,
+                                      matchTextDirection: false,
                                     ),
-                                    AppSize.size.h10,
-                                    Container(
-                                        constraints:
-                                            BoxConstraints(maxWidth: 90),
-                                        child: TextWidget(
-                                          controller.category.value[index]
-                                              ["name"],
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w600,
-                                          textAlign: TextAlign.center,
-                                          height: 1.5,
-                                          maxLines: 2,
-                                          textOverflow: TextOverflow.ellipsis,
-                                        ))
-                                  ],
-                                ),
-                              );
-                            },
-                            separatorBuilder: (context, index) {
-                              return AppSize.size.w10;
-                            },
-                            itemCount: controller.category.value.length),
+                                  ),
+                                  AppSize.size.h10,
+                                  Container(
+                                      constraints:
+                                          BoxConstraints(maxWidth: 100),
+                                      height: 100,
+                                      child: TextWidget(
+                                        controller.category.value[0]["name"],
+                                        fontSize: 9,
+                                        fontWeight: FontWeight.w600,
+                                        textAlign: TextAlign.center,
+                                        height: 1.5,
+                                        maxLines: 2,
+                                        textOverflow: TextOverflow.ellipsis,
+                                      ))
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: 42.85,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 36,
+                                    width: 42.85,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: Color(0xfff9f9f9)),
+                                    // child: ScalableImageWidget.fromSISource(
+                                    //     si: ScalableImageSource
+                                    //         .fromSvgHttpUrl(Uri.parse(
+                                    //             'https://jovial.com/images/jupiter.svg'))),
+                                    child: Image.asset(
+                                      controller.category.value[1]["image"],
+                                      fit: BoxFit.contain,
+                                      matchTextDirection: false,
+                                    ),
+                                  ),
+                                  AppSize.size.h10,
+                                  Container(
+                                      constraints:
+                                          BoxConstraints(maxWidth: 100),
+                                      height: 100,
+                                      child: TextWidget(
+                                        controller.category.value[1]["name"],
+                                        fontSize: 9,
+                                        fontWeight: FontWeight.w600,
+                                        textAlign: TextAlign.center,
+                                        height: 1.5,
+                                        maxLines: 2,
+                                        textOverflow: TextOverflow.ellipsis,
+                                      ))
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: 40,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 36.48,
+                                    width: 36,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: Color(0xfff9f9f9)),
+                                    // child: ScalableImageWidget.fromSISource(
+                                    //     si: ScalableImageSource
+                                    //         .fromSvgHttpUrl(Uri.parse(
+                                    //             'https://jovial.com/images/jupiter.svg'))),
+                                    child: Image.asset(
+                                      controller.category.value[2]["image"],
+                                      fit: BoxFit.contain,
+                                      matchTextDirection: false,
+                                    ),
+                                  ),
+                                  AppSize.size.h10,
+                                  Container(
+                                      constraints:
+                                          BoxConstraints(maxWidth: 100),
+                                      height: 100,
+                                      child: TextWidget(
+                                        controller.category.value[2]["name"],
+                                        fontSize: 9,
+                                        fontWeight: FontWeight.w600,
+                                        textAlign: TextAlign.center,
+                                        height: 1.5,
+                                        maxLines: 2,
+                                        textOverflow: TextOverflow.ellipsis,
+                                      ))
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: 80,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 36,
+                                    width: 39.62,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: Color(0xfff9f9f9)),
+                                    // child: ScalableImageWidget.fromSISource(
+                                    //     si: ScalableImageSource
+                                    //         .fromSvgHttpUrl(Uri.parse(
+                                    //             'https://jovial.com/images/jupiter.svg'))),
+                                    child: Image.asset(
+                                      controller.category.value[3]["image"],
+                                      fit: BoxFit.contain,
+                                      matchTextDirection: false,
+                                    ),
+                                  ),
+                                  AppSize.size.h10,
+                                  Container(
+                                      constraints:
+                                          BoxConstraints(maxWidth: 100),
+                                      height: 100,
+                                      child: TextWidget(
+                                        controller.category.value[3]["name"],
+                                        fontSize: 9,
+                                        fontWeight: FontWeight.w600,
+                                        textAlign: TextAlign.center,
+                                        height: 1.5,
+                                        maxLines: 2,
+                                        textOverflow: TextOverflow.ellipsis,
+                                      ))
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: 50,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 36,
+                                    width: 36,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: Color(0xfff9f9f9)),
+                                    // child: ScalableImageWidget.fromSISource(
+                                    //     si: ScalableImageSource
+                                    //         .fromSvgHttpUrl(Uri.parse(
+                                    //             'https://jovial.com/images/jupiter.svg'))),
+                                    child: Image.asset(
+                                      controller.category.value[4]["image"],
+                                      fit: BoxFit.contain,
+                                      matchTextDirection: false,
+                                    ),
+                                  ),
+                                  AppSize.size.h10,
+                                  Container(
+                                      constraints:
+                                          BoxConstraints(maxWidth: 100),
+                                      height: 100,
+                                      child: TextWidget(
+                                        controller.category.value[4]["name"],
+                                        fontSize: 9,
+                                        fontWeight: FontWeight.w600,
+                                        textAlign: TextAlign.center,
+                                        height: 1.5,
+                                        maxLines: 2,
+                                        textOverflow: TextOverflow.ellipsis,
+                                      ))
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     Padding(
@@ -351,29 +494,34 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                   borderRadius:
                                                       BorderRadius.circular(8),
                                                   color: Color(0xfff9f9f9)),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 5,
-                                                        vertical: 10),
-                                                child: controller
-                                                            .categoryList[index]
-                                                            .image ==
-                                                        null
-                                                    ? Image.asset(
+                                              child: controller
+                                                          .categoryList[index]
+                                                          .image ==
+                                                      null
+                                                  ? ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8.0),
+                                                      child: Image.asset(
                                                         controller.staticImage,
                                                         fit: BoxFit.fill,
                                                         height: 90,
                                                         width: 90,
-                                                      )
-                                                    : Image.network(
+                                                      ),
+                                                    )
+                                                  : ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8.0),
+                                                      child: Image.network(
                                                         controller
                                                             .categoryList[index]
                                                             .image,
+                                                        fit: BoxFit.fill,
                                                         height: 90,
                                                         width: 90,
                                                       ),
-                                              ),
+                                                    ),
                                             ),
                                             AppSize.size.h10,
                                             Container(
@@ -396,7 +544,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                     );
                                   },
                                   separatorBuilder: (context, index) {
-                                    return AppSize.size.w10;
+                                    return AppSize.size.w15;
                                   },
                                   itemCount:
                                       controller.categoryList.value.length),
@@ -780,7 +928,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                                 )
                                                               : GestureDetector(
                                                                   onTap: () {
-                                                                    controller.homeFeatureAddToCart(
+                                                                    controller.homeFeatureAddBtn(
                                                                         index,
                                                                         indexx);
                                                                   },
@@ -831,19 +979,15 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                     padding:
                                                         const EdgeInsets.only(
                                                             left: 8, top: 3),
-                                                    child: TextWidget(
-                                                      // "${controller.fruitPercentage[index]}% off",
-                                                      controller
-                                                          .homeFeaturesData
-                                                          .value
-                                                          .categories?[index]
-                                                          .products?[indexx]
-                                                          .percentage
-                                                          .toString(),
-                                                      fontSize: 8,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: AppColors.white,
+                                                    child: Center(
+                                                      child: TextWidget(
+                                                        // "${controller.fruitPercentage[index]}% off",
+                                                        "${controller.homeFeaturesData.value.categories?[index].products?[indexx].percentage}%",
+                                                        fontSize: 8,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: AppColors.white,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),

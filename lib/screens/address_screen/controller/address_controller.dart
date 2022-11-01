@@ -12,6 +12,7 @@ class AddressController extends GetxController with RouteAware {
   RxList checkBoxBoolList = [].obs;
   RxBool pickCheckBox = false.obs;
   var selectedAddressIndex = 0.obs;
+  RxDouble totalPrice = 0.0.obs;
   RxInt addressId = 0.obs;
   var formData = {
     "address_id": "",
@@ -29,6 +30,9 @@ class AddressController extends GetxController with RouteAware {
   @override
   void onInit() {
     super.onInit();
+    if (Get.arguments != null) {
+      totalPrice.value = Get.arguments;
+    }
     getCheckout();
   }
 
@@ -120,7 +124,7 @@ class AddressController extends GetxController with RouteAware {
               var shippingMethodSaveResponse =
                   await ApiHelper.shippingMethodSave();
               if (shippingMethodSaveResponse.responseCode == 200) {
-                Get.toNamed(Routes.PAYMENT);
+                Get.toNamed(Routes.PAYMENT, arguments: totalPrice.value);
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: Text("something went wrong"),

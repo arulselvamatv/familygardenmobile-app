@@ -83,6 +83,7 @@ class OffersController extends GetxController {
     cartBoolList.clear();
     productId.clear();
     counterList.clear();
+    isCategoryProductLoader.value = true;
     update();
   }
 

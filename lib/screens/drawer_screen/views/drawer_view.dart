@@ -58,34 +58,34 @@ class DrawerView extends GetView<DrawerWidgetController> {
                                       fontWeight: FontWeight.w700,
                                       color: Color(0xff050000),
                                     ),
-                                    Align(
-                                        alignment: Alignment.topRight,
-                                        child: Icon(
-                                          Icons.keyboard_arrow_down_outlined,
-                                          color: AppColors.black,
-                                          size: 20,
-                                        )),
+                                    // Align(
+                                    //     alignment: Alignment.topRight,
+                                    //     child: Icon(
+                                    //       Icons.keyboard_arrow_down_outlined,
+                                    //       color: AppColors.black,
+                                    //       size: 20,
+                                    //     )),
                                   ],
                                 ),
                               ),
-                              Container(
-                                width: Get.width / 2.1,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    TextWidget(
-                                      'Thoraipakkam, chennai',
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.primaryColor,
-                                    ),
-                                    ImageIcon(AssetImage(
-                                      "assets/icons/location.png",
-                                    )),
-                                  ],
-                                ),
-                              ),
+                              // Container(
+                              //   width: Get.width / 2.1,
+                              //   child: Row(
+                              //     mainAxisAlignment:
+                              //         MainAxisAlignment.spaceBetween,
+                              //     children: [
+                              //       TextWidget(
+                              //         'Thoraipakkam, chennai',
+                              //         fontSize: 10,
+                              //         fontWeight: FontWeight.w600,
+                              //         color: AppColors.primaryColor,
+                              //       ),
+                              //       ImageIcon(AssetImage(
+                              //         "assets/icons/location.png",
+                              //       )),
+                              //     ],
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),

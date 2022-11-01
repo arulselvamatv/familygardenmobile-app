@@ -28,8 +28,12 @@ class PaymentController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    if (Get.arguments != null) {
+      actulPrice.value = Get.arguments;
+      update();
+    }
     getPaymentMethodDetails();
-    getCartListDatas();
+    // getCartListDatas();
   }
 
   getPaymentMethodDetails() async {
@@ -105,22 +109,33 @@ class PaymentController extends GetxController {
 
   codMethod() async {
     print("Cod start");
-    var request = http.Request(
-        'POST',
-        Uri.parse(
-            'https://www.familygarden.in//index.php?route=mobileapi/payment/cod/confirm&api_token=${ApiConstants.jwtToken}'));
-
+    var response = await http.post(Uri.parse(
+        '${ApiConstants.baseUrl}/index.php?route=mobileapi/payment/cod/confirm&api_token=${ApiConstants.jwtToken}'));
+    // var request = http.Request(
+    //     'POST',
+    //     );
     // request.headers.addAll(headers);
-
-    http.StreamedResponse response = await request.send();
-    print(response.statusCode);
     if (response.statusCode == 200) {
-      print(await response.stream.bytesToString());
-      var body = jsonDecode(await response.stream.bytesToString());
-      print(body);
-    } else {
-      print(response.reasonPhrase);
+      var body = json.decode(response.body);
+      if (body["order_id"] != null) {
+        Get.offAndToNamed(Routes.ORDER_SUCCESS_SCREEN,
+            arguments: body["order_id"]);
+      }
+      print("Order Id : ${body["order_id"]}");
     }
+    // http.StreamedResponse response = await request.send();
+    // print(response.statusCode);
+    // if (response.statusCode == 200) {
+    //   print(await response.stream.bytesToString());
+    //   var res = await response.stream.bytesToString();
+    //   var deco = json.decode(res);
+    //   print(deco["order_id"]);
+    //   // if(res["order_id"])
+    //   var body = jsonDecode(await response.stream.bytesToString());
+    //   print(body);
+    // } else {
+    //   print(response.reasonPhrase);
+    // }
     // var res = await http.post(Uri.parse(
     //     "${ApiConstants.baseUrl}/index.php?route=mobileapi/payment/cod/confirm&api_token=${ApiConstants.jwtToken}"));
     //
@@ -157,9 +172,9 @@ class PaymentController extends GetxController {
       } else {
         var res = await ApiHelper.paymentMethodSave('cod');
         if (res.responseCode == 200) {
-          var checkoutResponse = await ApiHelper.checkOutConfirm();
+          var checkoutResponse = await ApiHelper.checkOutCODConfirm();
           if (checkoutResponse.responseCode == 200) {
-            paymentRes = checkoutResponse.data!;
+            // paymentRes = checkoutResponse.data!;
             codMethod();
           }
         }

@@ -41,13 +41,12 @@ class EndPoints {
 
   static const paymentMethodSave =
       "/index.php?route=mobileapi/checkout/payment_method/save";
-  //mobileapi/checkout/payment_method/save
   static const checkoutConfirm = "/index.php?route=mobileapi/checkout/confirm";
 
   static const cartCount = "/index.php?route=mobileapi/cart/count";
 
   static const orderSuccess =
-      "/index.php?route=mobileapi/mobileapi/checkout/ordersuccess";
+      "/index.php?route=mobileapi/checkout/ordersuccess";
 
   static const codConfirm = "/index.php?route=mobileapi/payment/cod/confirm";
 
@@ -61,4 +60,11 @@ class EndPoints {
       "index.php?route=mobileapi/account/order/info";
 
   static const updatePassword = "index.php?route=mobileapi/account/password";
+
+  static const loguout = "/index.php?route=mobileapi/logout";
+
+  static const paymentExistingAddressSave =
+      "/index.php?route=mobileapi/checkout/payment_address/save";
+
+  static const editAccount = "/index.php?route=mobileapi/account/edit/update";
 }

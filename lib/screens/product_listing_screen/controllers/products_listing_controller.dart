@@ -28,6 +28,7 @@ class ProductListingController extends GetxController {
   RxBool isCategoryProductLoader = true.obs;
   var productData = {"product_info": []}.obs;
   RxInt cartCount = 0.obs;
+  TextEditingController search = TextEditingController();
   @override
   void onInit() async {
     super.onInit();
@@ -148,13 +149,18 @@ class ProductListingController extends GetxController {
   }
 
   addCartDatas(index) {
-    productData.value["product_info"]?.add({
-      "product_id": productId[index],
-      "qty": 1,
-      "product_option_id": optionId.value[index]!,
-      "prodcut_option_value_id": optionValueId[index],
-      "action": "ADD"
-    });
+    if (products.value[index].option?.isNotEmpty ?? false) {
+      productData.value["product_info"]?.add({
+        "product_id": productId[index],
+        "qty": 1,
+        "product_option_id": optionId.value[index]!,
+        "prodcut_option_value_id": optionValueId[index],
+        "action": "ADD"
+      });
+    } else {
+      productData.value["product_info"]
+          ?.add({"product_id": productId[index], "qty": 1, "action": "ADD"});
+    }
   }
 
   hitAddCartAPI() async {
@@ -180,11 +186,13 @@ class ProductListingController extends GetxController {
   newAddCart(index) {
     if (optionId.value[index] == "") {
       productId[index] = products[index].productId!;
-      optionId[index] = (products[index].option?[0].productOptionId)!;
-      optionValueId[index] = (products[index]
-          .option?[0]
-          .productOptionValue?[0]
-          .productOptionValueId)!;
+      if (products[index].option?.isNotEmpty ?? false) {
+        optionId[index] = (products[index].option?[0].productOptionId)!;
+        optionValueId[index] = (products[index]
+            .option?[0]
+            .productOptionValue?[0]
+            .productOptionValueId)!;
+      } else {}
       addCartDatas(index);
     } else {
       productId[index] = products[index].productId!;

@@ -1,53 +1,25 @@
+import 'package:family_garden/network/api_helper.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OrderSuccessController extends GetxController {
-  dynamic argumentData = Get.arguments;
+  RxString orderId = "".obs;
 
   @override
   void onInit() async {
-    print(argumentData[0]['orderNumber']);
-    // print(argumentData[1]['second']);
     super.onInit();
-    // getHomeSliderDetails();
-    // getCategories();
-    // getHomeFeature();
-    // orderId = Get.parameters["orderNumber"]!;
-    // print('orderID $orderId');
+    getOrderId();
   }
 
-  // setOrder() async {
-  //   var prefs = await SharedPreferences.getInstance();
-  //   orderId = prefs.getString("orderNumber")!;
-  // }
+  getOrderId() async {
+    print("Get.arguments ${Get.arguments}");
+    if (Get.arguments == null) {
+      var data = await ApiHelper.orderSuccess();
+      print("Order ID: ${data}");
+      orderId.value = data;
+    } else {
+      orderId.value = Get.arguments.toString();
+    }
+    update();
+  }
 }
-
-// class InitatePaymentController extends GetxController {
-//   CheckoutConfirmModel? paymentRes;
-//   String postData = '', url = "";
-//   String paymentUrl = "https://dev.familygarden.in/checkout-msuccess";
-//   WebViewController? webController;
-//   String data = "";
-//   // InAppWebViewController? webViewController;
-//   bool isLogEnabled = true;
-//
-//   @override
-//   void onInit() {
-//     if (Get.arguments != null) {
-//       paymentRes = Get.arguments;
-//       print("paymentRes?.payment.policylink ${paymentRes?.payment.policylink}");
-//       data = (paymentRes?.payment.action)! +
-//           "&encRequest=" +
-//           (paymentRes?.payment.encRequest)! +
-//           "&access_code=" +
-//           (paymentRes?.payment.accessCode)!;
-//     }
-//     super.onInit();
-//   }
-//
-//   showLog(message) {
-//     if (isLogEnabled) {
-//       print("AEL: " + message);
-//     } else {}
-//   }
-// }

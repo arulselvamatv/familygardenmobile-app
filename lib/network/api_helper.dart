@@ -11,9 +11,12 @@ import 'package:family_garden/models/home_feature_model.dart';
 import 'package:family_garden/models/home_slider_model.dart';
 import 'package:family_garden/models/login_model.dart';
 import 'package:family_garden/models/payment_method_model.dart';
+import 'package:flutter_svg/avd.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/cart_count_model.dart';
 import '../models/categories_model.dart';
 import '../models/category_product_model.dart';
+import '../models/checkoutConfirmCODModel.dart';
 import '../models/home_features_model.dart';
 import '../models/order_history_model.dart';
 import '../models/order_info_model.dart';
@@ -805,10 +808,10 @@ class ApiHelper {
   static Future<HTTPResponse<PaymentMethodSaveModel>> paymentMethodSave(
       data) async {
     var url =
-        "https://dev.familygarden.in/${EndPoints.paymentMethodSave}&api_token=${ApiConstants.jwtToken}";
+        "${ApiConstants.baseUrl}${EndPoints.paymentMethodSave}&api_token=${ApiConstants.jwtToken}";
     var dio = Dio();
     try {
-      var params = {"payment_method": "cod", "comment": "test", "agree": "1"};
+      var params = {"payment_method": data, "comment": "test", "agree": "1"};
       // var map = new Map<String, dynamic>();
       // map['payment_method'] = "cod";
       // map['comment'] = "";
@@ -901,6 +904,56 @@ class ApiHelper {
         var body = jsonDecode(response.body);
         print("body ${body}");
         var res = CheckoutConfirmModel.fromJson(body);
+
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print("Error on checkout confirm $e");
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<CheckoutConfirmCODModel>>
+      checkOutCODConfirm() async {
+    String url =
+        "${ApiConstants.baseUrl}${EndPoints.checkoutConfirm}&api_token=${ApiConstants.jwtToken}";
+    try {
+      var response = await http.post(
+        Uri.parse(url),
+      );
+      if (response.statusCode == 200) {
+        var body = jsonDecode(response.body);
+        print("body ${body}");
+        var res = CheckoutConfirmCODModel.fromJson(body);
         return HTTPResponse(
           true,
           res,
@@ -1513,7 +1566,7 @@ class ApiHelper {
       var request = http.Request(
           'POST',
           Uri.parse(
-              "${ApiConstants.baseUrl}/index.php?route=mobileapi/checkout/payment_address/save&api_token=${ApiConstants.jwtToken}"));
+              "${ApiConstants.baseUrl}${EndPoints.paymentExistingAddressSave}&api_token=${ApiConstants.jwtToken}"));
       print("&api_token=${ApiConstants.jwtToken}");
       request.bodyFields = {
         'payment_address': 'existing',
@@ -1594,5 +1647,51 @@ class ApiHelper {
         message: "Something went wrong! Please try again in a minute or two.",
       );
     }
+  }
+
+  static Future<int> logOut() async {
+    var req = await http.get(Uri.parse(
+        "${ApiConstants.baseUrl}${EndPoints.loguout}?&api_token=${ApiConstants.jwtToken}"));
+    if (req.statusCode == 200) {
+      var body = json.decode(req.body);
+      if (body["status"] == 1) {
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setString('Login', "false");
+        return 1;
+      }
+
+      // print(body);
+    }
+    return 0;
+  }
+
+  static orderSuccess() async {
+    var req = await http.post(Uri.parse(
+        "${ApiConstants.baseUrl}${EndPoints.orderSuccess}&api_token=${ApiConstants.jwtToken}"));
+    print("Order success Statuscode ${req.statusCode}");
+    if (req.statusCode == 200) {
+      var body = json.decode(req.body);
+      print("Order success Response ${body}");
+      return body["orderDetails"]["order_id"];
+    }
+    return "0";
+  }
+
+  static accountUpdate(firstName, lastName, emailId, telephone) async {
+    var req = await http.post(
+      Uri.parse(
+          "${ApiConstants.baseUrl}${EndPoints.editAccount}&api_token=${ApiConstants.jwtToken}"),
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      encoding: Encoding.getByName('utf-8'),
+      body: {
+        'firstname': firstName,
+        'lastname': lastName,
+        'email': emailId,
+        'telephone': telephone,
+      },
+    );
+    if (req.statusCode == 200) {}
   }
 }

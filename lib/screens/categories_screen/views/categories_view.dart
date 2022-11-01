@@ -93,11 +93,24 @@ class CategoriesView extends GetView<CategoriesController> {
                                                         .categoriesList[index]
                                                         .image ==
                                                     null
-                                                ? Image.asset(controller
-                                                    .staticImage.value)
-                                                : Image.network(controller
-                                                    .categoriesList[index]
-                                                    .image),
+                                                ? ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                    child: Image.asset(
+                                                        controller
+                                                            .staticImage.value),
+                                                  )
+                                                : ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                    child: Image.network(
+                                                        controller
+                                                            .categoriesList[
+                                                                index]
+                                                            .image),
+                                                  ),
                                           ),
                                         ),
                                       ),

@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/common_import/common_import.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
+import '../../account_screen/controllers/account_controller.dart';
 import '../controllers/cart_controller.dart';
 
 class CartView extends GetView<CartController> {
@@ -465,7 +466,8 @@ class CartView extends GetView<CartController> {
                     if (prefs.containsKey("Login")) {
                       String nameText = prefs.getString('Login') ?? '';
                       if (nameText == "true") {
-                        Get.toNamed(Routes.ADDRESS);
+                        Get.toNamed(Routes.ADDRESS,
+                            arguments: controller.totalPrice.value);
                         controller.hitAddCartAPI();
                       } else {
                         loginDialog(context);
@@ -770,7 +772,19 @@ class CartView extends GetView<CartController> {
                                     controller.emailController.text,
                                     controller.passwordController.text);
                                 if (response.data?.errorWarning == "") {
+                                  // Get.toNamed(Routes.CART_SCREEN);
                                   prefs.setString("Login", "true");
+                                  prefs.setString(
+                                      "firstName", (response.data?.firstname)!);
+                                  prefs.setString(
+                                      "lastName", (response.data?.lastname)!);
+                                  prefs.setString(
+                                      "emailId", (response.data?.email)!);
+                                  prefs.setString(
+                                      "telephone", (response.data?.telephone)!);
+                                  Get.put(AccountController());
+                                  Get.find<AccountController>()
+                                      .getLoginDetails();
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(SnackBar(
                                     content: Text("Succesfully Logged in"),
