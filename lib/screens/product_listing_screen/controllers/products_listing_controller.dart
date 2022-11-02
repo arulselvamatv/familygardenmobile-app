@@ -29,10 +29,24 @@ class ProductListingController extends GetxController {
   var productData = {"product_info": []}.obs;
   RxInt cartCount = 0.obs;
   TextEditingController search = TextEditingController();
+  ScrollController scrollController = ScrollController();
+  RxInt onPageChange = 1.obs;
+  RxInt totalPages = 1.obs;
   @override
   void onInit() async {
     super.onInit();
-    categoriesIndex.value = Get.arguments;
+    categoriesIndex.value = Get.arguments[0];
+    categoryId.value = Get.arguments[1];
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        print("Datas ${onPageChange.value} data ${totalPages.value}");
+        if (onPageChange.value <= totalPages.value) {
+          print("Hit page");
+          getCategoryProduct(categoryId.value, onPageChange.value, fg: true);
+        }
+      }
+    });
     getCategory();
     getCartCount();
   }
@@ -48,18 +62,38 @@ class ProductListingController extends GetxController {
       print(
           "categoriesList[categoriesIndex.value].categoryId ${categoriesList[categoriesIndex.value].categoryId}");
       title.value = categoriesList.value[categoriesIndex.value].name!;
-      categoryId.value = categoriesList[categoriesIndex.value].categoryId!;
-      getCategoryProduct(categoriesList[categoriesIndex.value].categoryId);
+      // categoryId.value = categoriesList[categoriesIndex.value].categoryId!;
+      getCategoryProduct(categoryId.value, onPageChange.value);
     }
     update();
   }
 
-  getCategoryProduct(categoryId) async {
+  getCategoryProduct(categoryId, page, {bool? fg = false}) async {
+    if (onPageChange.value == 1) {
+      isCategoryProductLoader.value = true;
+    }
+    if (fg == false) {
+      clearAll();
+    }
     // print(getCategory());
-    clearAll();
-    var response = await ApiHelper.getProductCategory(categoryId);
+    var response = await ApiHelper.getProductCategory(categoryId, page);
     if (response.responseCode == 200) {
-      products.value = (response.data?.products)!;
+      // print(response.data?.pagination?.numLinks);
+      // totalPages.value = (response.data?.pagination?.numPages)!;
+      // onPageChange.value++;
+      // products.value.addAll((response.data?.products)!);
+      // onPageChange.value++;
+      if (onPageChange.value == 1) {
+        products.value = (response.data?.products)!;
+        totalPages.value = (response.data?.pagination?.numPages)!;
+        onPageChange.value++;
+      } else {
+        totalPages.value = (response.data?.pagination?.numPages)!;
+        onPageChange.value++;
+        products.value.addAll((response.data?.products)!);
+      }
+      // products.value = (response.data?.products)!;
+
       // selectedDropdownValue.value =
       //     (products[0].option?[0].productOptionValue?[0].productOptionValueId)!;
       getDropdownValues();
@@ -68,18 +102,19 @@ class ProductListingController extends GetxController {
   }
 
   clearAll() {
+    isCategoryProductLoader.value = true;
     selectedDropdownValue.value.clear();
     cartBoolList.value.clear();
     counterList.value.clear();
     productId.value.clear();
     optionId.value.clear();
     optionValueId.value.clear();
-    isCategoryProductLoader.value = true;
     productData.value = {"product_info": []};
     update();
   }
 
   getDropdownValues() {
+    // for (var i = 1; i <= totalPages.value; i++) {}
     for (int i = 0; i < (products.value.length); i++) {
       selectedDropdownValue.value.add("");
     }
@@ -109,10 +144,14 @@ class ProductListingController extends GetxController {
   }
 
   void categoriesOnTap(int index) {
+    products.value.clear();
+    onPageChange.value = 1;
     categoriesIndex.value = index;
     isCategoryProductLoader.value = true;
+    categoryId.value = (categoriesList.value[index].categoryId)!;
     print("Category ID : ${categoriesList.value[index].categoryId}");
-    getCategoryProduct(categoriesList.value[index].categoryId);
+    getCategoryProduct(
+        categoriesList.value[index].categoryId, onPageChange.value);
     title.value = (categoriesList.value[index].name)!;
     update();
   }

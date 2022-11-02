@@ -1,3 +1,4 @@
+import 'package:family_garden/screens/dashboard/controllers/dashboard_controller.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../routes/app_pages.dart';
@@ -46,8 +47,9 @@ class DrawerWidgetController extends GetxController {
   sideMenuNavigation(int index) {
     print(index);
     if (index == 0) {
-      // print("Hitted");
-      Get.toNamed(Routes.DASHBOARD);
+      Get.back();
+      // // print("Hitted");
+      // Get.toNamed(Routes.DASHBOARD);
     } else if (index == 1) {
       Get.toNamed(Routes.CART_SCREEN);
     } else if (index == 2) {
@@ -55,6 +57,9 @@ class DrawerWidgetController extends GetxController {
     } else if (index == 3) {
       Get.toNamed(Routes.ORDER_HISTORY_SCREEN);
     } else if (index == 4) {
+      Get.find<DashboardController>().selectedIndex.value = 2;
+      Get.find<DashboardController>().selectedIndex.refresh();
+      Get.back();
       // Get.toNamed(Routes.CART_SCREEN);
     } else if (index == 5) {
       // Get.toNamed(Routes.C);

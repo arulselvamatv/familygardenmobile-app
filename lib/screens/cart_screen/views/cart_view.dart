@@ -467,8 +467,10 @@ class CartView extends GetView<CartController> {
                     if (prefs.containsKey("Login")) {
                       String nameText = prefs.getString('Login') ?? '';
                       if (nameText == "true") {
-                        Get.toNamed(Routes.ADDRESS,
-                            arguments: controller.totalPrice.value);
+                        Get.toNamed(Routes.ADDRESS, arguments: [
+                          controller.totalPrice.value,
+                          controller.savedPrice.value
+                        ]);
                         controller.hitAddCartAPI();
                       } else {
                         loginDialog(context);

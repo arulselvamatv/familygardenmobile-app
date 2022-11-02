@@ -17,19 +17,24 @@ class PaymentController extends GetxController {
   CheckoutConfirmModel? paymentRes;
   RxBool isCartEmpty = false.obs;
   var products = CartListModel().obs;
-  RxDouble savedPrice = 0.00.obs;
+  RxDouble savedPrice = 0.0.obs;
   RxDouble actulPrice = 0.00.obs;
   RxDouble payableAmount = 0.00.obs;
-  RxString deliveryCharges = "".obs;
+  RxInt deliveryCharges = 0.obs;
   String code = '';
+
   // RxDouble savedPrice = 0.0.obs;
 
   var paymentMethod;
+
   @override
   void onInit() {
     super.onInit();
     if (Get.arguments != null) {
-      actulPrice.value = Get.arguments;
+      actulPrice.value = Get.arguments[0];
+      savedPrice.value = Get.arguments[1];
+      deliveryCharges.value = Get.arguments[2];
+      payableAmount.value = deliveryCharges.value + actulPrice.value;
       update();
     }
     getPaymentMethodDetails();
@@ -39,17 +44,7 @@ class PaymentController extends GetxController {
   getPaymentMethodDetails() async {
     var response = await ApiHelper.paymentMethod();
     paymentMethod = response;
-    // print(response.responseCode);
-    // if (response.responseCode == 200) {
-    //   print(response.body);
     isPaymentScreenLoader.value = true;
-    // if (checkoutResponse.data == null) {
-    //   isCartEmpty.value = true;
-    // } else {
-    //   paymentRes = checkoutResponse.data!;
-    // }
-    // }
-
     update();
   }
 
@@ -79,7 +74,7 @@ class PaymentController extends GetxController {
     actulPrice.value = offerPriceAmount;
     payableAmount.value = offerPriceAmount;
     payableAmount.value += (offerPriceAmount < 200.0) ? 50.0 : 0.0;
-    deliveryCharges.value = (offerPriceAmount < 200.0) ? "Rs. 50.0" : "Free";
+    // deliveryCharges.value = (offerPriceAmount < 200.0) ? "Rs. 50.0" : "Free";
     update();
   }
 

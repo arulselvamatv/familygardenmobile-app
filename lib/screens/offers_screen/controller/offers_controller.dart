@@ -21,7 +21,7 @@ class OffersController extends GetxController {
 
   getsCategory() async {
     clearAll();
-    var response = await ApiHelper.getProductCategory("24");
+    var response = await ApiHelper.getProductCategory("24", 1);
     if (response.responseCode == 200) {
       products.value = (response.data?.products)!;
       getDropdownValues();

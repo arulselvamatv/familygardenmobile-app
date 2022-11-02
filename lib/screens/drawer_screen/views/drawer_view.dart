@@ -241,19 +241,22 @@ class DrawerView extends GetView<DrawerWidgetController> {
                             controller.update();
                           }
                         },
-                        child: Container(
-                          height: 35,
-                          width: 110,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(6),
-                            color: AppColors.primaryColor,
-                          ),
-                          child: Center(
-                            child: TextWidget(
-                              'Log out',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 15.0),
+                          child: Container(
+                            height: 35,
+                            width: 110,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              color: AppColors.primaryColor,
+                            ),
+                            child: Center(
+                              child: TextWidget(
+                                'Log out',
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.white,
+                              ),
                             ),
                           ),
                         ),

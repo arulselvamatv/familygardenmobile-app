@@ -118,6 +118,11 @@ class ProductListingView extends GetView<ProductListingController> {
                                 controller: controller.search,
                                 maxLines: 1,
                                 onChanged: (value) {},
+                                onTap: () {
+                                  Get.toNamed(Routes.SEARCH_SCREEN)?.then(
+                                      (value) => FocusScope.of(context)
+                                          .requestFocus(FocusNode()));
+                                },
                                 style: TextStyle(
                                     color: Color(0xff000000),
                                     fontSize: 15,
@@ -135,7 +140,7 @@ class ProductListingView extends GetView<ProductListingController> {
                                   border: OutlineInputBorder(
                                       borderSide: BorderSide.none,
                                       borderRadius: BorderRadius.circular(30)),
-                                  fillColor: AppColors.white,
+                                  fillColor: Color(0xfff1f1f1),
                                   filled: true,
                                 ),
                               ),
@@ -255,6 +260,7 @@ class ProductListingView extends GetView<ProductListingController> {
                               child: controller.isCategoryProductLoader.value
                                   ? Center(child: CircularProgressIndicator())
                                   : ListView.separated(
+                                      controller: controller.scrollController,
                                       scrollDirection: Axis.vertical,
                                       shrinkWrap: true,
                                       padding: EdgeInsets.only(bottom: 30),
@@ -264,6 +270,8 @@ class ProductListingView extends GetView<ProductListingController> {
                                             // controller.categoriesIndex.value =
                                             //     index;
                                             controller.hitAddCartAPI();
+                                            print(
+                                                "Product Id : ${controller.products[index].productId}");
                                             Get.toNamed(
                                                     Routes
                                                         .PRODUCT_DETAILS_SCREEN,

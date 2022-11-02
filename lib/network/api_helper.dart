@@ -195,12 +195,13 @@ class ApiHelper {
   }
 
   static Future<HTTPResponse<ProductCategoryModel>> getProductCategory(
-      path) async {
+      path, page) async {
     // print(path);
     String url = "${ApiConstants.baseUrl}${EndPoints.productCategory}";
+    // String url = "https://dev.familygarden.in/${EndPoints.productCategory}";
     try {
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields.addAll({'path': path, 'limit': '75'});
+      request.fields.addAll({'path': path, 'limit': '10', 'page': "$page"});
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
         var body = jsonDecode(await response.stream.bytesToString());
@@ -245,7 +246,8 @@ class ApiHelper {
 
   static Future<HTTPResponse<ProductDetailsModel>> getProductCategoryDetails(
       productId) async {
-    String url = "${ApiConstants.baseUrl}${EndPoints.productCategoryList}";
+    String url =
+        "${ApiConstants.baseUrl}${EndPoints.productCategoryList}&api_token=${ApiConstants.jwtToken}";
     try {
       var request = http.MultipartRequest('POST', Uri.parse(url));
       request.fields.addAll({'product_id': "$productId"});
@@ -710,11 +712,11 @@ class ApiHelper {
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
         print("ShippingMethodModel ${body}");
-        // var res = ShippingMethodModel.fromJson(body);
+        var res = ShippingMethodModel.fromJson(body);
         // print("ShippingMethodModel ${res.shippingMethods.flat.title}");
         return HTTPResponse(
           true,
-          null,
+          res,
           responseCode: response.statusCode,
         );
       } else {
@@ -1458,13 +1460,14 @@ class ApiHelper {
     String url =
         "${ApiConstants.baseUrl}${EndPoints.wishList}&api_token=${ApiConstants.jwtToken}";
     print(url);
-    // print(EndPoints.apiToken);
+    print(ApiConstants.jwtToken);
     try {
       var request = http.MultipartRequest('POST', Uri.parse(url));
       request.fields.addAll({'remove': "$productId"});
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
         var body = jsonDecode(await response.stream.bytesToString());
+        print(body);
         var res = AddCartModel.fromJson(body);
         print(AddCartModel.fromJson(body).toJson());
         return HTTPResponse(
@@ -1700,4 +1703,28 @@ class ApiHelper {
     }
     return 0;
   }
+
+  static addWishList(String productId) async {
+    var req = await http.post(
+        Uri.parse(
+            "${ApiConstants.baseUrl}${EndPoints.addWishList}&api_token=${ApiConstants.jwtToken}"),
+        body: {'product_id': productId});
+    if (req.statusCode == 200) {
+      print(json.decode(req.body));
+    } else {
+      print("Failure wishlist");
+    }
+  }
+
+  // static removeWishList(String productId) async {
+  //   var req = await http.post(
+  //       Uri.parse(
+  //           "${ApiConstants.baseUrl}${EndPoints.addWishList}&api_token=${ApiConstants.jwtToken}"),
+  //       body: {'product_id': productId});
+  //   if (req.statusCode == 200) {
+  //     print(json.decode(req.body));
+  //   } else {
+  //     print("Failure wishlist");
+  //   }
+  // }
 }

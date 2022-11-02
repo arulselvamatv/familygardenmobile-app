@@ -494,9 +494,12 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                           controller.hitAddCartAPI();
                                           // controller.vegHitAddCartAPI();
                                           Get.toNamed(
-                                                  Routes.PRODUCT_LISTING_SCREEN,
-                                                  arguments: index)
-                                              ?.then((value) {
+                                              Routes.PRODUCT_LISTING_SCREEN,
+                                              arguments: [
+                                                index,
+                                                controller.categoryList[index]
+                                                    .categoryId
+                                              ])?.then((value) {
                                             controller.getHomeFeatures();
                                             Get.find<DashboardController>()
                                                 .getCartCount();

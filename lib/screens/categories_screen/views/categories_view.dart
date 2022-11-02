@@ -36,6 +36,14 @@ class CategoriesView extends GetView<CategoriesController> {
                         controller: controller.searchController,
                         maxLines: 1,
                         onChanged: (value) {},
+                        onTap: () {
+                          Get.toNamed(Routes.SEARCH_SCREEN)?.then((value) =>
+                              FocusScope.of(context).requestFocus(FocusNode()));
+                        },
+                        style: TextStyle(
+                            color: Color(0xff000000),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400),
                         decoration: InputDecoration(
                           prefixIcon:
                               ImageIcon(AssetImage('assets/icons/search.png')),
@@ -43,7 +51,8 @@ class CategoriesView extends GetView<CategoriesController> {
                           contentPadding: EdgeInsets.symmetric(vertical: 4),
                           hintStyle: TextStyle(
                               color: Color(0xff464646),
-                              fontWeight: FontWeight.w500),
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400),
                           border: OutlineInputBorder(
                               borderSide: BorderSide.none,
                               borderRadius: BorderRadius.circular(30)),
