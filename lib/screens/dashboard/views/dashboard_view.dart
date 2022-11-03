@@ -158,7 +158,6 @@ class DashboardView extends GetView<DashboardController> {
                 //   Icons.light,
                 //   size: 150,
                 // ),
-
                 AccountView(),
               ],
             ),
@@ -190,7 +189,7 @@ class DashboardView extends GetView<DashboardController> {
               ),
               indicatorColor: Color(0xff000000),
               onTap: (index) {
-                controller.selectedIndex(index);
+                controller.selectedIndex.value = index;
               },
               tabs: [
                 Tab(
@@ -199,7 +198,7 @@ class DashboardView extends GetView<DashboardController> {
                     'assets/icons/home.png',
                     height: 21,
                     width: 21,
-                    color: controller.selectedIndex == 0
+                    color: controller.selectedIndex.value == 0
                         ? AppColors.black
                         : Color(0xff6F6F6F),
                   ),
@@ -210,7 +209,7 @@ class DashboardView extends GetView<DashboardController> {
                     'assets/icons/categories.png',
                     height: 21,
                     width: 21,
-                    color: controller.selectedIndex == 1
+                    color: controller.selectedIndex.value == 1
                         ? AppColors.black
                         : Color(0xff6F6F6F),
                   ),
@@ -221,7 +220,7 @@ class DashboardView extends GetView<DashboardController> {
                     'assets/icons/offers.png',
                     height: 21,
                     width: 21,
-                    color: controller.selectedIndex == 2
+                    color: controller.selectedIndex.value == 2
                         ? AppColors.black
                         : Color(0xff6F6F6F),
                   ),
@@ -232,7 +231,7 @@ class DashboardView extends GetView<DashboardController> {
                     'assets/icons/account.png',
                     height: 21,
                     width: 21,
-                    color: controller.selectedIndex == 3
+                    color: controller.selectedIndex.value == 3
                         ? AppColors.black
                         : Color(0xff6F6F6F),
                   ),

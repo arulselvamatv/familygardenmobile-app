@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:family_garden/screens/Home_screen/controllers/homescreen_controller.dart';
 import 'package:family_garden/screens/dashboard/controllers/dashboard_controller.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../utils/common_import/common_import.dart';
 import '../../../routes/app_pages.dart';
@@ -73,78 +74,71 @@ class HomeScreenView extends GetView<HomeScreenController> {
                         ),
                       ),
                       AppSize.size.h10,
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16.0, right: 16),
-                        child: Container(
-                          height: 42,
-                          width: Get.size.width,
-                          decoration: BoxDecoration(
-                              color: AppColors.limeGreen,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(13, 8, 16, 10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                        width: Get.size.width / 2,
-                                        child: RichText(
-                                          text: TextSpan(children: [
-                                            TextSpan(
-                                                text:
-                                                    "Special Launch Offer - Flat ",
-                                                style: TextStyle(
-                                                    fontSize: 10,
-                                                    color: AppColors.black)),
-                                            TextSpan(
-                                                text: "10% ",
-                                                style: TextStyle(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: AppColors.black)),
-                                            TextSpan(
-                                                text: "Discount",
-                                                style: TextStyle(
-                                                    fontSize: 10,
-                                                    color: AppColors.black)),
-                                          ]),
-                                        )),
-                                    Container(
-                                      width: Get.size.width / 1.50,
-                                      child: RichText(
-                                        text: TextSpan(children: [
-                                          TextSpan(
-                                              text:
-                                                  " on all Products. Use Coupon Code ",
-                                              style: TextStyle(
-                                                  fontSize: 10,
-                                                  color: AppColors.black)),
-                                          TextSpan(
-                                              text: "FAMILYGARDEN10",
-                                              style: TextStyle(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: AppColors.black))
-                                        ]),
-                                      ),
-                                    )
-                                  ],
+                      Obx(
+                        () => Padding(
+                          padding: const EdgeInsets.only(left: 16.0, right: 16),
+                          child: Container(
+                            height: 40,
+                            width: Get.size.width,
+                            decoration: BoxDecoration(
+                                color: AppColors.limeGreen,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(13, 0, 16, 10),
+                                  child: Container(
+                                    width: Get.size.width / 1.50,
+                                    child: SizedBox(
+                                      child: Html(
+                                          data: controller.informationData.value
+                                                  .description ??
+                                              "<p>Free</p>",
+                                          shrinkWrap: true,
+                                          style: {
+                                            "p": Style(
+                                              fontSize: FontSize(12),
+                                              fontWeight: FontWeight.w400,
+                                              color: AppColors.black,
+                                            ),
+                                          }),
+                                    ),
+                                    // child: RichText(
+                                    //   text: TextSpan(children: [
+                                    //     TextSpan(
+                                    //         text:
+                                    //             "Special Launch Offer - Flat ",
+                                    //         style: TextStyle(
+                                    //             fontSize: 10,
+                                    //             color: AppColors.black)),
+                                    //     TextSpan(
+                                    //         text: "10% ",
+                                    //         style: TextStyle(
+                                    //             fontSize: 10,
+                                    //             fontWeight: FontWeight.bold,
+                                    //             color: AppColors.black)),
+                                    //     TextSpan(
+                                    //         text: "Discount",
+                                    //         style: TextStyle(
+                                    //             fontSize: 10,
+                                    //             color: AppColors.black)),
+                                    //   ]),
+                                    // )
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    right: 9.0, bottom: 6),
-                                child: Image.asset(
-                                  "assets/images/price-tag.png",
-                                  height: 36,
-                                  width: 36,
-                                ),
-                              )
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      right: 9.0, bottom: 6),
+                                  child: Image.asset(
+                                    "assets/images/price-tag.png",
+                                    height: 36,
+                                    width: 36,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),

@@ -8,6 +8,7 @@ import 'package:family_garden/screens/dashboard/controllers/dashboard_controller
 import '../../../models/categories_model.dart';
 import '../../../models/home_feature_model.dart';
 import '../../../models/home_slider_model.dart';
+import '../../../models/informationDetailsModel.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/common_import/common_import.dart';
 
@@ -18,11 +19,11 @@ class HomeScreenController extends GetxController with RouteAware {
   RxBool iscarouselLoader = true.obs;
   RxBool isCategoryLoader = true.obs;
   RxList category = [
-    {'name': 'Fresh from Farm', 'image': 'assets/images/home_screen1.png'},
-    {'name': 'Fast Delivery', 'image': 'assets/images/home_screen2.png'},
-    {'name': 'For Low Cost', 'image': 'assets/images/home_screen3.png'},
-    {'name': 'Mass Production', 'image': 'assets/images/home_screen4.png'},
-    {'name': 'Premium Quality', 'image': 'assets/images/home_screen5.png'},
+    {'name': 'Fresh from Farm', 'image': 'assets/images/Fresh From Farms.png'},
+    {'name': 'Fast Delivery', 'image': 'assets/images/Fast Delivery.png'},
+    {'name': 'For Low Cost', 'image': 'assets/images/For Low Cost.png'},
+    {'name': 'Mass Production', 'image': 'assets/images/Mass Production.png'},
+    {'name': 'Premium Quality', 'image': 'assets/images/Premium Quality.png'},
   ].obs;
 
   RxList<Banners> carousel = <Banners>[].obs;
@@ -31,6 +32,8 @@ class HomeScreenController extends GetxController with RouteAware {
   String staticImage = "assets/images/Fresh Vegetables.png";
   RxBool ishomeFeatureLoader = true.obs;
   var productData = {"product_info": []}.obs;
+  var informationData = informationDetailsModel().obs;
+  RxBool informationLoader = false.obs;
 
   @override
   void onInit() async {
@@ -42,10 +45,18 @@ class HomeScreenController extends GetxController with RouteAware {
     var res = await GetLocalDatas.getToken();
     ApiConstants.jwtToken = res!;
     if (ApiConstants.jwtToken != "") {
+      informationDetails();
       getHomeSliderDetails();
       getCategories();
       getHomeFeatures();
     }
+  }
+
+  informationDetails() async {
+    var response = await ApiHelper.informationDetails();
+    informationData.value = response.data!;
+    informationLoader.value = true;
+    print("Information Data ${informationData.value.description}");
   }
 
   clearHomeFeatureDatas() {

@@ -317,7 +317,11 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                                         fontWeight:
                                                             FontWeight.w700,
                                                         color: AppColors.black,
-                                                      )
+                                                      ),
+                                                      ".page-list": Style(
+                                                          margin:
+                                                              EdgeInsets.only(
+                                                                  top: 0))
                                                     },
                                                   ),
                                                   // child: TextWidget(

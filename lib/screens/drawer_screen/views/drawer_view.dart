@@ -55,12 +55,19 @@ class DrawerView extends GetView<DrawerWidgetController> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    TextWidget(
-                                      "Family Garden",
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w700,
-                                      color: Color(0xff050000),
-                                    ),
+                                    controller.isLoggedin.value == false
+                                        ? TextWidget(
+                                            controller.userName.value,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w700,
+                                            color: Color(0xff050000),
+                                          )
+                                        : TextWidget(
+                                            "Family Garden",
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w700,
+                                            color: Color(0xff050000),
+                                          ),
                                     // Align(
                                     //     alignment: Alignment.topRight,
                                     //     child: Icon(
@@ -106,7 +113,7 @@ class DrawerView extends GetView<DrawerWidgetController> {
                         const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
                     child: RichText(
                       text: TextSpan(
-                          text: 'Delivery in 2hrs + ',
+                          text: 'We Deliver with ',
                           style: TextStyle(
                               fontSize: 11,
                               fontWeight: FontWeight.w500,
@@ -242,20 +249,22 @@ class DrawerView extends GetView<DrawerWidgetController> {
                           }
                         },
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: Container(
-                            height: 35,
-                            width: 110,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6),
-                              color: AppColors.primaryColor,
-                            ),
-                            child: Center(
-                              child: TextWidget(
-                                'Log out',
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.white,
+                          padding: const EdgeInsets.only(left: 15.0, right: 15),
+                          child: Expanded(
+                            child: Container(
+                              height: 35,
+                              // width: 110,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6),
+                                color: AppColors.primaryColor,
+                              ),
+                              child: Center(
+                                child: TextWidget(
+                                  'Log out',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.white,
+                                ),
                               ),
                             ),
                           ),

@@ -70,5 +70,7 @@ class EndPoints {
 
   static const search = "/index.php?route=mobileapi/product/search";
 
+  static const informationDetails = "/index.php?route=mobileapi/information";
+
   // static const addWishList = "/index.php?route=mobileapi/account/wishlist/add";
 }

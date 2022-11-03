@@ -18,6 +18,7 @@ import '../models/categories_model.dart';
 import '../models/category_product_model.dart';
 import '../models/checkoutConfirmCODModel.dart';
 import '../models/home_features_model.dart';
+import '../models/informationDetailsModel.dart';
 import '../models/order_history_model.dart';
 import '../models/order_info_model.dart';
 import '../models/payment_address_save_model.dart';
@@ -1713,6 +1714,71 @@ class ApiHelper {
       print(json.decode(req.body));
     } else {
       print("Failure wishlist");
+    }
+  }
+
+  static informationApi() async {
+    // var req = await http.post(
+    //     Uri.parse(
+    //         "${ApiConstants.baseUrl}/index.php?route=mobileapi/information&api_token=${ApiConstants.jwtToken}"),
+    //     body: {'information_id': '10'});
+    var req = await http.post(
+        Uri.parse(
+            "https://dev.familygarden.in//index.php?route=mobileapi/information&api_token=${ApiConstants.jwtToken}"),
+        body: {'information_id': '10'});
+  }
+
+  static Future<HTTPResponse<informationDetailsModel>>
+      informationDetails() async {
+    String url =
+        "${ApiConstants.baseUrl}${EndPoints.informationDetails}&api_token=${ApiConstants.jwtToken}";
+    // String url =
+    //     "https://dev.familygarden.in/${EndPoints.informationDetails}&api_token=${ApiConstants.jwtToken}";
+    print(url);
+    print(ApiConstants.jwtToken);
+    try {
+      var response =
+          await http.post(Uri.parse(url), body: {'information_id': '10'});
+      // var request = http.MultipartRequest('POST', Uri.parse(url));
+      // request.fields.addAll({'remove': "$productId"});
+      // http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        var body = jsonDecode(response.body);
+        print("Information API $body");
+        var res = informationDetailsModel.fromJson(body);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
     }
   }
 

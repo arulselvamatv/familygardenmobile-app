@@ -16,6 +16,7 @@ class DrawerWidgetController extends GetxController {
   ].obs;
   RxString login = "".obs;
   RxBool isLoggedin = true.obs;
+  RxString userName = "".obs;
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -37,6 +38,11 @@ class DrawerWidgetController extends GetxController {
     var prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey("Login")) {
       if (prefs.getString("Login") == "true") {
+        // prefs.setString("firstName",
+        //     (response.data?.firstname)
+        if (prefs.containsKey("firstName")) {
+          userName.value = prefs.getString("firstName")!;
+        }
         isLoggedin.value = false;
       }
       isLoggedin.refresh();
@@ -57,12 +63,13 @@ class DrawerWidgetController extends GetxController {
     } else if (index == 3) {
       Get.toNamed(Routes.ORDER_HISTORY_SCREEN);
     } else if (index == 4) {
+      Get.find<DashboardController>().tabController?.animateTo(2);
       Get.find<DashboardController>().selectedIndex.value = 2;
       Get.find<DashboardController>().selectedIndex.refresh();
       Get.back();
       // Get.toNamed(Routes.CART_SCREEN);
     } else if (index == 5) {
-      // Get.toNamed(Routes.C);
+      Get.toNamed(Routes.HELP_CENTER);
     } else if (index == 6) {
       Get.toNamed(Routes.FAQ);
     }
