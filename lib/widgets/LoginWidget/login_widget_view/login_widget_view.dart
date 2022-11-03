@@ -17,6 +17,8 @@ class LoginWidgetView extends GetView<LoginController> {
       child: Padding(
         padding: const EdgeInsets.only(left: 20.0, right: 20),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -39,7 +41,14 @@ class LoginWidgetView extends GetView<LoginController> {
                   ],
                 )
               ],
-            )
+            ),
+            Text(
+              "Login",
+              style: TextStyle(
+                  color: AppColors.darkGreen,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 22),
+            ),
           ],
         ),
       ),
