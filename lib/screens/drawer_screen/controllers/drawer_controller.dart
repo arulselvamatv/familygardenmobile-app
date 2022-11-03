@@ -59,9 +59,17 @@ class DrawerWidgetController extends GetxController {
     } else if (index == 1) {
       Get.toNamed(Routes.CART_SCREEN);
     } else if (index == 2) {
-      Get.toNamed(Routes.WISH_LIST_SCREEN);
+      if (isLoggedin.value) {
+        Get.toNamed(Routes.LOGIN);
+      } else {
+        Get.toNamed(Routes.WISH_LIST_SCREEN);
+      }
     } else if (index == 3) {
-      Get.toNamed(Routes.ORDER_HISTORY_SCREEN);
+      if (isLoggedin.value) {
+        Get.toNamed(Routes.LOGIN);
+      } else {
+        Get.toNamed(Routes.ORDER_HISTORY_SCREEN);
+      }
     } else if (index == 4) {
       Get.find<DashboardController>().tabController?.animateTo(2);
       Get.find<DashboardController>().selectedIndex.value = 2;

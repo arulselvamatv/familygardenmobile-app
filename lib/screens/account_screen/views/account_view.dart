@@ -416,7 +416,7 @@ class AccountView extends GetView<AccountController> {
                                               Get.put(DrawerWidgetController());
                                               Get.find<DrawerWidgetController>()
                                                   .isLoggedin
-                                                  .value = false;
+                                                  .value = true;
                                               Get.find<DrawerWidgetController>()
                                                   .isLoggedin
                                                   .refresh();
@@ -460,7 +460,9 @@ class AccountView extends GetView<AccountController> {
                   ),
                 ),
               )
-            : LoginWidgetView(),
+            : LoginWidgetView(
+                screenName: '',
+              ),
       ),
     );
   }

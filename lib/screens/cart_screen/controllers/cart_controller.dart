@@ -7,7 +7,6 @@ class CartController extends GetxController {
   final formGlobalKey = GlobalKey<FormState>();
   TextEditingController search = TextEditingController();
   TextEditingController cuponCode = TextEditingController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   var products = CartListModel().obs;

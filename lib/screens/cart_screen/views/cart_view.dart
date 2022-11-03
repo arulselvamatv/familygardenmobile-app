@@ -473,11 +473,11 @@ class CartView extends GetView<CartController> {
                         ]);
                         controller.hitAddCartAPI();
                       } else {
-                        loginDialog(context);
+                        Get.toNamed(Routes.LOGIN, arguments: "Cart");
                         controller.hitAddCartAPI();
                       }
                     } else {
-                      loginDialog(context);
+                      Get.toNamed(Routes.LOGIN, arguments: "Cart");
                       controller.hitAddCartAPI();
                     }
                   },
