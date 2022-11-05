@@ -35,9 +35,9 @@ class ManageAddressController extends GetxController {
     if (response.responseCode == 200) {
       isLoader.value = true;
     }
-    if (response.data?.logged == null || response.data?.logged == "null") {
-      Get.offNamed(Routes.LOGIN);
-    }
+    // if (response.data?.logged == null || response.data?.logged == "null") {
+    //   Get.offNamed(Routes.LOGIN);
+    // }
     if (response.data?.addresses?.isEmpty ?? false) {
       isEmptyAddress.value = true;
     } else {

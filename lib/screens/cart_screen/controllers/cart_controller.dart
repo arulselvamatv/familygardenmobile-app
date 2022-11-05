@@ -35,11 +35,12 @@ class CartController extends GetxController {
     var response = await ApiHelper.cartList();
     if (response.isSuccessFul) {
       products.value = response.data!;
-      if (products.value.logged == null || products.value.logged == "null") {
-        Get.offNamed(Routes.LOGIN);
-      } else {
-        isProductsLoader.value = true;
-      }
+      isProductsLoader.value = true;
+      // if (products.value.logged == null || products.value.logged == "null") {
+      //   Get.offNamed(Routes.LOGIN);
+      // } else {
+      //   isProductsLoader.value = true;
+      // }
 
       getListDatas();
     }

@@ -58,10 +58,10 @@ class AddressController extends GetxController with RouteAware {
     addressModel.value = response.data!;
     print(ApiConstants.jwtToken);
     print(addressModel.value.logged);
-    if (response.data?.logged != null || response.data?.logged == "null") {
-    } else {
-      Get.offNamed(Routes.LOGIN);
-    }
+    // if (response.data?.logged != null || response.data?.logged == "null") {
+    // } else {
+    //   Get.offNamed(Routes.LOGIN);
+    // }
     if ((addressModel.value.addresses?.length)! > 0) {
       getDatas();
       isEmptyAddress.value = false;
