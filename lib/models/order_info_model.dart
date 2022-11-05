@@ -1,231 +1,255 @@
+// To parse this JSON data, do
+//
+//     final orderInfoModel = orderInfoModelFromJson(jsonString);
+
+import 'dart:convert';
+
+OrderInfoModel orderInfoModelFromJson(String str) =>
+    OrderInfoModel.fromJson(json.decode(str));
+
+String orderInfoModelToJson(OrderInfoModel data) => json.encode(data.toJson());
+
 class OrderInfoModel {
-  List<Breadcrumbs>? breadcrumbs;
-  String? errorWarning;
-  String? success;
-  String? invoiceNo;
-  int? orderId;
-  String? dateAdded;
-  String? paymentAddress;
-  String? paymentMethod;
-  String? shippingAddress;
-  String? shippingMethod;
-  List<Products>? products;
-  List<Totals>? totals;
-  String? comment;
-  List<Histories>? histories;
-  String? logged;
+  OrderInfoModel({
+    this.breadcrumbs,
+    this.errorWarning,
+    this.success,
+    this.invoiceNo,
+    this.orderId,
+    this.dateAdded,
+    this.paymentAddress,
+    this.paymentMethod,
+    this.shippingAddress,
+    this.shippingMethod,
+    this.products,
+    this.vouchers,
+    this.totals,
+    this.comment,
+    this.histories,
+    this.logged,
+  });
 
-  OrderInfoModel(
-      {this.breadcrumbs,
-      this.errorWarning,
-      this.success,
-      this.invoiceNo,
-      this.orderId,
-      this.dateAdded,
-      this.paymentAddress,
-      this.paymentMethod,
-      this.shippingAddress,
-      this.shippingMethod,
-      this.products,
-      this.totals,
-      this.comment,
-      this.histories,
-      this.logged});
+  final List<Breadcrumb>? breadcrumbs;
+  final String? errorWarning;
+  final String? success;
+  final String? invoiceNo;
+  final String? orderId;
+  final String? dateAdded;
+  final String? paymentAddress;
+  final String? paymentMethod;
+  final String? shippingAddress;
+  final String? shippingMethod;
+  final List<Product>? products;
+  final List<dynamic>? vouchers;
+  final List<Total>? totals;
+  final String? comment;
+  final List<History>? histories;
+  final String? logged;
 
-  OrderInfoModel.fromJson(Map<String, dynamic> json) {
-    if (json['breadcrumbs'] != null) {
-      breadcrumbs = <Breadcrumbs>[];
-      json['breadcrumbs'].forEach((v) {
-        breadcrumbs!.add(new Breadcrumbs.fromJson(v));
-      });
-    }
-    errorWarning = json['error_warning'];
-    success = json['success'];
-    invoiceNo = json['invoice_no'];
-    orderId = json['order_id'];
-    dateAdded = json['date_added'] ?? "";
-    paymentAddress = json['payment_address'] ?? "";
-    paymentMethod = json['payment_method'];
-    shippingAddress = json['shipping_address'];
-    shippingMethod = json['shipping_method'];
-    if (json['products'] != null) {
-      products = <Products>[];
-      json['products'].forEach((v) {
-        products!.add(new Products.fromJson(v));
-      });
-    }
-    if (json['totals'] != null) {
-      totals = <Totals>[];
-      json['totals'].forEach((v) {
-        totals!.add(new Totals.fromJson(v));
-      });
-    }
-    comment = json['comment'];
-    if (json['histories'] != null) {
-      histories = <Histories>[];
-      json['histories'].forEach((v) {
-        histories!.add(new Histories.fromJson(v));
-      });
-    }
-    logged = json['logged'];
-  }
+  factory OrderInfoModel.fromJson(Map<String, dynamic> json) => OrderInfoModel(
+        breadcrumbs: json["breadcrumbs"] == null
+            ? null
+            : List<Breadcrumb>.from(
+                json["breadcrumbs"].map((x) => Breadcrumb.fromJson(x))),
+        errorWarning: json["error_warning"] == null
+            ? null
+            : json["error_warning"].toString(),
+        success: json["success"] == null ? null : json["success"].toString(),
+        invoiceNo:
+            json["invoice_no"] == null ? null : json["invoice_no"].toString(),
+        orderId: json["order_id"] == null ? null : json["order_id"].toString(),
+        dateAdded:
+            json["date_added"] == null ? null : json["date_added"].toString(),
+        paymentAddress: json["payment_address"] == null
+            ? null
+            : json["payment_address"].toString(),
+        paymentMethod: json["payment_method"] == null
+            ? null
+            : json["payment_method"].toString(),
+        shippingAddress: json["shipping_address"] == null
+            ? null
+            : json["shipping_address"].toString(),
+        shippingMethod: json["shipping_method"] == null
+            ? null
+            : json["shipping_method"].toString(),
+        products: json["products"] == null
+            ? null
+            : List<Product>.from(
+                json["products"].map((x) => Product.fromJson(x))),
+        vouchers: json["vouchers"] == null
+            ? null
+            : List<dynamic>.from(json["vouchers"].map((x) => x)),
+        totals: json["totals"] == null
+            ? null
+            : List<Total>.from(json["totals"].map((x) => Total.fromJson(x))),
+        comment: json["comment"] == null ? null : json["comment"].toString(),
+        histories: json["histories"] == null
+            ? null
+            : List<History>.from(
+                json["histories"].map((x) => History.fromJson(x))),
+        logged: json["logged"] == null ? null : json["logged"].toString(),
+      );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.breadcrumbs != null) {
-      data['breadcrumbs'] = this.breadcrumbs!.map((v) => v.toJson()).toList();
-    }
-    data['error_warning'] = this.errorWarning;
-    data['success'] = this.success;
-    data['invoice_no'] = this.invoiceNo;
-    data['order_id'] = this.orderId;
-    data['date_added'] = this.dateAdded;
-    data['payment_address'] = this.paymentAddress;
-    data['payment_method'] = this.paymentMethod;
-    data['shipping_address'] = this.shippingAddress;
-    data['shipping_method'] = this.shippingMethod;
-    if (this.products != null) {
-      data['products'] = this.products!.map((v) => v.toJson()).toList();
-    }
-    if (this.totals != null) {
-      data['totals'] = this.totals!.map((v) => v.toJson()).toList();
-    }
-    data['comment'] = this.comment;
-    if (this.histories != null) {
-      data['histories'] = this.histories!.map((v) => v.toJson()).toList();
-    }
-    data['logged'] = this.logged;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+        "breadcrumbs": breadcrumbs == null
+            ? null
+            : List<dynamic>.from(breadcrumbs!.map((x) => x.toJson())),
+        "error_warning": errorWarning == null ? null : errorWarning,
+        "success": success == null ? null : success,
+        "invoice_no": invoiceNo == null ? null : invoiceNo,
+        "order_id": orderId == null ? null : orderId,
+        "date_added": dateAdded == null ? null : dateAdded,
+        "payment_address": paymentAddress == null ? null : paymentAddress,
+        "payment_method": paymentMethod == null ? null : paymentMethod,
+        "shipping_address": shippingAddress == null ? null : shippingAddress,
+        "shipping_method": shippingMethod == null ? null : shippingMethod,
+        "products": products == null
+            ? null
+            : List<dynamic>.from(products!.map((x) => x.toJson())),
+        "vouchers": vouchers == null
+            ? null
+            : List<dynamic>.from(vouchers!.map((x) => x)),
+        "totals": totals == null
+            ? null
+            : List<dynamic>.from(totals!.map((x) => x.toJson())),
+        "comment": comment == null ? null : comment,
+        "histories": histories == null
+            ? null
+            : List<dynamic>.from(histories!.map((x) => x.toJson())),
+        "logged": logged == null ? null : logged,
+      };
 }
 
-class Breadcrumbs {
-  String? text;
-  String? href;
+class Breadcrumb {
+  Breadcrumb({
+    this.text,
+    this.href,
+  });
 
-  Breadcrumbs({this.text, this.href});
+  final String? text;
+  final String? href;
 
-  Breadcrumbs.fromJson(Map<String, dynamic> json) {
-    text = json['text'];
-    href = json['href'];
-  }
+  factory Breadcrumb.fromJson(Map<String, dynamic> json) => Breadcrumb(
+        text: json["text"] == null ? null : json["text"].toString(),
+        href: json["href"] == null ? null : json["href"].toString(),
+      );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['text'] = this.text;
-    data['href'] = this.href;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+        "text": text == null ? null : text,
+        "href": href == null ? null : href,
+      };
 }
 
-class Products {
-  String? name;
-  String? model;
-  List<Option>? option;
-  String? quantity;
-  String? price;
-  String? total;
-  String? reorder;
-  String? returnUrl;
+class History {
+  History({
+    this.dateAdded,
+    this.status,
+    this.comment,
+  });
 
-  Products(
-      {this.name,
-      this.model,
-      this.option,
-      this.quantity,
-      this.price,
-      this.total,
-      this.reorder,
-      this.returnUrl});
+  final String? dateAdded;
+  final String? status;
+  final String? comment;
 
-  Products.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    model = json['model'];
-    if (json['option'] != null) {
-      option = <Option>[];
-      json['option'].forEach((v) {
-        option!.add(new Option.fromJson(v));
-      });
-    }
-    quantity = json['quantity'];
-    price = json['price'];
-    total = json['total'];
-    reorder = json['reorder'];
-    returnUrl = json['return'];
-  }
+  factory History.fromJson(Map<String, dynamic> json) => History(
+        dateAdded:
+            json["date_added"] == null ? null : json["date_added"].toString(),
+        status: json["status"] == null ? null : json["status"].toString(),
+        comment: json["comment"] == null ? null : json["comment"].toString(),
+      );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['model'] = this.model;
-    if (this.option != null) {
-      data['option'] = this.option!.map((v) => v.toJson()).toList();
-    }
-    data['quantity'] = this.quantity;
-    data['price'] = this.price;
-    data['total'] = this.total;
-    data['reorder'] = this.reorder;
-    data['return'] = this.returnUrl;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+        "date_added": dateAdded == null ? null : dateAdded,
+        "status": status == null ? null : status,
+        "comment": comment == null ? null : comment,
+      };
+}
+
+class Product {
+  Product({
+    this.name,
+    this.model,
+    this.option,
+    this.quantity,
+    this.price,
+    this.total,
+    this.reorder,
+    this.productReturn,
+  });
+
+  final String? name;
+  final String? model;
+  final List<Option>? option;
+  final String? quantity;
+  final String? price;
+  final String? total;
+  final String? reorder;
+  final String? productReturn;
+
+  factory Product.fromJson(Map<String, dynamic> json) => Product(
+        name: json["name"] == null ? null : json["name"].toString(),
+        model: json["model"] == null ? null : json["model"].toString(),
+        option: json["option"] == null
+            ? null
+            : List<Option>.from(json["option"].map((x) => Option.fromJson(x))),
+        quantity: json["quantity"] == null ? null : json["quantity"].toString(),
+        price: json["price"] == null ? null : json["price"].toString(),
+        total: json["total"] == null ? null : json["total"].toString(),
+        reorder: json["reorder"] == null ? null : json["reorder"].toString(),
+        productReturn:
+            json["return"] == null ? null : json["return"].toString(),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "name": name == null ? null : name,
+        "model": model == null ? null : model,
+        "option": option == null
+            ? null
+            : List<dynamic>.from(option!.map((x) => x.toJson())),
+        "quantity": quantity == null ? null : quantity,
+        "price": price == null ? null : price,
+        "total": total == null ? null : total,
+        "reorder": reorder == null ? null : reorder,
+        "return": productReturn == null ? null : productReturn,
+      };
 }
 
 class Option {
-  String? name;
-  String? value;
+  Option({
+    this.name,
+    this.value,
+  });
 
-  Option({this.name, this.value});
+  final String? name;
+  final String? value;
 
-  Option.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    value = json['value'];
-  }
+  factory Option.fromJson(Map<String, dynamic> json) => Option(
+        name: json["name"] == null ? null : json["name"].toString(),
+        value: json["value"] == null ? null : json["value"].toString(),
+      );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['value'] = this.value;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+        "name": name == null ? null : name,
+        "value": value == null ? null : value,
+      };
 }
 
-class Totals {
-  String? title;
-  String? text;
+class Total {
+  Total({
+    this.title,
+    this.text,
+  });
 
-  Totals({this.title, this.text});
+  final String? title;
+  final String? text;
 
-  Totals.fromJson(Map<String, dynamic> json) {
-    title = json['title'];
-    text = json['text'];
-  }
+  factory Total.fromJson(Map<String, dynamic> json) => Total(
+        title: json["title"] == null ? null : json["title"].toString(),
+        text: json["text"] == null ? null : json["text"].toString(),
+      );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['title'] = this.title;
-    data['text'] = this.text;
-    return data;
-  }
-}
-
-class Histories {
-  String? dateAdded;
-  String? status;
-  String? comment;
-
-  Histories({this.dateAdded, this.status, this.comment});
-
-  Histories.fromJson(Map<String, dynamic> json) {
-    dateAdded = json['date_added'];
-    status = json['status'];
-    comment = json['comment'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['date_added'] = this.dateAdded;
-    data['status'] = this.status;
-    data['comment'] = this.comment;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+        "title": title == null ? null : title,
+        "text": text == null ? null : text,
+      };
 }

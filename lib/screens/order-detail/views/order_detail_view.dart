@@ -39,88 +39,88 @@ class OrderDetailView extends GetView<OrderDetailController> {
             leading_image: "Add",
           ),
         ),
-        body: Container(
-            height: Get.height,
-            decoration: const BoxDecoration(
-                color: Color(0xffF3F3F3),
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(30),
-                  topLeft: Radius.circular(30),
-                )),
-            child: !controller.isLoaded.value
-                ? Center(
-                    child: Loading(),
-                  )
-                : GetBuilder<OrderDetailController>(
-                    builder: (s) => SingleChildScrollView(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 10),
-                                child: Text(
-                                  "Order Summary",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(10, 30, 10, 1),
-                                child: Row(children: [
-                                  Column(
-                                    children: [
-                                      Text("Order ID : #" +
-                                          s.orderInfo!.orderId.toString()),
-                                      Text(" Dated : " +
-                                          s.orderInfo!.dateAdded!),
-                                    ],
-                                  ),
-                                  Spacer(),
-                                  SizedBox(
-                                      child: CircleAvatar(
-                                    radius: 35,
-                                    backgroundColor: Colors.grey.shade200,
-                                    child: Image.asset(
-                                      'assets/images/price-tag.png',
-                                    ),
-                                  ))
-                                ]),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(10, 1, 10, 10),
-                                child: Container(
-                                  padding: EdgeInsets.only(
-                                      left: 20.0,
-                                      right: 20.0,
-                                      top: 5.0,
-                                      bottom: 5.0),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25.0),
-                                    color: AppColors.limeGreen,
-                                  ),
-                                  child: TextWidget(
-                                    "Download Invoice",
-                                    fontSize: 12,
-                                    color: AppColors.black,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                                child: Divider(
-                                  color: AppColors.lightGrey,
-                                  thickness: 1.5,
-                                ),
-                              )
-                            ],
+        body: Obx(
+          () => Container(
+              height: Get.height,
+              decoration: const BoxDecoration(
+                  color: Color(0xffF3F3F3),
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(30),
+                    topLeft: Radius.circular(30),
+                  )),
+              child: !controller.isLoaded.value
+                  ? Center(
+                      child: Loading(),
+                    )
+                  : SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 20,
                           ),
-                        ))));
+                          Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: Text(
+                              "Order Summary",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(10, 30, 10, 1),
+                            child: Row(children: [
+                              Column(
+                                children: [
+                                  Text(
+                                      "Order ID : #${controller.orderInfo["orders"][0]["order_id"]}"),
+                                  Text(
+                                      " Dated : ${controller.orderInfo["orders"][0]["date_added"]}"),
+                                ],
+                              ),
+                              Spacer(),
+                              SizedBox(
+                                  child: CircleAvatar(
+                                radius: 35,
+                                backgroundColor: Colors.grey.shade200,
+                                child: Image.asset(
+                                  'assets/images/price-tag.png',
+                                ),
+                              ))
+                            ]),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(10, 1, 10, 10),
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                  left: 20.0,
+                                  right: 20.0,
+                                  top: 5.0,
+                                  bottom: 5.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25.0),
+                                color: AppColors.limeGreen,
+                              ),
+                              child: TextWidget(
+                                "Download Invoice",
+                                fontSize: 12,
+                                color: AppColors.black,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                            child: Divider(
+                              color: AppColors.lightGrey,
+                              thickness: 1.5,
+                            ),
+                          )
+                        ],
+                      ),
+                    )),
+        ));
   }
 }

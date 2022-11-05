@@ -59,27 +59,29 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                         height: 25, width: 25),
                   ),
                 ),
-                Container(
-                  width: 30,
-                  height: 30,
-                  alignment: Alignment.topRight,
-                  margin: const EdgeInsets.only(top: 10, left: 3.0),
-                  child: Container(
-                    width: 18,
-                    height: 18,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColors.white,
-                        border: Border.all(color: AppColors.white, width: 1)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(0.0),
-                      child: Center(
-                          child: TextWidget(
-                        "0",
-                        color: AppColors.black,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      )),
+                Obx(
+                  () => Container(
+                    width: 30,
+                    height: 30,
+                    alignment: Alignment.topRight,
+                    margin: const EdgeInsets.only(top: 10, left: 3.0),
+                    child: Container(
+                      width: 18,
+                      height: 18,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: AppColors.white,
+                          border: Border.all(color: AppColors.white, width: 1)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(0.0),
+                        child: Center(
+                            child: TextWidget(
+                          "${controller.cartCount.value}",
+                          color: AppColors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        )),
+                      ),
                     ),
                   ),
                 ),
@@ -420,39 +422,71 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                     color: controller.counter.value != 0
                                         ? AppColors.white
                                         : AppColors.primaryColor),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                child: Stack(
                                   children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        controller.minus();
-                                      },
-                                      child: Container(
-                                        width: 30,
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Image.asset(
-                                            "assets/icons/minus.png"),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 3.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            width: 30,
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Image.asset(
+                                                "assets/icons/minus.png"),
+                                          ),
+                                          Spacer(),
+                                          // TextWidget('-',color: AppColors.white,fontSize: 8,),
+                                          TextWidget(
+                                            controller.counter.toString(),
+                                            color: Colors.black,
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                          Spacer(),
+                                          GestureDetector(
+                                            onTap: () {
+                                              controller.add();
+                                            },
+                                            child: Container(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Image.asset(
+                                                  "assets/icons/add.png"),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    Spacer(),
-                                    // TextWidget('-',color: AppColors.white,fontSize: 8,),
-                                    TextWidget(
-                                      controller.counter.toString(),
-                                      color: Colors.black,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                    Spacer(),
-                                    GestureDetector(
-                                      onTap: () {
-                                        controller.add();
-                                      },
-                                      child: Container(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child:
-                                            Image.asset("assets/icons/add.png"),
-                                      ),
-                                    ),
+                                    Positioned(
+                                        top: 0,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                controller.minus();
+                                              },
+                                              child: Container(
+                                                height: 50,
+                                                width: 63.5,
+                                                color: Colors.transparent,
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                controller.add();
+                                              },
+                                              child: Container(
+                                                height: 50,
+                                                width: 63.5,
+                                                color: Colors.transparent,
+                                              ),
+                                            )
+                                          ],
+                                        ))
                                   ],
                                 ),
                               )
@@ -460,19 +494,40 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                 onTap: () {
                                   controller.add();
                                 },
-                                child: Container(
-                                  height: 29,
-                                  width: 28,
-                                  decoration: BoxDecoration(
-                                      color: AppColors.primaryColor,
-                                      borderRadius: BorderRadius.circular(7)),
-                                  child: Center(
-                                      child: Image.asset(
-                                    'assets/icons/addToCart.png',
-                                    height: 15,
-                                    width: 15,
-                                    fit: BoxFit.contain,
-                                  )),
+                                child: Stack(
+                                  children: [
+                                    Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 15, vertical: 6),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Image.asset(
+                                              'assets/icons/addToCart.png',
+                                              height: 13,
+                                              width: 13,
+                                              fit: BoxFit.fill,
+                                            ),
+                                            AppSize.size.w5,
+                                            TextWidget(
+                                              'Add',
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.white,
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                        child: Container(
+                                      height: 50,
+                                      width: 127,
+                                      color: Colors.transparent,
+                                    ))
+                                  ],
                                 ),
                               ),
                       ),

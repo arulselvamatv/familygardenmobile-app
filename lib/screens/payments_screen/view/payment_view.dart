@@ -72,7 +72,7 @@ class PaymentView extends GetView<PaymentController> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(13))),
                               child: TextWidget(
-                                'Deliver Here',
+                                'Add to Cart',
                                 color: AppColors.white,
                                 fontWeight: FontWeight.w500,
                                 fontSize: 14,

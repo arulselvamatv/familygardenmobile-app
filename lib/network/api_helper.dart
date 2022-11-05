@@ -13,6 +13,7 @@ import 'package:family_garden/models/login_model.dart';
 import 'package:family_garden/models/payment_method_model.dart';
 import 'package:flutter_svg/avd.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../models/account_address_model.dart';
 import '../models/cart_count_model.dart';
 import '../models/categories_model.dart';
 import '../models/category_product_model.dart';
@@ -1092,32 +1093,34 @@ class ApiHelper {
     }
   }
 
-  static Future<HTTPResponse<OrderInfoModel>> getOrderInfo(
-      String orderID) async {
-    String url =
-        "${ApiConstants.baseUrl}${EndPoints.getOrderInfoEndpoint}&api_token=${ApiConstants.jwtToken}";
-    var dio = Dio();
-    try {
-      var map = new Map<String, dynamic>();
-      map['order_id'] = orderID;
-      FormData formData = FormData.fromMap(map);
-      var response = await dio.post(url, data: formData);
-      var res = OrderInfoModel.fromJson(jsonDecode(response.data));
-      return HTTPResponse(
-        true,
-        res,
-        responseCode: response.statusCode,
-      );
-    } catch (e) {
-      print(e);
-      return HTTPResponse(
-        false,
-        null,
-        message:
-            "Invalid response received from server! Please try again in a minute or two.",
-      );
-    }
-  }
+  // static Future<HTTPResponse<OrderInfoModel>> getOrderInfo(
+  //     String orderID) async {
+  //   String url =
+  //       "${ApiConstants.baseUrl}${EndPoints.getOrderInfoEndpoint}&api_token=${ApiConstants.jwtToken}";
+  //   var dio = Dio();
+  //   try {
+  //     var map = new Map<String, dynamic>();
+  //     map['order_id'] = orderID;
+  //     FormData formData = FormData.fromMap(map);
+  //     var response = await dio.post(url, data: formData);
+  //     print(ApiConstants.jwtToken);
+  //     print(json.decode(response.data));
+  //     var res = OrderInfoModel.fromJson(jsonDecode(response.data));
+  //     return HTTPResponse(
+  //       true,
+  //       res,
+  //       responseCode: response.statusCode,
+  //     );
+  //   } catch (e) {
+  //     print("e $e");
+  //     return HTTPResponse(
+  //       false,
+  //       null,
+  //       message:
+  //           "Invalid response received from server! Please try again in a minute or two.",
+  //     );
+  //   }
+  // }
 
   static Future<HTTPResponse<OrderHistoryModel>> getOrders() async {
     String url =
@@ -1469,4 +1472,110 @@ class ApiHelper {
       );
     }
   }
+
+  static Future<HTTPResponse<AccountAddressModel>> accountAddress() async {
+    String url =
+        "${ApiConstants.baseUrl}${EndPoints.accountAdress}&api_token=${ApiConstants.jwtToken}";
+    try {
+      var response = await http.post(Uri.parse(url));
+      if (response.statusCode == 200) {
+        var body = jsonDecode(response.body);
+        print(body);
+        var res = AccountAddressModel.fromJson(body);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print(e);
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static getOrderInfo({required int orderId}) async {
+    print(ApiConstants.jwtToken);
+    String url =
+        "${ApiConstants.baseUrl}${EndPoints.getOrdersEndpoint}&api_token=${ApiConstants.jwtToken}";
+    var response = await http.post(Uri.parse(url),
+        body: json.encode({'order_id': orderId}));
+    var body = jsonDecode(response.body);
+    print(body);
+    return body;
+  }
+
+  // static Future<HTTPResponse<OrderInfoModel>> getOrderInfo(
+  //     {required int orderId}) async {
+  //   print("sdfsd");
+  //
+  //   try {
+  //
+  //     print(response.statusCode);
+  //     if (response.statusCode == 200) {
+  //
+  //       print(ApiConstants.jwtToken);
+  //       print(body);
+  //       var res = OrderInfoModel.fromJson(body);
+  //       return HTTPResponse(
+  //         true,
+  //         res,
+  //         responseCode: response.statusCode,
+  //       );
+  //     } else {
+  //       return HTTPResponse(
+  //         false,
+  //         null,
+  //         message:
+  //             "Invalid response received from server! Please try again in a minute or two.",
+  //       );
+  //     }
+  //   } on SocketException {
+  //     return HTTPResponse(
+  //       false,
+  //       null,
+  //       message:
+  //           "Unable to reach the internet! Please try again in a minute or two.",
+  //     );
+  //   } on FormatException {
+  //     return HTTPResponse(
+  //       false,
+  //       null,
+  //       message:
+  //           "Invalid response received from server! Please try again in a minute or two.",
+  //     );
+  //   } catch (e) {
+  //     print("error $e");
+  //     return HTTPResponse(
+  //       false,
+  //       null,
+  //       message: "Something went wrong! Please try again in a minute or two.",
+  //     );
+  //   }
+  // }
 }

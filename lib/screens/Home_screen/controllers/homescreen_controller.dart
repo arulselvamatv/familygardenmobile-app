@@ -90,7 +90,7 @@ class HomeScreenController extends GetxController with RouteAware {
         var actualPrice = double.parse(removeComma!.substring(1));
         var percentage = ((actualPrice - offerPrice) / actualPrice) * 100;
         homeFeaturesData.value.categories?[i].products?[j].percentage =
-            percentage.toInt();
+            percentage.round();
       }
     }
     homeFeaturesData.refresh();

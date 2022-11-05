@@ -72,7 +72,10 @@ class CategoriesView extends GetView<CategoriesController> {
                         return GestureDetector(
                           onTap: () {
                             Get.toNamed(Routes.PRODUCT_LISTING_SCREEN,
-                                arguments: index);
+                                arguments: [
+                                  index,
+                                  controller.categoriesList[index].categoryId
+                                ]);
                           },
                           child: Container(
                             width: Get.width,

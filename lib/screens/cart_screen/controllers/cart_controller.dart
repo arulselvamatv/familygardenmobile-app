@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:family_garden/models/cart_list_model.dart';
 import 'package:family_garden/network/api_helper.dart';
+import '../../../routes/app_pages.dart';
 import '../../../utils/common_import/common_import.dart';
 
 class CartController extends GetxController {
@@ -34,7 +35,12 @@ class CartController extends GetxController {
     var response = await ApiHelper.cartList();
     if (response.isSuccessFul) {
       products.value = response.data!;
-      isProductsLoader.value = true;
+      if (products.value.logged == null || products.value.logged == "null") {
+        Get.offNamed(Routes.LOGIN);
+      } else {
+        isProductsLoader.value = true;
+      }
+
       getListDatas();
     }
     update();
@@ -63,7 +69,7 @@ class CartController extends GetxController {
       var actualPrice = double.parse(
           (products.value.products?[i].actualPrice?.substring(1))!);
       var percentage = ((actualPrice - offerPrice) / actualPrice) * 100;
-      products.value.products?[i].offerPercentage = percentage.toInt();
+      products.value.products?[i].offerPercentage = percentage.round();
       actualPriceAmount +=
           actualPrice * double.parse((products.value.products?[i].quantity)!);
       offerPriceAmount +=
@@ -72,12 +78,6 @@ class CartController extends GetxController {
     totalPrice.value = offerPriceAmount;
     savedPrice.value = actualPriceAmount - offerPriceAmount;
     for (int i = 0; i < (products.value.products?.length)!; i++) {
-      // String actualPrice = (products.value.products?[i].actualPrice)!;
-      // if (products.value.products?[i].quantity != "1") {
-      //   var data = double.parse((products.value.products?[i].quantity)!) *
-      //       double.parse(actualPrice);
-      //   actualPrice = "$data";
-      // }
       for (int i = 0; i < (products.value.products?.length ?? 0); i++) {
         productId.value.add("");
       }

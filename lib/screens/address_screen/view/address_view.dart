@@ -215,7 +215,7 @@ class AddressView extends GetView<AddressController> {
                                                             Container(
                                                               width: 175,
                                                               child: Text(
-                                                                '${controller.addressModel.value.addresses?[index].address_1 ?? ""}, ${controller.addressModel.value.addresses?[index].address_2 ?? ""}',
+                                                                '${controller.addressModel.value.addresses?[index].address1 ?? ""}, ${controller.addressModel.value.addresses?[index].address2 ?? ""}',
                                                                 maxLines: 3,
                                                                 overflow:
                                                                     TextOverflow

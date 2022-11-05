@@ -1,4 +1,11 @@
 class CheckoutModel {
+  String? addressId;
+  List<Addresses>? addresses;
+  String? telephone;
+  String? logged;
+  String? countryId;
+  String? zoneId;
+
   CheckoutModel({
     this.addressId,
     this.addresses,
@@ -6,92 +13,86 @@ class CheckoutModel {
     this.logged,
     this.countryId,
     this.zoneId,
-    this.customFields,
-    this.paymentAddressCustomField,
   });
-  late final Null addressId;
-  late final List<Addresses>? addresses;
-  late final String? telephone;
-  late final Null logged;
-  late final String? countryId;
-  late final String? zoneId;
-  late final List<dynamic>? customFields;
-  late final List<dynamic>? paymentAddressCustomField;
 
   CheckoutModel.fromJson(Map<String, dynamic> json) {
-    addressId = null;
-    addresses =
-        List.from(json['addresses']).map((e) => Addresses.fromJson(e)).toList();
+    addressId = json['address_id'];
+    if (json['addresses'] != null) {
+      addresses = <Addresses>[];
+      json['addresses'].forEach((v) {
+        addresses!.add(new Addresses.fromJson(v));
+      });
+    }
     telephone = json['telephone'];
-    logged = null;
+    logged = json['logged'];
     countryId = json['country_id'];
     zoneId = json['zone_id'];
-    customFields = List.castFrom<dynamic, dynamic>(json['custom_fields']);
-    paymentAddressCustomField =
-        List.castFrom<dynamic, dynamic>(json['payment_address_custom_field']);
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['address_id'] = addressId;
-    _data['addresses'] = addresses?.map((e) => e.toJson()).toList();
-    _data['telephone'] = telephone;
-    _data['logged'] = logged;
-    _data['country_id'] = countryId;
-    _data['zone_id'] = zoneId;
-    _data['custom_fields'] = customFields;
-    _data['payment_address_custom_field'] = paymentAddressCustomField;
-    return _data;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['address_id'] = this.addressId;
+    if (this.addresses != null) {
+      data['addresses'] = this.addresses!.map((v) => v.toJson()).toList();
+    }
+    data['telephone'] = this.telephone;
+    data['logged'] = this.logged;
+    data['country_id'] = this.countryId;
+    data['zone_id'] = this.zoneId;
+    return data;
   }
 }
 
 class Addresses {
-  Addresses({
-    required this.addressId,
-    required this.firstname,
-    required this.lastname,
-    required this.company,
-    required this.address_1,
-    required this.address_2,
-    required this.postcode,
-    required this.city,
-    required this.zoneId,
-    required this.zone,
-    required this.zoneCode,
-    required this.countryId,
-    required this.telephone,
-    required this.country,
-    required this.isoCode_2,
-    required this.isoCode_3,
-    required this.addressFormat,
-    this.customField,
-  });
-  late final String addressId;
-  late final String firstname;
-  late final String lastname;
-  late final String company;
-  late final String address_1;
-  late final String address_2;
-  late final String postcode;
-  late final String city;
-  late final String zoneId;
-  late final String zone;
-  late final String zoneCode;
-  late final String countryId;
-  late final String telephone;
-  late final String country;
-  late final String isoCode_2;
-  late final String isoCode_3;
-  late final String addressFormat;
-  late final Null customField;
+  String? addressId;
+  String? firstname;
+  String? lastname;
+  String? email;
+  String? company;
+  String? address1;
+  String? address2;
+  String? postcode;
+  String? city;
+  String? zoneId;
+  String? zone;
+  String? zoneCode;
+  String? countryId;
+  String? telephone;
+  String? country;
+  String? isoCode2;
+  String? isoCode3;
+  String? addressFormat;
+  Null? customField;
+
+  Addresses(
+      {this.addressId,
+      this.firstname,
+      this.lastname,
+      this.email,
+      this.company,
+      this.address1,
+      this.address2,
+      this.postcode,
+      this.city,
+      this.zoneId,
+      this.zone,
+      this.zoneCode,
+      this.countryId,
+      this.telephone,
+      this.country,
+      this.isoCode2,
+      this.isoCode3,
+      this.addressFormat,
+      this.customField});
 
   Addresses.fromJson(Map<String, dynamic> json) {
     addressId = json['address_id'];
     firstname = json['firstname'];
     lastname = json['lastname'];
+    email = json['email'];
     company = json['company'];
-    address_1 = json['address_1'];
-    address_2 = json['address_2'];
+    address1 = json['address_1'];
+    address2 = json['address_2'];
     postcode = json['postcode'];
     city = json['city'];
     zoneId = json['zone_id'];
@@ -100,32 +101,33 @@ class Addresses {
     countryId = json['country_id'];
     telephone = json['telephone'];
     country = json['country'];
-    isoCode_2 = json['iso_code_2'];
-    isoCode_3 = json['iso_code_3'];
+    isoCode2 = json['iso_code_2'];
+    isoCode3 = json['iso_code_3'];
     addressFormat = json['address_format'];
-    customField = null;
+    customField = json['custom_field'];
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['address_id'] = addressId;
-    _data['firstname'] = firstname;
-    _data['lastname'] = lastname;
-    _data['company'] = company;
-    _data['address_1'] = address_1;
-    _data['address_2'] = address_2;
-    _data['postcode'] = postcode;
-    _data['city'] = city;
-    _data['zone_id'] = zoneId;
-    _data['zone'] = zone;
-    _data['zone_code'] = zoneCode;
-    _data['country_id'] = countryId;
-    _data['telephone'] = telephone;
-    _data['country'] = country;
-    _data['iso_code_2'] = isoCode_2;
-    _data['iso_code_3'] = isoCode_3;
-    _data['address_format'] = addressFormat;
-    _data['custom_field'] = customField;
-    return _data;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['address_id'] = this.addressId;
+    data['firstname'] = this.firstname;
+    data['lastname'] = this.lastname;
+    data['email'] = this.email;
+    data['company'] = this.company;
+    data['address_1'] = this.address1;
+    data['address_2'] = this.address2;
+    data['postcode'] = this.postcode;
+    data['city'] = this.city;
+    data['zone_id'] = this.zoneId;
+    data['zone'] = this.zone;
+    data['zone_code'] = this.zoneCode;
+    data['country_id'] = this.countryId;
+    data['telephone'] = this.telephone;
+    data['country'] = this.country;
+    data['iso_code_2'] = this.isoCode2;
+    data['iso_code_3'] = this.isoCode3;
+    data['address_format'] = this.addressFormat;
+    data['custom_field'] = this.customField;
+    return data;
   }
 }

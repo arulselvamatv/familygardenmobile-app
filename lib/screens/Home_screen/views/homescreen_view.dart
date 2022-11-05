@@ -239,11 +239,12 @@ class HomeScreenView extends GetView<HomeScreenController> {
                         padding: EdgeInsets.symmetric(horizontal: 15),
                         child: Container(
                           height: 100,
+                          width: Get.width,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                width: 53,
+                                width: 50,
                                 child: Column(
                                   children: [
                                     Container(
@@ -266,7 +267,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                     AppSize.size.h10,
                                     Container(
                                         constraints:
-                                            BoxConstraints(maxWidth: 100),
+                                            BoxConstraints(maxWidth: 50),
                                         height: 50,
                                         child: TextWidget(
                                           controller.category.value[0]["name"],
@@ -281,7 +282,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                 ),
                               ),
                               Container(
-                                width: 42.85,
+                                width: 50,
                                 child: Column(
                                   children: [
                                     Container(
@@ -304,7 +305,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                     AppSize.size.h10,
                                     Container(
                                         constraints:
-                                            BoxConstraints(maxWidth: 100),
+                                            BoxConstraints(maxWidth: 50),
                                         height: 50,
                                         child: TextWidget(
                                           controller.category.value[1]["name"],
@@ -319,7 +320,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                 ),
                               ),
                               Container(
-                                width: 40,
+                                width: 50,
                                 child: Column(
                                   children: [
                                     Container(
@@ -342,7 +343,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                     AppSize.size.h10,
                                     Container(
                                         constraints:
-                                            BoxConstraints(maxWidth: 100),
+                                            BoxConstraints(maxWidth: 50),
                                         height: 50,
                                         child: TextWidget(
                                           controller.category.value[2]["name"],
@@ -357,7 +358,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                 ),
                               ),
                               Container(
-                                width: 80,
+                                width: 50,
                                 child: Column(
                                   children: [
                                     Container(
@@ -380,7 +381,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                     AppSize.size.h10,
                                     Container(
                                         constraints:
-                                            BoxConstraints(maxWidth: 100),
+                                            BoxConstraints(maxWidth: 50),
                                         height: 50,
                                         child: TextWidget(
                                           controller.category.value[3]["name"],
@@ -418,7 +419,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                     AppSize.size.h10,
                                     Container(
                                         constraints:
-                                            BoxConstraints(maxWidth: 100),
+                                            BoxConstraints(maxWidth: 50),
                                         height: 50,
                                         child: TextWidget(
                                           controller.category.value[4]["name"],

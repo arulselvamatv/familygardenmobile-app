@@ -5,6 +5,7 @@ import '../../../utils/common_import/common_import.dart';
 class DashboardController extends GetxController
     with GetSingleTickerProviderStateMixin {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  // final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   RxInt selectedIndex = 0.obs;
   TabController? tabController;
   RxInt cartCount = 0.obs;

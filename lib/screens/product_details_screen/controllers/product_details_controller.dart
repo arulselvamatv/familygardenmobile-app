@@ -33,12 +33,14 @@ class ProductDetailsController extends GetxController {
   ].obs;
   RxString staticImage = "assets/images/Fresh Vegetables.png".obs;
   var productData = {"product_info": []}.obs;
+  RxInt cartCount = 0.obs;
 
   @override
   void onInit() {
     productId.value = Get.arguments;
     getLocalDatas();
     getProductDetails(int.parse(productId.value));
+    getCartCount();
     super.onInit();
   }
 
@@ -86,6 +88,12 @@ class ProductDetailsController extends GetxController {
     update();
   }
 
+  getCartCount() async {
+    var response = await ApiHelper.cartCount();
+    cartCount.value = int.parse(response["text_items"]);
+    update();
+  }
+
   clearAll() {
     getProductDetails(int.parse(productId.value));
     optionId.value = "";
@@ -105,6 +113,7 @@ class ProductDetailsController extends GetxController {
 
   minus() {
     counter.value -= 1;
+    cartCount.value -= 1;
     removeCartDatas();
     if ((productDetails?.options?.isNotEmpty)!) {
       if (optionId.value != "") {
@@ -124,6 +133,7 @@ class ProductDetailsController extends GetxController {
 
   add() {
     counter.value += 1;
+    cartCount.value += 1;
     if (productDetails?.options?.isNotEmpty ?? false) {
       if (optionId.value != "") {
         addCartDatas();
