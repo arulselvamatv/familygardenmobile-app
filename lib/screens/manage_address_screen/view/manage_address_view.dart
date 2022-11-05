@@ -209,7 +209,7 @@ class ManageAddressView extends GetView<ManageAddressController> {
                         controller.onPressAddBtn();
                       },
                       style: ElevatedButton.styleFrom(
-                          primary: AppColors.primaryColor,
+                          backgroundColor: AppColors.primaryColor,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(13))),
                       child: TextWidget(
@@ -231,7 +231,7 @@ class ManageAddressView extends GetView<ManageAddressController> {
                   child: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                          primary: AppColors.lightGrey,
+                          backgroundColor: AppColors.lightGrey,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(13))),
                       child: TextWidget(

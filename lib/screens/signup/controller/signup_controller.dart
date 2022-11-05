@@ -21,7 +21,6 @@ class SignupController extends GetxController {
         passwordController.text,
         confirmController.text,
         '1');
-    print("response.data?.errorWarning ${response.data?.errorWarning}");
     if (response.data?.errorWarning == "") {
       Get.back();
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

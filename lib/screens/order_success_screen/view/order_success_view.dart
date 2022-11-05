@@ -70,7 +70,7 @@ class OrderSuccessView extends GetView<OrderSuccessController> {
                   child: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        primary: Color(0xffFF8A00),
+                        backgroundColor: Color(0xffFF8A00),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(13),
                         ),

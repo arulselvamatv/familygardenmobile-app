@@ -44,12 +44,17 @@ class PaymentController extends GetxController {
   getPaymentMethodDetails() async {
     var response = await ApiHelper.paymentMethod();
     paymentMethod = response;
-    isPaymentScreenLoader.value = true;
-    update();
+    print("paymentMethod ${paymentMethod}");
+    if (paymentMethod["payment_methods"].isEmpty) {
+      isCartEmpty.value = true;
+      isPaymentScreenLoader.value = true;
+    } else {
+      isPaymentScreenLoader.value = true;
+      update();
+    }
   }
 
   getCartListDatas() async {
-    // print(apiToken);
     var response = await ApiHelper.cartList();
     if (response.isSuccessFul) {
       products.value = response.data!;
@@ -61,7 +66,6 @@ class PaymentController extends GetxController {
   getListDatas() {
     var actualPriceAmount = 0.0;
     var offerPriceAmount = 0.0;
-    print("products.value.products?.length ${products.value.products?.length}");
     for (int i = 0; i < (products.value.products?.length)!; i++) {
       var offerPrice =
           double.parse((products.value.products?[i].offerPrice?.substring(1))!);
@@ -103,7 +107,6 @@ class PaymentController extends GetxController {
   }
 
   codMethod() async {
-    print("Cod start");
     var response = await http.post(Uri.parse(
         '${ApiConstants.baseUrl}/index.php?route=mobileapi/payment/cod/confirm&api_token=${ApiConstants.jwtToken}'));
     // var request = http.Request(
@@ -116,40 +119,7 @@ class PaymentController extends GetxController {
         Get.offAndToNamed(Routes.ORDER_SUCCESS_SCREEN,
             arguments: body["order_id"]);
       }
-      print("Order Id : ${body["order_id"]}");
     }
-    // http.StreamedResponse response = await request.send();
-    // print(response.statusCode);
-    // if (response.statusCode == 200) {
-    //   print(await response.stream.bytesToString());
-    //   var res = await response.stream.bytesToString();
-    //   var deco = json.decode(res);
-    //   print(deco["order_id"]);
-    //   // if(res["order_id"])
-    //   var body = jsonDecode(await response.stream.bytesToString());
-    //   print(body);
-    // } else {
-    //   print(response.reasonPhrase);
-    // }
-    // var res = await http.post(Uri.parse(
-    //     "${ApiConstants.baseUrl}/index.php?route=mobileapi/payment/cod/confirm&api_token=${ApiConstants.jwtToken}"));
-    //
-    // // var request = http.Request(
-    // //     'POST',
-    // //     Uri.parse(
-    // //         ''));
-    // // http.StreamedResponse response = await request.send();
-    // print("res code ${res.statusCode}");
-    // if (res.statusCode == 200) {
-    //   var response = res.body;
-    //   // print(response)
-    //   print("cod confirm res ${response}");
-    //   Get.toNamed(Routes.ORDER_SUCCESS_SCREEN, arguments: [
-    //     {"orderNumber": ''}
-    //   ]);
-    // } else {
-    //   // print(response.reasonPhrase);
-    // }
   }
 
   continueBtn(context) async {

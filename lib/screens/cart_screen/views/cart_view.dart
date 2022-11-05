@@ -116,36 +116,6 @@ class CartView extends GetView<CartController> {
             ),
           ),
         ),
-        // AppSize.size.h20,
-        // Padding(
-        //   padding: EdgeInsets.symmetric(horizontal: 15),
-        //   child: Container(
-        //     height: 45,
-        //     child: TextFormField(
-        //       controller: controller.search,
-        //       maxLines: 1,
-        //       style: TextStyle(
-        //           color: Color(0xff000000),
-        //           fontSize: 15,
-        //           fontWeight: FontWeight.w400),
-        //       onChanged: (value) {},
-        //       decoration: InputDecoration(
-        //         prefixIcon:
-        //             ImageIcon(AssetImage('assets/icons/search.png')),
-        //         hintText: "Search for vegetables and fruits",
-        //         contentPadding: EdgeInsets.symmetric(vertical: 4),
-        //         hintStyle: TextStyle(
-        //             color: Color(0xff464646),
-        //             fontWeight: FontWeight.w500),
-        //         border: OutlineInputBorder(
-        //             borderSide: BorderSide.none,
-        //             borderRadius: BorderRadius.circular(30)),
-        //         fillColor: Color(0xfff1f1f1),
-        //         filled: true,
-        //       ),
-        //     ),
-        //   ),
-        // ),
         AppSize.size.h20,
         TextWidget(
           'Orders',
@@ -180,42 +150,6 @@ class CartView extends GetView<CartController> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                // Padding(
-                                                //   padding:
-                                                //       const EdgeInsets.only(
-                                                //           left: 15, top: 10),
-                                                //   child: SizedBox(
-                                                //     height: 13,
-                                                //     width: 13,
-                                                //     child: Checkbox(
-                                                //       shape:
-                                                //           RoundedRectangleBorder(
-                                                //         borderRadius:
-                                                //             BorderRadius
-                                                //                 .circular(
-                                                //                     2.0),
-                                                //       ),
-                                                //       side:
-                                                //           MaterialStateBorderSide
-                                                //               .resolveWith(
-                                                //         (states) => BorderSide(
-                                                //             width: 0.75,
-                                                //             color: Color(
-                                                //                 0xffC0BEBE)),
-                                                //       ),
-                                                //       activeColor: AppColors
-                                                //           .primaryColor,
-                                                //       value: cart
-                                                //           .checkBoxBoolList
-                                                //           .value[index],
-                                                //       onChanged: (value) {
-                                                //         controller
-                                                //             .onCheckBoxClick(
-                                                //                 value, index);
-                                                //       },
-                                                //     ),
-                                                //   ),
-                                                // ),
                                                 Padding(
                                                   padding:
                                                       const EdgeInsets.only(
@@ -231,10 +165,6 @@ class CartView extends GetView<CartController> {
                                                           .thumb)!,
                                                       fit: BoxFit.contain,
                                                     ),
-                                                    // child: Image.asset(
-                                                    //   cart.staticImage,
-                                                    //   fit: BoxFit.contain,
-                                                    // ),
                                                   ),
                                                 ),
                                               ],
@@ -277,14 +207,26 @@ class CartView extends GetView<CartController> {
                                                   ),
                                                 ),
                                                 AppSize.size.h5,
-                                                TextWidget(
-                                                    cart.products.value
-                                                        .products?[index].value
-                                                        .toString(),
-                                                    // "Just to check",
-                                                    fontSize: 10.5,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Color(0xff666666)),
+                                                cart
+                                                            .products
+                                                            .value
+                                                            .products?[index]
+                                                            .value ==
+                                                        "null"
+                                                    ? TextWidget(
+                                                        cart
+                                                            .products
+                                                            .value
+                                                            .products?[index]
+                                                            .value
+                                                            .toString(),
+                                                        // "Just to check",
+                                                        fontSize: 10.5,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color:
+                                                            Color(0xff666666))
+                                                    : Container(),
                                               ],
                                             ),
                                             Spacer(),
@@ -473,11 +415,13 @@ class CartView extends GetView<CartController> {
                         ]);
                         controller.hitAddCartAPI();
                       } else {
-                        Get.toNamed(Routes.LOGIN, arguments: "Cart");
+                        Get.toNamed(Routes.LOGIN, arguments: "Cart")
+                            ?.then((value) => controller.getCartListDatas());
                         controller.hitAddCartAPI();
                       }
                     } else {
-                      Get.toNamed(Routes.LOGIN, arguments: "Cart");
+                      Get.toNamed(Routes.LOGIN, arguments: "Cart")
+                          ?.then((value) => controller.getCartListDatas());
                       controller.hitAddCartAPI();
                     }
                   },
@@ -489,7 +433,7 @@ class CartView extends GetView<CartController> {
                   ),
                   style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.all(0),
-                      primary: AppColors.primaryColor,
+                      backgroundColor: AppColors.primaryColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(6),
                       )),
@@ -525,7 +469,7 @@ class CartView extends GetView<CartController> {
                           color: AppColors.white,
                         ),
                         style: ElevatedButton.styleFrom(
-                            primary: AppColors.primaryColor,
+                            backgroundColor: AppColors.primaryColor,
                             padding: EdgeInsets.all(0),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(6),
@@ -649,6 +593,44 @@ class CartView extends GetView<CartController> {
             SvgPicture.asset("assets/icons/Emoji.svg"),
           ],
         ),
+        Spacer(),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 60),
+          child: Container(
+            height: 200,
+            width: Get.width,
+            child: SvgPicture.asset("assets/icons/CartIcon.svg"),
+          ),
+        ),
+        Spacer(),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 40),
+          child: Text(
+              "Once you have added items to your shopping cart, you can check out from here"),
+        ),
+        AppSize.size.h30,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 40),
+          child: SizedBox(
+            height: 50,
+            width: Get.width,
+            child: ElevatedButton(
+                onPressed: () {
+                  Get.toNamed(Routes.DASHBOARD);
+                },
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primaryColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(13))),
+                child: TextWidget(
+                  'Continue Shopping',
+                  color: AppColors.white,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                )),
+          ),
+        ),
+        AppSize.size.h55
       ],
     );
   }
@@ -808,7 +790,7 @@ class CartView extends GetView<CartController> {
                               }
                             },
                             style: ElevatedButton.styleFrom(
-                                primary: AppColors.primaryColor,
+                                backgroundColor: AppColors.primaryColor,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(13))),
                             child: TextWidget(

@@ -7,6 +7,7 @@ import '../../../utils/common_import/common_import.dart';
 
 class AddressController extends GetxController with RouteAware {
   var addressModel = CheckoutModel().obs;
+  RxBool isLoader = true.obs;
   RxBool isaddressScreenLoader = false.obs;
   RxBool isEmptyAddress = true.obs;
   RxList checkBoxBoolList = [].obs;
@@ -48,12 +49,6 @@ class AddressController extends GetxController with RouteAware {
   void dispose() {
     routeObserver.unsubscribe(this);
     super.dispose();
-  }
-
-  @override
-  void didPopNext() {
-    super.didPopNext();
-    debugPrint("viewWillAppear");
   }
 
   getCheckout() async {
@@ -98,9 +93,6 @@ class AddressController extends GetxController with RouteAware {
           (addressModel.value.addresses?[index].address_2) ?? "";
       formData["company"] =
           (addressModel.value.addresses?[index].company) ?? "";
-      print(formData);
-      // want to add a email
-      // formData["email"] = (addressModel.value.addresses?[index].email) ?? "";
     }
     int? searchIndex =
         checkBoxBoolList.indexWhere((element) => element == true);
@@ -115,10 +107,10 @@ class AddressController extends GetxController with RouteAware {
   }
 
   deliverHereBtn(context) async {
+    isLoader.value = false;
     if (pickCheckBox.value == true) {
       var response = await ApiHelper.existingPaymentAddressSave(formData);
       if (response.responseCode == 200) {
-        print('Success existingPaymentAddressSave');
         Future.delayed(Duration(seconds: 1), () async {
           var shippingMethodResponse = await ApiHelper.shippingMethod();
           if (shippingMethodResponse.responseCode == 200) {
@@ -126,8 +118,7 @@ class AddressController extends GetxController with RouteAware {
               var shippingMethodSaveResponse =
                   await ApiHelper.shippingMethodSave();
               if (shippingMethodSaveResponse.responseCode == 200) {
-                print(
-                    "Shipping method cost ${shippingMethodResponse.data?.shippingMethods?.flat?.quote?.flat?.cost}");
+                isLoader.value = true;
                 Get.toNamed(Routes.PAYMENT, arguments: [
                   totalPrice.value,
                   savedPrice.value,
@@ -144,6 +135,7 @@ class AddressController extends GetxController with RouteAware {
         });
       }
     } else {
+      isLoader.value = false;
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("Add address to continue"),
       ));

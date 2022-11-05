@@ -18,7 +18,7 @@ class CartListModel {
     this.action,
     this.weight,
     this.products,
-    this.vouchers,
+    // this.vouchers,
     this.totals,
     this.cartListModelContinue,
     this.checkout,
@@ -32,7 +32,7 @@ class CartListModel {
   String? action;
   String? weight;
   List<Product>? products;
-  List<dynamic>? vouchers;
+  // List<dynamic>? vouchers;
   List<Total>? totals;
   String? cartListModelContinue;
   String? checkout;
@@ -53,9 +53,9 @@ class CartListModel {
             ? null
             : List<Product>.from(
                 json["products"].map((x) => Product.fromJson(x))),
-        vouchers: json["vouchers"] == null
-            ? null
-            : List<dynamic>.from(json["vouchers"].map((x) => x)),
+        // vouchers: json["vouchers"] == null
+        //     ? null
+        //     : List<dynamic>.from(json["vouchers"].map((x) => x)),
         totals: json["totals"] == null
             ? null
             : List<Total>.from(json["totals"].map((x) => Total.fromJson(x))),
@@ -77,9 +77,9 @@ class CartListModel {
         "products": products == null
             ? null
             : List<dynamic>.from(products!.map((x) => x.toJson())),
-        "vouchers": vouchers == null
-            ? null
-            : List<dynamic>.from(vouchers!.map((x) => x)),
+        // "vouchers": vouchers == null
+        //     ? null
+        //     : List<dynamic>.from(vouchers!.map((x) => x)),
         "totals": totals == null
             ? null
             : List<dynamic>.from(totals!.map((x) => x.toJson())),

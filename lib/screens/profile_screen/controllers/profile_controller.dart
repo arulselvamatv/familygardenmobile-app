@@ -41,7 +41,6 @@ class ProfileController extends GetxController {
 
   Future<void> updatePassword(String password, String confirmPassword) async {
     var response = await ApiHelper.updatePassword(password, confirmPassword);
-    print(response.isSuccessFul);
     if (response.isSuccessFul) {
       Get.snackbar('success', "Your password has been updated successfully!");
 

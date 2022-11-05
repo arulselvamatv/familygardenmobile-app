@@ -214,7 +214,8 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                               SizedBox(
                                 height: 20,
                               ),
-                              controller.productDetails?.options != null
+                              controller.productDetails?.options?.isNotEmpty ??
+                                      false
                                   ? SizedBox(
                                       height: 25,
                                       child: ListView.separated(
@@ -357,7 +358,12 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          controller.onFavouriteButtonSelected();
+                          if (controller.isLoggedIn.value) {
+                            controller.onFavouriteButtonSelected();
+                          } else {
+                            Get.toNamed(Routes.LOGIN)
+                                ?.then((value) => controller.getLocalDatas());
+                          }
                         },
                         child: Container(
                           height: 32,

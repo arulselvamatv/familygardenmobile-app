@@ -1,11 +1,6 @@
-import 'dart:async';
-
-import 'package:family_garden/network/api_constants/api_constants.dart';
 import 'package:family_garden/network/api_helper.dart';
-import 'package:get/get.dart';
 import '../../../models/categories_model.dart';
 import '../../../models/category_product_model.dart';
-import '../../../models/product_add_cart_model.dart';
 import '../../../utils/common_import/common_import.dart';
 
 class ProductListingController extends GetxController {
@@ -40,9 +35,7 @@ class ProductListingController extends GetxController {
     scrollController.addListener(() {
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
-        print("Datas ${onPageChange.value} data ${totalPages.value}");
         if (onPageChange.value <= totalPages.value) {
-          print("Hit page");
           getCategoryProduct(categoryId.value, onPageChange.value, fg: true);
         }
       }
@@ -53,16 +46,11 @@ class ProductListingController extends GetxController {
 
   getCategory() async {
     isCategoryLoader.value = true;
-    print(ApiConstants.jwtToken);
     var respone = await ApiHelper.getCategories();
     if (respone.isSuccessFul) {
       categoriesList.value = (respone.data?.categories)!;
       isCategoryLoader.value = false;
-      print("categoriesIndex.value ${categoriesIndex.value}");
-      print(
-          "categoriesList[categoriesIndex.value].categoryId ${categoriesList[categoriesIndex.value].categoryId}");
       title.value = categoriesList.value[categoriesIndex.value].name!;
-      // categoryId.value = categoriesList[categoriesIndex.value].categoryId!;
       getCategoryProduct(categoryId.value, onPageChange.value);
     }
     update();
@@ -75,14 +63,8 @@ class ProductListingController extends GetxController {
     if (fg == false) {
       clearAll();
     }
-    // print(getCategory());
     var response = await ApiHelper.getProductCategory(categoryId, page);
     if (response.responseCode == 200) {
-      // print(response.data?.pagination?.numLinks);
-      // totalPages.value = (response.data?.pagination?.numPages)!;
-      // onPageChange.value++;
-      // products.value.addAll((response.data?.products)!);
-      // onPageChange.value++;
       if (onPageChange.value == 1) {
         products.value = (response.data?.products)!;
         totalPages.value = (response.data?.pagination?.numPages)!;
@@ -92,10 +74,6 @@ class ProductListingController extends GetxController {
         onPageChange.value++;
         products.value.addAll((response.data?.products)!);
       }
-      // products.value = (response.data?.products)!;
-
-      // selectedDropdownValue.value =
-      //     (products[0].option?[0].productOptionValue?[0].productOptionValueId)!;
       getDropdownValues();
     }
     update();
@@ -149,7 +127,6 @@ class ProductListingController extends GetxController {
     categoriesIndex.value = index;
     isCategoryProductLoader.value = true;
     categoryId.value = (categoriesList.value[index].categoryId)!;
-    print("Category ID : ${categoriesList.value[index].categoryId}");
     getCategoryProduct(
         categoriesList.value[index].categoryId, onPageChange.value);
     title.value = (categoriesList.value[index].name)!;
@@ -182,8 +159,6 @@ class ProductListingController extends GetxController {
       }
       cartBoolList.refresh();
     }
-    // cartBoolList[index] = cartBoolList[index] == false ? true : true;
-    // cartBoolList.refresh();
     update();
   }
 
@@ -204,7 +179,6 @@ class ProductListingController extends GetxController {
 
   hitAddCartAPI() async {
     if ((productData.value["product_info"]?.length ?? 0) > 0) {
-      print("AddCartAPI $productData");
       var response = await ApiHelper.addCart(productData.value);
     } else {}
   }
@@ -285,12 +259,7 @@ class ProductListingController extends GetxController {
 
   getCartCount() async {
     var response = await ApiHelper.cartCount();
-    // print("CartCount response ${response.responseCode}");
     cartCount.value = int.parse(response["text_items"]);
-    // if (response.responseCode == 200) {
-    //   cartCount.value = int.parse((text_items);
-    //   update();
-    // }
     update();
   }
 }

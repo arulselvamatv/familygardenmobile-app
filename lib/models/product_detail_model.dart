@@ -18,13 +18,11 @@ class ProductDetailsModel {
     this.textLogin,
     this.tabReview,
     this.productId,
-    this.manufacturer,
     this.manufacturers,
     this.model,
     this.productName,
     this.productNameTamil,
     this.benefits,
-    this.reward,
     this.points,
     this.description,
     this.quantity,
@@ -38,7 +36,6 @@ class ProductDetailsModel {
     this.tax,
     this.percent,
     this.percentOff,
-    this.discounts,
     this.options,
     this.minimum,
     this.reviewStatus,
@@ -53,7 +50,6 @@ class ProductDetailsModel {
     this.tags,
     this.recurrings,
     this.joptions,
-    this.logged,
   });
 
   List<Breadcrumb>? breadcrumbs;
@@ -62,13 +58,11 @@ class ProductDetailsModel {
   String? textLogin;
   String? tabReview;
   int? productId;
-  dynamic manufacturer;
   String? manufacturers;
   String? model;
   String? productName;
   String? productNameTamil;
   String? benefits;
-  dynamic reward;
   String? points;
   String? description;
   String? quantity;
@@ -82,7 +76,6 @@ class ProductDetailsModel {
   String? tax;
   String? percent;
   String? percentOff;
-  List<dynamic>? discounts;
   List<Option>? options;
   String? minimum;
   String? reviewStatus;
@@ -97,7 +90,6 @@ class ProductDetailsModel {
   List<dynamic>? tags;
   List<dynamic>? recurrings;
   List<Option>? joptions;
-  dynamic logged;
 
   factory ProductDetailsModel.fromJson(Map<String, dynamic> json) =>
       ProductDetailsModel(
@@ -116,11 +108,9 @@ class ProductDetailsModel {
             ? null
             : json["product_name_tamil"],
         benefits: json["benefits"] == null ? null : json["benefits"],
-        manufacturer: json["manufacturer"],
         manufacturers:
             json["manufacturers"] == null ? null : json["manufacturers"],
         model: json["model"] == null ? null : json["model"],
-        reward: json["reward"],
         points: json["points"] == null ? null : json["points"],
         description: json["description"] == null ? null : json["description"],
         quantity: json["quantity"] == null ? null : json["quantity"],
@@ -133,13 +123,10 @@ class ProductDetailsModel {
             : List<CarousalImage>.from(
                 json["images"].map((x) => CarousalImage.fromJson(x))),
         price: json["price"] == null ? null : json["price"],
-        special: json["special"] == null ? null : json["special"],
+        special: json["special"] == null ? null : json["special"].toString(),
         tax: json["tax"] == null ? null : json["tax"],
         percent: json["percent"] == null ? null : json["percent"],
         percentOff: json["percent_off"] == null ? null : json["percent_off"],
-        discounts: json["discounts"] == null
-            ? null
-            : List<dynamic>.from(json["discounts"].map((x) => x)),
         options: json["options"] == null
             ? null
             : List<Option>.from(json["options"].map((x) => Option.fromJson(x))),
@@ -170,7 +157,6 @@ class ProductDetailsModel {
             ? null
             : List<Option>.from(
                 json["joptions"].map((x) => Option.fromJson(x))),
-        logged: json["logged"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -186,10 +172,8 @@ class ProductDetailsModel {
         "product_name_tamil":
             productNameTamil == null ? null : productNameTamil,
         "benefits": benefits == null ? null : benefits,
-        "manufacturer": manufacturer,
         "manufacturers": manufacturers == null ? null : manufacturers,
         "model": model == null ? null : model,
-        "reward": reward,
         "points": points == null ? null : points,
         "description": description == null ? null : description,
         "quantity": quantity == null ? null : quantity,
@@ -205,9 +189,6 @@ class ProductDetailsModel {
         "tax": tax == null ? null : tax,
         "percent": percent == null ? null : percent,
         "percent_off": percentOff == null ? null : percentOff,
-        "discounts": discounts == null
-            ? null
-            : List<dynamic>.from(discounts!.map((x) => x)),
         "options": options == null
             ? null
             : List<dynamic>.from(options!.map((x) => x.toJson())),
@@ -232,7 +213,6 @@ class ProductDetailsModel {
         "joptions": joptions == null
             ? null
             : List<dynamic>.from(joptions!.map((x) => x.toJson())),
-        "logged": logged,
       };
 }
 
@@ -418,9 +398,9 @@ class Product {
         manufacturer: json["manufacturer"],
         description: json["description"] == null ? null : json["description"],
         price: json["price"] == null ? null : json["price"],
-        special: json["special"] == null ? null : json["special"],
+        special: json["special"] == null ? null : json["special"].toString(),
         tax: json["tax"] == null ? null : json["tax"],
-        minimum: json["minimum"] == null ? null : json["minimum"],
+        minimum: json["minimum"] == null ? null : json["minimum"].toString(),
         rating: json["rating"] == null ? null : json["rating"],
         percentOff: json["percent_off"] == null ? null : json["percent_off"],
         quantity: json["quantity"] == null ? null : json["quantity"],

@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:family_garden/network/api_helper.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../models/product_detail_model.dart';
 
 class ProductDetailsController extends GetxController {
@@ -16,6 +17,7 @@ class ProductDetailsController extends GetxController {
   ProductDetailsModel? productDetails;
   RxBool isImageEmpty = false.obs;
   RxBool productDetailLoader = true.obs;
+  RxBool isLoggedIn = false.obs;
   RxList carouselImage = [
     'assets/images/Carrot 1.png',
     'assets/images/Carrot 1.png',
@@ -35,8 +37,20 @@ class ProductDetailsController extends GetxController {
   @override
   void onInit() {
     productId.value = Get.arguments;
+    getLocalDatas();
     getProductDetails(int.parse(productId.value));
     super.onInit();
+  }
+
+  getLocalDatas() async {
+    var prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey("Login")) {
+      String vals = prefs.getString("Login")!;
+      if (vals == "true") {
+        isLoggedIn.value = true;
+      }
+    }
+    update();
   }
 
   getProductDetails(int productId) async {
@@ -64,13 +78,9 @@ class ProductDetailsController extends GetxController {
   onFavouriteButtonSelected() {
     if (favourite.value == false) {
       favourite.value = true;
-      print("productId.value ${productId.value}");
-
       ApiHelper.addWishList(productId.value);
     } else {
       favourite.value = false;
-      print("productId.value ${productId.value}");
-
       ApiHelper.removeWishList(productId.value);
     }
     update();

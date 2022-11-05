@@ -1,5 +1,6 @@
 import 'package:family_garden/screens/payments_screen/controller/payment_controller.dart';
 import 'package:flutter_html/flutter_html.dart';
+import '../../../routes/app_pages.dart';
 import '../../../utils/common_import/common_import.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
 
@@ -50,8 +51,36 @@ class PaymentView extends GetView<PaymentController> {
             )),
         child: Obx(() => controller.isPaymentScreenLoader.value
             ? controller.isCartEmpty.value
-                ? Center(
-                    child: Text("Add Product to continue"),
+                ? Column(
+                    children: [
+                      Spacer(),
+                      Center(
+                        child: Text("Add Product to continue"),
+                      ),
+                      Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: SizedBox(
+                          height: 50,
+                          width: Get.width,
+                          child: ElevatedButton(
+                              onPressed: () {
+                                Get.offAllNamed(Routes.DASHBOARD);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.primaryColor,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(13))),
+                              child: TextWidget(
+                                'Deliver Here',
+                                color: AppColors.white,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14,
+                              )),
+                        ),
+                      ),
+                      AppSize.size.h15
+                    ],
                   )
                 : SingleChildScrollView(
                     child: Column(
@@ -337,7 +366,7 @@ class PaymentView extends GetView<PaymentController> {
                                           // controller.onPressAddBtn();
                                         },
                                         style: ElevatedButton.styleFrom(
-                                            primary: AppColors.white,
+                                            backgroundColor: AppColors.white,
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(13),
@@ -364,7 +393,8 @@ class PaymentView extends GetView<PaymentController> {
                                           // controller.onPressAddBtn();
                                         },
                                         style: ElevatedButton.styleFrom(
-                                            primary: AppColors.primaryColor,
+                                            backgroundColor:
+                                                AppColors.primaryColor,
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(13))),

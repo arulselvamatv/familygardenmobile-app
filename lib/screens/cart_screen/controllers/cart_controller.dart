@@ -31,11 +31,8 @@ class CartController extends GetxController {
   }
 
   getCartListDatas() async {
-    // print(apiToken);
     var response = await ApiHelper.cartList();
-    print(response.responseCode);
     if (response.isSuccessFul) {
-      print('getCartListDatas successful');
       products.value = response.data!;
       isProductsLoader.value = true;
       getListDatas();
@@ -44,11 +41,9 @@ class CartController extends GetxController {
   }
 
   hitAddCartAPI() async {
-    print('hitAddCartAPI() ${productData.value}');
     if ((productData.value["product_info"]?.length)! > 0) {
       var response = await ApiHelper.addCart(productData.value);
       if (response.isSuccessFul) {
-        print('addCart successful');
         getCartListDatas();
       }
     } else {}
@@ -69,13 +64,10 @@ class CartController extends GetxController {
           (products.value.products?[i].actualPrice?.substring(1))!);
       var percentage = ((actualPrice - offerPrice) / actualPrice) * 100;
       products.value.products?[i].offerPercentage = percentage.toInt();
-      print("Calculated Percentage ${products.value.products?[i].value}");
-      print("$actualPriceAmount, $offerPriceAmount");
       actualPriceAmount +=
           actualPrice * double.parse((products.value.products?[i].quantity)!);
       offerPriceAmount +=
           offerPrice * double.parse((products.value.products?[i].quantity)!);
-      print("$actualPriceAmount, $offerPriceAmount");
     }
     totalPrice.value = offerPriceAmount;
     savedPrice.value = actualPriceAmount - offerPriceAmount;
@@ -117,7 +109,6 @@ class CartController extends GetxController {
   }
 
   addCartDatas(index) {
-    print('addCartDatas(index)');
     productData.value["product_info"]?.add({
       "product_id": productId[index],
       "qty": 1,
@@ -127,7 +118,6 @@ class CartController extends GetxController {
     });
     if (addCartTimer.isActive) addCartTimer.cancel();
     addCartTimer = Timer(Duration(seconds: 400), () async {
-      print('addCartDatas hitAddCartAPI');
       hitAddCartAPI();
     });
     update();
@@ -136,7 +126,6 @@ class CartController extends GetxController {
   checkoutBtn() async {}
 
   removeCartDatas(index) {
-    print('removeCartDatas(index)');
     productData.value["product_info"]?.add({
       "product_id": productId[index],
       "qty": 1,
@@ -146,15 +135,12 @@ class CartController extends GetxController {
     });
     if (addCartTimer.isActive) addCartTimer.cancel();
     addCartTimer = Timer(Duration(seconds: 350), () async {
-      print('removeCartDatas hitAddCartAPI');
       hitAddCartAPI();
     });
     update();
   }
 
   minus(int index) {
-    print('minus called ${counterList.value[index]}');
-    print('minus called ${counterList.value[index].runtimeType}');
     if (counterList.value[index] == "0") {
       return;
     } else {
@@ -166,14 +152,12 @@ class CartController extends GetxController {
   }
 
   removeProduct(index) {
-    print(productData.value["product_info"]?.length);
     int? quantityIncreasingIndex = productData.value["product_info"]
         ?.indexWhere((element) =>
             element["product_id"] ==
             products.value.products?[index].productId!);
     int? minusIndex = productData.value["product_info"]
         ?.indexWhere((element) => element["action"] == "MINUS");
-    print(quantityIncreasingIndex);
     if (quantityIncreasingIndex != -1) {
       if (minusIndex != -1) {
         if (quantityIncreasingIndex == minusIndex) {
@@ -183,9 +167,7 @@ class CartController extends GetxController {
           productData.value["product_info"]?[minusIndex!]["qty"] =
               productData.value["product_info"]?[minusIndex]["qty"] + 1;
         }
-      } else {
-        print("Something went wrong");
-      }
+      } else {}
     } else {
       if (products.value.products?[index].productOptionId != null) {
         productId[index] = products.value.products?[index].productId!;
@@ -239,7 +221,6 @@ class CartController extends GetxController {
   }
 
   add(int index) {
-    print('add called');
     counterList.value[index] = int.parse(counterList.value[index]) + 1;
     counterList.value[index] = "${counterList.value[index]}";
     if ((productData.value["product_info"]?.length)! > 0) {

@@ -175,7 +175,7 @@ class DrawerView extends GetView<DrawerWidgetController> {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  loginDialog(context);
+                                  Get.toNamed(Routes.LOGIN);
                                 },
                                 child: Container(
                                   height: 35,
@@ -250,23 +250,27 @@ class DrawerView extends GetView<DrawerWidgetController> {
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(left: 15.0, right: 15),
-                          child: Expanded(
-                            child: Container(
-                              height: 35,
-                              // width: 110,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6),
-                                color: AppColors.primaryColor,
-                              ),
-                              child: Center(
-                                child: TextWidget(
-                                  'Log out',
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.white,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  height: 35,
+                                  // width: 110,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(6),
+                                    color: AppColors.primaryColor,
+                                  ),
+                                  child: Center(
+                                    child: TextWidget(
+                                      'Log out',
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.white,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
                         ),
                       ),
@@ -460,7 +464,7 @@ class DrawerView extends GetView<DrawerWidgetController> {
                                       }
                                     },
                                     style: ElevatedButton.styleFrom(
-                                        primary: AppColors.primaryColor,
+                                        backgroundColor: AppColors.primaryColor,
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(13))),

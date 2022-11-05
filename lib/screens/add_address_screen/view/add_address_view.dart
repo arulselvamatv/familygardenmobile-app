@@ -166,9 +166,10 @@ class AddAddressView extends GetView<AddAddressController> {
                                 controller.isWorkClicked.value = false;
                               },
                               style: ElevatedButton.styleFrom(
-                                  primary: controller.isHomeClicked.value
-                                      ? AppColors.primaryColor
-                                      : Color(0xffF0F0F0),
+                                  backgroundColor:
+                                      controller.isHomeClicked.value
+                                          ? AppColors.primaryColor
+                                          : Color(0xffF0F0F0),
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(4))),
                               child: TextWidget(
@@ -188,9 +189,10 @@ class AddAddressView extends GetView<AddAddressController> {
                                 controller.isHomeClicked.value = false;
                               },
                               style: ElevatedButton.styleFrom(
-                                  primary: controller.isWorkClicked.value
-                                      ? AppColors.primaryColor
-                                      : Color(0xffF0F0F0),
+                                  backgroundColor:
+                                      controller.isWorkClicked.value
+                                          ? AppColors.primaryColor
+                                          : Color(0xffF0F0F0),
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(4))),
                               child: TextWidget(
@@ -216,7 +218,7 @@ class AddAddressView extends GetView<AddAddressController> {
                             controller.saveAddress();
                           },
                           style: ElevatedButton.styleFrom(
-                              primary: AppColors.primaryColor,
+                              backgroundColor: AppColors.primaryColor,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(13))),
                           child: TextWidget(

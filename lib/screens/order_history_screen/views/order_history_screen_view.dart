@@ -42,6 +42,8 @@ class OrderHistoryView extends GetView<OrderHistoryScreenController> {
             ),
           ),
           body: Container(
+            height: Get.height,
+            width: Get.width,
             decoration: const BoxDecoration(
                 color: Color(0xffF3F3F3),
                 borderRadius: BorderRadius.only(

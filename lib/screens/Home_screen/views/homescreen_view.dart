@@ -234,40 +234,11 @@ class HomeScreenView extends GetView<HomeScreenController> {
                           ],
                         ),
                       ),
-                      // GetBuilder<HomeScreenController>(
-                      //   builder: (homeController) => Center(
-                      //         child: Padding(
-                      //           padding: const EdgeInsets.symmetric(vertical: 10),
-                      //           child: SizedBox(
-                      //             height: 6,
-                      //             child: ListView.builder(
-                      //                 scrollDirection: Axis.horizontal,
-                      //                 shrinkWrap: true,
-                      //                 itemCount: controller.carousel.length,
-                      //                 itemBuilder: (context, i) {
-                      //                   return Container(
-                      //                     width: 6.0,
-                      //                     height: 6.0,
-                      //                     margin: const EdgeInsets.symmetric(
-                      //                         horizontal: 3),
-                      //                     decoration: BoxDecoration(
-                      //                       shape: BoxShape.circle,
-                      //                       //  borderRadius: BorderRadius.circular(4),
-                      //                       color: controller.currentIndex.value == i
-                      //                           ? Color(0xff1B1B1B)
-                      //                           :  Color(0xffB5B5B5),
-                      //                     ),
-                      //                   );
-                      //                 }),
-                      //           ),
-                      //         ),
-                      //       )),
                       AppSize.size.h30,
-
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 15),
                         child: Container(
-                          height: 160,
+                          height: 100,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -296,7 +267,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                     Container(
                                         constraints:
                                             BoxConstraints(maxWidth: 100),
-                                        height: 100,
+                                        height: 50,
                                         child: TextWidget(
                                           controller.category.value[0]["name"],
                                           fontSize: 9,
@@ -334,7 +305,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                     Container(
                                         constraints:
                                             BoxConstraints(maxWidth: 100),
-                                        height: 100,
+                                        height: 50,
                                         child: TextWidget(
                                           controller.category.value[1]["name"],
                                           fontSize: 9,
@@ -372,7 +343,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                     Container(
                                         constraints:
                                             BoxConstraints(maxWidth: 100),
-                                        height: 100,
+                                        height: 50,
                                         child: TextWidget(
                                           controller.category.value[2]["name"],
                                           fontSize: 9,
@@ -410,7 +381,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                     Container(
                                         constraints:
                                             BoxConstraints(maxWidth: 100),
-                                        height: 100,
+                                        height: 50,
                                         child: TextWidget(
                                           controller.category.value[3]["name"],
                                           fontSize: 9,
@@ -448,7 +419,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                     Container(
                                         constraints:
                                             BoxConstraints(maxWidth: 100),
-                                        height: 100,
+                                        height: 50,
                                         child: TextWidget(
                                           controller.category.value[4]["name"],
                                           fontSize: 9,
@@ -465,6 +436,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                           ),
                         ),
                       ),
+                      AppSize.size.h15,
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 15),
                         child: TextWidget(

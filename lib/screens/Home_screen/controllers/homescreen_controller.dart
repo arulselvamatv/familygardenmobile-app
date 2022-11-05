@@ -56,7 +56,6 @@ class HomeScreenController extends GetxController with RouteAware {
     var response = await ApiHelper.informationDetails();
     informationData.value = response.data!;
     informationLoader.value = true;
-    print("Information Data ${informationData.value.description}");
   }
 
   clearHomeFeatureDatas() {
@@ -65,6 +64,7 @@ class HomeScreenController extends GetxController with RouteAware {
   }
 
   getHomeFeatures() async {
+    print(ApiConstants.jwtToken);
     clearHomeFeatureDatas();
     var response = await ApiHelper.getHomeFeatures();
     if (response.responseCode == 200) {
@@ -84,8 +84,6 @@ class HomeScreenController extends GetxController with RouteAware {
         var offerPrice = double.parse((homeFeaturesData
             .value.categories?[i].products?[j].offerPrice
             ?.substring(1))!);
-        // print(
-        //     "Percentage ${homeFeaturesData.value.categories?[i].products?[j].price}");
         var removeComma = homeFeaturesData
             .value.categories?[i].products?[j].price
             ?.replaceAll(',', '');
@@ -117,6 +115,7 @@ class HomeScreenController extends GetxController with RouteAware {
                 .options?[0].productOptionValue?[0].productOptionValueId;
       }
     }
+
     addCartDatas(index, indexx);
     update();
     homeFeaturesData.refresh();
@@ -190,6 +189,14 @@ class HomeScreenController extends GetxController with RouteAware {
     if (homeFeaturesData
             .value.categories?[index].products?[indexx].options?.isNotEmpty ??
         false) {
+      if (homeFeaturesData.value.categories?[index].products?[indexx]
+              .options?[0].selectedDropdownValue ==
+          "") {
+        homeFeaturesData.value.categories?[index].products?[indexx].options?[0]
+                .selectedDropdownValue =
+            homeFeaturesData.value.categories?[index].products?[indexx]
+                .options?[0].productOptionValue?[0].productOptionValueId;
+      }
       productData.value["product_info"]?.add({
         "product_id": homeFeaturesData
             .value.categories?[index].products?[indexx].productId,
@@ -208,7 +215,7 @@ class HomeScreenController extends GetxController with RouteAware {
         "action": "ADD"
       });
     }
-
+    print(productData);
     update();
   }
 
