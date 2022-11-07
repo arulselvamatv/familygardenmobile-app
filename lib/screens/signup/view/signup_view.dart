@@ -318,8 +318,13 @@ class SignupView extends GetView<SignupController> {
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'please enter Password';
+                                } else {
+                                  if (value.length >= 4) {
+                                    return null;
+                                  } else {
+                                    return 'please enter the password length more than 4';
+                                  }
                                 }
-                                return null;
                               },
                               controller: controller.passwordController,
                               decoration: InputDecoration(
@@ -384,10 +389,16 @@ class SignupView extends GetView<SignupController> {
                           Expanded(
                             child: TextFormField(
                               validator: (value) {
-                                if (value == null || value.isEmpty) {
+                                if (value != null) {
+                                  if (controller.passwordController.text ==
+                                      value) {
+                                    return null;
+                                  } else {
+                                    return "Must have to match password and confirm password";
+                                  }
+                                } else {
                                   return 'please enter Confirm Password';
                                 }
-                                return null;
                               },
                               controller: controller.confirmController,
                               decoration: InputDecoration(

@@ -1,6 +1,7 @@
 import 'package:family_garden/network/api_helper.dart';
 import '../../../models/categories_model.dart';
 import '../../../models/category_product_model.dart';
+import '../../../routes/app_pages.dart';
 import '../../../utils/common_import/common_import.dart';
 
 class ProductListingController extends GetxController {
@@ -95,22 +96,23 @@ class ProductListingController extends GetxController {
     // for (var i = 1; i <= totalPages.value; i++) {}
     for (int i = 0; i < (products.value.length); i++) {
       selectedDropdownValue.value.add("");
-    }
-    for (int i = 0; i < products.length; i++) {
-      cartBoolList.add(false);
-    }
-    for (int i = 0; i < products.value.length; i++) {
-      counterList.add(1);
-    }
-    for (int i = 0; i < (products.value.length); i++) {
-      productId.value.add("");
-    }
-    for (int i = 0; i < (products.value.length); i++) {
       optionId.value.add("");
-    }
-    for (int i = 0; i < (products.value.length); i++) {
+      cartBoolList.add(false);
+      counterList.add(1);
+      productId.value.add("");
       optionValueId.value.add("");
     }
+    // for (int i = 0; i < products.length; i++) {
+    //     // }
+    //     // for (int i = 0; i < products.value.length; i++) {
+    //     // }
+    //     // for (int i = 0; i < (products.value.length); i++) {
+    //     // }
+    //     // for (int i = 0; i < (products.value.length); i++) {
+    //     //
+    //     // }
+    //     // for (int i = 0; i < (products.value.length); i++) {
+    //     // }
     isCategoryProductLoader.value = false;
     selectedDropdownValue.refresh();
     cartBoolList.refresh();
@@ -177,10 +179,22 @@ class ProductListingController extends GetxController {
     }
   }
 
-  hitAddCartAPI() async {
+  Future<int> hitAddCartAPI() async {
+    print(productData.value);
     if ((productData.value["product_info"]?.length ?? 0) > 0) {
       var response = await ApiHelper.addCart(productData.value);
-    } else {}
+      print(response.responseCode);
+      if (response.responseCode == 200) {
+        print("response code true");
+        return 0;
+      } else {
+        print("response code false");
+        return 0;
+      }
+    } else {
+      print("response code length");
+      return 0;
+    }
   }
 
   removeCartDatas(index) {

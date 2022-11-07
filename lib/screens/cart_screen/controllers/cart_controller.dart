@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:family_garden/models/cart_list_model.dart';
+import 'package:family_garden/network/api_constants/api_constants.dart';
 import 'package:family_garden/network/api_helper.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/common_import/common_import.dart';
 
 class CartController extends GetxController {
-  final formGlobalKey = GlobalKey<FormState>();
   TextEditingController search = TextEditingController();
   TextEditingController cuponCode = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -26,6 +26,7 @@ class CartController extends GetxController {
   RxList minusCounterList = [].obs;
   late Timer addCartTimer = Timer(const Duration(seconds: 300), () {});
 
+  @override
   void onInit() async {
     super.onInit();
     getCartListDatas();
@@ -41,13 +42,14 @@ class CartController extends GetxController {
       // } else {
       //   isProductsLoader.value = true;
       // }
-
       getListDatas();
     }
     update();
   }
 
   hitAddCartAPI() async {
+    print(ApiConstants.jwtToken);
+    // print(productData);
     if ((productData.value["product_info"]?.length)! > 0) {
       var response = await ApiHelper.addCart(productData.value);
       if (response.isSuccessFul) {
@@ -134,10 +136,11 @@ class CartController extends GetxController {
       "prodcut_option_value_id": optionValueId[index],
       "action": "MINUS"
     });
-    if (addCartTimer.isActive) addCartTimer.cancel();
-    addCartTimer = Timer(Duration(seconds: 350), () async {
-      hitAddCartAPI();
-    });
+    // print(productData.value);
+    // if (addCartTimer.isActive) addCartTimer.cancel();
+    // addCartTimer = Timer(Duration(seconds: 350), () async {
+    //   hitAddCartAPI();
+    // });
     update();
   }
 
@@ -153,20 +156,27 @@ class CartController extends GetxController {
   }
 
   removeProduct(index) {
+    print(products.value.products?[index].productId);
     int? quantityIncreasingIndex = productData.value["product_info"]
         ?.indexWhere((element) =>
             element["product_id"] ==
             products.value.products?[index].productId!);
+    // print(quantityIncreasingIndex);
     int? minusIndex = productData.value["product_info"]
         ?.indexWhere((element) => element["action"] == "MINUS");
+    print(minusIndex);
     if (quantityIncreasingIndex != -1) {
       if (minusIndex != -1) {
         if (quantityIncreasingIndex == minusIndex) {
-          productData.value["product_info"]?[minusIndex!]["qty"] =
-              productData.value["product_info"]?[minusIndex]["qty"] + 1;
+          productData.value["product_info"]?[quantityIncreasingIndex!]["qty"] =
+              productData.value["product_info"]?[quantityIncreasingIndex]
+                      ["qty"] +
+                  1;
         } else {
-          productData.value["product_info"]?[minusIndex!]["qty"] =
-              productData.value["product_info"]?[minusIndex]["qty"] + 1;
+          productData.value["product_info"]?[quantityIncreasingIndex!]["qty"] =
+              productData.value["product_info"]?[quantityIncreasingIndex]
+                      ["qty"] +
+                  1;
         }
       } else {}
     } else {
@@ -181,6 +191,7 @@ class CartController extends GetxController {
         removeCartDatas(index);
       }
     }
+    print(productData);
   }
 
   existingAddCartData(index) {

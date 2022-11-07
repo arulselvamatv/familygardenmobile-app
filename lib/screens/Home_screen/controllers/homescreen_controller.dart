@@ -11,6 +11,7 @@ import '../../../models/home_slider_model.dart';
 import '../../../models/informationDetailsModel.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/common_import/common_import.dart';
+import '../../offers_screen/controller/offers_controller.dart';
 
 class HomeScreenController extends GetxController with RouteAware {
   TextEditingController search = TextEditingController();
@@ -238,7 +239,35 @@ class HomeScreenController extends GetxController with RouteAware {
   hitAddCartAPI() async {
     if ((productData.value["product_info"]?.length)! > 0) {
       var response = await ApiHelper.addCart(productData.value);
+      Get.toNamed(Routes.CART_SCREEN)?.then((value) {
+        Get.find<HomeScreenController>().getHomeFeatures();
+        Get.find<DashboardController>().getCartCount();
+        if (Get.find<DashboardController>().selectedIndex.value == 2) {
+          if (Get.find<OffersController>()
+                  .productData
+                  .value["product_info"]
+                  ?.length !=
+              0) {
+            Get.find<OffersController>().hitAddCartAPI();
+            Get.find<OffersController>().getsCategory();
+          }
+        }
+      });
     } else {
+      Get.toNamed(Routes.CART_SCREEN)?.then((value) {
+        Get.find<HomeScreenController>().getHomeFeatures();
+        Get.find<DashboardController>().getCartCount();
+        if (Get.find<DashboardController>().selectedIndex.value == 2) {
+          if (Get.find<OffersController>()
+                  .productData
+                  .value["product_info"]
+                  ?.length !=
+              0) {
+            Get.find<OffersController>().hitAddCartAPI();
+            Get.find<OffersController>().getsCategory();
+          }
+        }
+      });
       print("No Datas Found");
     }
   }

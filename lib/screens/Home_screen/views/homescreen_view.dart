@@ -88,14 +88,14 @@ class HomeScreenView extends GetView<HomeScreenController> {
                               children: [
                                 Padding(
                                   padding:
-                                      const EdgeInsets.fromLTRB(13, 0, 16, 10),
+                                      const EdgeInsets.fromLTRB(13, 0, 16, 0),
                                   child: Container(
                                     width: Get.size.width / 1.50,
                                     child: SizedBox(
                                       child: Html(
                                           data: controller.informationData.value
                                                   .description ??
-                                              "<p>Free</p>",
+                                              "<p></p>",
                                           shrinkWrap: true,
                                           style: {
                                             "p": Style(
@@ -267,7 +267,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                     AppSize.size.h10,
                                     Container(
                                         constraints:
-                                            BoxConstraints(maxWidth: 50),
+                                            BoxConstraints(maxWidth: 75),
                                         height: 50,
                                         child: TextWidget(
                                           controller.category.value[0]["name"],
@@ -305,7 +305,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                     AppSize.size.h10,
                                     Container(
                                         constraints:
-                                            BoxConstraints(maxWidth: 50),
+                                            BoxConstraints(maxWidth: 75),
                                         height: 50,
                                         child: TextWidget(
                                           controller.category.value[1]["name"],
@@ -343,7 +343,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                     AppSize.size.h10,
                                     Container(
                                         constraints:
-                                            BoxConstraints(maxWidth: 50),
+                                            BoxConstraints(maxWidth: 75),
                                         height: 50,
                                         child: TextWidget(
                                           controller.category.value[2]["name"],
@@ -381,7 +381,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                     AppSize.size.h10,
                                     Container(
                                         constraints:
-                                            BoxConstraints(maxWidth: 50),
+                                            BoxConstraints(maxWidth: 75),
                                         height: 50,
                                         child: TextWidget(
                                           controller.category.value[3]["name"],
@@ -609,6 +609,17 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                               .products?[indexx]
                                                               .image)!,
                                                           height: 60,
+                                                          opacity: AlwaysStoppedAnimation(controller
+                                                                      .homeFeaturesData
+                                                                      .value
+                                                                      .categories?[
+                                                                          index]
+                                                                      .products?[
+                                                                          indexx]
+                                                                      .quantity ==
+                                                                  "0"
+                                                              ? .5
+                                                              : 1),
                                                           width: 70,
                                                           fit: BoxFit.fill,
                                                         ),
@@ -829,107 +840,93 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                                             index]
                                                                         .products?[
                                                                             indexx]
-                                                                        .count !=
-                                                                    0
-                                                                ? Container(
-                                                                    height: 26,
-                                                                    width: 71,
-                                                                    decoration: BoxDecoration(
-                                                                        borderRadius: BorderRadius.circular(20),
-                                                                        // border: Border.all(),
-
-                                                                        boxShadow: [
-                                                                          BoxShadow(
-                                                                              offset: Offset(0, 0),
-                                                                              blurRadius: 3,
-                                                                              spreadRadius: 3,
-                                                                              color: Color(0xff000000).withOpacity(controller.homeFeaturesData.value.categories?[index].products?[indexx].count != 0 ? 0.2 : 0)),
-                                                                        ],
-                                                                        color: controller.homeFeaturesData.value.categories?[index].products?[indexx].count != 0 ? AppColors.white : AppColors.primaryColor),
-                                                                    child: Row(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .start,
-                                                                      children: [
-                                                                        GestureDetector(
-                                                                          onTap:
-                                                                              () {
-                                                                            controller.homeFeatureMinusBtn(index,
-                                                                                indexx);
-                                                                          },
-                                                                          child:
-                                                                              Container(
-                                                                            width:
-                                                                                30,
-                                                                            padding:
-                                                                                const EdgeInsets.all(8.0),
-                                                                            child:
-                                                                                Image.asset("assets/icons/minus.png"),
-                                                                          ),
-                                                                        ),
-                                                                        Spacer(),
-                                                                        // TextWidget('-',color: AppColors.white,fontSize: 8,),
-                                                                        TextWidget(
-                                                                          controller
-                                                                              .homeFeaturesData
-                                                                              .value
-                                                                              .categories?[index]
-                                                                              .products?[indexx]
-                                                                              .count
-                                                                              .toString(),
-                                                                          color:
-                                                                              Colors.black,
-                                                                          fontSize:
-                                                                              13,
-                                                                          fontWeight:
-                                                                              FontWeight.w600,
-                                                                        ),
-                                                                        Spacer(),
-                                                                        GestureDetector(
-                                                                          onTap:
-                                                                              () {
-                                                                            controller.homeFeatureAddBtn(index,
-                                                                                indexx);
-                                                                          },
-                                                                          child:
-                                                                              Container(
-                                                                            padding:
-                                                                                const EdgeInsets.all(8.0),
-                                                                            child:
-                                                                                Image.asset("assets/icons/add.png"),
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  )
-                                                                : GestureDetector(
-                                                                    onTap: () {
-                                                                      controller.homeFeatureAddBtn(
-                                                                          index,
-                                                                          indexx);
-                                                                    },
-                                                                    child:
-                                                                        Container(
-                                                                      height:
-                                                                          29,
-                                                                      width: 28,
-                                                                      decoration: BoxDecoration(
-                                                                          color: AppColors
-                                                                              .primaryColor,
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(7)),
-                                                                      child: Center(
-                                                                          child: Image.asset(
-                                                                        'assets/icons/addToCart.png',
+                                                                        .quantity ==
+                                                                    "0"
+                                                                ? Container()
+                                                                : controller
+                                                                            .homeFeaturesData
+                                                                            .value
+                                                                            .categories?[index]
+                                                                            .products?[indexx]
+                                                                            .count !=
+                                                                        0
+                                                                    ? Container(
                                                                         height:
-                                                                            15,
+                                                                            26,
                                                                         width:
-                                                                            15,
-                                                                        fit: BoxFit
-                                                                            .contain,
-                                                                      )),
-                                                                    ),
-                                                                  ),
+                                                                            71,
+                                                                        decoration: BoxDecoration(
+                                                                            borderRadius: BorderRadius.circular(20),
+                                                                            // border: Border.all(),
+
+                                                                            boxShadow: [
+                                                                              BoxShadow(offset: Offset(0, 0), blurRadius: 3, spreadRadius: 3, color: Color(0xff000000).withOpacity(controller.homeFeaturesData.value.categories?[index].products?[indexx].count != 0 ? 0.2 : 0)),
+                                                                            ],
+                                                                            color: controller.homeFeaturesData.value.categories?[index].products?[indexx].count != 0 ? AppColors.white : AppColors.primaryColor),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.start,
+                                                                          children: [
+                                                                            GestureDetector(
+                                                                              onTap: () {
+                                                                                controller.homeFeatureMinusBtn(index, indexx);
+                                                                              },
+                                                                              child: Container(
+                                                                                width: 30,
+                                                                                padding: const EdgeInsets.all(8.0),
+                                                                                child: Image.asset("assets/icons/minus.png"),
+                                                                              ),
+                                                                            ),
+                                                                            Spacer(),
+                                                                            // TextWidget('-',color: AppColors.white,fontSize: 8,),
+                                                                            TextWidget(
+                                                                              controller.homeFeaturesData.value.categories?[index].products?[indexx].count.toString(),
+                                                                              color: Colors.black,
+                                                                              fontSize: 13,
+                                                                              fontWeight: FontWeight.w600,
+                                                                            ),
+                                                                            Spacer(),
+                                                                            GestureDetector(
+                                                                              onTap: () {
+                                                                                controller.homeFeatureAddBtn(index, indexx);
+                                                                              },
+                                                                              child: Container(
+                                                                                padding: const EdgeInsets.all(8.0),
+                                                                                child: Image.asset("assets/icons/add.png"),
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      )
+                                                                    : GestureDetector(
+                                                                        onTap:
+                                                                            () {
+                                                                          controller.homeFeatureAddBtn(
+                                                                              index,
+                                                                              indexx);
+                                                                        },
+                                                                        child:
+                                                                            Container(
+                                                                          height:
+                                                                              29,
+                                                                          width:
+                                                                              28,
+                                                                          decoration: BoxDecoration(
+                                                                              color: AppColors.primaryColor,
+                                                                              borderRadius: BorderRadius.circular(7)),
+                                                                          child: Center(
+                                                                              child: Image.asset(
+                                                                            'assets/icons/addToCart.png',
+                                                                            height:
+                                                                                15,
+                                                                            width:
+                                                                                15,
+                                                                            fit:
+                                                                                BoxFit.contain,
+                                                                          )),
+                                                                        ),
+                                                                      )
                                                           ],
                                                         ),
                                                       ),
@@ -938,41 +935,68 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                     ],
                                                   ),
                                                 ),
-                                                Positioned(
-                                                  top: 0,
-                                                  right: 0,
-                                                  child: Container(
-                                                    height: 15,
-                                                    width: 45,
-                                                    decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0xffFE6400),
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                                bottomLeft: Radius
-                                                                    .circular(
-                                                                        15),
-                                                                topRight: Radius
-                                                                    .circular(
-                                                                        3))),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              left: 8, top: 3),
-                                                      child: Center(
-                                                        child: TextWidget(
-                                                          // "${controller.fruitPercentage[index]}% off",
-                                                          "${controller.homeFeaturesData.value.categories?[index].products?[indexx].percentage}%",
-                                                          fontSize: 8,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color:
-                                                              AppColors.white,
+                                                controller
+                                                            .homeFeaturesData
+                                                            .value
+                                                            .categories?[index]
+                                                            .products?[indexx]
+                                                            .quantity ==
+                                                        "0"
+                                                    ? Positioned(
+                                                        top: 0,
+                                                        right: 0,
+                                                        child: Container(
+                                                          height: 15,
+                                                          width: 45,
+                                                          decoration: BoxDecoration(
+                                                              color: Color(
+                                                                  0xffFE6400),
+                                                              borderRadius: BorderRadius.only(
+                                                                  bottomLeft: Radius
+                                                                      .circular(
+                                                                          15),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          3))),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 8,
+                                                                    top: 3),
+                                                            child: Center(
+                                                              child: TextWidget(
+                                                                // "${controller.fruitPercentage[index]}% off",
+                                                                "${controller.homeFeaturesData.value.categories?[index].products?[indexx].percentage}%",
+                                                                fontSize: 8,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                color: AppColors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                )
+                                                      )
+                                                    : Container(),
+                                                controller
+                                                            .homeFeaturesData
+                                                            .value
+                                                            .categories?[index]
+                                                            .products?[indexx]
+                                                            .quantity ==
+                                                        "0"
+                                                    ? Positioned(
+                                                        top: 30,
+                                                        left: 25,
+                                                        child: Container(
+                                                          height: 25,
+                                                          width: 70,
+                                                          child: Image.asset(
+                                                              "assets/images/out-of-stock.png"),
+                                                        ))
+                                                    : Container()
                                               ],
                                             );
                                           },

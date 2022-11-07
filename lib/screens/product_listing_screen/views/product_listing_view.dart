@@ -12,8 +12,11 @@ class ProductListingView extends GetView<ProductListingController> {
     return Obx(
       () => WillPopScope(
         onWillPop: () async {
-          controller.hitAddCartAPI();
-          Get.back();
+          int vals = await controller.hitAddCartAPI();
+          if (vals == 0) {
+            Get.toNamed(Routes.DASHBOARD);
+          }
+          // Get.back();
           return true;
         },
         child: Scaffold(
@@ -30,8 +33,11 @@ class ProductListingView extends GetView<ProductListingController> {
                         Padding(
                           padding: const EdgeInsets.only(left: 15.0),
                           child: GestureDetector(
-                              onTap: () {
-                                Get.back();
+                              onTap: () async {
+                                int vals = await controller.hitAddCartAPI();
+                                if (vals == 0) {
+                                  Get.toNamed(Routes.DASHBOARD);
+                                }
                               },
                               child: Image.asset(
                                 'assets/icons/backButton.png',
@@ -49,12 +55,16 @@ class ProductListingView extends GetView<ProductListingController> {
                   appBarActions: Stack(
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          controller.hitAddCartAPI();
-                          Get.toNamed(Routes.CART_SCREEN)?.then((value) {
-                            controller.getCategory();
-                            controller.getCartCount();
-                          });
+                        onTap: () async {
+                          // print("on cart pressed");
+                          int vals = await controller.hitAddCartAPI();
+                          if (vals == 0) {
+                            print("value : $vals");
+                            Get.toNamed(Routes.CART_SCREEN)?.then((value) {
+                              controller.getCategory();
+                              controller.getCartCount();
+                            });
+                          }
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(right: 20, top: 15),
@@ -168,9 +178,12 @@ class ProductListingView extends GetView<ProductListingController> {
                                       shrinkWrap: true,
                                       itemBuilder: (context, index) {
                                         return GestureDetector(
-                                          onTap: () {
-                                            controller.hitAddCartAPI();
-                                            controller.categoriesOnTap(index);
+                                          onTap: () async {
+                                            var vals = await controller
+                                                .hitAddCartAPI();
+                                            if (vals == 0) {
+                                              controller.categoriesOnTap(index);
+                                            }
                                           },
                                           child: Container(
                                             child: Column(
@@ -266,22 +279,26 @@ class ProductListingView extends GetView<ProductListingController> {
                                       padding: EdgeInsets.only(bottom: 30),
                                       itemBuilder: (context, index) {
                                         return GestureDetector(
-                                          onTap: () {
+                                          onTap: () async {
                                             // controller.categoriesIndex.value =
                                             //     index;
-                                            controller.hitAddCartAPI();
-                                            print(
-                                                "Product Id : ${controller.products[index].productId}");
-                                            Get.toNamed(
-                                                    Routes
-                                                        .PRODUCT_DETAILS_SCREEN,
-                                                    arguments: controller
-                                                        .products[index]
-                                                        .productId)
-                                                ?.then((value) {
-                                              controller.getCategory();
-                                              controller.getCartCount();
-                                            });
+                                            int vals = await controller
+                                                .hitAddCartAPI();
+                                            if (vals == 0) {
+                                              Get.toNamed(
+                                                      Routes
+                                                          .PRODUCT_DETAILS_SCREEN,
+                                                      arguments: controller
+                                                          .products[index]
+                                                          .productId)
+                                                  ?.then((value) {
+                                                controller.getCategory();
+                                                controller.getCartCount();
+                                              });
+                                            }
+
+                                            // print(
+                                            //     "Product Id : ${controller.products[index].productId}");
                                             controller.update();
                                           },
                                           child: Stack(
@@ -330,6 +347,11 @@ class ProductListingView extends GetView<ProductListingController> {
                                                                         .thumb!,
                                                                     fit: BoxFit
                                                                         .fill,
+                                                                    opacity: AlwaysStoppedAnimation(
+                                                                        controller.products.value[index].quantity! ==
+                                                                                "0"
+                                                                            ? 0.5
+                                                                            : 1),
                                                                   ),
                                                           ),
                                                         ),
@@ -479,115 +501,104 @@ class ProductListingView extends GetView<ProductListingController> {
                                                           ),
                                                         ),
                                                         Spacer(),
-                                                        Container(
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    right: 16,
-                                                                    bottom: 14),
-                                                            child:
-                                                                GestureDetector(
-                                                              onTap: () {
-                                                                // controller
-                                                                //     .cartButton(index);
-                                                              },
-                                                              child: Container(
-                                                                height: 26,
-                                                                width: 71,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(
-                                                                                20),
-                                                                        // border: Border.all(),
+                                                        controller
+                                                                    .products
+                                                                    .value[
+                                                                        index]
+                                                                    .quantity ==
+                                                                "0"
+                                                            ? Container()
+                                                            : Container(
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .only(
+                                                                      right: 16,
+                                                                      bottom:
+                                                                          14),
+                                                                  child:
+                                                                      GestureDetector(
+                                                                    onTap: () {
+                                                                      // controller
+                                                                      //     .cartButton(index);
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      height:
+                                                                          26,
+                                                                      width: 71,
+                                                                      decoration: BoxDecoration(
+                                                                          borderRadius: BorderRadius.circular(20),
+                                                                          // border: Border.all(),
 
-                                                                        boxShadow: [
-                                                                          BoxShadow(
-                                                                              offset: Offset(0, 0),
-                                                                              blurRadius: 3,
-                                                                              spreadRadius: 3,
-                                                                              color: Color(0xff000000).withOpacity(controller.cartBoolList[index] == true ? 0.2 : 0)),
-                                                                        ],
-                                                                        color: controller.cartBoolList[index] ==
-                                                                                true
-                                                                            ? AppColors.white
-                                                                            : AppColors.primaryColor),
-                                                                child: controller
-                                                                            .cartBoolList[index] ==
-                                                                        true
-                                                                    ? Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.start,
-                                                                        children: [
-                                                                          GestureDetector(
-                                                                            onTap:
-                                                                                () {
-                                                                              // controller
-                                                                              //     .minus(index);
-                                                                            },
-                                                                            child:
-                                                                                Container(
-                                                                              width: 30,
-                                                                              padding: const EdgeInsets.all(8.0),
-                                                                              child: Image.asset("assets/icons/minus.png"),
-                                                                            ),
-                                                                          ),
-                                                                          Spacer(),
-                                                                          // TextWidget('-',color: AppColors.white,fontSize: 8,),
-                                                                          TextWidget(
-                                                                            controller.counterList[index].toString(),
-                                                                            color:
-                                                                                Colors.black,
-                                                                            fontSize:
-                                                                                13,
-                                                                            fontWeight:
-                                                                                FontWeight.w600,
-                                                                          ),
-                                                                          Spacer(),
-                                                                          GestureDetector(
-                                                                            onTap:
-                                                                                () {
-                                                                              // controller
-                                                                              //     .add(index);
-                                                                            },
-                                                                            child:
-                                                                                Container(
-                                                                              padding: const EdgeInsets.all(8.0),
-                                                                              child: Image.asset("assets/icons/add.png"),
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      )
-                                                                    : Padding(
-                                                                        padding: const EdgeInsets.symmetric(
-                                                                            horizontal:
-                                                                                15,
-                                                                            vertical:
-                                                                                6),
-                                                                        child:
-                                                                            Row(
-                                                                          children: [
-                                                                            Image.asset(
-                                                                              'assets/icons/addToCart.png',
-                                                                              height: 13,
-                                                                              width: 13,
-                                                                              fit: BoxFit.fill,
-                                                                            ),
-                                                                            AppSize.size.w5,
-                                                                            TextWidget(
-                                                                              'Add',
-                                                                              fontSize: 12,
-                                                                              fontWeight: FontWeight.w500,
-                                                                              color: Colors.white,
-                                                                            )
+                                                                          boxShadow: [
+                                                                            BoxShadow(
+                                                                                offset: Offset(0, 0),
+                                                                                blurRadius: 3,
+                                                                                spreadRadius: 3,
+                                                                                color: Color(0xff000000).withOpacity(controller.cartBoolList[index] == true ? 0.2 : 0)),
                                                                           ],
-                                                                        ),
-                                                                      ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        )
+                                                                          color: controller.cartBoolList[index] == true ? AppColors.white : AppColors.primaryColor),
+                                                                      child: controller.cartBoolList[index] ==
+                                                                              true
+                                                                          ? Row(
+                                                                              mainAxisAlignment: MainAxisAlignment.start,
+                                                                              children: [
+                                                                                GestureDetector(
+                                                                                  onTap: () {
+                                                                                    // controller
+                                                                                    //     .minus(index);
+                                                                                  },
+                                                                                  child: Container(
+                                                                                    width: 30,
+                                                                                    padding: const EdgeInsets.all(8.0),
+                                                                                    child: Image.asset("assets/icons/minus.png"),
+                                                                                  ),
+                                                                                ),
+                                                                                Spacer(),
+                                                                                // TextWidget('-',color: AppColors.white,fontSize: 8,),
+                                                                                TextWidget(
+                                                                                  controller.counterList[index].toString(),
+                                                                                  color: Colors.black,
+                                                                                  fontSize: 13,
+                                                                                  fontWeight: FontWeight.w600,
+                                                                                ),
+                                                                                Spacer(),
+                                                                                GestureDetector(
+                                                                                  onTap: () {
+                                                                                    // controller
+                                                                                    //     .add(index);
+                                                                                  },
+                                                                                  child: Container(
+                                                                                    padding: const EdgeInsets.all(8.0),
+                                                                                    child: Image.asset("assets/icons/add.png"),
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            )
+                                                                          : Padding(
+                                                                              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+                                                                              child: Row(
+                                                                                children: [
+                                                                                  Image.asset(
+                                                                                    'assets/icons/addToCart.png',
+                                                                                    height: 13,
+                                                                                    width: 13,
+                                                                                    fit: BoxFit.fill,
+                                                                                  ),
+                                                                                  AppSize.size.w5,
+                                                                                  TextWidget(
+                                                                                    'Add',
+                                                                                    fontSize: 12,
+                                                                                    fontWeight: FontWeight.w500,
+                                                                                    color: Colors.white,
+                                                                                  )
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              )
                                                       ],
                                                     ),
                                                   ),
@@ -611,8 +622,6 @@ class ProductListingView extends GetView<ProductListingController> {
                                                               child: Container(
                                                                 height: 35,
                                                                 width: 115,
-                                                                color:
-                                                                    Colors.red,
                                                                 child: Image.asset(
                                                                     "assets/images/out-of-stock.png"),
                                                               ),

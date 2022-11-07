@@ -4,6 +4,5 @@ class LoginWidgetController extends GetxController {
   final formGlobalKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   RxBool showPassword = true.obs;
 }

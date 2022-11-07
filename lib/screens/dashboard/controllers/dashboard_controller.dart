@@ -4,8 +4,9 @@ import '../../../utils/common_import/common_import.dart';
 
 class DashboardController extends GetxController
     with GetSingleTickerProviderStateMixin {
+  // var scaffoldKey;
+  // final GlobalKey<ScaffoldState>
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  // final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   RxInt selectedIndex = 0.obs;
   TabController? tabController;
   RxInt cartCount = 0.obs;
@@ -32,9 +33,15 @@ class DashboardController extends GetxController
 
   @override
   void onInit() async {
+    // scaffoldKey = GlobalKey<ScaffoldState>();
     super.onInit();
     tabController = TabController(vsync: this, length: 4);
     getCartCount();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
   }
 
   getCartCount() async {

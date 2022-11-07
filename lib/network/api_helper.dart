@@ -373,6 +373,7 @@ class ApiHelper {
   }
 
   static Future<HTTPResponse<CartListModel>> cartList() async {
+    print("Called cart screen");
     String url =
         "${ApiConstants.baseUrl}${EndPoints.cartList}&api_token=${ApiConstants.jwtToken}";
     try {
@@ -928,6 +929,7 @@ class ApiHelper {
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
         var body = jsonDecode(await response.stream.bytesToString());
+        print(body);
         var res = SignupModel.fromJson(body);
         return HTTPResponse(
           true,
