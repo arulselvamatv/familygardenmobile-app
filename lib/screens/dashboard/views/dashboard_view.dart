@@ -15,9 +15,11 @@ import '../../account_screen/views/account_view.dart';
 class DashboardView extends GetView<DashboardController> {
   @override
   Widget build(BuildContext context) {
+    controller.getCartCount();
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return Obx(
       () => Scaffold(
-          key: controller.scaffoldKey,
+          key: scaffoldKey,
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(55),
             child: CustomAppbarView(
@@ -30,7 +32,7 @@ class DashboardView extends GetView<DashboardController> {
                       padding: const EdgeInsets.only(left: 15.0),
                       child: GestureDetector(
                           onTap: () {
-                            controller.scaffoldKey.currentState?.openDrawer();
+                            scaffoldKey.currentState?.openDrawer();
                           },
                           child: Image.asset(
                             'assets/icons/sideMenu.png',
@@ -54,9 +56,27 @@ class DashboardView extends GetView<DashboardController> {
               appBarActions: Stack(
                 children: [
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       // Get.find<HomeScreenController>().vegHitAddCartAPI();
-                      Get.find<HomeScreenController>().hitAddCartAPI();
+                      int vals = await Get.find<HomeScreenController>()
+                          .hitAddCartAPI();
+                      Get.toNamed(Routes.CART_SCREEN)?.then((value) {
+                        Get.find<HomeScreenController>().getHomeFeatures();
+                        Get.find<DashboardController>().getCartCount();
+                        if (Get.find<DashboardController>()
+                                .selectedIndex
+                                .value ==
+                            2) {
+                          if (Get.find<OffersController>()
+                                  .productData
+                                  .value["product_info"]
+                                  ?.length !=
+                              0) {
+                            Get.find<OffersController>().hitAddCartAPI();
+                            Get.find<OffersController>().getsCategory();
+                          }
+                        }
+                      });
                       // Get.find<HomeScreenController>().fruitsHitAddCartAPI();
                       controller.update();
                     },

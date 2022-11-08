@@ -1,20 +1,17 @@
-import 'package:family_garden/network/api_helper.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../../routes/app_pages.dart';
-import '../../../utils/common_import/common_import.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
-import '../../account_screen/controllers/account_controller.dart';
-import '../../drawer_screen/controllers/drawer_controller.dart';
 import '../controllers/cart_controller.dart';
 
 class CartView extends GetView<CartController> {
-  @override
-  var controller = Get.put(CartController());
+  const CartView({super.key});
+  // var controller = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
+    controller.onInit();
     return WillPopScope(
       onWillPop: () async {
         controller.hitAddCartAPI();
@@ -63,9 +60,10 @@ class CartView extends GetView<CartController> {
                     topRight: Radius.circular(30),
                     topLeft: Radius.circular(30),
                   )),
-              child: controller.productListLength.value > 0
-                  ? cartDatasDesign(context)
-                  : cartEmptyDesign(context),
+              child: controller.productListLength.value <= 0 ||
+                      controller.counterList.value.isEmpty
+                  ? cartEmptyDesign(context)
+                  : cartDatasDesign(context),
             ),
           )),
     );
@@ -636,236 +634,4 @@ class CartView extends GetView<CartController> {
       ],
     );
   }
-
-  // loginDialog(context) {
-  //   return Get.defaultDialog(
-  //       titlePadding: EdgeInsets.all(0),
-  //       contentPadding: EdgeInsets.all(0),
-  //       content: SizedBox(
-  //         height: Get.height / 2.1,
-  //         width: Get.width - 10,
-  //         child: Stack(
-  //           fit: StackFit.loose,
-  //           clipBehavior: Clip.none,
-  //           children: [
-  //             Padding(
-  //               padding: const EdgeInsets.symmetric(horizontal: 20),
-  //               child: Form(
-  //                 key: controller.formGlobalKey,
-  //                 child: Column(
-  //                   crossAxisAlignment: CrossAxisAlignment.end,
-  //                   children: [
-  //                     Row(
-  //                       children: [
-  //                         Column(
-  //                           crossAxisAlignment: CrossAxisAlignment.start,
-  //                           children: [
-  //                             TextWidget(
-  //                               "Login",
-  //                               fontSize: 20,
-  //                               fontWeight: FontWeight.w700,
-  //                               color: AppColors.primaryColor,
-  //                             ),
-  //                             Padding(
-  //                               padding: const EdgeInsets.only(top: 8.0),
-  //                               child: TextWidget(
-  //                                 "To Complete your shopping",
-  //                                 fontSize: 10,
-  //                                 fontWeight: FontWeight.w500,
-  //                                 color: AppColors.black,
-  //                               ),
-  //                             ),
-  //                           ],
-  //                         ),
-  //                         Spacer(),
-  //                         Container(
-  //                           height: 47,
-  //                           width: 47,
-  //                           child: Image.asset('assets/images/splash-mdpi.png'),
-  //                         )
-  //                       ],
-  //                     ),
-  //                     Divider(
-  //                       color: AppColors.dividerColor,
-  //                       thickness: 1,
-  //                     ),
-  //                     TextFormField(
-  //                       validator: (value) {
-  //                         if (value == null || value.isEmpty) {
-  //                           return 'please enter phone number';
-  //                         }
-  //                         return null;
-  //                       },
-  //                       controller: controller.emailController,
-  //                       decoration: InputDecoration(
-  //                         labelText: "Email / Mobile No *",
-  //                         labelStyle: TextStyle(
-  //                             fontSize: 12,
-  //                             fontWeight: FontWeight.w400,
-  //                             color: Color(0xff535353)),
-  //                         enabledBorder: UnderlineInputBorder(
-  //                             borderSide:
-  //                                 BorderSide(color: AppColors.dividerColor)),
-  //                         focusedBorder: UnderlineInputBorder(
-  //                           borderSide: BorderSide(
-  //                             color: AppColors.dividerColor,
-  //                           ),
-  //                         ),
-  //                       ),
-  //                     ),
-  //                     TextFormField(
-  //                       validator: (value) {
-  //                         if (value == null || value.isEmpty) {
-  //                           return 'please enter password';
-  //                         }
-  //                         return null;
-  //                       },
-  //                       controller: controller.passwordController,
-  //                       decoration: InputDecoration(
-  //                         labelText: "Password *",
-  //                         labelStyle: TextStyle(
-  //                             fontSize: 12,
-  //                             fontWeight: FontWeight.w400,
-  //                             color: Color(0xff535353)),
-  //                         enabledBorder: UnderlineInputBorder(
-  //                             borderSide:
-  //                                 BorderSide(color: AppColors.dividerColor)),
-  //                         focusedBorder: UnderlineInputBorder(
-  //                           borderSide: BorderSide(
-  //                             color: AppColors.dividerColor,
-  //                           ),
-  //                         ),
-  //                       ),
-  //                     ),
-  //                     AppSize.size.h8,
-  //                     TextWidget(
-  //                       'Forgot Password ?',
-  //                       fontSize: 9,
-  //                       fontWeight: FontWeight.w400,
-  //                       color: Color(0xff535353),
-  //                     ),
-  //                     AppSize.size.h20,
-  //                     SizedBox(
-  //                       height: 45,
-  //                       width: Get.width,
-  //                       child: ElevatedButton(
-  //                           onPressed: () async {
-  //                             if (controller.formGlobalKey.currentState!
-  //                                 .validate()) {
-  //                               controller.formGlobalKey.currentState!.save();
-  //                               final prefs =
-  //                                   await SharedPreferences.getInstance();
-  //                               var response = await ApiHelper.login(
-  //                                   controller.emailController.text,
-  //                                   controller.passwordController.text);
-  //                               if (response.data?.errorWarning == "") {
-  //                                 // Get.toNamed(Routes.CART_SCREEN);
-  //                                 prefs.setString("Login", "true");
-  //                                 prefs.setString(
-  //                                     "firstName", (response.data?.firstname)!);
-  //                                 prefs.setString(
-  //                                     "lastName", (response.data?.lastname)!);
-  //                                 prefs.setString(
-  //                                     "emailId", (response.data?.email)!);
-  //                                 prefs.setString(
-  //                                     "telephone", (response.data?.telephone)!);
-  //                                 Get.put(AccountController());
-  //                                 Get.find<AccountController>()
-  //                                     .getLoginDetails();
-  //                                 Get.put(DrawerWidgetController());
-  //                                 Get.find<DrawerWidgetController>()
-  //                                     .getLocalDatas();
-  //                                 ScaffoldMessenger.of(context)
-  //                                     .showSnackBar(SnackBar(
-  //                                   content: Text("Succesfully Logged in"),
-  //                                 ));
-  //                                 Get.back();
-  //                               } else {
-  //                                 controller.emailController.text = "";
-  //                                 controller.passwordController.text = "";
-  //                                 Get.back();
-  //                                 ScaffoldMessenger.of(context)
-  //                                     .showSnackBar(SnackBar(
-  //                                   content: Text("Something went wrong"),
-  //                                 ));
-  //                               }
-  //                             }
-  //                           },
-  //                           style: ElevatedButton.styleFrom(
-  //                               backgroundColor: AppColors.primaryColor,
-  //                               shape: RoundedRectangleBorder(
-  //                                   borderRadius: BorderRadius.circular(13))),
-  //                           child: TextWidget(
-  //                             'Log In',
-  //                             color: AppColors.white,
-  //                             fontWeight: FontWeight.w500,
-  //                             fontSize: 14,
-  //                           )),
-  //                     ),
-  //                     Spacer(),
-  //                     GestureDetector(
-  //                       onTap: () {
-  //                         Get.toNamed(Routes.SIGNUP);
-  //                       },
-  //                       child: Center(
-  //                         child: RichText(
-  //                           text: TextSpan(children: [
-  //                             TextSpan(
-  //                                 text: "New User?",
-  //                                 style: TextStyle(
-  //                                     fontSize: 12,
-  //                                     fontWeight: FontWeight.w500,
-  //                                     color: Color(0xff535353))),
-  //                             TextSpan(
-  //                                 text: "  Sign Up",
-  //                                 style: TextStyle(
-  //                                     fontSize: 12,
-  //                                     fontWeight: FontWeight.w500,
-  //                                     color: Color(0xffFF8A00))),
-  //                           ]),
-  //                           maxLines: 1,
-  //                         ),
-  //                       ),
-  //                     )
-  //                   ],
-  //                 ),
-  //               ),
-  //             ),
-  //             Positioned(
-  //               right: -8,
-  //               top: -30,
-  //               child: GestureDetector(
-  //                 onTap: () {
-  //                   Get.back();
-  //                 },
-  //                 child: Container(
-  //                   height: 30,
-  //                   width: 30,
-  //                   decoration: BoxDecoration(
-  //                       shape: BoxShape.circle,
-  //                       color: Colors.white,
-  //                       boxShadow: [
-  //                         BoxShadow(
-  //                           color: AppColors.black.withOpacity(0.05),
-  //                           spreadRadius: 7,
-  //                           blurRadius: 9,
-  //                           offset: Offset(0, 0),
-  //                         ),
-  //                       ]),
-  //                   child: Icon(
-  //                     Icons.close,
-  //                     color: Color(0xffFF8A00),
-  //                     size: 18,
-  //                   ),
-  //                 ),
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //       backgroundColor: Colors.white,
-  //       titleStyle: TextStyle(color: Colors.white),
-  //       middleTextStyle: TextStyle(color: Colors.white),
-  //       radius: 20);
-  // }
 }

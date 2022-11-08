@@ -236,39 +236,34 @@ class HomeScreenController extends GetxController with RouteAware {
     update();
   }
 
-  hitAddCartAPI() async {
+  Future<int> hitAddCartAPI({cls: ""}) async {
     if ((productData.value["product_info"]?.length)! > 0) {
       var response = await ApiHelper.addCart(productData.value);
-      Get.toNamed(Routes.CART_SCREEN)?.then((value) {
-        Get.find<HomeScreenController>().getHomeFeatures();
-        Get.find<DashboardController>().getCartCount();
-        if (Get.find<DashboardController>().selectedIndex.value == 2) {
-          if (Get.find<OffersController>()
-                  .productData
-                  .value["product_info"]
-                  ?.length !=
-              0) {
-            Get.find<OffersController>().hitAddCartAPI();
-            Get.find<OffersController>().getsCategory();
-          }
-        }
-      });
+      if (response.responseCode == 0) {
+        return 0;
+      } else {
+        return 0;
+      }
+      // if (cls == "home") {
+      // } else {
+      //
+      // }
     } else {
-      Get.toNamed(Routes.CART_SCREEN)?.then((value) {
-        Get.find<HomeScreenController>().getHomeFeatures();
-        Get.find<DashboardController>().getCartCount();
-        if (Get.find<DashboardController>().selectedIndex.value == 2) {
-          if (Get.find<OffersController>()
-                  .productData
-                  .value["product_info"]
-                  ?.length !=
-              0) {
-            Get.find<OffersController>().hitAddCartAPI();
-            Get.find<OffersController>().getsCategory();
-          }
-        }
-      });
-      print("No Datas Found");
+      return 0;
+      // Get.toNamed(Routes.CART_SCREEN)?.then((value) {
+      //   Get.find<HomeScreenController>().getHomeFeatures();
+      //   Get.find<DashboardController>().getCartCount();
+      //   if (Get.find<DashboardController>().selectedIndex.value == 2) {
+      //     if (Get.find<OffersController>()
+      //             .productData
+      //             .value["product_info"]
+      //             ?.length !=
+      //         0) {
+      //       Get.find<OffersController>().hitAddCartAPI();
+      //       Get.find<OffersController>().getsCategory();
+      //     }
+      //   }
+      // });
     }
   }
 

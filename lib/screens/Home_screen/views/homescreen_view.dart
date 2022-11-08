@@ -47,9 +47,11 @@ class HomeScreenView extends GetView<HomeScreenController> {
                             maxLines: 1,
                             onChanged: (value) {},
                             onTap: () {
-                              Get.toNamed(Routes.SEARCH_SCREEN)?.then((value) =>
-                                  FocusScope.of(context)
-                                      .requestFocus(FocusNode()));
+                              Get.toNamed(Routes.SEARCH_SCREEN)?.then((value) {
+                                FocusScope.of(context)
+                                    .requestFocus(FocusNode());
+                                Get.find<DashboardController>().getCartCount();
+                              });
                             },
                             style: TextStyle(
                                 color: Color(0xff000000),

@@ -1,22 +1,23 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:family_garden/screens/product_listing_screen/controllers/products_listing_controller.dart';
-import '../../../models/category_product_model.dart';
 import '../../../utils/common_import/common_import.dart';
 import '../../../routes/app_pages.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
 import '../../../widgets/custom_text.dart';
 
 class ProductListingView extends GetView<ProductListingController> {
+  const ProductListingView({super.key});
+
   @override
   Widget build(BuildContext context) {
+    controller.getCartCount();
     return Obx(
       () => WillPopScope(
         onWillPop: () async {
           int vals = await controller.hitAddCartAPI();
           if (vals == 0) {
-            Get.toNamed(Routes.DASHBOARD);
+            Get.back();
           }
-          // Get.back();
           return true;
         },
         child: Scaffold(
@@ -36,7 +37,7 @@ class ProductListingView extends GetView<ProductListingController> {
                               onTap: () async {
                                 int vals = await controller.hitAddCartAPI();
                                 if (vals == 0) {
-                                  Get.toNamed(Routes.DASHBOARD);
+                                  Get.back();
                                 }
                               },
                               child: Image.asset(
@@ -129,9 +130,10 @@ class ProductListingView extends GetView<ProductListingController> {
                                 maxLines: 1,
                                 onChanged: (value) {},
                                 onTap: () {
-                                  Get.toNamed(Routes.SEARCH_SCREEN)?.then(
-                                      (value) => FocusScope.of(context)
-                                          .requestFocus(FocusNode()));
+                                  Get.toNamed(Routes.SEARCH_SCREEN)
+                                      ?.then((value) {
+                                    controller.getCartCount();
+                                  });
                                 },
                                 style: TextStyle(
                                     color: Color(0xff000000),
@@ -285,16 +287,20 @@ class ProductListingView extends GetView<ProductListingController> {
                                             int vals = await controller
                                                 .hitAddCartAPI();
                                             if (vals == 0) {
-                                              Get.toNamed(
-                                                      Routes
-                                                          .PRODUCT_DETAILS_SCREEN,
-                                                      arguments: controller
-                                                          .products[index]
-                                                          .productId)
-                                                  ?.then((value) {
-                                                controller.getCategory();
-                                                controller.getCartCount();
-                                              });
+                                              controller.products.value[index]
+                                                          .quantity! !=
+                                                      "0"
+                                                  ? Get.toNamed(
+                                                          Routes
+                                                              .PRODUCT_DETAILS_SCREEN,
+                                                          arguments: controller
+                                                              .products[index]
+                                                              .productId)
+                                                      ?.then((value) {
+                                                      controller.getCategory();
+                                                      controller.getCartCount();
+                                                    })
+                                                  : null;
                                             }
 
                                             // print(

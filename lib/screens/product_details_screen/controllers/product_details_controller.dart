@@ -40,7 +40,7 @@ class ProductDetailsController extends GetxController {
     productId.value = Get.arguments;
     getLocalDatas();
     getProductDetails(int.parse(productId.value));
-    getCartCount();
+    // getCartCount();
     super.onInit();
   }
 

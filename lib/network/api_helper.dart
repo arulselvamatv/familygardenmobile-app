@@ -382,6 +382,7 @@ class ApiHelper {
       );
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
+        print(body);
         var res = CartListModel.fromJson(body);
         return HTTPResponse(
           true,

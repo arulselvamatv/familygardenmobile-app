@@ -9,6 +9,7 @@ import '../../../widgets/custom_textfield.dart';
 class ProductDetailsView extends GetView<ProductDetailsController> {
   @override
   Widget build(BuildContext context) {
+    controller.getCartCount();
     return WillPopScope(
       onWillPop: () async {
         controller.hitAddCartAPI();
@@ -50,8 +51,10 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                 GestureDetector(
                   onTap: () {
                     controller.hitAddCartAPI();
-                    Get.toNamed(Routes.CART_SCREEN)
-                        ?.then((value) => controller.clearAll());
+                    Get.toNamed(Routes.CART_SCREEN)?.then((value) {
+                      controller.clearAll();
+                      controller.getCartCount();
+                    });
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(right: 20, top: 15),
@@ -363,8 +366,10 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                           if (controller.isLoggedIn.value) {
                             controller.onFavouriteButtonSelected();
                           } else {
-                            Get.toNamed(Routes.LOGIN)
-                                ?.then((value) => controller.getLocalDatas());
+                            Get.toNamed(Routes.LOGIN)?.then((value) {
+                              controller.getLocalDatas();
+                              controller.getCartCount();
+                            });
                           }
                         },
                         child: Container(

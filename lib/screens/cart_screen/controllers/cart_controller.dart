@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:family_garden/models/cart_list_model.dart';
-import 'package:family_garden/network/api_constants/api_constants.dart';
-import 'package:family_garden/network/api_helper.dart';
-import '../../../routes/app_pages.dart';
+
+import '../../../models/cart_list_model.dart';
+import '../../../network/api_constants/api_constants.dart';
+import '../../../network/api_helper.dart';
 import '../../../utils/common_import/common_import.dart';
 
 class CartController extends GetxController {
@@ -26,13 +26,19 @@ class CartController extends GetxController {
   RxList minusCounterList = [].obs;
   late Timer addCartTimer = Timer(const Duration(seconds: 300), () {});
 
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  // }
+
   @override
-  void onInit() async {
+  void onInit() {
     super.onInit();
     getCartListDatas();
   }
 
   getCartListDatas() async {
+    print("Called");
     var response = await ApiHelper.cartList();
     if (response.isSuccessFul) {
       products.value = response.data!;
@@ -59,13 +65,18 @@ class CartController extends GetxController {
   }
 
   getListDatas() {
+    productId.value.clear();
+    optionId.value.clear();
+    optionValueId.value.clear();
+    counterList.value.clear();
     checkBoxBoolList =
         RxList<bool>.filled((products.value.products?.length)!, false);
-
     var actualPriceAmount = 0.0;
     var offerPriceAmount = 0.0;
-
     for (int i = 0; i < (products.value.products?.length)!; i++) {
+      productId.value.add("");
+      optionId.value.add("");
+      optionValueId.value.add("");
       counterList.add(products.value.products?[i].quantity);
       var offerPrice =
           double.parse((products.value.products?[i].offerPrice?.substring(1))!);
@@ -80,20 +91,9 @@ class CartController extends GetxController {
     }
     totalPrice.value = offerPriceAmount;
     savedPrice.value = actualPriceAmount - offerPriceAmount;
-    for (int i = 0; i < (products.value.products?.length)!; i++) {
-      for (int i = 0; i < (products.value.products?.length ?? 0); i++) {
-        productId.value.add("");
-      }
-      for (int i = 0; i < (products.value.products?.length ?? 0); i++) {
-        optionId.value.add("");
-      }
-      for (int i = 0; i < (products.value.products?.length ?? 0); i++) {
-        optionValueId.value.add("");
-      }
-      for (int i = 0; i < (products.value.products?.length ?? 0); i++) {
-        minusCounterList.value.add(0);
-      }
-    }
+    // for (int i = 0; i < (products.value.products?.length)!; i++) {
+    //
+    // }
     if (products.value.totals != null) {
       for (var item in products.value.totals!) {
         if (item.title == "Total") {
@@ -145,13 +145,25 @@ class CartController extends GetxController {
   }
 
   minus(int index) {
-    if (counterList.value[index] == "0") {
-      return;
+    print("Cart count ${counterList.length}");
+    // if (counterList.value[index] == "0") {
+    //   return;
+    // } else {
+    if (counterList.value[index] == "1") {
+      counterList.value[index] = int.parse(counterList.value[index]) - 1;
+      counterList.value[index] = "${counterList.value[index]}";
+      print("counterList $counterList");
+      removeProduct(index);
+      counterList.value.removeAt(index);
+      print("Cart count ${counterList.isEmpty}");
     } else {
       counterList.value[index] = int.parse(counterList.value[index]) - 1;
       counterList.value[index] = "${counterList.value[index]}";
+      print("counterList $counterList");
       removeProduct(index);
     }
+    counterList.refresh();
+    // }
     update();
   }
 
