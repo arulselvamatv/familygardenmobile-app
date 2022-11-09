@@ -154,7 +154,7 @@ class CartController extends GetxController {
       counterList.value[index] = "${counterList.value[index]}";
       print("counterList $counterList");
       removeProduct(index);
-      counterList.value.removeAt(index);
+      // counterList.value.removeAt(index);
       print("Cart count ${counterList.isEmpty}");
     } else {
       counterList.value[index] = int.parse(counterList.value[index]) - 1;

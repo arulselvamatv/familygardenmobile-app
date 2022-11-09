@@ -597,33 +597,55 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                             .start,
                                                     children: [
                                                       AppSize.size.h10,
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                horizontal: 20),
-                                                        child: Image.network(
-                                                          (controller
-                                                              .homeFeaturesData
-                                                              .value
-                                                              .categories?[
-                                                                  index]
-                                                              .products?[indexx]
-                                                              .image)!,
-                                                          height: 60,
-                                                          opacity: AlwaysStoppedAnimation(controller
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          Get.toNamed(Routes.PRODUCT_DETAILS_SCREEN,
+                                                                  arguments: controller
                                                                       .homeFeaturesData
                                                                       .value
                                                                       .categories?[
                                                                           index]
                                                                       .products?[
                                                                           indexx]
-                                                                      .quantity ==
-                                                                  "0"
-                                                              ? .5
-                                                              : 1),
-                                                          width: 70,
-                                                          fit: BoxFit.fill,
+                                                                      .productId)
+                                                              ?.then((value) {
+                                                            controller
+                                                                .getHomeFeatures();
+                                                            Get.find<
+                                                                    DashboardController>()
+                                                                .getCartCount();
+                                                          });
+                                                        },
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      20),
+                                                          child: Image.network(
+                                                            (controller
+                                                                .homeFeaturesData
+                                                                .value
+                                                                .categories?[
+                                                                    index]
+                                                                .products?[
+                                                                    indexx]
+                                                                .image)!,
+                                                            height: 60,
+                                                            opacity: AlwaysStoppedAnimation(controller
+                                                                        .homeFeaturesData
+                                                                        .value
+                                                                        .categories?[
+                                                                            index]
+                                                                        .products?[
+                                                                            indexx]
+                                                                        .quantity ==
+                                                                    "0"
+                                                                ? .5
+                                                                : 1),
+                                                            width: 70,
+                                                            fit: BoxFit.fill,
+                                                          ),
                                                         ),
                                                       ),
                                                       AppSize.size.h3,
@@ -716,11 +738,9 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                                         ?.map((item) =>
                                                                             DropdownMenuItem<String>(
                                                                               value: item.productOptionValueId.toString(),
-                                                                              child: Container(
-                                                                                child: Padding(
-                                                                                  padding: const EdgeInsets.only(left: 5.0),
-                                                                                  child: Text("${item.name}-${item.price}", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 9)),
-                                                                                ),
+                                                                              child: Padding(
+                                                                                padding: const EdgeInsets.only(left: 5.0),
+                                                                                child: Text("${item.name}-${item.price}", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 9)),
                                                                               ),
                                                                             ))
                                                                         .toList(),
@@ -937,51 +957,41 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                     ],
                                                   ),
                                                 ),
-                                                controller
-                                                            .homeFeaturesData
-                                                            .value
-                                                            .categories?[index]
-                                                            .products?[indexx]
-                                                            .quantity ==
-                                                        "0"
-                                                    ? Positioned(
-                                                        top: 0,
-                                                        right: 0,
-                                                        child: Container(
-                                                          height: 15,
-                                                          width: 45,
-                                                          decoration: BoxDecoration(
-                                                              color: Color(
-                                                                  0xffFE6400),
-                                                              borderRadius: BorderRadius.only(
-                                                                  bottomLeft: Radius
-                                                                      .circular(
-                                                                          15),
-                                                                  topRight: Radius
-                                                                      .circular(
-                                                                          3))),
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    left: 8,
-                                                                    top: 3),
-                                                            child: Center(
-                                                              child: TextWidget(
-                                                                // "${controller.fruitPercentage[index]}% off",
-                                                                "${controller.homeFeaturesData.value.categories?[index].products?[indexx].percentage}%",
-                                                                fontSize: 8,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                color: AppColors
-                                                                    .white,
-                                                              ),
-                                                            ),
-                                                          ),
+                                                Positioned(
+                                                  top: 0,
+                                                  right: 0,
+                                                  child: Container(
+                                                    height: 15,
+                                                    width: 45,
+                                                    decoration: BoxDecoration(
+                                                        color:
+                                                            Color(0xffFE6400),
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                                bottomLeft: Radius
+                                                                    .circular(
+                                                                        15),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        3))),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 8, top: 3),
+                                                      child: Center(
+                                                        child: TextWidget(
+                                                          // "${controller.fruitPercentage[index]}% off",
+                                                          "${controller.homeFeaturesData.value.categories?[index].products?[indexx].percentage}%",
+                                                          fontSize: 8,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          color:
+                                                              AppColors.white,
                                                         ),
-                                                      )
-                                                    : Container(),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
                                                 controller
                                                             .homeFeaturesData
                                                             .value

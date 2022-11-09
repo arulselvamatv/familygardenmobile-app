@@ -193,8 +193,11 @@ class SignupView extends GetView<SignupController> {
                                 }
                                 return null;
                               },
+                              maxLength: 10,
+                              keyboardType: TextInputType.number,
                               controller: controller.telephoneController,
                               decoration: InputDecoration(
+                                counterText: '',
                                 // contentPadding: EdgeInsets.only(left: 60),
                                 // prefixIcon: SvgPicture.asset(
                                 //   "assets/icons/user.svg",
@@ -322,7 +325,7 @@ class SignupView extends GetView<SignupController> {
                                   if (value.length >= 4) {
                                     return null;
                                   } else {
-                                    return 'please enter the password length more than 4';
+                                    return 'password must contains more than 4 characters';
                                   }
                                 }
                               },
@@ -394,7 +397,7 @@ class SignupView extends GetView<SignupController> {
                                       value) {
                                     return null;
                                   } else {
-                                    return "Must have to match password and confirm password";
+                                    return "must have to match password and confirm...";
                                   }
                                 } else {
                                   return 'please enter Confirm Password';

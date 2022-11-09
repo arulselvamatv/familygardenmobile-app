@@ -18,7 +18,7 @@ class LoginWidgetView extends GetView<LoginWidgetController> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      physics: NeverScrollableScrollPhysics(),
+      // physics: NeverScrollableScrollPhysics(),
       child: Obx(
         () => Container(
           height: screenName == "Account Login" ? Get.height : Get.height - 140,

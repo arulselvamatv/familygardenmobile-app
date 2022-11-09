@@ -7,8 +7,9 @@ import '../../../widgets/common_appbar/custom_appbar_view.dart';
 import '../controllers/cart_controller.dart';
 
 class CartView extends GetView<CartController> {
-  const CartView({super.key});
-  // var controller = Get.put(CartController());
+  // const CartView({super.key});
+  @override
+  var controller = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
     controller.onInit();
@@ -136,248 +137,290 @@ class CartView extends GetView<CartController> {
                           shrinkWrap: true,
                           padding: EdgeInsets.only(bottom: 30, top: 10),
                           itemBuilder: (context, index) {
-                            return Stack(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {},
-                                  child: Container(
-                                    width: Get.width,
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 15, top: 5),
-                                                  child: Container(
-                                                    height: 75,
-                                                    width: 90,
-                                                    child: Image.network(
-                                                      (cart
-                                                          .products
-                                                          .value
-                                                          .products?[index]
-                                                          .thumb)!,
-                                                      fit: BoxFit.contain,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            AppSize.size.w10,
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Container(
-                                                    constraints: BoxConstraints(
-                                                        maxWidth:
-                                                            Get.width / 2.5),
-                                                    child: TextWidget(
-                                                      controller
-                                                          .products
-                                                          .value
-                                                          .products?[index]
-                                                          .name,
-                                                      fontSize: 14.5,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: AppColors.black,
-                                                    )),
-                                                AppSize.size.h5,
-                                                Container(
-                                                  width: Get.size.width / 2.5,
-                                                  child: TextWidget(
-                                                    cart
-                                                        .products
-                                                        .value
-                                                        .products?[index]
-                                                        .pnameTamil,
-                                                    maxLines: 1,
-                                                    textOverflow:
-                                                        TextOverflow.ellipsis,
-                                                    fontSize: 13,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: AppColors.black,
-                                                  ),
-                                                ),
-                                                AppSize.size.h5,
-                                                cart
-                                                            .products
-                                                            .value
-                                                            .products?[index]
-                                                            .value ==
-                                                        "null"
-                                                    ? TextWidget(
-                                                        cart
-                                                            .products
-                                                            .value
-                                                            .products?[index]
-                                                            .value
-                                                            .toString(),
-                                                        // "Just to check",
-                                                        fontSize: 10.5,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color:
-                                                            Color(0xff666666))
-                                                    : Container(),
-                                              ],
-                                            ),
-                                            Spacer(),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 15),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.end,
+                            return controller.counterList.value[index] == "0"
+                                ? Container()
+                                : Stack(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {},
+                                        child: Container(
+                                          width: Get.width,
+                                          child: Column(
+                                            children: [
+                                              Row(
                                                 children: [
-                                                  TextWidget(
-                                                    cart
-                                                        .products
-                                                        .value
-                                                        .products?[index]
-                                                        .offerPrice,
-                                                    fontSize: 19,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: AppColors.black,
-                                                  ),
-                                                  TextWidget(
-                                                    cart
-                                                        .products
-                                                        .value
-                                                        .products?[index]
-                                                        .actualPrice,
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: AppColors.black,
-                                                    decoration: TextDecoration
-                                                        .lineThrough,
-                                                  ),
-                                                  TextWidget(
-                                                    "${cart.products.value.products?[index].offerPercentage} %",
-                                                    fontSize: 13,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Color(0xffFF8A00),
-                                                  ),
-                                                  AppSize.size.h10,
-                                                  Container(
-                                                      height: 26,
-                                                      width: 71,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(20),
-                                                        // border: Border.all(),
-
-                                                        boxShadow: [
-                                                          BoxShadow(
-                                                            offset:
-                                                                Offset(0, 0),
-                                                            blurRadius: 3,
-                                                            spreadRadius: 3,
-                                                            color: Color(
-                                                                    0xff000000)
-                                                                .withOpacity(
-                                                                    0.2),
-                                                          )
-                                                        ],
-                                                        color: AppColors.white,
-                                                      ),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          GestureDetector(
-                                                            onTap: () {
-                                                              cart.minus(index);
-                                                            },
-                                                            child: Container(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: Image.asset(
-                                                                  "assets/icons/minus.png"),
-                                                            ),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 15,
+                                                                top: 5),
+                                                        child: Container(
+                                                          height: 75,
+                                                          width: 90,
+                                                          child: Image.network(
+                                                            (cart
+                                                                .products
+                                                                .value
+                                                                .products?[
+                                                                    index]
+                                                                .thumb)!,
+                                                            fit: BoxFit.contain,
                                                           ),
-                                                          Spacer(),
-                                                          TextWidget(
-                                                            cart.counterList
-                                                                .value[index]
-                                                                .toString(),
-                                                            color:
-                                                                AppColors.black,
-                                                            fontSize: 13,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  AppSize.size.w10,
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Container(
+                                                          constraints:
+                                                              BoxConstraints(
+                                                                  maxWidth:
+                                                                      Get.width /
+                                                                          2.5),
+                                                          child: TextWidget(
+                                                            controller
+                                                                .products
+                                                                .value
+                                                                .products?[
+                                                                    index]
+                                                                .name,
+                                                            fontSize: 14.5,
                                                             fontWeight:
                                                                 FontWeight.w600,
-                                                          ),
-                                                          Spacer(),
-                                                          GestureDetector(
-                                                            onTap: () {
-                                                              cart.add(index);
-                                                            },
-                                                            child: Container(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: Image.asset(
-                                                                  "assets/icons/add.png"),
+                                                            color:
+                                                                AppColors.black,
+                                                          )),
+                                                      AppSize.size.h5,
+                                                      Container(
+                                                        width: Get.size.width /
+                                                            2.5,
+                                                        child: TextWidget(
+                                                          cart
+                                                              .products
+                                                              .value
+                                                              .products?[index]
+                                                              .pnameTamil,
+                                                          maxLines: 1,
+                                                          textOverflow:
+                                                              TextOverflow
+                                                                  .ellipsis,
+                                                          fontSize: 13,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color:
+                                                              AppColors.black,
+                                                        ),
+                                                      ),
+                                                      AppSize.size.h5,
+                                                      cart
+                                                                  .products
+                                                                  .value
+                                                                  .products?[
+                                                                      index]
+                                                                  .value ==
+                                                              "null"
+                                                          ? Container()
+                                                          : TextWidget(
+                                                              cart
+                                                                  .products
+                                                                  .value
+                                                                  .products?[
+                                                                      index]
+                                                                  .value
+                                                                  .toString(),
+                                                              // "Just to check",
+                                                              fontSize: 10.5,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              color: Color(
+                                                                  0xff666666)),
+                                                    ],
+                                                  ),
+                                                  Spacer(),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            right: 15),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .end,
+                                                      children: [
+                                                        TextWidget(
+                                                          cart
+                                                              .products
+                                                              .value
+                                                              .products?[index]
+                                                              .offerPrice,
+                                                          fontSize: 19,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          color:
+                                                              AppColors.black,
+                                                        ),
+                                                        TextWidget(
+                                                          cart
+                                                              .products
+                                                              .value
+                                                              .products?[index]
+                                                              .actualPrice,
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color:
+                                                              AppColors.black,
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .lineThrough,
+                                                        ),
+                                                        TextWidget(
+                                                          "${cart.products.value.products?[index].offerPercentage} %",
+                                                          fontSize: 13,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color:
+                                                              Color(0xffFF8A00),
+                                                        ),
+                                                        AppSize.size.h10,
+                                                        Container(
+                                                            height: 26,
+                                                            width: 71,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20),
+                                                              // border: Border.all(),
+
+                                                              boxShadow: [
+                                                                BoxShadow(
+                                                                  offset:
+                                                                      Offset(
+                                                                          0, 0),
+                                                                  blurRadius: 3,
+                                                                  spreadRadius:
+                                                                      3,
+                                                                  color: Color(
+                                                                          0xff000000)
+                                                                      .withOpacity(
+                                                                          0.2),
+                                                                )
+                                                              ],
+                                                              color: AppColors
+                                                                  .white,
                                                             ),
-                                                          ),
-                                                        ],
-                                                      )),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    cart.minus(
+                                                                        index);
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child: Image
+                                                                        .asset(
+                                                                            "assets/icons/minus.png"),
+                                                                  ),
+                                                                ),
+                                                                Spacer(),
+                                                                TextWidget(
+                                                                  cart
+                                                                      .counterList
+                                                                      .value[
+                                                                          index]
+                                                                      .toString(),
+                                                                  color:
+                                                                      AppColors
+                                                                          .black,
+                                                                  fontSize: 13,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                ),
+                                                                Spacer(),
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    cart.add(
+                                                                        index);
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child: Image
+                                                                        .asset(
+                                                                            "assets/icons/add.png"),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            )),
+                                                      ],
+                                                    ),
+                                                  ),
                                                 ],
                                               ),
-                                            ),
-                                          ],
+                                              AppSize.size.h15,
+                                              Divider(
+                                                color: Color(0xffE5E5E5),
+                                                height: 0.75,
+                                              )
+                                            ],
+                                          ),
                                         ),
-                                        AppSize.size.h15,
-                                        Divider(
-                                          color: Color(0xffE5E5E5),
-                                          height: 0.75,
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: InkWell(
-                                      onTap: () {
-                                        cart.add(index);
-                                        // controller.cartButton(
-                                        //     index, "plus");
-                                      },
-                                      child: Container(
-                                        height: 60,
-                                        width: 50,
-                                        // color: Colors.brown,
                                       ),
-                                    )),
-                                Positioned(
-                                    bottom: 0,
-                                    right: 50,
-                                    child: InkWell(
-                                      onTap: () {
-                                        cart.minus(index);
-                                        // controller.cartButton(
-                                        //     index, "minus");
-                                      },
-                                      child: Container(
-                                        height: 60,
-                                        width: 50,
-                                        // color: Colors.blueGrey,
-                                      ),
-                                    )),
-                              ],
-                            );
+                                      Positioned(
+                                          bottom: 0,
+                                          right: 0,
+                                          child: InkWell(
+                                            onTap: () {
+                                              cart.add(index);
+                                              // controller.cartButton(
+                                              //     index, "plus");
+                                            },
+                                            child: Container(
+                                              height: 60,
+                                              width: 50,
+                                              // color: Colors.brown,
+                                            ),
+                                          )),
+                                      Positioned(
+                                          bottom: 0,
+                                          right: 50,
+                                          child: InkWell(
+                                            onTap: () {
+                                              cart.minus(index);
+                                              // controller.cartButton(
+                                              //     index, "minus");
+                                            },
+                                            child: Container(
+                                              height: 60,
+                                              width: 50,
+                                              // color: Colors.blueGrey,
+                                            ),
+                                          )),
+                                    ],
+                                  );
                           },
                           separatorBuilder: (context, index) {
                             return SizedBox(
@@ -455,7 +498,7 @@ class CartView extends GetView<CartController> {
                       fontSize: 9.5,
                       fontWeight: FontWeight.w400),
                   decoration: InputDecoration(
-                    hintText: "Cupon Code",
+                    hintText: "Coupon Code",
                     contentPadding: EdgeInsets.only(left: 8, right: 5),
                     suffixIcon: SizedBox(
                       height: 23,
@@ -503,7 +546,7 @@ class CartView extends GetView<CartController> {
                           TextSpan(
                             text: controller.totalPrice.value.toString(),
                             style: TextStyle(
-                                fontSize: 13,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xff000000)),
                           )
@@ -616,6 +659,7 @@ class CartView extends GetView<CartController> {
             width: Get.width,
             child: ElevatedButton(
                 onPressed: () {
+                  // controller.hitAddCartAPI();
                   Get.toNamed(Routes.DASHBOARD);
                 },
                 style: ElevatedButton.styleFrom(

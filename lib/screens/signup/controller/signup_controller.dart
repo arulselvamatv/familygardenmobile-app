@@ -21,14 +21,15 @@ class SignupController extends GetxController {
         passwordController.text,
         confirmController.text,
         '1');
-    if (response.data?.errorWarning == "") {
-      Get.back();
+    if (response.data?.errorWarning != "" ||
+        response.data?.errorWarning != null) {
+      Get.toNamed(Routes.DASHBOARD);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("Signup Successful Login to continue"),
       ));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Something went wrong"),
+        content: Text(response.data?.errorWarning ?? ""),
       ));
     }
   }

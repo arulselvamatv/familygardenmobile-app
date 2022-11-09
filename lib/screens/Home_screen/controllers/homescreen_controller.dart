@@ -22,8 +22,8 @@ class HomeScreenController extends GetxController with RouteAware {
   RxList category = [
     {'name': 'Fresh from Farm', 'image': 'assets/images/Fresh From Farms.png'},
     {'name': 'Fast Delivery', 'image': 'assets/images/Fast Delivery.png'},
-    {'name': 'For Low Cost', 'image': 'assets/images/For Low Cost.png'},
-    {'name': 'Mass Production', 'image': 'assets/images/Mass Production.png'},
+    {'name': 'Low pricing', 'image': 'assets/images/For Low Cost.png'},
+    {'name': 'Safe delivery', 'image': 'assets/images/Mass Production.png'},
     {'name': 'Premium Quality', 'image': 'assets/images/Premium Quality.png'},
   ].obs;
 
@@ -123,7 +123,7 @@ class HomeScreenController extends GetxController with RouteAware {
   }
 
   homeFeatureMinusBtn(int index, int indexx) {
-    var count = Get.find<DashboardController>().cartCount.value + 1;
+    var count = Get.find<DashboardController>().cartCount.value - 1;
     Get.find<DashboardController>().cartCount.value = count;
     if (homeFeaturesData.value.categories![index].products![indexx].count ==
         0) {

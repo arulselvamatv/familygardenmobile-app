@@ -37,7 +37,7 @@ class ProfileView extends GetView<ProfileController> {
             ),
           ),
           font_size: 19,
-          appbar_title: 'Profile',
+          appbar_title: 'Edit profile',
           center_title: true,
           leading_image: "Add",
         ),
@@ -61,7 +61,7 @@ class ProfileView extends GetView<ProfileController> {
                 // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CustomTextField(
-                    caption: 'Name *',
+                    caption: 'Edit Name *',
                     hasCaption: true,
                     fontSize: 12,
                     controller: controller.nameController,
@@ -70,7 +70,7 @@ class ProfileView extends GetView<ProfileController> {
                   ),
                   AppSize.size.h30,
                   CustomTextField(
-                    caption: 'Email',
+                    caption: 'Edit Email',
                     hasCaption: true,
                     fontSize: 12,
                     controller: controller.emailController,
@@ -79,7 +79,7 @@ class ProfileView extends GetView<ProfileController> {
                   ),
                   AppSize.size.h30,
                   CustomTextField(
-                    caption: 'telephone',
+                    caption: 'Edit telephone',
                     hasCaption: true,
                     fontSize: 12,
                     controller: controller.telephoneController,

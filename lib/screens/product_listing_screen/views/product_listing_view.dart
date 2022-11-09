@@ -3,7 +3,6 @@ import 'package:family_garden/screens/product_listing_screen/controllers/product
 import '../../../utils/common_import/common_import.dart';
 import '../../../routes/app_pages.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
-import '../../../widgets/custom_text.dart';
 
 class ProductListingView extends GetView<ProductListingController> {
   const ProductListingView({super.key});
@@ -53,54 +52,54 @@ class ProductListingView extends GetView<ProductListingController> {
                   appbar_title: controller.title.value,
                   center_title: true,
                   leading_image: "Add",
-                  appBarActions: Stack(
-                    children: [
-                      GestureDetector(
-                        onTap: () async {
-                          // print("on cart pressed");
-                          int vals = await controller.hitAddCartAPI();
-                          if (vals == 0) {
-                            print("value : $vals");
-                            Get.toNamed(Routes.CART_SCREEN)?.then((value) {
-                              controller.getCategory();
-                              controller.getCartCount();
-                            });
-                          }
-                        },
-                        child: Padding(
+                  appBarActions: GestureDetector(
+                    onTap: () async {
+                      // print("on cart pressed");
+                      int vals = await controller.hitAddCartAPI();
+                      if (vals == 0) {
+                        print("value : $vals");
+                        Get.toNamed(Routes.CART_SCREEN)?.then((value) {
+                          controller.getCategory();
+                          controller.getCartCount();
+                        });
+                      }
+                    },
+                    child: Stack(
+                      children: [
+                        Padding(
                           padding: const EdgeInsets.only(right: 20, top: 15),
                           child: Image.asset("assets/icons/cart.png",
                               height: 25, width: 25),
                         ),
-                      ),
-                      Container(
-                        width: 30,
-                        height: 30,
-                        alignment: Alignment.topRight,
-                        margin: const EdgeInsets.only(top: 10, left: 3.0),
-                        child: Container(
-                          width: 18,
-                          height: 18,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColors.white,
-                              border:
-                                  Border.all(color: AppColors.white, width: 1)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(0.0),
-                            child: Center(
-                                child: Obx(
-                              () => TextWidget(
-                                controller.cartCount.value.toString(),
-                                color: AppColors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            )),
+                        Container(
+                          width: 30,
+                          height: 30,
+                          alignment: Alignment.topRight,
+                          margin: const EdgeInsets.only(top: 10, left: 3.0),
+                          child: Container(
+                            width: 18,
+                            height: 18,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppColors.white,
+                                border: Border.all(
+                                    color: AppColors.white, width: 1)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(0.0),
+                              child: Center(
+                                  child: Obx(
+                                () => TextWidget(
+                                  controller.cartCount.value.toString(),
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              )),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -371,7 +370,7 @@ class ProductListingView extends GetView<ProductListingController> {
                                                                 CrossAxisAlignment
                                                                     .start,
                                                             children: [
-                                                              Container(
+                                                              SizedBox(
                                                                 width:
                                                                     Get.width /
                                                                         2.5,
@@ -392,7 +391,7 @@ class ProductListingView extends GetView<ProductListingController> {
                                                                 ),
                                                               ),
                                                               AppSize.size.h5,
-                                                              Container(
+                                                              SizedBox(
                                                                 width:
                                                                     Get.width /
                                                                         2.5,
@@ -452,13 +451,16 @@ class ProductListingView extends GetView<ProductListingController> {
                                                                                               value: item.productOptionValueId.toString(),
                                                                                               child: SizedBox(
                                                                                                 width: Get.width / 3.2,
-                                                                                                child: Text(
-                                                                                                  "${item.name}-${item.price}",
-                                                                                                  maxLines: 1,
-                                                                                                  // overflow: TextOverflow.ellipsis,
-                                                                                                  style: const TextStyle(
-                                                                                                    // color: MyColors.gray,
-                                                                                                    fontSize: 12,
+                                                                                                child: Padding(
+                                                                                                  padding: const EdgeInsets.only(left: 5.0),
+                                                                                                  child: Text(
+                                                                                                    "${item.name}-${item.price}",
+                                                                                                    maxLines: 1,
+                                                                                                    // overflow: TextOverflow.ellipsis,
+                                                                                                    style: const TextStyle(
+                                                                                                      // color: MyColors.gray,
+                                                                                                      fontSize: 12,
+                                                                                                    ),
                                                                                                   ),
                                                                                                 ),
                                                                                               ),

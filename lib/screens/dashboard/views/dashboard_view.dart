@@ -53,66 +53,65 @@ class DashboardView extends GetView<DashboardController> {
                           : 'Account',
               center_title: true,
               leading_image: "Add",
-              appBarActions: Stack(
-                children: [
-                  GestureDetector(
-                    onTap: () async {
-                      // Get.find<HomeScreenController>().vegHitAddCartAPI();
-                      int vals = await Get.find<HomeScreenController>()
-                          .hitAddCartAPI();
-                      Get.toNamed(Routes.CART_SCREEN)?.then((value) {
-                        Get.find<HomeScreenController>().getHomeFeatures();
-                        Get.find<DashboardController>().getCartCount();
-                        if (Get.find<DashboardController>()
-                                .selectedIndex
-                                .value ==
-                            2) {
-                          if (Get.find<OffersController>()
-                                  .productData
-                                  .value["product_info"]
-                                  ?.length !=
-                              0) {
-                            Get.find<OffersController>().hitAddCartAPI();
-                            Get.find<OffersController>().getsCategory();
-                          }
-                        }
-                      });
-                      // Get.find<HomeScreenController>().fruitsHitAddCartAPI();
-                      controller.update();
-                    },
-                    child: Padding(
+              appBarActions: GestureDetector(
+                onTap: () async {
+                  print("Dashboard");
+                  // Get.find<HomeScreenController>().vegHitAddCartAPI();
+                  int vals =
+                      await Get.find<HomeScreenController>().hitAddCartAPI();
+                  Get.toNamed(Routes.CART_SCREEN)?.then((value) {
+                    Get.find<HomeScreenController>().getHomeFeatures();
+                    Get.find<DashboardController>().getCartCount();
+                    if (Get.find<DashboardController>().selectedIndex.value ==
+                        2) {
+                      if (Get.find<OffersController>()
+                              .productData
+                              .value["product_info"]
+                              ?.length !=
+                          0) {
+                        Get.find<OffersController>().hitAddCartAPI();
+                        Get.find<OffersController>().getsCategory();
+                      }
+                    }
+                  });
+                  // Get.find<HomeScreenController>().fruitsHitAddCartAPI();
+                  controller.update();
+                },
+                child: Stack(
+                  children: [
+                    Padding(
                       padding: const EdgeInsets.only(right: 20, top: 15),
                       child: Image.asset("assets/icons/cart.png",
                           height: 25, width: 25),
                     ),
-                  ),
-                  Container(
-                      width: 30,
-                      height: 30,
-                      alignment: Alignment.topRight,
-                      margin: const EdgeInsets.only(top: 10, left: 3.0),
-                      child: Container(
-                        width: 18,
-                        height: 18,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColors.white,
-                            border:
-                                Border.all(color: AppColors.white, width: 1)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(0.0),
-                          child: Center(
-                              child: Obx(
-                            () => TextWidget(
-                              controller.cartCount.value.toString(),
-                              color: AppColors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          )),
-                        ),
-                      )),
-                ],
+                    Container(
+                        width: 30,
+                        height: 30,
+                        alignment: Alignment.topRight,
+                        margin: const EdgeInsets.only(top: 10, left: 3.0),
+                        child: Container(
+                          width: 18,
+                          height: 18,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: AppColors.white,
+                              border:
+                                  Border.all(color: AppColors.white, width: 1)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(0.0),
+                            child: Center(
+                                child: Obx(
+                              () => TextWidget(
+                                controller.cartCount.value.toString(),
+                                color: AppColors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            )),
+                          ),
+                        )),
+                  ],
+                ),
               ),
             ),
           ),

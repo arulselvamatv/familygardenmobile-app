@@ -24,7 +24,7 @@ class AccountView extends GetView<AccountController> {
         backgroundColor: AppColors.primaryColor,
         body: controller.isLoggedIn.value
             ? SingleChildScrollView(
-                physics: NeverScrollableScrollPhysics(),
+                // physics: NeverScrollableScrollPhysics(),
                 child: Padding(
                   padding: const EdgeInsets.only(top: 0),
                   child: Container(
