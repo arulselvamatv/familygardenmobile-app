@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../network/set_local_datas.dart';
 import '../../../utils/common_import/common_import.dart';
 import '../../../widgets/LoginWidget/login_widget_view/login_widget_view.dart';
+import '../../dashboard/controllers/dashboard_controller.dart';
 import '../controllers/account_controller.dart';
 
 class AccountView extends GetView<AccountController> {
@@ -428,6 +429,10 @@ class AccountView extends GetView<AccountController> {
                                                     (response.data?.apiToken)!);
                                                 print(ApiConstants.jwtToken);
                                               }
+                                              Get.put(DashboardController());
+                                              Get.find<DashboardController>()
+                                                  .isLoggedIn
+                                                  .value = false;
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(SnackBar(
                                                 content:

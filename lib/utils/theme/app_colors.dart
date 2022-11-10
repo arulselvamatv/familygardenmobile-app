@@ -12,4 +12,5 @@ abstract class AppColors {
   static const Color silver = Color(0xffF0F0F0);
   static const Color dividerColor = Color(0xffE1E1E1);
   static const Color bgColor = Color(0xff0F6D5C);
+  static const Color orange = Color(0xffFF8A00);
 }

@@ -2,6 +2,7 @@ import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:family_garden/widgets/common_appbar/custom_appbar_controller.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../routes/app_pages.dart';
@@ -33,12 +34,31 @@ class CustomAppbarView extends GetView<CustomAppbarController> {
       centerTitle: center_title,
       automaticallyImplyLeading: false,
       leading: appbar_leading,
-      title: TextWidget(
-        appbar_title,
-        fontSize: font_size,
-        fontWeight: FontWeight.w600,
-        color: AppColors.white,
-      ),
+      title: appbar_title == "Family Garden"
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                    height: 21,
+                    width: 21,
+                    child: SvgPicture.asset("assets/icons/logo.svg")),
+                SizedBox(
+                  width: 10,
+                ),
+                TextWidget(
+                  appbar_title,
+                  fontSize: font_size,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.white,
+                ),
+              ],
+            )
+          : TextWidget(
+              appbar_title,
+              fontSize: font_size,
+              fontWeight: FontWeight.w600,
+              color: AppColors.white,
+            ),
       actions: [appBarActions ?? Container()],
       backgroundColor: AppColors.primaryColor,
       elevation: 0,

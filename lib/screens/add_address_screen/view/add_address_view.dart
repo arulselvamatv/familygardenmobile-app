@@ -144,67 +144,67 @@ class AddAddressView extends GetView<AddAddressController> {
                       color: Color(0xffFE6400),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20, top: 20),
-                    child: TextWidget(
-                      'Type of Address',
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xff535353),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20, top: 10),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          height: 30,
-                          width: 80,
-                          child: ElevatedButton(
-                              onPressed: () {
-                                controller.isHomeClicked.value = true;
-                                controller.isWorkClicked.value = false;
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      controller.isHomeClicked.value
-                                          ? AppColors.primaryColor
-                                          : Color(0xffF0F0F0),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(4))),
-                              child: TextWidget(
-                                'Home',
-                                color: AppColors.black,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 14,
-                              )),
-                        ),
-                        AppSize.size.w10,
-                        SizedBox(
-                          height: 30,
-                          width: 80,
-                          child: ElevatedButton(
-                              onPressed: () {
-                                controller.isWorkClicked.value = true;
-                                controller.isHomeClicked.value = false;
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      controller.isWorkClicked.value
-                                          ? AppColors.primaryColor
-                                          : Color(0xffF0F0F0),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(4))),
-                              child: TextWidget(
-                                'Work',
-                                color: AppColors.black,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 14,
-                              )),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(left: 20, top: 20),
+                  //   child: TextWidget(
+                  //     'Type of Address',
+                  //     fontSize: 12,
+                  //     fontWeight: FontWeight.w400,
+                  //     color: Color(0xff535353),
+                  //   ),
+                  // ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(left: 20, top: 10),
+                  //   child: Row(
+                  //     children: [
+                  //       SizedBox(
+                  //         height: 30,
+                  //         width: 80,
+                  //         child: ElevatedButton(
+                  //             onPressed: () {
+                  //               controller.isHomeClicked.value = true;
+                  //               controller.isWorkClicked.value = false;
+                  //             },
+                  //             style: ElevatedButton.styleFrom(
+                  //                 backgroundColor:
+                  //                     controller.isHomeClicked.value
+                  //                         ? AppColors.primaryColor
+                  //                         : Color(0xffF0F0F0),
+                  //                 shape: RoundedRectangleBorder(
+                  //                     borderRadius: BorderRadius.circular(4))),
+                  //             child: TextWidget(
+                  //               'Home',
+                  //               color: AppColors.black,
+                  //               fontWeight: FontWeight.w500,
+                  //               fontSize: 14,
+                  //             )),
+                  //       ),
+                  //       AppSize.size.w10,
+                  //       SizedBox(
+                  //         height: 30,
+                  //         width: 80,
+                  //         child: ElevatedButton(
+                  //             onPressed: () {
+                  //               controller.isWorkClicked.value = true;
+                  //               controller.isHomeClicked.value = false;
+                  //             },
+                  //             style: ElevatedButton.styleFrom(
+                  //                 backgroundColor:
+                  //                     controller.isWorkClicked.value
+                  //                         ? AppColors.primaryColor
+                  //                         : Color(0xffF0F0F0),
+                  //                 shape: RoundedRectangleBorder(
+                  //                     borderRadius: BorderRadius.circular(4))),
+                  //             child: TextWidget(
+                  //               'Work',
+                  //               color: AppColors.black,
+                  //               fontWeight: FontWeight.w500,
+                  //               fontSize: 14,
+                  //             )),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                   SizedBox(
                     height: 100,
                   ),

@@ -18,6 +18,8 @@ class ProductDetailsController extends GetxController {
   RxBool isImageEmpty = false.obs;
   RxBool productDetailLoader = true.obs;
   RxBool isLoggedIn = false.obs;
+  RxString price = "".obs;
+  RxString offerPrice = "".obs;
   RxList carouselImage = [
     'assets/images/Carrot 1.png',
     'assets/images/Carrot 1.png',
@@ -62,6 +64,8 @@ class ProductDetailsController extends GetxController {
       isImageEmpty.value = true;
       carousalImages.value = (productDetails?.images)!;
       productDetailLoader.value = false;
+      price.value = (productDetails?.price)!;
+      offerPrice.value = (productDetails?.special)!;
       favourite.value = (productDetails?.iswishlist)!;
     }
     update();
@@ -71,8 +75,13 @@ class ProductDetailsController extends GetxController {
     optionId.value = (productDetails?.options?[0].productOptionId)!;
     optionValueId.value = (productDetails
         ?.options?[0].productOptionValue?[index].productOptionValueId)!;
+    price.value =
+        (productDetails?.options?[0].productOptionValue?[index].offer)!;
+    offerPrice.value =
+        (productDetails?.options?[0].productOptionValue?[index].price)!;
     addCartDatas();
     optionId.refresh();
+    price.refresh();
     optionValueId.refresh();
     update();
   }

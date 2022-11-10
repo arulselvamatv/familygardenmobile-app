@@ -133,7 +133,7 @@ class PaymentView extends GetView<PaymentController> {
                           ),
                         ),
                         Container(
-                          height: 100,
+                          height: 125,
                           width: Get.width,
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -164,7 +164,7 @@ class PaymentView extends GetView<PaymentController> {
                               Padding(
                                 padding: const EdgeInsets.only(top: 25.0),
                                 child: SizedBox(
-                                  height: 100,
+                                  height: 150,
                                   width: Get.width / 1.4,
                                   // child: Text("CC Avenue"),
                                   child: Html(
@@ -242,18 +242,35 @@ class PaymentView extends GetView<PaymentController> {
                           padding: const EdgeInsets.fromLTRB(24.0, 21, 28, 0),
                           child: Stack(
                             children: [
-                              SizedBox(
+                              Container(
                                 height: 115,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black,
+                                      blurRadius: 2.0,
+                                      spreadRadius: 0.0,
+                                      offset: Offset(2.0,
+                                          2.0), // shadow direction: bottom right
+                                    )
+                                  ],
+                                ),
                                 child: TextField(
+                                  // controller: textarea,
                                   keyboardType: TextInputType.multiline,
-                                  maxLines: null,
+                                  maxLines: 4,
                                   decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none,
-                                    errorBorder: InputBorder.none,
-                                    disabledBorder: InputBorder.none,
-                                  ),
+                                      hintText: "",
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: 1,
+                                              color: AppColors.lightGrey)),
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: 1,
+                                              color: AppColors.lightGrey))),
                                 ),
                               ),
                               Positioned(
@@ -263,6 +280,7 @@ class PaymentView extends GetView<PaymentController> {
                             ],
                           ),
                         ),
+                        AppSize.size.h15,
                         Column(
                           children: [
                             Container(
@@ -362,6 +380,7 @@ class PaymentView extends GetView<PaymentController> {
                                     width: Get.width / 2.5,
                                     child: ElevatedButton(
                                         onPressed: () {
+                                          Get.toNamed(Routes.DASHBOARD);
                                           // controller.deliverHereBtn(context);
                                           // controller.onPressAddBtn();
                                         },

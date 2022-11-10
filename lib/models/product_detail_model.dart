@@ -22,6 +22,7 @@ class ProductDetailsModel {
     this.model,
     this.productName,
     this.productNameTamil,
+    this.productNameEnglish,
     this.benefits,
     this.points,
     this.description,
@@ -62,6 +63,7 @@ class ProductDetailsModel {
   String? model;
   String? productName;
   String? productNameTamil;
+  String? productNameEnglish;
   String? benefits;
   String? points;
   String? description;
@@ -107,6 +109,9 @@ class ProductDetailsModel {
         productNameTamil: json["product_name_tamil"] == null
             ? null
             : json["product_name_tamil"],
+        productNameEnglish: json["product_name_english"] == null
+            ? null
+            : json["product_name_english"],
         benefits: json["benefits"] == null ? null : json["benefits"],
         manufacturers:
             json["manufacturers"] == null ? null : json["manufacturers"],
@@ -169,6 +174,8 @@ class ProductDetailsModel {
         "tab_review": tabReview == null ? null : tabReview,
         "product_id": productId == null ? null : productId,
         "product_name": productName == null ? null : productName,
+        "product_name_english":
+            productNameEnglish == null ? null : productNameEnglish,
         "product_name_tamil":
             productNameTamil == null ? null : productNameTamil,
         "benefits": benefits == null ? null : benefits,

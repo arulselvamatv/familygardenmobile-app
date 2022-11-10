@@ -117,27 +117,33 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                             children: [
                               AppSize.size.h15,
                               Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 8.0, right: 8.0),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 15),
                                 child: TextWidget(
                                   // 'Carrot',
-                                  controller.productDetails?.productName,
+                                  controller.productDetails?.productNameEnglish,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w800,
+                                  textAlign: TextAlign.center,
                                   color: AppColors.black,
-                                  textOverflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
+                                  // textOverflow: TextOverflow.ellipsis,
+                                  // maxLines: 1,
                                 ),
                               ),
                               AppSize.size.h3,
-                              TextWidget(
-                                // 'கேரட்',
-                                controller.productDetails?.productNameTamil,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.black,
-                                textOverflow: TextOverflow.ellipsis,
-                                maxLines: 1,
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                child: TextWidget(
+                                  // 'கேரட்',
+                                  controller.productDetails?.productNameTamil,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.black,
+                                  textAlign: TextAlign.center,
+                                  // textOverflow: TextOverflow.ellipsis,
+                                  // maxLines: 1,
+                                ),
                               ),
                               controller.carousalImages.value.length > 0
                                   ? SizedBox(
@@ -542,13 +548,13 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           TextWidget(
-                            controller.productDetails?.special,
+                            controller.offerPrice.value,
                             fontSize: 19,
                             fontWeight: FontWeight.w600,
                             color: AppColors.black,
                           ),
                           TextWidget(
-                            controller.productDetails?.price,
+                            controller.price.value,
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                             color: Color(0xff6A6A6A),

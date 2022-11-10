@@ -370,7 +370,7 @@ class ProductListingView extends GetView<ProductListingController> {
                                                                 CrossAxisAlignment
                                                                     .start,
                                                             children: [
-                                                              SizedBox(
+                                                              Container(
                                                                 width:
                                                                     Get.width /
                                                                         2.5,
@@ -391,7 +391,7 @@ class ProductListingView extends GetView<ProductListingController> {
                                                                 ),
                                                               ),
                                                               AppSize.size.h5,
-                                                              SizedBox(
+                                                              Container(
                                                                 width:
                                                                     Get.width /
                                                                         2.5,

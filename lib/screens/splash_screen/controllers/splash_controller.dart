@@ -20,6 +20,7 @@ class SplashController extends GetxController {
       Timer(const Duration(seconds: 2), () => Get.offNamed(Routes.DASHBOARD));
     } else {
       var response = await ApiHelper.getToken();
+      print(response.data?.apiToken);
       if (response.data?.apiToken != null) {
         SetLocalDatas.setToken((response.data?.apiToken)!);
         Timer(const Duration(seconds: 2), () => Get.offNamed(Routes.DASHBOARD));

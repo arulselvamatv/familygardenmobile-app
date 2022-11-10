@@ -1,5 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../utils/common_import/common_import.dart';
+import '../../dashboard/controllers/dashboard_controller.dart';
 
 class AccountController extends GetxController {
   var isLoggedIn = false.obs;
@@ -16,6 +17,7 @@ class AccountController extends GetxController {
       if (login == "true") {
         isLoggedIn.value = true;
         firstName.value = prefs.getString("firstName")!;
+        Get.find<DashboardController>().isLoggedIn.value = true;
       }
     }
     update();

@@ -18,6 +18,7 @@ import '../models/cart_count_model.dart';
 import '../models/categories_model.dart';
 import '../models/category_product_model.dart';
 import '../models/checkoutConfirmCODModel.dart';
+import '../models/coupon_model.dart';
 import '../models/home_features_model.dart';
 import '../models/informationDetailsModel.dart';
 import '../models/order_history_model.dart';
@@ -47,6 +48,7 @@ class ApiHelper {
       );
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
+        print(body);
         var res = GetTokenModel.fromJson(body);
         return HTTPResponse(
           true,
@@ -1533,52 +1535,53 @@ class ApiHelper {
     return body;
   }
 
-  // static Future<HTTPResponse<OrderInfoModel>> getOrderInfo(
-  //     {required int orderId}) async {
-  //   print("sdfsd");
-  //
-  //   try {
-  //
-  //     print(response.statusCode);
-  //     if (response.statusCode == 200) {
-  //
-  //       print(ApiConstants.jwtToken);
-  //       print(body);
-  //       var res = OrderInfoModel.fromJson(body);
-  //       return HTTPResponse(
-  //         true,
-  //         res,
-  //         responseCode: response.statusCode,
-  //       );
-  //     } else {
-  //       return HTTPResponse(
-  //         false,
-  //         null,
-  //         message:
-  //             "Invalid response received from server! Please try again in a minute or two.",
-  //       );
-  //     }
-  //   } on SocketException {
-  //     return HTTPResponse(
-  //       false,
-  //       null,
-  //       message:
-  //           "Unable to reach the internet! Please try again in a minute or two.",
-  //     );
-  //   } on FormatException {
-  //     return HTTPResponse(
-  //       false,
-  //       null,
-  //       message:
-  //           "Invalid response received from server! Please try again in a minute or two.",
-  //     );
-  //   } catch (e) {
-  //     print("error $e");
-  //     return HTTPResponse(
-  //       false,
-  //       null,
-  //       message: "Something went wrong! Please try again in a minute or two.",
-  //     );
-  //   }
-  // }
+  static Future<HTTPResponse<CouponModel>> getCoupon(couponCode) async {
+    try {
+      final response = await http.post(
+        Uri.parse(
+            "${ApiConstants.baseUrl}${EndPoints.coupon}&api_token=${ApiConstants.jwtToken}"),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        encoding: Encoding.getByName('utf-8'),
+        body: {"coupon": couponCode},
+      );
+      if (response.statusCode == 200) {
+        var body = jsonDecode(response.body);
+        var res = CouponModel.fromJson(body);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
 }

@@ -50,7 +50,9 @@ class DashboardView extends GetView<DashboardController> {
                       ? 'Category'
                       : controller.selectedIndex.value == 2
                           ? 'Offers'
-                          : 'Account',
+                          : controller.isLoggedIn.value
+                              ? 'Account'
+                              : "Account Login",
               center_title: true,
               leading_image: "Add",
               appBarActions: GestureDetector(
@@ -77,79 +79,46 @@ class DashboardView extends GetView<DashboardController> {
                   // Get.find<HomeScreenController>().fruitsHitAddCartAPI();
                   controller.update();
                 },
-                child: Stack(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20, top: 15),
-                      child: Image.asset("assets/icons/cart.png",
-                          height: 25, width: 25),
-                    ),
-                    Container(
-                        width: 30,
-                        height: 30,
-                        alignment: Alignment.topRight,
-                        margin: const EdgeInsets.only(top: 10, left: 3.0),
-                        child: Container(
-                          width: 18,
-                          height: 18,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColors.white,
-                              border:
-                                  Border.all(color: AppColors.white, width: 1)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(0.0),
-                            child: Center(
-                                child: Obx(
-                              () => TextWidget(
-                                controller.cartCount.value.toString(),
-                                color: AppColors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            )),
+                child: controller.selectedIndex.value == 3
+                    ? Container()
+                    : Stack(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20, top: 15),
+                            child: Image.asset("assets/icons/cart.png",
+                                height: 25, width: 25),
                           ),
-                        )),
-                  ],
-                ),
+                          Container(
+                              width: 30,
+                              height: 30,
+                              alignment: Alignment.topRight,
+                              margin: const EdgeInsets.only(top: 10, left: 3.0),
+                              child: Container(
+                                width: 18,
+                                height: 18,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: AppColors.white,
+                                    border: Border.all(
+                                        color: AppColors.white, width: 1)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(0.0),
+                                  child: Center(
+                                      child: Obx(
+                                    () => TextWidget(
+                                      controller.cartCount.value.toString(),
+                                      color: AppColors.black,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  )),
+                                ),
+                              )),
+                        ],
+                      ),
               ),
             ),
           ),
-          // appBar: PreferredSize(
-          //   preferredSize: Size.fromHeight(55),
-          //   child: CustomAppbarView(
-          //     leading_width: 50,
-          //     font_size: 24,
-          //     appbar_leading: Container(
-          //       width: 14,
-          //       child: Row(
-          //         children: [
-          //           Padding(
-          //             padding: const EdgeInsets.only(left: 15.0),
-          //             child: GestureDetector(
-          //                 onTap: () {
-          //                   controller.scaffoldKey.currentState?.openDrawer();
-          //                 },
-          //                 child: Image.asset(
-          //                   'assets/icons/sideMenu.png',
-          //                   height: 25,
-          //                   width: 25,
-          //                   fit: BoxFit.fill,
-          //                 )),
-          //           )
-          //         ],
-          //       ),
-          //     ),
-          //     appbar_title: controller.selectedIndex.value == 0
-          //         ? "Family Garden"
-          //         : controller.selectedIndex.value == 1
-          //             ? 'Category'
-          //             : controller.selectedIndex.value == 2
-          //                 ? 'Offers'
-          //                 : 'Account',
-          //     center_title: controller.selectedIndex.value == 0 ? false : true,
-          //   ),
-          // ),
           drawer: DrawerView(),
           body: Center(
             child: TabBarView(

@@ -8,6 +8,7 @@ class DashboardController extends GetxController
   // final GlobalKey<ScaffoldState>
   RxInt selectedIndex = 0.obs;
   TabController? tabController;
+  RxBool isLoggedIn = false.obs;
   RxInt cartCount = 0.obs;
 
   RxList<Widget> pages = <Widget>[

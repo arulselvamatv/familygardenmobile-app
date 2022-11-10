@@ -1,5 +1,6 @@
 import 'package:family_garden/screens/manage_address_screen/controller/manage_address_controller.dart';
 import 'package:flutter_html/flutter_html.dart';
+import '../../../routes/app_pages.dart';
 import '../../../utils/common_import/common_import.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
 import '../../../widgets/custom_textfield.dart';
@@ -40,6 +41,18 @@ class ManageAddressView extends GetView<ManageAddressController> {
             appbar_title: 'Manage Address',
             center_title: true,
             leading_image: "Add",
+            appBarActions: GestureDetector(
+              onTap: () {
+                Get.toNamed(Routes.ADDADDRESS)
+                    ?.then((value) => controller.getAccountAddresses());
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(right: 20, top: 15),
+                child: Image.asset(
+                  "assets/icons/plus.png",
+                ),
+              ),
+            ),
           ),
         ),
         body: Obx(

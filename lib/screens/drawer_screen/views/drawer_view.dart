@@ -8,6 +8,7 @@ import '../../../network/api_helper.dart';
 import '../../../network/set_local_datas.dart';
 import '../../../routes/app_pages.dart';
 import '../../account_screen/controllers/account_controller.dart';
+import '../../dashboard/controllers/dashboard_controller.dart';
 
 class DrawerView extends GetView<DrawerWidgetController> {
   @override
@@ -440,6 +441,10 @@ class DrawerView extends GetView<DrawerWidgetController> {
                                           Get.find<AccountController>()
                                               .getLoginDetails();
                                           controller.getLocalDatas();
+                                          Get.put(DashboardController());
+                                          Get.find<DashboardController>()
+                                              .isLoggedIn
+                                              .value = false;
                                           controller.emailController.text = "";
                                           controller.passwordController.text =
                                               "";

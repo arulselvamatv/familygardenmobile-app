@@ -11,6 +11,14 @@ class SignupController extends GetxController {
   TextEditingController telephoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmController = TextEditingController();
+  RxBool showPassword = true.obs;
+  RxBool showConfirmPassword = true.obs;
+
+  bool isValidEmail(String emailString) {
+    return RegExp(
+            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+        .hasMatch(emailString);
+  }
 
   signUpBtn(context) async {
     var response = await ApiHelper.signup(

@@ -10,6 +10,7 @@ class CartView extends GetView<CartController> {
   // const CartView({super.key});
   @override
   var controller = Get.put(CartController());
+
   @override
   Widget build(BuildContext context) {
     controller.onInit();
@@ -441,126 +442,150 @@ class CartView extends GetView<CartController> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-          child: Row(
-            children: [
-              SizedBox(
-                height: 33,
-                width: 82,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    final prefs = await SharedPreferences.getInstance();
-                    if (prefs.containsKey("Login")) {
-                      String nameText = prefs.getString('Login') ?? '';
-                      if (nameText == "true") {
-                        Get.toNamed(Routes.ADDRESS, arguments: [
-                          controller.totalPrice.value,
-                          controller.savedPrice.value
-                        ]);
-                        controller.hitAddCartAPI();
+          child: Form(
+            key: controller.formGlobalKey,
+            child: Row(
+              children: [
+                SizedBox(
+                  height: 33,
+                  width: 82,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      final prefs = await SharedPreferences.getInstance();
+                      if (prefs.containsKey("Login")) {
+                        String nameText = prefs.getString('Login') ?? '';
+                        if (nameText == "true") {
+                          Get.toNamed(Routes.ADDRESS, arguments: [
+                            controller.totalPrice.value,
+                            controller.savedPrice.value
+                          ]);
+                          controller.hitAddCartAPI();
+                        } else {
+                          Get.toNamed(Routes.LOGIN, arguments: "Cart")
+                              ?.then((value) => controller.getCartListDatas());
+                          controller.hitAddCartAPI();
+                        }
                       } else {
                         Get.toNamed(Routes.LOGIN, arguments: "Cart")
                             ?.then((value) => controller.getCartListDatas());
                         controller.hitAddCartAPI();
                       }
-                    } else {
-                      Get.toNamed(Routes.LOGIN, arguments: "Cart")
-                          ?.then((value) => controller.getCartListDatas());
-                      controller.hitAddCartAPI();
-                    }
-                  },
-                  child: TextWidget(
-                    'Checkout',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.white,
-                  ),
-                  style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.all(0),
-                      backgroundColor: AppColors.primaryColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6),
-                      )),
-                ),
-              ),
-              AppSize.size.w10,
-              Container(
-                height: 23,
-                width: 136,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
-                    border: Border.all(color: Color(0xffD6D6D6))),
-                child: TextFormField(
-                  controller: controller.cuponCode,
-                  maxLines: 1,
-                  onChanged: (value) {},
-                  style: TextStyle(
-                      color: Color(0xff000000),
-                      fontSize: 9.5,
-                      fontWeight: FontWeight.w400),
-                  decoration: InputDecoration(
-                    hintText: "Coupon Code",
-                    contentPadding: EdgeInsets.only(left: 8, right: 5),
-                    suffixIcon: SizedBox(
-                      height: 23,
-                      width: 49,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        child: TextWidget(
-                          'Apply',
-                          fontSize: 9.5,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.white,
-                        ),
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primaryColor,
-                            padding: EdgeInsets.all(0),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6),
-                            )),
-                      ),
+                    },
+                    child: TextWidget(
+                      'Checkout',
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.white,
                     ),
-                    hintStyle: TextStyle(
-                        color: Color(0xff999999),
+                    style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.all(0),
+                        backgroundColor: AppColors.primaryColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6),
+                        )),
+                  ),
+                ),
+                AppSize.size.w10,
+                Container(
+                  height: 23,
+                  width: 136,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                      border: Border.all(color: Color(0xffD6D6D6))),
+                  child: TextFormField(
+                    controller: controller.cuponCode,
+                    maxLines: 1,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("Enter coupon code to complete"),
+                        ));
+                        return null;
+                      } else {
+                        return null;
+                      }
+                    },
+                    onChanged: (value) {},
+                    style: TextStyle(
+                        color: Color(0xff000000),
                         fontSize: 9.5,
                         fontWeight: FontWeight.w400),
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(6)),
-                    fillColor: Color(0xffffffff),
-                    filled: true,
+                    decoration: InputDecoration(
+                      hintText: "Coupon Code",
+                      contentPadding: EdgeInsets.only(left: 8, right: 5),
+                      suffixIcon: SizedBox(
+                        height: 23,
+                        width: 49,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            if (controller.formGlobalKey.currentState!
+                                .validate()) {
+                              controller.formGlobalKey.currentState!.save();
+                              var vals = await controller
+                                  .getCoupon(controller.cuponCode.text);
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text(vals),
+                              ));
+                            }
+                          },
+                          child: TextWidget(
+                            'Apply',
+                            fontSize: 9.5,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.white,
+                          ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.primaryColor,
+                              padding: EdgeInsets.all(0),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6),
+                              )),
+                        ),
+                      ),
+                      hintStyle: TextStyle(
+                          color: Color(0xff999999),
+                          fontSize: 9.5,
+                          fontWeight: FontWeight.w400),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(6)),
+                      fillColor: Color(0xffffffff),
+                      filled: true,
+                    ),
                   ),
                 ),
-              ),
-              Spacer(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  RichText(
-                    text: TextSpan(
-                        text: 'Total: ',
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xff141414)),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: controller.totalPrice.value.toString(),
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xff000000)),
-                          )
-                        ]),
-                  ),
-                  TextWidget(
-                    'Saved: ₹ ${controller.savedPrice.value}',
-                    fontSize: 10.5,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xff4A8D30),
-                  ),
-                ],
-              )
-            ],
+                Spacer(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                          text: 'Total: ',
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff141414)),
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: controller.totalPrice.value.toString(),
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xff000000)),
+                            )
+                          ]),
+                    ),
+                    TextWidget(
+                      'Saved: ₹ ${controller.savedPrice.value}',
+                      fontSize: 10.5,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xff4A8D30),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         )
       ],

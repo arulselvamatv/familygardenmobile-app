@@ -6,6 +6,7 @@ import '../../../network/api_helper.dart';
 import '../../../utils/common_import/common_import.dart';
 
 class CartController extends GetxController {
+  final formGlobalKey = GlobalKey<FormState>();
   TextEditingController search = TextEditingController();
   TextEditingController cuponCode = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -51,6 +52,12 @@ class CartController extends GetxController {
       getListDatas();
     }
     update();
+  }
+
+  Future<String> getCoupon(String couponCode) async {
+    var response = await ApiHelper.getCoupon(couponCode);
+    print("Coupon Data ${response.data?.error}");
+    return response.data?.error ?? "";
   }
 
   hitAddCartAPI() async {

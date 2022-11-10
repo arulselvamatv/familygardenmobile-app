@@ -43,7 +43,6 @@ class ProfileController extends GetxController {
     var response = await ApiHelper.updatePassword(password, confirmPassword);
     if (response.isSuccessFul) {
       Get.snackbar('success', "Your password has been updated successfully!");
-
       Navigator.of(Get.context!).pop();
     }
   }
@@ -52,8 +51,21 @@ class ProfileController extends GetxController {
     var response = await ApiHelper.accountUpdate(nameController.text, "",
         emailController.text, telephoneController.text);
     if (response == 1) {
+      var prefs = await SharedPreferences.getInstance();
+      prefs.setString("firstName", nameController.text);
+      prefs.setString("lastName", '');
+      prefs.setString("emailId", emailController.text);
+      prefs.setString("telephone", telephoneController.text);
+      // lastName.value = prefs.getString("lastName")!;
+      // emailId.value = prefs.getString("emailId")!;
+      // telephone.value = prefs.getString("telephone")!;
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("Updated Successfully"),
+      ));
+      Get.back();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Attempt Failed"),
       ));
     }
   }

@@ -1,3 +1,4 @@
+import 'package:family_garden/screens/account_screen/controllers/account_controller.dart';
 import 'package:family_garden/screens/dashboard/controllers/dashboard_controller.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:shared_preferences/shared_preferences.dart';

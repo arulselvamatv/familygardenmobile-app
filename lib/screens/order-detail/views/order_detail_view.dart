@@ -73,11 +73,40 @@ class OrderDetailView extends GetView<OrderDetailController> {
                             padding: EdgeInsets.fromLTRB(10, 30, 10, 1),
                             child: Row(children: [
                               Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                      "Order ID : #${controller.orderInfo["orders"][0]["order_id"]}"),
-                                  Text(
-                                      " Dated : ${controller.orderInfo["orders"][0]["date_added"]}"),
+                                  Container(
+                                    width: 150,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                            width: 75, child: Text("OrderID")),
+                                        Text(
+                                            ": #${controller.orderInfo["orders"][0]["order_id"]}"),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 200,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                            width: 75, child: Text("Dated")),
+                                        // Text("Dated"),
+                                        Text(
+                                            ": ${controller.orderInfo["orders"][0]["date_added"]}"),
+                                      ],
+                                    ),
+                                  )
+                                  // Text(
+                                  //     "OrderID : #${controller.orderInfo["orders"][0]["order_id"]}"),
+                                  // Text(
+                                  //     "Dated : ${controller.orderInfo["orders"][0]["date_added"]}"),
                                 ],
                               ),
                               Spacer(),
@@ -91,26 +120,26 @@ class OrderDetailView extends GetView<OrderDetailController> {
                               ))
                             ]),
                           ),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(10, 1, 10, 10),
-                            child: Container(
-                              padding: EdgeInsets.only(
-                                  left: 20.0,
-                                  right: 20.0,
-                                  top: 5.0,
-                                  bottom: 5.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25.0),
-                                color: AppColors.limeGreen,
-                              ),
-                              child: TextWidget(
-                                "Download Invoice",
-                                fontSize: 12,
-                                color: AppColors.black,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
+                          // Padding(
+                          //   padding: EdgeInsets.fromLTRB(10, 1, 10, 10),
+                          //   child: Container(
+                          //     padding: EdgeInsets.only(
+                          //         left: 20.0,
+                          //         right: 20.0,
+                          //         top: 5.0,
+                          //         bottom: 5.0),
+                          //     decoration: BoxDecoration(
+                          //       borderRadius: BorderRadius.circular(25.0),
+                          //       color: AppColors.limeGreen,
+                          //     ),
+                          //     child: TextWidget(
+                          //       "Download Invoice",
+                          //       fontSize: 12,
+                          //       color: AppColors.black,
+                          //       fontWeight: FontWeight.w500,
+                          //     ),
+                          //   ),
+                          // ),
                           Padding(
                             padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
                             child: Divider(

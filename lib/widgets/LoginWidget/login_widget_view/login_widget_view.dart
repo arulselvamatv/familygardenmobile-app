@@ -5,7 +5,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../network/api_helper.dart';
+import '../../../routes/app_pages.dart';
 import '../../../screens/account_screen/controllers/account_controller.dart';
+import '../../../screens/dashboard/controllers/dashboard_controller.dart';
 import '../../../screens/drawer_screen/controllers/drawer_controller.dart';
 
 class LoginWidgetView extends GetView<LoginWidgetController> {
@@ -139,7 +141,7 @@ class LoginWidgetView extends GetView<LoginWidgetController> {
                       ),
                     ),
                   ),
-                  AppSize.size.h8,
+                  AppSize.size.h20,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -151,7 +153,7 @@ class LoginWidgetView extends GetView<LoginWidgetController> {
                       ),
                     ],
                   ),
-                  AppSize.size.h20,
+                  AppSize.size.h40,
                   SizedBox(
                     height: 45,
                     width: Get.width,
@@ -180,6 +182,9 @@ class LoginWidgetView extends GetView<LoginWidgetController> {
                               Get.put(DrawerWidgetController());
                               Get.find<AccountController>().isLoggedIn.value =
                                   false;
+                              Get.put(DashboardController());
+                              Get.find<DashboardController>().isLoggedIn.value =
+                                  false;
                               controller.emailController.text = "";
                               controller.passwordController.text = "";
                               Get.find<DrawerWidgetController>()
@@ -190,12 +195,13 @@ class LoginWidgetView extends GetView<LoginWidgetController> {
                               ));
                               Get.back();
                             } else {
-                              controller.emailController.text = "";
-                              controller.passwordController.text = "";
-                              Get.back();
+                              // controller.emailController.text = "";
+                              // controller.passwordController.text = "";
+                              // Get.back();
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(SnackBar(
-                                content: Text("Something went wrong"),
+                                content:
+                                    Text(response.data?.errorWarning ?? ""),
                               ));
                             }
                           }
@@ -210,6 +216,31 @@ class LoginWidgetView extends GetView<LoginWidgetController> {
                           fontWeight: FontWeight.w500,
                           fontSize: 14,
                         )),
+                  ),
+                  AppSize.size.h20,
+                  GestureDetector(
+                    onTap: () {
+                      Get.toNamed(Routes.SIGNUP);
+                    },
+                    child: Center(
+                      child: RichText(
+                        text: TextSpan(
+                            text: 'New User? ',
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xff141414)),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: " Sign Up",
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.orange),
+                              )
+                            ]),
+                      ),
+                    ),
                   ),
                 ],
               ),

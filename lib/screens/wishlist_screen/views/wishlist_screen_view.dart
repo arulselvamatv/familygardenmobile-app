@@ -137,22 +137,22 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
                                       children: [
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 14,
-                                                bottom: 12,
-                                                top: 29,
-                                                right: 20),
-                                            child: SizedBox(
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 14,
+                                              bottom: 12,
+                                              top: 29,
+                                              right: 20),
+                                          child: SizedBox(
+                                              height: 90,
+                                              width: 90,
+                                              child: Image.network(
+                                                controller
+                                                    .products[index].thumb!,
+                                                fit: BoxFit.fill,
                                                 height: 90,
                                                 width: 90,
-                                                child: Image.network(
-                                                  controller
-                                                      .products[index].thumb!,
-                                                  fit: BoxFit.fill,
-                                                )),
-                                          ),
+                                              )),
                                         ),
                                         Expanded(
                                           child: Padding(
@@ -169,7 +169,7 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                                         .products[index].name,
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w700,
-                                                    maxLines: 3,
+                                                    maxLines: 4,
                                                     textOverflow:
                                                         TextOverflow.ellipsis,
                                                   ),
@@ -204,10 +204,11 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                           ),
                                         ),
                                         SizedBox(width: 30),
-                                        Expanded(
+                                        SizedBox(
+                                          width: 75,
                                           child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 20, top: 16, bottom: 16),
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 12),
                                             child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
