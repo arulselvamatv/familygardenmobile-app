@@ -30,6 +30,7 @@ class DrawerWidgetController extends GetxController {
   logout(context) {
     isLoggedin.value == false;
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      duration: Duration(seconds: 1),
       content: Text("Logout successfully"),
     ));
     update();

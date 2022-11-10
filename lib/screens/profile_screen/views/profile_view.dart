@@ -70,7 +70,7 @@ class ProfileView extends GetView<ProfileController> {
                   ),
                   AppSize.size.h30,
                   CustomTextField(
-                    caption: 'Edit Email',
+                    caption: 'Edit Email Address',
                     hasCaption: true,
                     fontSize: 12,
                     controller: controller.emailController,
@@ -79,17 +79,14 @@ class ProfileView extends GetView<ProfileController> {
                   ),
                   AppSize.size.h30,
                   CustomTextField(
-                    caption: 'Edit telephone',
+                    caption: 'Edit Mobile Number',
                     hasCaption: true,
                     fontSize: 12,
                     controller: controller.telephoneController,
                     hint: '',
                     readOnly: false,
                   ),
-                  AppSize.size.h30,
-                  Padding(
-                    padding: EdgeInsets.only(top: 80.0),
-                  ),
+                  AppSize.size.h55,
                   Container(
                     color: AppColors.white,
                     padding: const EdgeInsets.symmetric(
@@ -113,6 +110,7 @@ class ProfileView extends GetView<ProfileController> {
                           )),
                     ),
                   ),
+                  AppSize.size.h55,
                   Divider(
                     color: Color(0xffE5E5E5),
                     thickness: 1,
@@ -167,6 +165,7 @@ openAlertBox(BuildContext context, ProfileController controller) {
               borderRadius: BorderRadius.all(Radius.circular(32.0))),
           contentPadding: EdgeInsets.only(top: 10.0),
           content: Stack(
+            clipBehavior: Clip.none,
             children: [
               Container(
                 padding: EdgeInsets.only(
@@ -186,20 +185,22 @@ openAlertBox(BuildContext context, ProfileController controller) {
                       padding: EdgeInsets.only(top: 20.0),
                     ),
                     TextFormField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'please enter password';
-                        }
-                        return null;
-                      },
+                      // validator: (value) {
+                      //   if (value == null || value.isEmpty) {
+                      //     return 'please enter password';
+                      //   }
+                      //   return null;
+                      // },
+                      maxLength: 20,
                       controller: controller.passwordController,
                       decoration: InputDecoration(
-                        suffixIcon: Icon(
-                          Icons.visibility_outlined,
-                          color: Color(0xff909094),
-                        ),
-                        suffixIconConstraints:
-                            BoxConstraints(minWidth: 10, minHeight: 10),
+                        counterText: "",
+                        // suffixIcon: Icon(
+                        //   Icons.visibility_outlined,
+                        //   color: Color(0xff909094),
+                        // ),
+                        // suffixIconConstraints:
+                        //     BoxConstraints(minWidth: 10, minHeight: 10),
                         prefixIcon: Icon(
                           Icons.lock,
                           color: Color(0xff909094),
@@ -222,20 +223,22 @@ openAlertBox(BuildContext context, ProfileController controller) {
                       ),
                     ),
                     TextFormField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'please enter password';
-                        }
-                        return null;
-                      },
+                      // validator: (value) {
+                      //   if (value == null || value.isEmpty) {
+                      //     return 'please enter password';
+                      //   }
+                      //   return null;
+                      // },
                       controller: controller.confirmPasswordController,
+                      maxLength: 20,
                       decoration: InputDecoration(
-                        suffixIcon: Icon(
-                          Icons.visibility_outlined,
-                          color: Color(0xff909094),
-                        ),
-                        suffixIconConstraints:
-                            BoxConstraints(minWidth: 10, minHeight: 10),
+                        counterText: "",
+                        // suffixIcon: Icon(
+                        //   Icons.visibility_outlined,
+                        //   color: Color(0xff909094),
+                        // ),
+                        // suffixIconConstraints:
+                        //     BoxConstraints(minWidth: 10, minHeight: 10),
                         prefixIcon: Icon(
                           Icons.lock,
                           color: Color(0xff909094),
@@ -294,17 +297,27 @@ openAlertBox(BuildContext context, ProfileController controller) {
                 ),
               ),
               Positioned(
-                right: 0.0,
+                right: -5.0,
+                top: -15,
                 child: GestureDetector(
                   onTap: () {
                     Navigator.of(context).pop();
                   },
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: CircleAvatar(
-                      radius: 14.0,
-                      backgroundColor: Colors.white,
-                      child: Icon(Icons.close, color: Colors.orange),
+                  child: Container(
+                    decoration: BoxDecoration(boxShadow: [
+                      BoxShadow(
+                        offset: Offset(2, 2),
+                        blurRadius: 12,
+                        color: Color.fromRGBO(0, 0, 0, 0.16),
+                      )
+                    ]),
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: CircleAvatar(
+                        radius: 14.0,
+                        backgroundColor: Colors.white,
+                        child: Icon(Icons.close, color: Colors.orange),
+                      ),
                     ),
                   ),
                 ),

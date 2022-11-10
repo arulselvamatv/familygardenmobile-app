@@ -1,4 +1,5 @@
 import 'package:family_garden/routes/app_pages.dart';
+import '../../../network/api_helper.dart';
 import '../../../utils/common_import/common_import.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
 import '../../../widgets/custom_textfield.dart';
@@ -48,6 +49,7 @@ class WishListScreenView extends GetView<WishListScreenController> {
                 children: [
                   GestureDetector(
                     onTap: () {
+                      Get.toNamed(Routes.CART_SCREEN);
                       // controller.hitAddCartAPI();
                       // Get.toNamed(Routes.CART_SCREEN)?.then((value) =>
                       //     controller.getCategoryProduct(
@@ -59,29 +61,34 @@ class WishListScreenView extends GetView<WishListScreenController> {
                           height: 25, width: 25),
                     ),
                   ),
-                  Container(
-                    width: 30,
-                    height: 30,
-                    alignment: Alignment.topRight,
-                    margin: const EdgeInsets.only(top: 10, left: 3.0),
-                    child: Container(
-                      width: 18,
-                      height: 18,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColors.white,
-                          border: Border.all(color: AppColors.white, width: 1)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(0.0),
-                        child: Center(
-                            child: TextWidget(
-                          "0",
-                          color: AppColors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                        )),
-                      ),
-                    ),
+                  Obx(
+                    () => controller.cartCount.value == "0"
+                        ? Container()
+                        : Container(
+                            width: 30,
+                            height: 30,
+                            alignment: Alignment.topRight,
+                            margin: const EdgeInsets.only(top: 10, left: 3.0),
+                            child: Container(
+                              width: 18,
+                              height: 18,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColors.white,
+                                  border: Border.all(
+                                      color: AppColors.white, width: 1)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(0.0),
+                                child: Center(
+                                    child: TextWidget(
+                                  controller.cartCount.value,
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                )),
+                              ),
+                            ),
+                          ),
                   ),
                 ],
               ),
@@ -131,155 +138,198 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                   },
                                   child: Container(
                                     height: 130,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 14,
-                                              bottom: 12,
-                                              top: 29,
-                                              right: 20),
-                                          child: SizedBox(
-                                              height: 90,
-                                              width: 90,
-                                              child: Image.network(
-                                                controller
-                                                    .products[index].thumb!,
-                                                fit: BoxFit.fill,
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 14,
+                                                bottom: 12,
+                                                top: 29,
+                                                right: 20),
+                                            child: SizedBox(
                                                 height: 90,
                                                 width: 90,
-                                              )),
-                                        ),
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 12),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                SizedBox(
-                                                  width: Get.width / 2.5,
-                                                  child: TextWidget(
+                                                child: Image.network(
+                                                  controller
+                                                      .products[index].thumb!,
+                                                  fit: BoxFit.fill,
+                                                  height: 90,
+                                                  width: 90,
+                                                )),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () async {
+                                              var productData = {
+                                                "product_info": [
+                                                  {
+                                                    "product_id": controller
+                                                        .products[index]
+                                                        .productId,
+                                                    "qty": 1,
+                                                    "product_option_id":
+                                                        controller
+                                                            .products[index]
+                                                            .selectedOptionId,
+                                                    "prodcut_option_value_id":
+                                                        controller
+                                                            .products[index]
+                                                            .selectedOptionValueId,
+                                                    "action": "ADD"
+                                                  }
+                                                ]
+                                              };
+                                              var response =
+                                                  await ApiHelper.addCart(
+                                                      productData);
+                                              print("OnTap");
+                                            },
+                                            child: SizedBox(
+                                              width: Get.width / 3,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 12),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    SizedBox(
+                                                      width: Get.width / 2.5,
+                                                      child: TextWidget(
+                                                        controller
+                                                            .products[index]
+                                                            .name,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                        maxLines: 4,
+                                                        textOverflow:
+                                                            TextOverflow
+                                                                .ellipsis,
+                                                      ),
+                                                    ),
+                                                    Spacer(),
+                                                    Container(
+                                                      padding: EdgeInsets.only(
+                                                          left: 20.0,
+                                                          right: 20.0,
+                                                          top: 5.0,
+                                                          bottom: 5.0),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(25.0),
+                                                        color: controller
+                                                                    .products[
+                                                                        index]
+                                                                    .addToCart ==
+                                                                true
+                                                            ? AppColors
+                                                                .primaryColor
+                                                            : AppColors
+                                                                .primaryColor
+                                                                .withOpacity(
+                                                                    0.5),
+                                                      ),
+                                                      child: TextWidget(
+                                                        "Add to Cart",
+                                                        fontSize: 12,
+                                                        color: AppColors.white,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(width: 30),
+                                          SizedBox(
+                                            width: 75,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 12),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  TextWidget(
                                                     controller
-                                                        .products[index].name,
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w700,
-                                                    maxLines: 4,
+                                                        .products[index].stock,
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w600,
+                                                    maxLines: 1,
+                                                    color: Colors.red,
                                                     textOverflow:
                                                         TextOverflow.ellipsis,
                                                   ),
-                                                ),
-                                                Spacer(),
-                                                Container(
-                                                  padding: EdgeInsets.only(
-                                                      left: 20.0,
-                                                      right: 20.0,
-                                                      top: 5.0,
-                                                      bottom: 5.0),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            25.0),
-                                                    color: controller
-                                                                .products[index]
-                                                                .stock ==
-                                                            "In Stock"
-                                                        ? AppColors.primaryColor
-                                                        : Colors.grey.shade100,
+                                                  AppSize.size.h5,
+                                                  TextWidget(
+                                                    controller.products[index]
+                                                        .special,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w600,
+                                                    maxLines: 1,
+                                                    textOverflow:
+                                                        TextOverflow.ellipsis,
                                                   ),
-                                                  child: TextWidget(
-                                                    "Add to Cart",
+                                                  Padding(
+                                                      padding: EdgeInsets.only(
+                                                          top: 2.0)),
+                                                  TextWidget(
+                                                    controller
+                                                        .products[index].price,
                                                     fontSize: 12,
-                                                    color: AppColors.white,
                                                     fontWeight: FontWeight.w500,
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
                                                   ),
-                                                )
-                                              ],
+                                                  Spacer(),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      controller.removeWishlist(
+                                                          controller
+                                                              .products[index]
+                                                              .productId!);
+                                                      Get.snackbar(
+                                                          'success', "Removed");
+                                                    },
+                                                    child: Container(
+                                                      padding: EdgeInsets.only(
+                                                          left: 10.0,
+                                                          right: 10,
+                                                          top: 5.0,
+                                                          bottom: 5.0),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(25.0),
+                                                        color: Colors.amber,
+                                                      ),
+                                                      child: TextWidget(
+                                                        "Remove",
+                                                        fontSize: 12,
+                                                        color: AppColors.white,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(width: 30),
-                                        SizedBox(
-                                          width: 75,
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 12),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                TextWidget(
-                                                  controller
-                                                      .products[index].stock,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w600,
-                                                  maxLines: 1,
-                                                  color: Colors.red,
-                                                  textOverflow:
-                                                      TextOverflow.ellipsis,
-                                                ),
-                                                AppSize.size.h5,
-                                                TextWidget(
-                                                  controller
-                                                      .products[index].special,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w600,
-                                                  maxLines: 1,
-                                                  textOverflow:
-                                                      TextOverflow.ellipsis,
-                                                ),
-                                                Padding(
-                                                    padding: EdgeInsets.only(
-                                                        top: 2.0)),
-                                                TextWidget(
-                                                  controller
-                                                      .products[index].price,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w500,
-                                                  decoration: TextDecoration
-                                                      .lineThrough,
-                                                ),
-                                                Spacer(),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    controller.removeWishlist(
-                                                        controller
-                                                            .products[index]
-                                                            .productId!);
-                                                    Get.snackbar(
-                                                        'success', "Removed");
-                                                  },
-                                                  child: Container(
-                                                    padding: EdgeInsets.only(
-                                                        left: 6.0,
-                                                        right: 6.0,
-                                                        top: 5.0,
-                                                        bottom: 5.0),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              25.0),
-                                                      color: Colors.amber,
-                                                    ),
-                                                    child: TextWidget(
-                                                      "Remove",
-                                                      fontSize: 12,
-                                                      color: AppColors.white,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 );

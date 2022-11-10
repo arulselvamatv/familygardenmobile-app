@@ -1,11 +1,7 @@
-import 'package:carousel_slider/carousel_controller.dart';
 import 'package:family_garden/models/wishlistmodel.dart';
 import 'package:family_garden/network/api_helper.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:family_garden/widgets/loading_widget.dart';
-import '../../../models/categories_model.dart';
-import '../../../models/category_product_model.dart';
-import '../../../models/product_detail_model.dart';
 
 class WishListScreenController extends GetxController {
   RxInt categoriesIndex = 1.obs;
@@ -13,22 +9,20 @@ class WishListScreenController extends GetxController {
   RxString title = "".obs;
   RxString staticImage = "assets/images/Fresh Vegetables.png".obs;
   RxString categoryName = "Fresh Vegetables".obs;
-
   RxList optionId = [].obs;
   RxList optionValueId = [].obs;
   RxList productId = [].obs;
-  //RxList<ProductOptionValue> dropdownList = <ProductOptionValue>[].obs;
-
   RxList counterList = [].obs;
-
   RxList cartBoolList = [].obs;
-  final products = RxList<WishlistProducts>([]);
+  final products = RxList<Products>([]);
   RxBool isProductLoader = true.obs;
   var productData = {"product_info": []}.obs;
+  RxString cartCount = "".obs;
 
   @override
   void onInit() async {
     super.onInit();
+    getCartCount();
     getWishlists();
   }
 
@@ -37,9 +31,18 @@ class WishListScreenController extends GetxController {
     var response = await ApiHelper.getWishList();
     print(response.data?.toString());
     if (response.responseCode == 200) {
-      products.addAll(response.data!.products!);
+      products.value = response.data!.products!;
+      // products.addAll(response.data!.products!);
     }
     isProductLoader.value = false;
+    update();
+  }
+
+  getCartCount() async {
+    print("Called here");
+    var response = await ApiHelper.cartCount();
+    cartCount.value = response["text_items"];
+    cartCount.refresh();
     update();
   }
 

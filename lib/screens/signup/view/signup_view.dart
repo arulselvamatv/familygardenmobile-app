@@ -342,6 +342,7 @@ class SignupView extends GetView<SignupController> {
                                   controller: controller.passwordController,
                                   decoration: InputDecoration(
                                     counterText: "",
+                                    errorMaxLines: 2,
                                     suffixIconConstraints: BoxConstraints(
                                         minHeight: 24, minWidth: 24),
                                     suffixIcon: !controller.showPassword.value

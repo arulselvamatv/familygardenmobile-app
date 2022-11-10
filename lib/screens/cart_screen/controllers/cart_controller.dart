@@ -6,13 +6,12 @@ import '../../../network/api_helper.dart';
 import '../../../utils/common_import/common_import.dart';
 
 class CartController extends GetxController {
-  final formGlobalKey = GlobalKey<FormState>();
   TextEditingController search = TextEditingController();
   TextEditingController cuponCode = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   var products = CartListModel().obs;
-  RxBool isProductsLoader = false.obs;
+  RxBool isProductsLoader = true.obs;
   String staticImage = "assets/images/Carrot.png";
   RxDouble savedPrice = 0.0.obs;
   RxDouble totalPrice = 0.0.obs;
@@ -43,7 +42,7 @@ class CartController extends GetxController {
     var response = await ApiHelper.cartList();
     if (response.isSuccessFul) {
       products.value = response.data!;
-      isProductsLoader.value = true;
+      isProductsLoader.value = false;
       // if (products.value.logged == null || products.value.logged == "null") {
       //   Get.offNamed(Routes.LOGIN);
       // } else {

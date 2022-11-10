@@ -189,20 +189,24 @@ class LoginWidgetView extends GetView<LoginWidgetController> {
                               controller.passwordController.text = "";
                               Get.find<DrawerWidgetController>()
                                   .getLocalDatas();
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                content: Text("Succesfully Logged in"),
-                              ));
                               Get.back();
+                              Get.snackbar('success', "Succesfully Logged in");
+                              // ScaffoldMessenger.of(context)
+                              //     .showSnackBar(SnackBar(
+                              //   content: Text("Succesfully Logged in"),
+                              // ));
+                              // Get.back();
                             } else {
                               // controller.emailController.text = "";
                               // controller.passwordController.text = "";
                               // Get.back();
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                content:
-                                    Text(response.data?.errorWarning ?? ""),
-                              ));
+                              Get.snackbar(
+                                  'warning', response.data?.errorWarning ?? "");
+                              // ScaffoldMessenger.of(context)
+                              //     .showSnackBar(SnackBar(
+                              //   content:
+                              //       Text(response.data?.errorWarning ?? ""),
+                              // ));
                             }
                           }
                         },

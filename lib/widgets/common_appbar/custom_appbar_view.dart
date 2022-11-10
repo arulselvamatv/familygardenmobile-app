@@ -39,8 +39,8 @@ class CustomAppbarView extends GetView<CustomAppbarController> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                    height: 21,
-                    width: 21,
+                    height: 30,
+                    width: 30,
                     child: SvgPicture.asset("assets/icons/logo.svg")),
                 SizedBox(
                   width: 10,

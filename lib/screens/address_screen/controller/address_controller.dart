@@ -133,9 +133,10 @@ class AddressController extends GetxController with RouteAware {
                       .data?.shippingMethods?.flat?.quote?.flat?.cost
                 ]);
               } else {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text("something went wrong"),
-                ));
+                Get.snackbar('warning', "something went wrong");
+                // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                //   content: Text("something went wrong"),
+                // ));
               }
             });
           }
@@ -143,9 +144,10 @@ class AddressController extends GetxController with RouteAware {
       }
     } else {
       isLoader.value = false;
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Add address to continue"),
-      ));
+      Get.snackbar('warning', "Add address to continue");
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //   content: Text("Add address to continue"),
+      // ));
     }
   }
 }

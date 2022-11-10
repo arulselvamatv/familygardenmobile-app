@@ -215,10 +215,12 @@ class AccountView extends GetView<AccountController> {
                                               true) {
                                             Get.toNamed(Routes.EDIT_PROFILE);
                                           } else {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(SnackBar(
-                                              content: Text("Kindly login"),
-                                            ));
+                                            Get.snackbar(
+                                                'warning', "Kindly login");
+                                            // ScaffoldMessenger.of(context)
+                                            //     .showSnackBar(SnackBar(
+                                            //   content: Text("Kindly login"),
+                                            // ));
                                           }
                                         },
                                         child: Padding(
@@ -433,8 +435,12 @@ class AccountView extends GetView<AccountController> {
                                               Get.find<DashboardController>()
                                                   .isLoggedIn
                                                   .value = false;
+                                              // Get.snackbar('success',
+                                              //     "Logout successfully");
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(SnackBar(
+                                                duration:
+                                                    Duration(milliseconds: 350),
                                                 content:
                                                     Text("Logout successfully"),
                                               ));

@@ -17,6 +17,7 @@ import '../models/account_address_model.dart';
 import '../models/cart_count_model.dart';
 import '../models/categories_model.dart';
 import '../models/category_product_model.dart';
+import '../models/change_password_model.dart';
 import '../models/checkoutConfirmCODModel.dart';
 import '../models/coupon_model.dart';
 import '../models/home_features_model.dart';
@@ -1263,7 +1264,7 @@ class ApiHelper {
     }
   }
 
-  static Future<HTTPResponse<Null>> updatePassword(
+  static Future<HTTPResponse<ChangePasswordModel>> updatePassword(
       String password, String confirmPassword) async {
     try {
       final response = await http.post(
@@ -1279,10 +1280,11 @@ class ApiHelper {
         },
       );
       var body = jsonDecode(response.body);
+      var res = ChangePasswordModel.fromJson(body);
       if (response.statusCode == 200) {
         return HTTPResponse(
           true,
-          null,
+          res,
           responseCode: response.statusCode,
         );
       } else {
@@ -1548,6 +1550,7 @@ class ApiHelper {
       );
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
+        print(body);
         var res = CouponModel.fromJson(body);
         return HTTPResponse(
           true,

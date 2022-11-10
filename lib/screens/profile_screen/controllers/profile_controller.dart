@@ -41,6 +41,7 @@ class ProfileController extends GetxController {
 
   Future<void> updatePassword(String password, String confirmPassword) async {
     var response = await ApiHelper.updatePassword(password, confirmPassword);
+    print("${response.data?.success}");
     if (response.isSuccessFul) {
       Get.snackbar('success', "Your password has been updated successfully!");
       Navigator.of(Get.context!).pop();
@@ -59,14 +60,16 @@ class ProfileController extends GetxController {
       // lastName.value = prefs.getString("lastName")!;
       // emailId.value = prefs.getString("emailId")!;
       // telephone.value = prefs.getString("telephone")!;
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Updated Successfully"),
-      ));
+      Get.snackbar('success', "Updated Successfully");
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //   content: Text("Updated Successfully"),
+      // ));
       Get.back();
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Attempt Failed"),
-      ));
+      Get.snackbar('warning', "Attempt Failed");
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //   content: Text("Attempt Failed"),
+      // ));
     }
   }
 }

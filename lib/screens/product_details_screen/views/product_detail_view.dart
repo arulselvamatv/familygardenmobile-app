@@ -62,31 +62,33 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                         height: 25, width: 25),
                   ),
                   Obx(
-                    () => Container(
-                      width: 30,
-                      height: 30,
-                      alignment: Alignment.topRight,
-                      margin: const EdgeInsets.only(top: 10, left: 3.0),
-                      child: Container(
-                        width: 18,
-                        height: 18,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColors.white,
-                            border:
-                                Border.all(color: AppColors.white, width: 1)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(0.0),
-                          child: Center(
-                              child: TextWidget(
-                            "${controller.cartCount.value}",
-                            color: AppColors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          )),
-                        ),
-                      ),
-                    ),
+                    () => controller.cartCount.value == 0
+                        ? Container()
+                        : Container(
+                            width: 30,
+                            height: 30,
+                            alignment: Alignment.topRight,
+                            margin: const EdgeInsets.only(top: 10, left: 3.0),
+                            child: Container(
+                              width: 18,
+                              height: 18,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColors.white,
+                                  border: Border.all(
+                                      color: AppColors.white, width: 1)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(0.0),
+                                child: Center(
+                                    child: TextWidget(
+                                  "${controller.cartCount.value}",
+                                  color: AppColors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                )),
+                              ),
+                            ),
+                          ),
                   ),
                 ],
               ),
