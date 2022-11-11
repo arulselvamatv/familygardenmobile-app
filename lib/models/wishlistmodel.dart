@@ -36,12 +36,18 @@ class Products {
   String? name;
   String? model;
   String? stock;
-  bool? addToCart;
-  String? price;
-  String? optionValue;
+  String? productPrice;
   String? special;
-  String? selectedOptionId;
-  String? selectedOptionValueId;
+  String? productOptionId;
+  String? productOptionValueId;
+  String? optionValueId;
+  String? optionValue;
+  String? optionName;
+  bool? addToCart;
+  String? image;
+  String? optionQuantity;
+  String? offerPrice;
+  String? price;
   List<Options>? options;
 
   Products(
@@ -53,12 +59,18 @@ class Products {
       this.name,
       this.model,
       this.stock,
-      this.addToCart = false,
-      this.price,
-      this.optionValue,
+      this.productPrice,
       this.special,
-      this.selectedOptionId,
-      this.selectedOptionValueId,
+      this.productOptionId,
+      this.productOptionValueId,
+      this.optionValueId,
+      this.optionValue,
+      this.optionName,
+      this.addToCart = false,
+      this.image,
+      this.optionQuantity,
+      this.offerPrice,
+      this.price,
       this.options});
 
   Products.fromJson(Map<String, dynamic> json) {
@@ -70,11 +82,17 @@ class Products {
     name = json['name'];
     model = json['model'];
     stock = json['stock'];
-    price = json['price'];
+    productPrice = json['product_price'];
     special = json['special'];
-    optionValue = json["option_value"];
-    selectedOptionId = json['selected_option_id'];
-    selectedOptionValueId = json['selected_option_value_id'];
+    productOptionId = json['product_option_id'];
+    productOptionValueId = json['product_option_value_id'];
+    optionValueId = json['option_value_id'];
+    optionValue = json['option_value'];
+    optionName = json['option_name'];
+    image = json['image'];
+    optionQuantity = json['option_quantity'];
+    offerPrice = json['offer_price'];
+    price = json['price'];
     if (json['options'] != null) {
       options = <Options>[];
       json['options'].forEach((v) {
@@ -93,11 +111,17 @@ class Products {
     data['name'] = this.name;
     data['model'] = this.model;
     data['stock'] = this.stock;
-    data['price'] = this.price;
-    data['option_value'] = this.optionValue;
+    data['product_price'] = this.productPrice;
     data['special'] = this.special;
-    data['selected_option_id'] = this.selectedOptionId;
-    data['selected_option_value_id'] = this.selectedOptionValueId;
+    data['product_option_id'] = this.productOptionId;
+    data['product_option_value_id'] = this.productOptionValueId;
+    data['option_value_id'] = this.optionValueId;
+    data['option_value'] = this.optionValue;
+    data['option_name'] = this.optionName;
+    data['image'] = this.image;
+    data['option_quantity'] = this.optionQuantity;
+    data['offer_price'] = this.offerPrice;
+    data['price'] = this.price;
     if (this.options != null) {
       data['options'] = this.options!.map((v) => v.toJson()).toList();
     }

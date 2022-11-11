@@ -47,8 +47,9 @@ class WishListScreenController extends GetxController {
     update();
   }
 
-  Future<void> removeWishlist(String wishlistID) async {
-    await ApiHelper.removeWishList(wishlistID);
+  Future<void> removeWishlist(
+      String productId, String option, String optionValue) async {
+    await ApiHelper.removeWishList(productId, option, optionValue);
     Get.showOverlay(
         asyncFunction: getWishlists, loadingWidget: const Loading());
     update();

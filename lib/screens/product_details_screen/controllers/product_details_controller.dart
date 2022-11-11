@@ -96,8 +96,8 @@ class ProductDetailsController extends GetxController {
         ApiHelper.addWishList(
             productId.value, optionId.value, optionValueId.value);
       } else {
-        favourite.value = true;
-        ApiHelper.addWishList(productId.value, "", "");
+        // favourite.value = true;
+        // ApiHelper.addWishList(productId.value, "", "");
       }
     }
     // else {

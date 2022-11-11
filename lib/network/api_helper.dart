@@ -1219,15 +1219,22 @@ class ApiHelper {
     }
   }
 
-  static Future<HTTPResponse<AddCartModel>> removeWishList(productId) async {
+  static Future<HTTPResponse<AddCartModel>> removeWishList(
+      productId, optionId, optionValueId) async {
     String url =
         "${ApiConstants.baseUrl}${EndPoints.wishList}&api_token=${ApiConstants.jwtToken}";
     try {
-      var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields.addAll({'remove': "$productId"});
-      http.StreamedResponse response = await request.send();
+      var response = await http.post(Uri.parse(url),
+          body: json.encode({
+            "product_id": productId,
+            "product_option_id": optionId,
+            "prodcut_option_value_id": optionValueId
+          }));
+      // var request = http.MultipartRequest('POST', Uri.parse(url));
+      // request.fields.addAll({'remove': "$productId"});
+      // http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
-        var body = jsonDecode(await response.stream.bytesToString());
+        var body = json.decode(response.body);
         var res = AddCartModel.fromJson(body);
         return HTTPResponse(
           true,

@@ -177,11 +177,11 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                                     "product_option_id":
                                                         controller
                                                             .products[index]
-                                                            .selectedOptionId,
+                                                            .productOptionId,
                                                     "prodcut_option_value_id":
                                                         controller
                                                             .products[index]
-                                                            .selectedOptionValueId,
+                                                            .productOptionValueId,
                                                     "action": "ADD"
                                                   }
                                                 ]
@@ -332,7 +332,13 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                                         controller.removeWishlist(
                                                             controller
                                                                 .products[index]
-                                                                .wishlistId!);
+                                                                .productId!,
+                                                            controller
+                                                                .products[index]
+                                                                .productOptionId!,
+                                                            controller
+                                                                .products[index]
+                                                                .productOptionValueId!);
                                                         Get.snackbar('success',
                                                             "Removed");
                                                       },

@@ -381,22 +381,25 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                             });
                           }
                         },
-                        child: Container(
-                          height: 32,
-                          width: 32,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: Color(0xffE9E9EA)),
-                          ),
-                          child: Center(
-                            child: Image.asset(
-                              'assets/icons/favourite.png',
-                              color: controller.favourite.value == false
-                                  ? Color(0xffDEDEDE)
-                                  : Color(0xffFF8A00),
-                            ),
-                          ),
-                        ),
+                        child: controller.productDetails?.options?.isEmpty ??
+                                true
+                            ? Container()
+                            : Container(
+                                height: 32,
+                                width: 32,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(color: Color(0xffE9E9EA)),
+                                ),
+                                child: Center(
+                                  child: Image.asset(
+                                    'assets/icons/favourite.png',
+                                    color: controller.favourite.value == false
+                                        ? Color(0xffDEDEDE)
+                                        : Color(0xffFF8A00),
+                                  ),
+                                ),
+                              ),
                       ),
                       AppSize.size.w15,
                       Container(
