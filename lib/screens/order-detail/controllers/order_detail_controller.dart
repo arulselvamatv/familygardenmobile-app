@@ -6,14 +6,15 @@ import 'package:get/get.dart';
 class OrderDetailController extends GetxController {
   RxBool isLoaded = false.obs;
   final orderId = ''.obs;
-  var orderInfo;
+  var orderInfo = OrderInfoModel().obs;
+  RxBool isChecked = false.obs;
+
   // var orderInfo = OrderInfoModel().obs;
 
   @override
   void onInit() {
     isLoaded.value = false;
     orderId.value = Get.arguments;
-    print(Get.arguments);
     getOrderInfo(orderId.value);
     super.onInit();
   }
@@ -29,10 +30,8 @@ class OrderDetailController extends GetxController {
   }
 
   Future<void> getOrderInfo(String orderID) async {
-    print("Data $orderId");
     var response = await ApiHelper.getOrderInfo(orderId: int.parse(orderID));
-    orderInfo = response;
-    print(orderInfo["order_id"]);
+    orderInfo.value = response.data!;
     isLoaded.value = true;
     update();
   }

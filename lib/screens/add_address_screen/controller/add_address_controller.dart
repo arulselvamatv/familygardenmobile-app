@@ -23,7 +23,6 @@ class AddAddressController extends GetxController {
   saveAddress() async {
     var response = await ApiHelper.addAddresses(
         nameController.text,
-        "g",
         addressController.text,
         "99",
         "1503",

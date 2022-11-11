@@ -4,7 +4,6 @@ import 'package:family_garden/utils/common_import/common_import.dart';
 import '../../../routes/app_pages.dart';
 
 class SignupController extends GetxController {
-  final formGlobalKey = GlobalKey<FormState>();
   TextEditingController firstnameController = TextEditingController();
   TextEditingController lastnameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -23,7 +22,6 @@ class SignupController extends GetxController {
   signUpBtn(context) async {
     var response = await ApiHelper.signup(
         firstnameController.text,
-        lastnameController.text,
         emailController.text,
         telephoneController.text,
         passwordController.text,

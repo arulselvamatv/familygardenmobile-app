@@ -88,12 +88,22 @@ class ProductDetailsController extends GetxController {
 
   onFavouriteButtonSelected() {
     if (favourite.value == false) {
-      favourite.value = true;
-      ApiHelper.addWishList(productId.value);
-    } else {
-      favourite.value = false;
-      ApiHelper.removeWishList(productId.value);
+      if (productDetails?.options?.isNotEmpty ?? false) {
+        favourite.value = true;
+        optionId.value = (productDetails?.options?[0].productOptionId)!;
+        optionValueId.value = (productDetails
+            ?.options?[0].productOptionValue?[0].productOptionValueId)!;
+        ApiHelper.addWishList(
+            productId.value, optionId.value, optionValueId.value);
+      } else {
+        favourite.value = true;
+        ApiHelper.addWishList(productId.value, "", "");
+      }
     }
+    // else {
+    //   favourite.value = false;
+    //   ApiHelper.removeWishList(productId.value);
+    // }
     update();
   }
 

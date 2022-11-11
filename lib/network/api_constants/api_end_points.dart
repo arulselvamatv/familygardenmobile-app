@@ -54,7 +54,8 @@ class EndPoints {
 
   static const wishList = "index.php?route=mobileapi/account/wishlist";
 
-  static const getOrdersEndpoint = "/index.php?route=mobileapi/account/order";
+  static const getOrdersEndpoint =
+      "/index.php?route=mobileapi/account/order/info";
 
   static const getOrderInfoEndpoint =
       "index.php?route=mobileapi/account/order/info";

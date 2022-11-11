@@ -68,7 +68,9 @@ class OrderSuccessView extends GetView<OrderSuccessController> {
                   height: 50,
                   width: Get.width,
                   child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.offAllNamed(Routes.ORDER_HISTORY_SCREEN);
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xffFF8A00),
                         shape: RoundedRectangleBorder(

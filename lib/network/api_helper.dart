@@ -337,6 +337,7 @@ class ApiHelper {
           body: encodedBody);
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
+        print(body);
         var res = AddCartModel.fromJson(body);
         return HTTPResponse(
           true,
@@ -916,14 +917,13 @@ class ApiHelper {
   }
 
   static Future<HTTPResponse<SignupModel>> signup(
-      firstname, lastname, email, telephone, password, confirm, agree) async {
+      firstname, email, telephone, password, confirm, agree) async {
     String url =
         "${ApiConstants.baseUrl}${EndPoints.signup}&api_token=${ApiConstants.jwtToken}";
     try {
       var request = http.MultipartRequest('POST', Uri.parse(url));
       request.fields.addAll({
         'firstname': firstname,
-        'lastname': "g",
         'email': email,
         'telephone': telephone,
         'password': password,
@@ -974,7 +974,6 @@ class ApiHelper {
 
   static Future<HTTPResponse<AddAddressModel>> addAddresses(
       firstname,
-      lastname,
       address_1,
       country_id,
       zone_id,
@@ -990,7 +989,6 @@ class ApiHelper {
       var request = http.Request('POST', Uri.parse(url));
       request.bodyFields = {
         'firstname': firstname,
-        'lastname': lastname,
         'address_1': address_1,
         'country_id': country_id,
         'zone_id': zone_id,
@@ -1005,6 +1003,7 @@ class ApiHelper {
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
         var body = jsonDecode(await response.stream.bytesToString());
+        print(body);
         var res = AddAddressModel.fromJson(body);
         return HTTPResponse(
           true,
@@ -1136,6 +1135,7 @@ class ApiHelper {
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
         var body = jsonDecode(await response.stream.bytesToString());
+        print(body);
         var res = OrderHistoryModel.fromJson(body);
         return HTTPResponse(
           true,
@@ -1181,6 +1181,7 @@ class ApiHelper {
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
         var body = json.decode(await response.stream.bytesToString());
+        print(body);
         var res = WishListModel.fromJson(body);
         return HTTPResponse(
           true,
@@ -1423,12 +1424,25 @@ class ApiHelper {
     return 0;
   }
 
-  static addWishList(String productId) async {
+  static addWishList(
+      String productId, String optionId, String optionValueId) async {
+    var body;
+    if (optionId == "") {
+      body = {'product_id': productId};
+    } else {
+      body = {
+        "product_id": productId,
+        "product_option_id": optionId,
+        "prodcut_option_value_id": optionValueId
+      };
+    }
     var req = await http.post(
         Uri.parse(
             "${ApiConstants.baseUrl}${EndPoints.addWishList}&api_token=${ApiConstants.jwtToken}"),
-        body: {'product_id': productId});
+        body: json.encode(body));
+    print(body);
     if (req.statusCode == 200) {
+      print(req.body);
     } else {
       print("Failure wishlist");
     }
@@ -1526,16 +1540,64 @@ class ApiHelper {
     }
   }
 
-  static getOrderInfo({required int orderId}) async {
-    print(ApiConstants.jwtToken);
+  static Future<HTTPResponse<OrderInfoModel>> getOrderInfo(
+      {required int orderId}) async {
     String url =
         "${ApiConstants.baseUrl}${EndPoints.getOrdersEndpoint}&api_token=${ApiConstants.jwtToken}";
-    var response = await http.post(Uri.parse(url),
-        body: json.encode({'order_id': orderId}));
-    var body = jsonDecode(response.body);
-    print(body);
-    return body;
+    try {
+      var response =
+          await http.post(Uri.parse(url), body: {'order_id': '$orderId'});
+      if (response.statusCode == 200) {
+        var body = jsonDecode(response.body);
+        print(body);
+        var res = OrderInfoModel.fromJson(body);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print("e $e");
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
   }
+
+  // static getOrderInfo({required int orderId}) async {
+  //   print(ApiConstants.jwtToken);
+  //   String url =
+  //       "${ApiConstants.baseUrl}${EndPoints.getOrdersEndpoint}&api_token=${ApiConstants.jwtToken}";
+  //   var response = await http.post(Uri.parse(url),
+  //       body: json.encode({'order_id': orderId}));
+  //   var body = jsonDecode(response.body);
+  //   print(body);
+  //   return body;
+  // }
 
   static Future<HTTPResponse<CouponModel>> getCoupon(couponCode) async {
     try {

@@ -43,7 +43,8 @@ class ManageAddressController extends GetxController {
     } else {
       addresses.value = response.data!;
     }
-    print(response.data?.addresses?[0].addressId);
+    // print(response.data?.addresses?[0].addressId);
+    addresses.refresh();
     update();
   }
 

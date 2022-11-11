@@ -19,6 +19,7 @@ class LoginWidgetView extends GetView<LoginWidgetController> {
   var controller = Get.put(LoginWidgetController());
   @override
   Widget build(BuildContext context) {
+    final formGlobalKey = GlobalKey<FormState>();
     return SingleChildScrollView(
       // physics: NeverScrollableScrollPhysics(),
       child: Obx(
@@ -34,7 +35,7 @@ class LoginWidgetView extends GetView<LoginWidgetController> {
           child: Padding(
             padding: const EdgeInsets.only(left: 20.0, right: 20),
             child: Form(
-              key: controller.formGlobalKey,
+              key: formGlobalKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -159,9 +160,8 @@ class LoginWidgetView extends GetView<LoginWidgetController> {
                     width: Get.width,
                     child: ElevatedButton(
                         onPressed: () async {
-                          if (controller.formGlobalKey.currentState!
-                              .validate()) {
-                            controller.formGlobalKey.currentState!.save();
+                          if (formGlobalKey.currentState!.validate()) {
+                            formGlobalKey.currentState!.save();
                             final prefs = await SharedPreferences.getInstance();
                             var response = await ApiHelper.login(
                                 controller.emailController.text,

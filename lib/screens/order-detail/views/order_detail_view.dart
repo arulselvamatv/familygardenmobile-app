@@ -6,6 +6,7 @@ import '../controllers/order_detail_controller.dart';
 
 class OrderDetailView extends GetView<OrderDetailController> {
   const OrderDetailView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,7 +86,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                         Container(
                                             width: 75, child: Text("OrderID")),
                                         Text(
-                                            ": #${controller.orderInfo["orders"][0]["order_id"]}"),
+                                            ": #${controller.orderInfo.value.orderId}"),
                                       ],
                                     ),
                                   ),
@@ -99,7 +100,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                             width: 75, child: Text("Dated")),
                                         // Text("Dated"),
                                         Text(
-                                            ": ${controller.orderInfo["orders"][0]["date_added"]}"),
+                                            ": ${controller.orderInfo.value.dateAdded}"),
                                       ],
                                     ),
                                   )
@@ -146,7 +147,162 @@ class OrderDetailView extends GetView<OrderDetailController> {
                               color: AppColors.lightGrey,
                               thickness: 1.5,
                             ),
-                          )
+                          ),
+                          AppSize.size.h20,
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12.0),
+                            child: Text(
+                              'Order Details',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                          AppSize.size.h10,
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 45,
+                                  width: Get.width,
+                                  decoration: BoxDecoration(
+                                      color: AppColors.primaryColor,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      AppSize.size.w15,
+                                      Expanded(
+                                          child: Text(
+                                        "Product",
+                                        style: TextStyle(
+                                            fontSize: 11,
+                                            color: AppColors.white),
+                                      )),
+                                      Container(
+                                        width: 50,
+                                        child: Text(
+                                          "Category",
+                                          style: TextStyle(
+                                              fontSize: 11,
+                                              color: AppColors.white),
+                                        ),
+                                      ),
+                                      AppSize.size.w20,
+                                      Container(
+                                        width: 19,
+                                        child: Text(
+                                          "Qty",
+                                          style: TextStyle(
+                                              fontSize: 11,
+                                              color: AppColors.white),
+                                        ),
+                                      ),
+                                      AppSize.size.w20,
+                                      Container(
+                                        width: 28,
+                                        child: Text(
+                                          "Price",
+                                          style: TextStyle(
+                                              fontSize: 11,
+                                              color: AppColors.white),
+                                        ),
+                                      ),
+                                      AppSize.size.w20
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  height: Get.height / 6,
+                                  width: Get.width,
+                                  child: ListView.separated(
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return SizedBox(
+                                        height: 60,
+                                        width: Get.width,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            AppSize.size.w15,
+                                            Expanded(
+                                                child: Row(
+                                              children: [
+                                                Checkbox(
+                                                  checkColor: Colors.white,
+                                                  fillColor:
+                                                      MaterialStateProperty.all(
+                                                          Colors.orange),
+                                                  value: controller
+                                                      .isChecked.value,
+                                                  shape: CircleBorder(),
+                                                  onChanged: (bool? value) {
+                                                    controller.isChecked.value =
+                                                        value!;
+                                                  },
+                                                ),
+                                                Text(
+                                                  controller
+                                                          .orderInfo
+                                                          .value
+                                                          .products?[index]
+                                                          .name ??
+                                                      "",
+                                                  maxLines: 2,
+                                                  style: TextStyle(
+                                                    fontSize: 11,
+                                                  ),
+                                                ),
+                                              ],
+                                            )),
+                                            Container(
+                                              width: 50,
+                                              child: Text(
+                                                "Category",
+                                                style: TextStyle(
+                                                  fontSize: 11,
+                                                ),
+                                              ),
+                                            ),
+                                            AppSize.size.w20,
+                                            Container(
+                                              width: 19,
+                                              child: Text(
+                                                "Qty",
+                                                style: TextStyle(
+                                                  fontSize: 11,
+                                                ),
+                                              ),
+                                            ),
+                                            AppSize.size.w20,
+                                            Container(
+                                              width: 28,
+                                              child: Text(
+                                                "Price",
+                                                style: TextStyle(
+                                                  fontSize: 11,
+                                                ),
+                                              ),
+                                            ),
+                                            AppSize.size.w20
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                    separatorBuilder:
+                                        (BuildContext context, int index) {
+                                      return SizedBox();
+                                    },
+                                    itemCount: controller
+                                            .orderInfo.value.products?.length ??
+                                        0,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     )),

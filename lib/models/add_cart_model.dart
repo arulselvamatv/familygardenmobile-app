@@ -2,7 +2,7 @@ class AddCartModel {
   String? success;
   int? status;
   String? total;
-  Null? logged;
+  String? logged;
   String? sessionName;
 
   AddCartModel(
@@ -12,7 +12,7 @@ class AddCartModel {
     success = json['success'];
     status = json['status'];
     total = json['total'];
-    logged = json['logged'];
+    logged = json['logged'].toString();
     sessionName = json['session_name'];
   }
 

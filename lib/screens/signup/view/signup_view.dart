@@ -8,6 +8,7 @@ class SignupView extends GetView<SignupController> {
   var controller = Get.put(SignupController());
   @override
   Widget build(BuildContext context) {
+    final formGlobalKey = GlobalKey<FormState>();
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
@@ -16,7 +17,7 @@ class SignupView extends GetView<SignupController> {
             height: Get.height,
             width: Get.width,
             child: Form(
-              key: controller.formGlobalKey,
+              key: formGlobalKey,
               child: SingleChildScrollView(
                 physics: NeverScrollableScrollPhysics(),
                 child: Obx(
@@ -517,9 +518,8 @@ class SignupView extends GetView<SignupController> {
                           width: Get.width,
                           child: ElevatedButton(
                               onPressed: () {
-                                if (controller.formGlobalKey.currentState!
-                                    .validate()) {
-                                  controller.formGlobalKey.currentState!.save();
+                                if (formGlobalKey.currentState!.validate()) {
+                                  formGlobalKey.currentState!.save();
                                   controller.signUpBtn(context);
                                 }
                               },

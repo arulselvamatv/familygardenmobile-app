@@ -32,6 +32,7 @@ class WishListScreenController extends GetxController {
     print(response.data?.toString());
     if (response.responseCode == 200) {
       products.value = response.data!.products!;
+      print("dfgfg ${products.value.length}" + "");
       // products.addAll(response.data!.products!);
     }
     isProductLoader.value = false;
