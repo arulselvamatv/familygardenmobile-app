@@ -68,10 +68,10 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                             width: 30,
                             height: 30,
                             alignment: Alignment.topRight,
-                            margin: const EdgeInsets.only(top: 10, left: 3.0),
+                            margin: const EdgeInsets.only(top: 7, left: 9.0),
                             child: Container(
-                              width: 18,
-                              height: 18,
+                              width: 22,
+                              height: 22,
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: AppColors.white,

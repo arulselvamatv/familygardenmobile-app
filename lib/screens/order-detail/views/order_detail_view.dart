@@ -213,24 +213,22 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                     ],
                                   ),
                                 ),
-                                Container(
-                                  height: Get.height / 6,
-                                  width: Get.width,
-                                  child: ListView.separated(
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return SizedBox(
-                                        height: 60,
-                                        width: Get.width,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            AppSize.size.w15,
-                                            Expanded(
-                                                child: Row(
-                                              children: [
-                                                Checkbox(
+                                ListView.separated(
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return SizedBox(
+                                      // height: 100,
+                                      width: Get.width,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          // AppSize.size.w15,
+                                          Expanded(
+                                              child: Row(
+                                            children: [
+                                              Obx(
+                                                () => Checkbox(
                                                   checkColor: Colors.white,
                                                   fillColor:
                                                       MaterialStateProperty.all(
@@ -239,66 +237,73 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                                       .isChecked.value,
                                                   shape: CircleBorder(),
                                                   onChanged: (bool? value) {
+                                                    print(value);
                                                     controller.isChecked.value =
                                                         value!;
+                                                    controller.update();
                                                   },
                                                 ),
-                                                Text(
+                                              ),
+                                              Flexible(
+                                                // height: 100,
+                                                child: Text(
                                                   controller
                                                           .orderInfo
                                                           .value
                                                           .products?[index]
                                                           .name ??
                                                       "",
-                                                  maxLines: 2,
+                                                  maxLines: 3,
                                                   style: TextStyle(
                                                     fontSize: 11,
                                                   ),
                                                 ),
-                                              ],
-                                            )),
-                                            Container(
-                                              width: 50,
-                                              child: Text(
-                                                "Category",
-                                                style: TextStyle(
-                                                  fontSize: 11,
-                                                ),
+                                              ),
+                                            ],
+                                          )),
+                                          Container(
+                                            width: 50,
+                                            child: Text(
+                                              "Category",
+                                              style: TextStyle(
+                                                fontSize: 11,
                                               ),
                                             ),
-                                            AppSize.size.w20,
-                                            Container(
-                                              width: 19,
-                                              child: Text(
-                                                "Qty",
-                                                style: TextStyle(
-                                                  fontSize: 11,
-                                                ),
+                                          ),
+                                          AppSize.size.w20,
+                                          Container(
+                                            width: 19,
+                                            child: Text(
+                                              "Qty",
+                                              style: TextStyle(
+                                                fontSize: 11,
                                               ),
                                             ),
-                                            AppSize.size.w20,
-                                            Container(
-                                              width: 28,
-                                              child: Text(
-                                                "Price",
-                                                style: TextStyle(
-                                                  fontSize: 11,
-                                                ),
+                                          ),
+                                          AppSize.size.w20,
+                                          Container(
+                                            width: 28,
+                                            child: Text(
+                                              "Price",
+                                              style: TextStyle(
+                                                fontSize: 11,
                                               ),
                                             ),
-                                            AppSize.size.w20
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                    separatorBuilder:
-                                        (BuildContext context, int index) {
-                                      return SizedBox();
-                                    },
-                                    itemCount: controller
-                                            .orderInfo.value.products?.length ??
-                                        0,
-                                  ),
+                                          ),
+                                          AppSize.size.w20
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                  separatorBuilder:
+                                      (BuildContext context, int index) {
+                                    return SizedBox();
+                                  },
+                                  itemCount: controller
+                                          .orderInfo.value.products?.length ??
+                                      0,
+                                  scrollDirection: Axis.vertical,
+                                  shrinkWrap: true,
                                 )
                               ],
                             ),

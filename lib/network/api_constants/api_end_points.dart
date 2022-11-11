@@ -52,15 +52,17 @@ class EndPoints {
 
   static const addWishList = "/index.php?route=mobileapi/account/wishlist/add";
 
-  static const wishList = "index.php?route=mobileapi/account/wishlist";
+  static const wishList = "/index.php?route=mobileapi/account/wishlist";
+
+  static const getOrders = "/index.php?route=mobileapi/account/order";
 
   static const getOrdersEndpoint =
       "/index.php?route=mobileapi/account/order/info";
 
   static const getOrderInfoEndpoint =
-      "index.php?route=mobileapi/account/order/info";
+      "/index.php?route=mobileapi/account/order/info";
 
-  static const updatePassword = "index.php?route=mobileapi/account/password";
+  static const updatePassword = "/index.php?route=mobileapi/account/password";
 
   static const loguout = "/index.php?route=mobileapi/logout";
 

@@ -107,7 +107,7 @@ class SignupView extends GetView<SignupController> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Container(
-                          height: 50,
+                          height: controller.isNameTextFielld.value ? 70 : 50,
                           width: Get.width,
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -130,8 +130,12 @@ class SignupView extends GetView<SignupController> {
                                 child: TextFormField(
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
+                                      controller.isNameTextFielld.value = true;
+                                      controller.update();
                                       return 'please enter Name';
                                     }
+                                    controller.isNameTextFielld.value = false;
+                                    controller.update();
                                     return null;
                                   },
                                   controller: controller.firstnameController,
@@ -171,7 +175,7 @@ class SignupView extends GetView<SignupController> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Container(
-                          height: 50,
+                          height: controller.isMobileTextFielld.value ? 70 : 50,
                           width: Get.width,
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -194,8 +198,13 @@ class SignupView extends GetView<SignupController> {
                                 child: TextFormField(
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
+                                      controller.isMobileTextFielld.value =
+                                          true;
+                                      controller.update();
                                       return 'please enter phone number';
                                     }
+                                    controller.isMobileTextFielld.value = false;
+                                    controller.update();
                                     return null;
                                   },
                                   maxLength: 10,
@@ -238,7 +247,7 @@ class SignupView extends GetView<SignupController> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Container(
-                          height: 50,
+                          height: controller.isEmailTextFielld.value ? 70 : 50,
                           width: Get.width,
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -262,10 +271,17 @@ class SignupView extends GetView<SignupController> {
                                   validator: (value) {
                                     if (value != null || value!.isNotEmpty) {
                                       if (controller.isValidEmail(value)) {
+                                        controller.isEmailTextFielld.value =
+                                            false;
+                                        controller.update();
                                         return null;
                                       }
+                                      controller.isEmailTextFielld.value = true;
+                                      controller.update();
                                       return 'please enter Valid Email';
                                     }
+                                    controller.isEmailTextFielld.value = true;
+                                    controller.update();
                                     return "please enter Valid Email";
                                   },
                                   controller: controller.emailController,
@@ -305,7 +321,8 @@ class SignupView extends GetView<SignupController> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Container(
-                          height: 50,
+                          height:
+                              controller.isPasswordTextFielld.value ? 70 : 50,
                           width: Get.width,
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -331,8 +348,15 @@ class SignupView extends GetView<SignupController> {
                                       return 'please enter Password';
                                     } else {
                                       if (value.length >= 4) {
+                                        controller.isPasswordTextFielld.value =
+                                            false;
+                                        controller.update();
+
                                         return null;
                                       } else {
+                                        controller.isPasswordTextFielld.value =
+                                            true;
+                                        controller.update();
                                         return 'password must contains 4-20 characters';
                                       }
                                     }
@@ -406,7 +430,9 @@ class SignupView extends GetView<SignupController> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Container(
-                          height: 50,
+                          height: controller.isConfirmPasswordTextFielld.value
+                              ? 70
+                              : 50,
                           width: Get.width,
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -431,11 +457,20 @@ class SignupView extends GetView<SignupController> {
                                     if (value != null) {
                                       if (controller.passwordController.text ==
                                           value) {
+                                        controller.isConfirmPasswordTextFielld
+                                            .value = false;
+                                        controller.update();
                                         return null;
                                       } else {
-                                        return "must have to match password and confirm";
+                                        controller.isConfirmPasswordTextFielld
+                                            .value = true;
+                                        controller.update();
+                                        return "Password and confirm password mismatch";
                                       }
                                     } else {
+                                      controller.isConfirmPasswordTextFielld
+                                          .value = true;
+                                      controller.update();
                                       return 'please enter Confirm Password';
                                     }
                                   },

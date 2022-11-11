@@ -78,10 +78,10 @@ class ProductListingView extends GetView<ProductListingController> {
                                 height: 30,
                                 alignment: Alignment.topRight,
                                 margin:
-                                    const EdgeInsets.only(top: 10, left: 3.0),
+                                    const EdgeInsets.only(top: 7, left: 9.0),
                                 child: Container(
-                                  width: 18,
-                                  height: 18,
+                                  width: 22,
+                                  height: 22,
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: AppColors.white,
@@ -314,7 +314,7 @@ class ProductListingView extends GetView<ProductListingController> {
                                               Stack(
                                                 children: [
                                                   Container(
-                                                    height: 130,
+                                                    height: 135,
                                                     color: AppColors.white,
                                                     width: Get.width,
                                                     child: Row(
@@ -372,11 +372,14 @@ class ProductListingView extends GetView<ProductListingController> {
                                                             crossAxisAlignment:
                                                                 CrossAxisAlignment
                                                                     .start,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
                                                             children: [
                                                               Container(
                                                                 width:
                                                                     Get.width /
-                                                                        2.5,
+                                                                        1.6,
                                                                 child:
                                                                     TextWidget(
                                                                   controller
@@ -397,7 +400,7 @@ class ProductListingView extends GetView<ProductListingController> {
                                                               Container(
                                                                 width:
                                                                     Get.width /
-                                                                        2.5,
+                                                                        1.6,
                                                                 child:
                                                                     TextWidget(
                                                                   controller
@@ -484,132 +487,134 @@ class ProductListingView extends GetView<ProductListingController> {
                                                                               : null)
                                                                   : Container(),
                                                               AppSize.size.h5,
-                                                              TextWidget(
-                                                                controller
-                                                                    .products[
-                                                                        index]
-                                                                    .special,
-                                                                fontSize: 17,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
+                                                              SizedBox(
+                                                                width:
+                                                                    Get.width /
+                                                                        1.45,
+                                                                height: 40,
+                                                                child: Row(
+                                                                  children: [
+                                                                    Column(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .start,
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .start,
+                                                                      children: [
+                                                                        TextWidget(
+                                                                          controller
+                                                                              .products[index]
+                                                                              .special,
+                                                                          fontSize:
+                                                                              17,
+                                                                          fontWeight:
+                                                                              FontWeight.w600,
+                                                                        ),
+                                                                        Spacer(),
+                                                                        TextWidget(
+                                                                          controller
+                                                                              .products[index]
+                                                                              .price,
+                                                                          fontSize:
+                                                                              12,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                          decoration:
+                                                                              TextDecoration.lineThrough,
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                    Spacer(),
+                                                                    controller.products.value[index].quantity ==
+                                                                            "0"
+                                                                        ? Container()
+                                                                        : Container(
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(right: 16, bottom: 14),
+                                                                              child: GestureDetector(
+                                                                                onTap: () {
+                                                                                  // controller
+                                                                                  //     .cartButton(index);
+                                                                                },
+                                                                                child: Container(
+                                                                                  height: 26,
+                                                                                  width: 71,
+                                                                                  decoration: BoxDecoration(
+                                                                                      borderRadius: BorderRadius.circular(20),
+                                                                                      // border: Border.all(),
+
+                                                                                      boxShadow: [
+                                                                                        BoxShadow(offset: Offset(0, 0), blurRadius: 3, spreadRadius: 3, color: Color(0xff000000).withOpacity(controller.cartBoolList[index] == true ? 0.2 : 0)),
+                                                                                      ],
+                                                                                      color: controller.cartBoolList[index] == true ? AppColors.white : AppColors.primaryColor),
+                                                                                  child: controller.cartBoolList[index] == true
+                                                                                      ? Row(
+                                                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                                                          children: [
+                                                                                            GestureDetector(
+                                                                                              onTap: () {
+                                                                                                // controller
+                                                                                                //     .minus(index);
+                                                                                              },
+                                                                                              child: Container(
+                                                                                                width: 30,
+                                                                                                padding: const EdgeInsets.all(8.0),
+                                                                                                child: Image.asset("assets/icons/minus.png"),
+                                                                                              ),
+                                                                                            ),
+                                                                                            Spacer(),
+                                                                                            // TextWidget('-',color: AppColors.white,fontSize: 8,),
+                                                                                            TextWidget(
+                                                                                              controller.counterList[index].toString(),
+                                                                                              color: Colors.black,
+                                                                                              fontSize: 13,
+                                                                                              fontWeight: FontWeight.w600,
+                                                                                            ),
+                                                                                            Spacer(),
+                                                                                            GestureDetector(
+                                                                                              onTap: () {
+                                                                                                // controller
+                                                                                                //     .add(index);
+                                                                                              },
+                                                                                              child: Container(
+                                                                                                padding: const EdgeInsets.all(8.0),
+                                                                                                child: Image.asset("assets/icons/add.png"),
+                                                                                              ),
+                                                                                            ),
+                                                                                          ],
+                                                                                        )
+                                                                                      : Padding(
+                                                                                          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+                                                                                          child: Row(
+                                                                                            children: [
+                                                                                              Image.asset(
+                                                                                                'assets/icons/addToCart.png',
+                                                                                                height: 13,
+                                                                                                width: 13,
+                                                                                                fit: BoxFit.fill,
+                                                                                              ),
+                                                                                              AppSize.size.w5,
+                                                                                              TextWidget(
+                                                                                                'Add',
+                                                                                                fontSize: 12,
+                                                                                                fontWeight: FontWeight.w500,
+                                                                                                color: Colors.white,
+                                                                                              )
+                                                                                            ],
+                                                                                          ),
+                                                                                        ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          )
+                                                                  ],
+                                                                ),
                                                               ),
-                                                              Spacer(),
-                                                              TextWidget(
-                                                                controller
-                                                                    .products[
-                                                                        index]
-                                                                    .price,
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                decoration:
-                                                                    TextDecoration
-                                                                        .lineThrough,
-                                                              )
                                                             ],
                                                           ),
                                                         ),
-                                                        Spacer(),
-                                                        controller
-                                                                    .products
-                                                                    .value[
-                                                                        index]
-                                                                    .quantity ==
-                                                                "0"
-                                                            ? Container()
-                                                            : Container(
-                                                                child: Padding(
-                                                                  padding: const EdgeInsets
-                                                                          .only(
-                                                                      right: 16,
-                                                                      bottom:
-                                                                          14),
-                                                                  child:
-                                                                      GestureDetector(
-                                                                    onTap: () {
-                                                                      // controller
-                                                                      //     .cartButton(index);
-                                                                    },
-                                                                    child:
-                                                                        Container(
-                                                                      height:
-                                                                          26,
-                                                                      width: 71,
-                                                                      decoration: BoxDecoration(
-                                                                          borderRadius: BorderRadius.circular(20),
-                                                                          // border: Border.all(),
-
-                                                                          boxShadow: [
-                                                                            BoxShadow(
-                                                                                offset: Offset(0, 0),
-                                                                                blurRadius: 3,
-                                                                                spreadRadius: 3,
-                                                                                color: Color(0xff000000).withOpacity(controller.cartBoolList[index] == true ? 0.2 : 0)),
-                                                                          ],
-                                                                          color: controller.cartBoolList[index] == true ? AppColors.white : AppColors.primaryColor),
-                                                                      child: controller.cartBoolList[index] ==
-                                                                              true
-                                                                          ? Row(
-                                                                              mainAxisAlignment: MainAxisAlignment.start,
-                                                                              children: [
-                                                                                GestureDetector(
-                                                                                  onTap: () {
-                                                                                    // controller
-                                                                                    //     .minus(index);
-                                                                                  },
-                                                                                  child: Container(
-                                                                                    width: 30,
-                                                                                    padding: const EdgeInsets.all(8.0),
-                                                                                    child: Image.asset("assets/icons/minus.png"),
-                                                                                  ),
-                                                                                ),
-                                                                                Spacer(),
-                                                                                // TextWidget('-',color: AppColors.white,fontSize: 8,),
-                                                                                TextWidget(
-                                                                                  controller.counterList[index].toString(),
-                                                                                  color: Colors.black,
-                                                                                  fontSize: 13,
-                                                                                  fontWeight: FontWeight.w600,
-                                                                                ),
-                                                                                Spacer(),
-                                                                                GestureDetector(
-                                                                                  onTap: () {
-                                                                                    // controller
-                                                                                    //     .add(index);
-                                                                                  },
-                                                                                  child: Container(
-                                                                                    padding: const EdgeInsets.all(8.0),
-                                                                                    child: Image.asset("assets/icons/add.png"),
-                                                                                  ),
-                                                                                ),
-                                                                              ],
-                                                                            )
-                                                                          : Padding(
-                                                                              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
-                                                                              child: Row(
-                                                                                children: [
-                                                                                  Image.asset(
-                                                                                    'assets/icons/addToCart.png',
-                                                                                    height: 13,
-                                                                                    width: 13,
-                                                                                    fit: BoxFit.fill,
-                                                                                  ),
-                                                                                  AppSize.size.w5,
-                                                                                  TextWidget(
-                                                                                    'Add',
-                                                                                    fontSize: 12,
-                                                                                    fontWeight: FontWeight.w500,
-                                                                                    color: Colors.white,
-                                                                                  )
-                                                                                ],
-                                                                              ),
-                                                                            ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              )
                                                       ],
                                                     ),
                                                   ),

@@ -1129,7 +1129,7 @@ class ApiHelper {
 
   static Future<HTTPResponse<OrderHistoryModel>> getOrders() async {
     String url =
-        "${ApiConstants.baseUrl}${EndPoints.getOrdersEndpoint}&api_token=${ApiConstants.jwtToken}";
+        "${ApiConstants.baseUrl}${EndPoints.getOrders}&api_token=${ApiConstants.jwtToken}";
     try {
       var request = http.MultipartRequest('POST', Uri.parse(url));
       http.StreamedResponse response = await request.send();
@@ -1532,6 +1532,54 @@ class ApiHelper {
       );
     } catch (e) {
       print(e);
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<OrderInfoModel>> getOrder(
+      {required int orderId}) async {
+    String url =
+        "${ApiConstants.baseUrl}${EndPoints.getOrdersEndpoint}&api_token=${ApiConstants.jwtToken}";
+    try {
+      var response =
+          await http.post(Uri.parse(url), body: {'order_id': '$orderId'});
+      if (response.statusCode == 200) {
+        var body = jsonDecode(response.body);
+        print(body);
+        var res = OrderInfoModel.fromJson(body);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print("e $e");
       return HTTPResponse(
         false,
         null,

@@ -38,6 +38,7 @@ class Products {
   String? stock;
   bool? addToCart;
   String? price;
+  String? optionValue;
   String? special;
   String? selectedOptionId;
   String? selectedOptionValueId;
@@ -54,6 +55,7 @@ class Products {
       this.stock,
       this.addToCart = false,
       this.price,
+      this.optionValue,
       this.special,
       this.selectedOptionId,
       this.selectedOptionValueId,
@@ -70,6 +72,7 @@ class Products {
     stock = json['stock'];
     price = json['price'];
     special = json['special'];
+    optionValue = json["option_value"];
     selectedOptionId = json['selected_option_id'];
     selectedOptionValueId = json['selected_option_value_id'];
     if (json['options'] != null) {
@@ -91,6 +94,7 @@ class Products {
     data['model'] = this.model;
     data['stock'] = this.stock;
     data['price'] = this.price;
+    data['option_value'] = this.optionValue;
     data['special'] = this.special;
     data['selected_option_id'] = this.selectedOptionId;
     data['selected_option_value_id'] = this.selectedOptionValueId;

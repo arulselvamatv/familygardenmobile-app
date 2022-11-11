@@ -5,11 +5,15 @@ import '../../../routes/app_pages.dart';
 
 class SignupController extends GetxController {
   TextEditingController firstnameController = TextEditingController();
-  TextEditingController lastnameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController telephoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmController = TextEditingController();
+  RxBool isNameTextFielld = false.obs;
+  RxBool isEmailTextFielld = false.obs;
+  RxBool isMobileTextFielld = false.obs;
+  RxBool isPasswordTextFielld = false.obs;
+  RxBool isConfirmPasswordTextFielld = false.obs;
   RxBool showPassword = true.obs;
   RxBool showConfirmPassword = true.obs;
 
