@@ -469,7 +469,7 @@ class DrawerView extends GetView<DrawerWidgetController> {
                                       }
                                     },
                                     style: ElevatedButton.styleFrom(
-                                        backgroundColor: AppColors.primaryColor,
+                                        primary: AppColors.primaryColor,
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(13))),

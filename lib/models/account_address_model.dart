@@ -26,7 +26,7 @@ class AccountAddressModel {
     }
     add = json['add'];
     back = json['back'];
-    back = json['logged'];
+    logged = json['logged'];
   }
 
   Map<String, dynamic> toJson() {

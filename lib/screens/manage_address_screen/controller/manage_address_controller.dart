@@ -18,6 +18,7 @@ class ManageAddressController extends GetxController {
   TextEditingController cityController = TextEditingController();
   TextEditingController stateController = TextEditingController();
   TextEditingController pinCodeController = TextEditingController();
+  ValueNotifier<bool> showAppNotificationNotifierInitial = ValueNotifier(false);
 
   void onInit() {
     super.onInit();
@@ -30,20 +31,23 @@ class ManageAddressController extends GetxController {
     stateController.text = "Tamil Nadu";
   }
 
+
   getAccountAddresses() async {
     var response = await ApiHelper.accountAddress();
     if (response.responseCode == 200) {
       isLoader.value = true;
     }
-    // if (response.data?.logged == null || response.data?.logged == "null") {
-    //   Get.offNamed(Routes.LOGIN);
-    // }
+    if (response.data?.logged == null || response.data?.logged == "null")
+    {
+      print("LOG::::::${response.data?.logged}");
+      showAppNotificationNotifierInitial.value = true;
+    }
     if (response.data?.addresses?.isEmpty ?? false) {
       isEmptyAddress.value = true;
     } else {
       addresses.value = response.data!;
     }
-    // print(response.data?.addresses?[0].addressId);
+    print(response.data?.addresses?[0].addressId);
     addresses.refresh();
     update();
   }

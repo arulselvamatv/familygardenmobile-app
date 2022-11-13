@@ -6,6 +6,7 @@ import '../../../models/product_detail_model.dart';
 
 class ProductDetailsController extends GetxController {
   final CarouselController carouselController = CarouselController();
+  ValueNotifier<bool> showAppNotificationNotifierInitial = ValueNotifier(false);
 
   RxInt selecteIndex = 0.obs;
   RxInt counter = 0.obs;
@@ -57,19 +58,46 @@ class ProductDetailsController extends GetxController {
     update();
   }
 
-  getProductDetails(int productId) async {
+  getProductDetails(int productId) async
+  {
     var response = await ApiHelper.getProductCategoryDetails(productId);
-    if (response.responseCode == 200) {
-      productDetails = response.data;
-      isImageEmpty.value = true;
-      carousalImages.value = (productDetails?.images)!;
-      productDetailLoader.value = false;
-      price.value = (productDetails?.price)!;
-      offerPrice.value = (productDetails?.special)!;
-      favourite.value = (productDetails?.iswishlist)!;
-    }
+      if (response.responseCode == 200)
+      {
+        print("LOG::::::${response.data!.logged}");
+
+        if (response.data!.logged == null || response.data!.logged == "null")
+        {
+          print("LOG::::::${response.data!.logged}");
+          if(isLoggedIn.value == true)
+          {
+            showAppNotificationNotifierInitial.value = true;
+          }
+          else
+          {
+            productDetails = response.data;
+            isImageEmpty.value = true;
+            carousalImages.value = (productDetails?.images)!;
+            productDetailLoader.value = false;
+            price.value = (productDetails?.price)!;
+            offerPrice.value = (productDetails?.special)!;
+            favourite.value = (productDetails?.iswishlist)!;
+          }
+        }
+        else
+        {
+          productDetails = response.data;
+          isImageEmpty.value = true;
+          carousalImages.value = (productDetails?.images)!;
+          productDetailLoader.value = false;
+          price.value = (productDetails?.price)!;
+          offerPrice.value = (productDetails?.special)!;
+          favourite.value = (productDetails?.iswishlist)!;
+        }
+
+      }
     update();
   }
+
 
   onProductWeightSelected(int index) {
     optionId.value = (productDetails?.options?[0].productOptionId)!;

@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../../models/cart_list_model.dart';
 import '../../../network/api_constants/api_constants.dart';
 import '../../../network/api_helper.dart';
@@ -10,6 +12,8 @@ class CartController extends GetxController {
   TextEditingController cuponCode = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  ValueNotifier<bool> showAppNotificationNotifierInitial = ValueNotifier(false);
+
   var products = CartListModel().obs;
   RxBool isProductsLoader = true.obs;
   String staticImage = "assets/images/Carrot.png";
@@ -25,6 +29,7 @@ class CartController extends GetxController {
   RxList productId = [].obs;
   RxList minusCounterList = [].obs;
   late Timer addCartTimer = Timer(const Duration(seconds: 300), () {});
+  var isLoggedIn = false.obs;
 
   // @override
   // void onInit() {
@@ -34,21 +39,46 @@ class CartController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    getLoginDetails();
     getCartListDatas();
   }
 
+  getLoginDetails() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey("Login")) {
+      String login = prefs.getString("Login")!;
+      if (login == "true")
+      {
+        isLoggedIn.value = true;
+      }
+    }
+    update();
+  }
+
   getCartListDatas() async {
-    print("Called");
     var response = await ApiHelper.cartList();
-    if (response.isSuccessFul) {
+    if (response.isSuccessFul)
+    {
       products.value = response.data!;
-      isProductsLoader.value = false;
-      // if (products.value.logged == null || products.value.logged == "null") {
-      //   Get.offNamed(Routes.LOGIN);
-      // } else {
-      //   isProductsLoader.value = true;
-      // }
-      getListDatas();
+      if (products.value.logged == null || products.value.logged == "null")
+      {
+        print("LOG::::::${products.value.logged}");
+        if(isLoggedIn.value == true)
+        {
+          showAppNotificationNotifierInitial.value = true;
+        }
+        else
+        {
+          isProductsLoader.value = false;
+          getListDatas();
+        }
+      }
+      else
+      {
+        isProductsLoader.value = false;
+        getListDatas();
+      }
+
     }
     update();
   }
@@ -75,8 +105,7 @@ class CartController extends GetxController {
     optionId.value.clear();
     optionValueId.value.clear();
     counterList.value.clear();
-    checkBoxBoolList =
-        RxList<bool>.filled((products.value.products?.length)!, false);
+    checkBoxBoolList = RxList<bool>.filled((products.value.products?.length)!, false);
     var actualPriceAmount = 0.0;
     var offerPriceAmount = 0.0;
     for (int i = 0; i < (products.value.products?.length)!; i++) {

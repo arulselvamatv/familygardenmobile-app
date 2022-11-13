@@ -6,7 +6,9 @@ import '../../../network/api_helper.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/common_import/common_import.dart';
 
-class AddressController extends GetxController with RouteAware {
+class AddressController extends GetxController with RouteAware
+{
+  ValueNotifier<bool> showAppNotificationNotifierInitial = ValueNotifier(false);
   var addressModel = CheckoutModel().obs;
   RxBool isLoader = true.obs;
   RxBool isaddressScreenLoader = false.obs;
@@ -40,11 +42,6 @@ class AddressController extends GetxController with RouteAware {
     getCheckout();
   }
 
-  // @override
-  // void didChangeDependencies() {
-  //   // super.didChangeDependencies();
-  //   routeObserver.subscribe(this, ModalRoute.of(context)!);
-  // }
 
   @override
   void dispose() {
@@ -58,16 +55,23 @@ class AddressController extends GetxController with RouteAware {
     addressModel.value = response.data!;
     print(ApiConstants.jwtToken);
     print(addressModel.value.logged);
-    // if (response.data?.logged != null || response.data?.logged == "null") {
-    // } else {
-    //   Get.offNamed(Routes.LOGIN);
-    // }
-    if ((addressModel.value.addresses?.length)! > 0) {
-      getDatas();
-      isEmptyAddress.value = false;
-    } else {
-      isaddressScreenLoader.value = true;
+    print("LOG::::::${response.data!.logged}");
+    if (response.data!.logged == null || response.data!.logged == "null")
+    {
+      print("LOG::::::${response.data!.logged}");
+      showAppNotificationNotifierInitial.value = true;
     }
+    else
+    {
+      if ((addressModel.value.addresses?.length)! > 0)
+      {
+        getDatas();
+        isEmptyAddress.value = false;
+      } else {
+        isaddressScreenLoader.value = true;
+      }
+    }
+
     addressModel.refresh();
     update();
   }

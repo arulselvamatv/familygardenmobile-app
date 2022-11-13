@@ -3,8 +3,10 @@ import 'package:family_garden/network/api_helper.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
 import '../../../models/category_product_model.dart';
 
-class OrderHistoryScreenController extends GetxController {
+class OrderHistoryScreenController extends GetxController
+{
   TextEditingController search = TextEditingController();
+  ValueNotifier<bool> showAppNotificationNotifierInitial = ValueNotifier(false);
   RxInt categoriesIndex = 1.obs;
   RxString categoryId = ''.obs;
   RxString title = "".obs;
@@ -32,12 +34,26 @@ class OrderHistoryScreenController extends GetxController {
   getOrdersHistory() async {
     orders.clear();
     var response = await ApiHelper.getOrders();
-    if (response.responseCode == 200) {
-      response.data?.orders!.forEach((v) {
-        orders.add(v);
-      });
+    print("response:::${response.data}");
+    if (response.responseCode == 200)
+    {
+      print("LOG::::::${response.data!.logged}");
+
+      if (response.data!.logged == null || response.data!.logged == "null")
+      {
+        print("LOG::::::${response.data!.logged}");
+        showAppNotificationNotifierInitial.value = true;
+      }
+      else
+      {
+        for (var v in response.data!.orders!) {
+          orders.add(v);
+        }
+      }
+      isProductLoader.value = false;
     }
-    isProductLoader.value = false;
+
     update();
   }
+
 }
