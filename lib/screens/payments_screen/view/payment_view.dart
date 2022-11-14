@@ -385,7 +385,7 @@ class PaymentView extends GetView<PaymentController> {
                                           // controller.onPressAddBtn();
                                         },
                                         style: ElevatedButton.styleFrom(
-                                            primary: AppColors.white,
+                                            backgroundColor: AppColors.white,
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(13),
@@ -412,8 +412,7 @@ class PaymentView extends GetView<PaymentController> {
                                           // controller.onPressAddBtn();
                                         },
                                         style: ElevatedButton.styleFrom(
-                                            primary:
-                                                AppColors.primaryColor,
+                                            primary: AppColors.primaryColor,
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(13))),

@@ -47,8 +47,7 @@ class CartController extends GetxController {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey("Login")) {
       String login = prefs.getString("Login")!;
-      if (login == "true")
-      {
+      if (login == "true") {
         isLoggedIn.value = true;
       }
     }
@@ -57,28 +56,20 @@ class CartController extends GetxController {
 
   getCartListDatas() async {
     var response = await ApiHelper.cartList();
-    if (response.isSuccessFul)
-    {
+    if (response.isSuccessFul) {
       products.value = response.data!;
-      if (products.value.logged == null || products.value.logged == "null")
-      {
+      if (products.value.logged == null || products.value.logged == "null") {
         print("LOG::::::${products.value.logged}");
-        if(isLoggedIn.value == true)
-        {
+        if (isLoggedIn.value == true) {
           showAppNotificationNotifierInitial.value = true;
-        }
-        else
-        {
+        } else {
           isProductsLoader.value = false;
           getListDatas();
         }
-      }
-      else
-      {
+      } else {
         isProductsLoader.value = false;
         getListDatas();
       }
-
     }
     update();
   }
@@ -105,7 +96,8 @@ class CartController extends GetxController {
     optionId.value.clear();
     optionValueId.value.clear();
     counterList.value.clear();
-    checkBoxBoolList = RxList<bool>.filled((products.value.products?.length)!, false);
+    checkBoxBoolList =
+        RxList<bool>.filled((products.value.products?.length)!, false);
     var actualPriceAmount = 0.0;
     var offerPriceAmount = 0.0;
     for (int i = 0; i < (products.value.products?.length)!; i++) {
@@ -181,9 +173,12 @@ class CartController extends GetxController {
 
   minus(int index) {
     print("Cart count ${counterList.length}");
-    // if (counterList.value[index] == "0") {
-    //   return;
-    // } else {
+    double actualprice = double.parse(
+        (products.value.products?[index].actualPrice)?.substring(1) ?? "0.0");
+    double offerPrice = double.parse(
+        (products.value.products?[index].offerPrice)?.substring(1) ?? "0");
+    totalPrice.value = totalPrice.value - offerPrice;
+    savedPrice.value = savedPrice.value - (actualprice - offerPrice);
     if (counterList.value[index] == "1") {
       counterList.value[index] = int.parse(counterList.value[index]) - 1;
       counterList.value[index] = "${counterList.value[index]}";
@@ -281,6 +276,12 @@ class CartController extends GetxController {
 
   add(int index) {
     counterList.value[index] = int.parse(counterList.value[index]) + 1;
+    double actualprice = double.parse(
+        (products.value.products?[index].actualPrice)?.substring(1) ?? "0.0");
+    double offerPrice = double.parse(
+        (products.value.products?[index].offerPrice)?.substring(1) ?? "0");
+    totalPrice.value = totalPrice.value + offerPrice;
+    savedPrice.value = savedPrice.value + (actualprice - offerPrice);
     counterList.value[index] = "${counterList.value[index]}";
     if ((productData.value["product_info"]?.length)! > 0) {
       existingAddCartData(index);
