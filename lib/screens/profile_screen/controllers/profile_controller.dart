@@ -46,7 +46,7 @@ class ProfileController extends GetxController {
       Get.snackbar('success', "Your password has been updated successfully!");
       Navigator.of(Get.context!).pop();
     }
-   /* else
+    /* else
       {
         Navigator.of(Get.context!).pop();
         showAppNotificationNotifierInitial.value = true;
@@ -54,7 +54,8 @@ class ProfileController extends GetxController {
   }
 
   onPressSaveChangesBtn(context) async {
-    var response = await ApiHelper.accountUpdate(nameController.text, "", emailController.text, telephoneController.text);
+    var response = await ApiHelper.accountUpdate(nameController.text, "",
+        emailController.text, telephoneController.text);
     if (response == 1) {
       var prefs = await SharedPreferences.getInstance();
       prefs.setString("firstName", nameController.text);
@@ -64,10 +65,10 @@ class ProfileController extends GetxController {
       // lastName.value = prefs.getString("lastName")!;
       // emailId.value = prefs.getString("emailId")!;
       // telephone.value = prefs.getString("telephone")!;
-      Get.snackbar('success', "Updated Successfully");
-      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      //   content: Text("Updated Successfully"),
-      // ));
+      // Get.snackbar('success', "Updated Successfully");
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Updated Successfully"),
+      ));
       Get.back();
     } else {
       Get.snackbar('warning', "Attempt Failed");

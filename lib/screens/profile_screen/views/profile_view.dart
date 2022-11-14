@@ -12,7 +12,6 @@ import '../../../utils/common_import/common_import.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
 
 class ProfileView extends GetView<ProfileController> {
-
   @override
   var controller = Get.put(ProfileController());
 
@@ -108,7 +107,7 @@ class ProfileView extends GetView<ProfileController> {
                                 controller.onPressSaveChangesBtn(context);
                               },
                               style: ElevatedButton.styleFrom(
-                                  primary: AppColors.primaryColor,
+                                  backgroundColor: AppColors.primaryColor,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(13))),
                               child: TextWidget(
@@ -154,6 +153,31 @@ class ProfileView extends GetView<ProfileController> {
                         color: Color(0xffE5E5E5),
                         thickness: 1,
                       ),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: TextWidget(
+                                'Delete Account',
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.black,
+                              ),
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                            )
+                          ],
+                        ),
+                      ),
+                      Divider(
+                        color: Color(0xffE5E5E5),
+                        thickness: 1,
+                      ),
                     ],
                   ),
                 ),
@@ -192,7 +216,6 @@ class ProfileView extends GetView<ProfileController> {
             },
           ),
 */
-
         ],
       ),
       // bottomNavigationBar:
@@ -312,8 +335,12 @@ openAlertBox(BuildContext context, ProfileController controller) {
                       width: Get.width,
                       child: ElevatedButton(
                           onPressed: () {
-                            if (controller.passwordController.text.toString().isEmpty ||
-                                controller.confirmPasswordController.text.toString().isEmpty) {
+                            if (controller.passwordController.text
+                                    .toString()
+                                    .isEmpty ||
+                                controller.confirmPasswordController.text
+                                    .toString()
+                                    .isEmpty) {
                               Get.snackbar(
                                   'warning', "Please fill necessary fields!");
                               return;

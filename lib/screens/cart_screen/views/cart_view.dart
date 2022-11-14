@@ -58,7 +58,6 @@ class CartView extends GetView<CartController> {
           ),
           body: Obx(
             () => Stack(
-
               children: [
                 Container(
                   height: Get.height,
@@ -70,30 +69,29 @@ class CartView extends GetView<CartController> {
                         topLeft: Radius.circular(30),
                       )),
                   child: controller.isProductsLoader.value
-                      ? const Center(child:  CircularProgressIndicator())
+                      ? const Center(child: CircularProgressIndicator())
                       : controller.productListLength.value <= 0 ||
                               controller.counterList.value.isEmpty
                           ? cartEmptyDesign(context)
                           : cartDatasDesign(context),
                 ),
                 ValueListenableBuilder<bool>(
-                  valueListenable: controller.showAppNotificationNotifierInitial,
-                  builder: (context, value, child)
-                  {
-                    print("HomeBooksView :: showAppNotificationNotifier $value :: ${MediaQuery.of(context).size}");
+                  valueListenable:
+                      controller.showAppNotificationNotifierInitial,
+                  builder: (context, value, child) {
+                    print(
+                        "HomeBooksView :: showAppNotificationNotifier $value :: ${MediaQuery.of(context).size}");
                     return AnimatedPositioned(
-                      top: value ? 0 : - Get.width - 1000,
+                      top: value ? 0 : -Get.width - 1000,
                       duration: const Duration(milliseconds: 500),
                       curve: Curves.easeInCubic,
                       child: PopUpNotificationView(
-                        onClosePressed: ()
-                        async {
+                        onClosePressed: () async {
                           print(ApiConstants.jwtToken);
                           var prefs = await SharedPreferences.getInstance();
                           prefs.clear();
                           var response = await ApiHelper.getToken();
-                          if (response.data?.apiToken != null)
-                          {
+                          if (response.data?.apiToken != null) {
                             SetLocalDatas.setToken((response.data?.apiToken)!);
                             print(ApiConstants.jwtToken);
                             Navigator.pop(context);
@@ -268,8 +266,8 @@ class CartView extends GetView<CartController> {
                                                         fontSize: 10.5,
                                                         fontWeight:
                                                             FontWeight.w400,
-                                                        color:
-                                                            const Color(0xff666666)),
+                                                        color: const Color(
+                                                            0xff666666)),
                                               ],
                                             ),
                                             const Spacer(),
@@ -306,7 +304,8 @@ class CartView extends GetView<CartController> {
                                                     "${cart.products.value.products?[index].offerPercentage} %",
                                                     fontSize: 13,
                                                     fontWeight: FontWeight.w500,
-                                                    color: const Color(0xffFF8A00),
+                                                    color:
+                                                        const Color(0xffFF8A00),
                                                   ),
                                                   AppSize.size.h10,
                                                   Container(
@@ -321,7 +320,8 @@ class CartView extends GetView<CartController> {
                                                         boxShadow: [
                                                           BoxShadow(
                                                             offset:
-                                                                const Offset(0, 0),
+                                                                const Offset(
+                                                                    0, 0),
                                                             blurRadius: 3,
                                                             spreadRadius: 3,
                                                             color: const Color(
@@ -561,7 +561,7 @@ class CartView extends GetView<CartController> {
                             color: const Color(0xff141414)),
                         children: <TextSpan>[
                           TextSpan(
-                            text: controller.totalPrice.value.toString(),
+                            text: "${controller.totalPrice.value}0",
                             style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -570,7 +570,7 @@ class CartView extends GetView<CartController> {
                         ]),
                   ),
                   TextWidget(
-                    'Saved: ₹ ${controller.savedPrice.value}',
+                    'Saved: ₹ ${controller.savedPrice.value}0',
                     fontSize: 10.5,
                     fontWeight: FontWeight.w600,
                     color: const Color(0xff4A8D30),

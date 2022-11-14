@@ -1426,10 +1426,10 @@ class ApiHelper {
         'telephone': telephone,
       },
     );
-    if (req.statusCode == 200)
-    {
+    if (req.statusCode == 200) {
       var body = json.decode(req.body);
-      print("GGGG${body}");
+      print("${body["status"]}");
+      print(body["status"].runtimeType);
       return body["status"];
     }
     return 0;
