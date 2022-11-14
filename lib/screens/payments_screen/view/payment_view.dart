@@ -380,7 +380,7 @@ class PaymentView extends GetView<PaymentController> {
                                     width: Get.width / 2.5,
                                     child: ElevatedButton(
                                         onPressed: () {
-                                          Get.toNamed(Routes.DASHBOARD);
+                                          Get.offAllNamed(Routes.DASHBOARD);
                                           // controller.deliverHereBtn(context);
                                           // controller.onPressAddBtn();
                                         },
