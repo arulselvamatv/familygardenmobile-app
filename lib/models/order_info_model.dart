@@ -40,7 +40,7 @@ class OrderInfoModel {
   final List<Total>? totals;
   final String? comment;
   final List<History>? histories;
-  final String? logged;
+  final dynamic logged;
 
   factory OrderInfoModel.fromJson(Map<String, dynamic> json) => OrderInfoModel(
         errorWarning: json["error_warning"],

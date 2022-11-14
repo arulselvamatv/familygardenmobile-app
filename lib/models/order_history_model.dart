@@ -1,7 +1,8 @@
 class OrderHistoryModel {
   List<Breadcrumbs>? breadcrumbs;
   List<Orders>? orders;
-  OrderHistoryModel({this.breadcrumbs, this.orders});
+  dynamic logged;
+  OrderHistoryModel({this.breadcrumbs, this.orders,this.logged});
 
   OrderHistoryModel.fromJson(Map<String, dynamic> json) {
     if (json['breadcrumbs'] != null) {
@@ -16,6 +17,10 @@ class OrderHistoryModel {
         orders!.add(new Orders.fromJson(v));
       });
     }
+
+    if (json['logged'] != null) {
+      logged = json["logged"];
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -25,6 +30,9 @@ class OrderHistoryModel {
     }
     if (this.orders != null) {
       data['orders'] = this.orders!.map((v) => v.toJson()).toList();
+    }
+    if (logged != null) {
+      data['logged'] = logged;
     }
     return data;
   }

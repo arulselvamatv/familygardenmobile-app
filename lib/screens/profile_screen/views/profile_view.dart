@@ -1,12 +1,19 @@
+import 'package:family_garden/network/api_constants/api_constants.dart';
+import 'package:family_garden/network/api_helper.dart';
+import 'package:family_garden/network/set_local_datas.dart';
 import 'package:family_garden/routes/app_pages.dart';
 import 'package:family_garden/screens/profile_screen/controllers/profile_controller.dart';
+import 'package:family_garden/widgets/LoginWidget/pop_up_notification_view.dart';
 import 'package:family_garden/widgets/custom_textfield.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../utils/common_import/common_import.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
 
 class ProfileView extends GetView<ProfileController> {
+
+  @override
   var controller = Get.put(ProfileController());
 
   @override
@@ -42,114 +49,151 @@ class ProfileView extends GetView<ProfileController> {
           leading_image: "Add",
         ),
       ),
-      body: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 0),
-          child: Container(
-            height: Get.height,
-            width: Get.width,
-            decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(30),
-                  topLeft: Radius.circular(30),
-                )),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            physics: NeverScrollableScrollPhysics(),
             child: Padding(
-              padding: const EdgeInsets.only(top: 25),
-              child: Column(
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CustomTextField(
-                    caption: 'Edit Name *',
-                    hasCaption: true,
-                    fontSize: 12,
-                    controller: controller.nameController,
-                    hint: '',
-                    readOnly: false,
-                  ),
-                  AppSize.size.h30,
-                  CustomTextField(
-                    caption: 'Edit Email Address',
-                    hasCaption: true,
-                    fontSize: 12,
-                    controller: controller.emailController,
-                    hint: '',
-                    readOnly: false,
-                  ),
-                  AppSize.size.h30,
-                  CustomTextField(
-                    caption: 'Edit Mobile Number',
-                    hasCaption: true,
-                    fontSize: 12,
-                    controller: controller.telephoneController,
-                    hint: '',
-                    readOnly: false,
-                  ),
-                  AppSize.size.h55,
-                  Container(
-                    color: AppColors.white,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10),
-                    child: Container(
-                      height: 50,
-                      width: Get.width,
-                      child: ElevatedButton(
-                          onPressed: () {
-                            controller.onPressSaveChangesBtn(context);
-                          },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.primaryColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(13))),
-                          child: TextWidget(
-                            'Save Changes',
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14,
-                          )),
-                    ),
-                  ),
-                  AppSize.size.h55,
-                  Divider(
-                    color: Color(0xffE5E5E5),
-                    thickness: 1,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      openAlertBox(context, controller);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            flex: 2,
-                            child: TextWidget(
-                              'Change Your Password',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.black,
-                            ),
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            size: 15,
-                          )
-                        ],
+              padding: const EdgeInsets.only(top: 0),
+              child: Container(
+                height: Get.height,
+                width: Get.width,
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(30),
+                      topLeft: Radius.circular(30),
+                    )),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 25),
+                  child: Column(
+                    // crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CustomTextField(
+                        caption: 'Edit Name *',
+                        hasCaption: true,
+                        fontSize: 12,
+                        controller: controller.nameController,
+                        hint: '',
+                        readOnly: false,
                       ),
-                    ),
+                      AppSize.size.h30,
+                      CustomTextField(
+                        caption: 'Edit Email Address',
+                        hasCaption: true,
+                        fontSize: 12,
+                        controller: controller.emailController,
+                        hint: '',
+                        readOnly: false,
+                      ),
+                      AppSize.size.h30,
+                      CustomTextField(
+                        caption: 'Edit Mobile Number',
+                        hasCaption: true,
+                        fontSize: 12,
+                        controller: controller.telephoneController,
+                        hint: '',
+                        readOnly: false,
+                      ),
+                      AppSize.size.h55,
+                      Container(
+                        color: AppColors.white,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        child: Container(
+                          height: 50,
+                          width: Get.width,
+                          child: ElevatedButton(
+                              onPressed: () {
+                                controller.onPressSaveChangesBtn(context);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  primary: AppColors.primaryColor,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(13))),
+                              child: TextWidget(
+                                'Save Changes',
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14,
+                              )),
+                        ),
+                      ),
+                      AppSize.size.h55,
+                      Divider(
+                        color: Color(0xffE5E5E5),
+                        thickness: 1,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          openAlertBox(context, controller);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                flex: 2,
+                                child: TextWidget(
+                                  'Change Your Password',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.black,
+                                ),
+                              ),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                size: 15,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Divider(
+                        color: Color(0xffE5E5E5),
+                        thickness: 1,
+                      ),
+                    ],
                   ),
-                  Divider(
-                    color: Color(0xffE5E5E5),
-                    thickness: 1,
-                  ),
-                ],
+                ),
               ),
             ),
           ),
-        ),
+
+/*
+          ValueListenableBuilder<bool>(
+            valueListenable: controller.showAppNotificationNotifierInitial,
+            builder: (context, value, child)
+            {
+              print("HomeBooksView :: showAppNotificationNotifier $value :: ${MediaQuery.of(context).size}");
+              return AnimatedPositioned(
+                top: value ? 0 : - Get.width - 1000,
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeInCubic,
+                child: PopUpNotificationView(
+                  onClosePressed: ()
+                  async {
+                    print(ApiConstants.jwtToken);
+                    var prefs = await SharedPreferences.getInstance();
+                    prefs.clear();
+                    var response = await ApiHelper.getToken();
+                    if (response.data?.apiToken != null)
+                    {
+                      SetLocalDatas.setToken((response.data?.apiToken)!);
+                      print(ApiConstants.jwtToken);
+                      Navigator.pop(context);
+                      Get.offAndToNamed(Routes.LOGIN_VIEW);
+                      Get.toNamed(Routes.LOGIN_VIEW);
+                    }
+                  },
+                ),
+              );
+            },
+          ),
+*/
+
+        ],
       ),
       // bottomNavigationBar:
     );
@@ -268,12 +312,8 @@ openAlertBox(BuildContext context, ProfileController controller) {
                       width: Get.width,
                       child: ElevatedButton(
                           onPressed: () {
-                            if (controller.passwordController.text
-                                    .toString()
-                                    .isEmpty ||
-                                controller.confirmPasswordController.text
-                                    .toString()
-                                    .isEmpty) {
+                            if (controller.passwordController.text.toString().isEmpty ||
+                                controller.confirmPasswordController.text.toString().isEmpty) {
                               Get.snackbar(
                                   'warning', "Please fill necessary fields!");
                               return;
@@ -283,7 +323,7 @@ openAlertBox(BuildContext context, ProfileController controller) {
                                 controller.confirmPasswordController.text);
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.primaryColor,
+                              primary: AppColors.primaryColor,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(13))),
                           child: TextWidget(

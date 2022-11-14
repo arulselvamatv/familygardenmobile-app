@@ -448,7 +448,7 @@ class AccountView extends GetView<AccountController> {
                                             // controller.logout();
                                           },
                                           style: ElevatedButton.styleFrom(
-                                              backgroundColor:
+                                              primary:
                                                   AppColors.primaryColor,
                                               shape: RoundedRectangleBorder(
                                                   borderRadius:

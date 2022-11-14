@@ -51,6 +51,7 @@ class ProductDetailsModel {
     this.tags,
     this.recurrings,
     this.joptions,
+    this.logged
   });
 
   List<Breadcrumb>? breadcrumbs;
@@ -92,6 +93,7 @@ class ProductDetailsModel {
   List<dynamic>? tags;
   List<dynamic>? recurrings;
   List<Option>? joptions;
+  dynamic logged;
 
   factory ProductDetailsModel.fromJson(Map<String, dynamic> json) =>
       ProductDetailsModel(
@@ -162,6 +164,7 @@ class ProductDetailsModel {
             ? null
             : List<Option>.from(
                 json["joptions"].map((x) => Option.fromJson(x))),
+        logged: json["logged"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -220,6 +223,7 @@ class ProductDetailsModel {
         "joptions": joptions == null
             ? null
             : List<dynamic>.from(joptions!.map((x) => x.toJson())),
+    "logged": logged,
       };
 }
 
