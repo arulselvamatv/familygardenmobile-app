@@ -20,9 +20,14 @@ class CartView extends GetView<CartController> {
     controller.onInit();
     return WillPopScope(
       onWillPop: () async {
-        controller.hitAddCartAPI();
-        Get.back();
-        return true;
+        int response = await controller.hitAddCartAPI();
+        if (response == 0) {
+          Get.back();
+          return true;
+        } else {
+          Get.back();
+          return true;
+        }
       },
       child: Scaffold(
           backgroundColor: AppColors.primaryColor,
@@ -37,9 +42,13 @@ class CartView extends GetView<CartController> {
                     Padding(
                       padding: const EdgeInsets.only(left: 15.0),
                       child: GestureDetector(
-                          onTap: () {
-                            controller.hitAddCartAPI();
-                            Get.back();
+                          onTap: () async {
+                            int response = await controller.hitAddCartAPI();
+                            if (response == 0) {
+                              Get.back();
+                            } else {
+                              Get.back();
+                            }
                           },
                           child: Image.asset(
                             'assets/icons/backButton.png',
@@ -448,23 +457,23 @@ class CartView extends GetView<CartController> {
                 child: ElevatedButton(
                   onPressed: () async {
                     final prefs = await SharedPreferences.getInstance();
-                    if (prefs.containsKey("Login")) {
-                      String nameText = prefs.getString('Login') ?? '';
-                      if (nameText == "true") {
-                        Get.toNamed(Routes.ADDRESS, arguments: [
-                          controller.totalPrice.value,
-                          controller.savedPrice.value
-                        ]);
-                        controller.hitAddCartAPI();
+                    int response = await controller.hitAddCartAPI();
+                    if (response == 0) {
+                      if (prefs.containsKey("Login")) {
+                        String nameText = prefs.getString('Login') ?? '';
+                        if (nameText == "true") {
+                          Get.toNamed(Routes.ADDRESS, arguments: [
+                            controller.totalPrice.value,
+                            controller.savedPrice.value
+                          ]);
+                        } else {
+                          Get.toNamed(Routes.LOGIN, arguments: "Cart")
+                              ?.then((value) => controller.getCartListDatas());
+                        }
                       } else {
                         Get.toNamed(Routes.LOGIN, arguments: "Cart")
                             ?.then((value) => controller.getCartListDatas());
-                        controller.hitAddCartAPI();
                       }
-                    } else {
-                      Get.toNamed(Routes.LOGIN, arguments: "Cart")
-                          ?.then((value) => controller.getCartListDatas());
-                      controller.hitAddCartAPI();
                     }
                   },
                   child: TextWidget(
@@ -680,7 +689,7 @@ class CartView extends GetView<CartController> {
                   Get.toNamed(Routes.DASHBOARD);
                 },
                 style: ElevatedButton.styleFrom(
-                    primary: AppColors.primaryColor,
+                    backgroundColor: AppColors.primaryColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(13))),
                 child: TextWidget(

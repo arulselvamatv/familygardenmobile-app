@@ -114,7 +114,9 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                     )),
                 child: Column(
                   children: [
-                    controller.productDetailLoader.value ? Spacer() : Container(),
+                    controller.productDetailLoader.value
+                        ? Spacer()
+                        : Container(),
                     GetBuilder<ProductDetailsController>(
                       builder: (value) => controller.productDetailLoader.value
                           ? Center(
@@ -126,11 +128,12 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                 children: [
                                   AppSize.size.h15,
                                   Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(horizontal: 15),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15),
                                     child: TextWidget(
                                       // 'Carrot',
-                                      controller.productDetails?.productNameEnglish,
+                                      controller
+                                          .productDetails?.productNameEnglish,
                                       fontSize: 18,
                                       fontWeight: FontWeight.w800,
                                       textAlign: TextAlign.center,
@@ -139,13 +142,14 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                       // maxLines: 1,
                                     ),
                                   ),
-                                  AppSize.size.h3,
+                                  AppSize.size.h8,
                                   Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(horizontal: 15),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15),
                                     child: TextWidget(
                                       // 'கேரட்',
-                                      controller.productDetails?.productNameTamil,
+                                      controller
+                                          .productDetails?.productNameTamil,
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
                                       color: AppColors.black,
@@ -161,22 +165,26 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                           child: Stack(
                                             children: [
                                               CarouselSlider.builder(
-                                                  carouselController:
-                                                      controller.carouselController,
+                                                  carouselController: controller
+                                                      .carouselController,
                                                   itemCount: controller
-                                                          .carousalImages.isEmpty
+                                                          .carousalImages
+                                                          .isEmpty
                                                       ? 0
                                                       : controller
-                                                          .carousalImages.length,
-                                                  itemBuilder:
-                                                      (context, index, realIndex) {
+                                                          .carousalImages
+                                                          .length,
+                                                  itemBuilder: (context, index,
+                                                      realIndex) {
                                                     return Container(
-                                                      margin: EdgeInsets.symmetric(
-                                                          horizontal: 15),
+                                                      margin:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 15),
                                                       decoration: BoxDecoration(
                                                           borderRadius:
-                                                              BorderRadius.circular(
-                                                                  10)),
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10)),
                                                       child: controller
                                                               .carousalImages
                                                               .isEmpty
@@ -184,13 +192,15 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                                               controller
                                                                       .carouselImage[
                                                                   index],
-                                                              width:
-                                                                  Get.width / 1.5,
+                                                              width: Get.width /
+                                                                  1.5,
                                                               fit: BoxFit.fill,
                                                             )
-                                                          : Image.network(controller
-                                                              .carousalImages[index]
-                                                              .thumb!),
+                                                          : Image.network(
+                                                              controller
+                                                                  .carousalImages[
+                                                                      index]
+                                                                  .thumb!),
                                                     );
                                                   },
                                                   options: CarouselOptions(
@@ -198,16 +208,19 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                                       viewportFraction: 1,
                                                       // scrollPhysics:
                                                       //     NeverScrollableScrollPhysics(),
-                                                      enableInfiniteScroll: true,
+                                                      enableInfiniteScroll:
+                                                          true,
                                                       onPageChanged:
                                                           (index, reason) {
                                                         // controller.pageChanged(index);
                                                       })),
                                               Align(
-                                                alignment: Alignment.centerRight,
+                                                alignment:
+                                                    Alignment.centerRight,
                                                 child: IconButton(
                                                     onPressed: () {
-                                                      controller.carouselController
+                                                      controller
+                                                          .carouselController
                                                           .nextPage();
                                                     },
                                                     icon: Icon(Icons
@@ -217,7 +230,8 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                                 alignment: Alignment.centerLeft,
                                                 child: IconButton(
                                                     onPressed: () {
-                                                      controller.carouselController
+                                                      controller
+                                                          .carouselController
                                                           .previousPage();
                                                     },
                                                     icon: Icon(Icons
@@ -229,13 +243,14 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                       : SizedBox(
                                           height: 215,
                                           width: Get.width,
-                                          child: Image.network(
-                                              (controller.productDetails?.thumb)!),
+                                          child: Image.network((controller
+                                              .productDetails?.thumb)!),
                                         ),
                                   SizedBox(
                                     height: 20,
                                   ),
-                                  controller.productDetails?.options?.isNotEmpty ??
+                                  controller.productDetails?.options
+                                              ?.isNotEmpty ??
                                           false
                                       ? SizedBox(
                                           height: 25,
@@ -247,8 +262,8 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                               itemBuilder: (context, index) {
                                                 return GestureDetector(
                                                   onTap: () {
-                                                    controller.selecteIndex.value =
-                                                        index;
+                                                    controller.selecteIndex
+                                                        .value = index;
                                                     controller
                                                         .onProductWeightSelected(
                                                             index);
@@ -270,7 +285,10 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                                             BorderRadius.circular(
                                                                 13),
                                                         border: Border.all(
-                                                            color: controller.selecteIndex.value == 10 ||
+                                                            color: controller
+                                                                            .selecteIndex
+                                                                            .value ==
+                                                                        10 ||
                                                                     controller
                                                                             .selecteIndex
                                                                             .value !=
@@ -280,7 +298,8 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                                     child: Center(
                                                         child: Padding(
                                                       padding: const EdgeInsets
-                                                          .symmetric(horizontal: 8),
+                                                              .symmetric(
+                                                          horizontal: 8),
                                                       child: TextWidget(
                                                         controller
                                                             .productDetails
@@ -289,14 +308,16 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                                                 index]
                                                             .name,
                                                         fontSize: 10,
-                                                        fontWeight: FontWeight.w600,
+                                                        fontWeight:
+                                                            FontWeight.w600,
                                                         color: AppColors.black,
                                                       ),
                                                     )),
                                                   ),
                                                 );
                                               },
-                                              separatorBuilder: (context, index) {
+                                              separatorBuilder:
+                                                  (context, index) {
                                                 return AppSize.size.w7;
                                               },
                                               itemCount: controller
@@ -335,15 +356,16 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                                             ?.description,
                                                         style: {
                                                           "h6": Style(
-                                                            fontSize: FontSize(14),
+                                                            fontSize:
+                                                                FontSize(14),
                                                             fontWeight:
                                                                 FontWeight.w700,
-                                                            color: AppColors.black,
+                                                            color:
+                                                                AppColors.black,
                                                           ),
                                                           ".page-list": Style(
-                                                              margin:
-                                                                  EdgeInsets.only(
-                                                                      top: 0))
+                                                              margin: EdgeInsets
+                                                                  .only(top: 0))
                                                         },
                                                       ),
                                                       // child: TextWidget(
@@ -370,7 +392,9 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                               ),
                             )),
                     ),
-                    controller.productDetailLoader.value ? Spacer() : Container(),
+                    controller.productDetailLoader.value
+                        ? Spacer()
+                        : Container(),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Row(
@@ -388,7 +412,8 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                 });
                               }
                             },
-                            child: controller.productDetails?.options?.isEmpty ??
+                            child: controller
+                                        .productDetails?.options?.isEmpty ??
                                     true
                                 ? Container()
                                 : Container(
@@ -396,14 +421,16 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                     width: 32,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      border: Border.all(color: Color(0xffE9E9EA)),
+                                      border:
+                                          Border.all(color: Color(0xffE9E9EA)),
                                     ),
                                     child: Center(
                                       child: Image.asset(
                                         'assets/icons/favourite.png',
-                                        color: controller.favourite.value == false
-                                            ? Color(0xffDEDEDE)
-                                            : Color(0xffFF8A00),
+                                        color:
+                                            controller.favourite.value == false
+                                                ? Color(0xffDEDEDE)
+                                                : Color(0xffFF8A00),
                                       ),
                                     ),
                                   ),
@@ -420,7 +447,9 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                       blurRadius: 3,
                                       spreadRadius: 3,
                                       color: Color(0xff000000).withOpacity(
-                                          controller.addToCart.value ? 0.2 : 0)),
+                                          controller.addToCart.value
+                                              ? 0.2
+                                              : 0)),
                                 ],
                                 color: controller.addToCart.value
                                     ? AppColors.white
@@ -438,8 +467,10 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                               offset: Offset(0, 0),
                                               blurRadius: 3,
                                               spreadRadius: 3,
-                                              color: Color(0xff000000).withOpacity(
-                                                  controller.counter.value != 0
+                                              color: Color(0xff000000)
+                                                  .withOpacity(controller
+                                                              .counter.value !=
+                                                          0
                                                       ? 0.2
                                                       : 0)),
                                         ],
@@ -449,14 +480,16 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                     child: Stack(
                                       children: [
                                         Padding(
-                                          padding: const EdgeInsets.only(top: 3.0),
+                                          padding:
+                                              const EdgeInsets.only(top: 3.0),
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
                                             children: [
                                               Container(
                                                 width: 30,
-                                                padding: const EdgeInsets.all(8.0),
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
                                                 child: Image.asset(
                                                     "assets/icons/minus.png"),
                                               ),
@@ -589,22 +622,20 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
               ),
               ValueListenableBuilder<bool>(
                 valueListenable: controller.showAppNotificationNotifierInitial,
-                builder: (context, value, child)
-                {
-                  print("HomeBooksView :: showAppNotificationNotifier $value :: ${MediaQuery.of(context).size}");
+                builder: (context, value, child) {
+                  print(
+                      "HomeBooksView :: showAppNotificationNotifier $value :: ${MediaQuery.of(context).size}");
                   return AnimatedPositioned(
-                    top: value ? 0 : - Get.width - 1000,
+                    top: value ? 0 : -Get.width - 1000,
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.easeInCubic,
                     child: PopUpNotificationView(
-                      onClosePressed: ()
-                      async {
+                      onClosePressed: () async {
                         print(ApiConstants.jwtToken);
                         var prefs = await SharedPreferences.getInstance();
                         prefs.clear();
                         var response = await ApiHelper.getToken();
-                        if (response.data?.apiToken != null)
-                        {
+                        if (response.data?.apiToken != null) {
                           SetLocalDatas.setToken((response.data?.apiToken)!);
                           print(ApiConstants.jwtToken);
                           Navigator.pop(context);
@@ -616,7 +647,6 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                   );
                 },
               ),
-
             ],
           ),
         ),

@@ -219,7 +219,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                             ),
                                             AppSize.size.w20,
                                             Container(
-                                              width: 28,
+                                              width: 50,
                                               child: Text(
                                                 "Price",
                                                 style: TextStyle(
@@ -345,7 +345,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                                 ),
                                                 AppSize.size.w20,
                                                 Container(
-                                                  width: 28,
+                                                  width: 50,
                                                   child: Text(
                                                     controller
                                                             .orderInfo
@@ -382,11 +382,13 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                       SizedBox(
                                         height: 41,
                                         child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 21.0, right: 16),
+                                          padding:
+                                              const EdgeInsets.only(left: 21.0),
                                           child: Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 "Sub-Total",
@@ -395,15 +397,20 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                                     fontWeight:
                                                         FontWeight.w500),
                                               ),
-                                              Text(
-                                                controller.orderInfo.value
-                                                        .totals?[0].text ??
-                                                    "",
-                                                style: TextStyle(
-                                                    fontSize: 12,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              )
+                                              Spacer(),
+                                              SizedBox(
+                                                width: 50,
+                                                child: Text(
+                                                  controller.orderInfo.value
+                                                          .totals?[0].text ??
+                                                      "",
+                                                  style: TextStyle(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                              ),
+                                              AppSize.size.w20
                                             ],
                                           ),
                                         ),
@@ -411,11 +418,13 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                       SizedBox(
                                         height: 41,
                                         child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 21.0, right: 16),
+                                          padding:
+                                              const EdgeInsets.only(left: 21.0),
                                           child: Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 "Flat Shipping Rate",
@@ -424,15 +433,20 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                                     fontWeight:
                                                         FontWeight.w500),
                                               ),
-                                              Text(
-                                                controller.orderInfo.value
-                                                        .totals?[1].text ??
-                                                    "",
-                                                style: TextStyle(
-                                                    fontSize: 12,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              )
+                                              Spacer(),
+                                              SizedBox(
+                                                width: 50,
+                                                child: Text(
+                                                  controller.orderInfo.value
+                                                          .totals?[1].text ??
+                                                      "",
+                                                  style: TextStyle(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                              ),
+                                              AppSize.size.w20
                                             ],
                                           ),
                                         ),
@@ -440,11 +454,13 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                       SizedBox(
                                         height: 41,
                                         child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 21.0, right: 16),
+                                          padding:
+                                              const EdgeInsets.only(left: 21.0),
                                           child: Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 "Coupon",
@@ -453,13 +469,18 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                                     fontWeight:
                                                         FontWeight.w500),
                                               ),
-                                              Text(
-                                                "0",
-                                                style: TextStyle(
-                                                    fontSize: 12,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              )
+                                              Spacer(),
+                                              SizedBox(
+                                                width: 50,
+                                                child: Text(
+                                                  "0",
+                                                  style: TextStyle(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                              ),
+                                              AppSize.size.w20
                                             ],
                                           ),
                                         ),
@@ -474,8 +495,8 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                                 bottomRight:
                                                     Radius.circular(10))),
                                         child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 21.0, right: 16),
+                                          padding:
+                                              const EdgeInsets.only(left: 21.0),
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
@@ -487,15 +508,20 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                                     fontWeight:
                                                         FontWeight.w500),
                                               ),
-                                              Text(
-                                                controller.orderInfo.value
-                                                        .totals?[2].text ??
-                                                    "0",
-                                                style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              )
+                                              Spacer(),
+                                              SizedBox(
+                                                width: 50,
+                                                child: Text(
+                                                  controller.orderInfo.value
+                                                          .totals?[2].text ??
+                                                      "0",
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                              ),
+                                              AppSize.size.w20
                                             ],
                                           ),
                                         ),
@@ -714,31 +740,31 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                     ),
                                   ],
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Get.toNamed(Routes.DASHBOARD);
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 14.0),
-                                    child: Container(
-                                      height: 50,
-                                      width: Get.width,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.primaryColor,
-                                          borderRadius:
-                                              BorderRadius.circular(7)),
-                                      child: Center(
-                                        child: Text(
-                                          "Re Order",
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              color: AppColors.white),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                                // GestureDetector(
+                                //   onTap: () {
+                                //     Get.toNamed(Routes.DASHBOARD);
+                                //   },
+                                //   child: Padding(
+                                //     padding: const EdgeInsets.symmetric(
+                                //         horizontal: 14.0),
+                                //     child: Container(
+                                //       height: 50,
+                                //       width: Get.width,
+                                //       decoration: BoxDecoration(
+                                //           color: AppColors.primaryColor,
+                                //           borderRadius:
+                                //               BorderRadius.circular(7)),
+                                //       child: Center(
+                                //         child: Text(
+                                //           "Re Order",
+                                //           style: TextStyle(
+                                //               fontSize: 15,
+                                //               color: AppColors.white),
+                                //         ),
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
                                 AppSize.size.h30,
                               ],
                             ),

@@ -22,17 +22,22 @@ class AddAddressController extends GetxController {
 
   saveAddress() async {
     var response = await ApiHelper.addAddresses(
-        nameController.text,
-        addressController.text,
-        "99",
-        "1503",
-        phoneNumController.text,
-        cityController.text,
-        pinCodeController.text,
-        "atv",
-        "chennai");
+      nameController.text,
+      addressController.text,
+      "99",
+      "1503",
+      phoneNumController.text,
+      cityController.text,
+      pinCodeController.text,
+    );
     if (response.responseCode == 200) {
       Get.back();
     }
+  }
+
+  bool isValidEmail(String emailString) {
+    return RegExp(
+            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+        .hasMatch(emailString);
   }
 }

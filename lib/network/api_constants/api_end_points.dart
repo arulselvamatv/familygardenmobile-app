@@ -9,6 +9,9 @@ class EndPoints {
 
   static const addAddress = "/index.php?route=mobileapi/account/address/add";
 
+  static const deleteAddress =
+      "/index.php?route=mobileapi/account/address/delete";
+
   static const apiRoutes = "?route=mobileapi/homefeature";
 
   static const homeCarousel = "/index.php?route=mobileapi/homeslider";

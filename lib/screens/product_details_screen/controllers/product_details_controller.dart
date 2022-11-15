@@ -58,33 +58,16 @@ class ProductDetailsController extends GetxController {
     update();
   }
 
-  getProductDetails(int productId) async
-  {
+  getProductDetails(int productId) async {
     var response = await ApiHelper.getProductCategoryDetails(productId);
-      if (response.responseCode == 200)
-      {
-        print("LOG::::::${response.data!.logged}");
+    if (response.responseCode == 200) {
+      print("LOG::::::${response.data!.logged}");
 
-        if (response.data!.logged == null || response.data!.logged == "null")
-        {
-          print("LOG::::::${response.data!.logged}");
-          if(isLoggedIn.value == true)
-          {
-            showAppNotificationNotifierInitial.value = true;
-          }
-          else
-          {
-            productDetails = response.data;
-            isImageEmpty.value = true;
-            carousalImages.value = (productDetails?.images)!;
-            productDetailLoader.value = false;
-            price.value = (productDetails?.price)!;
-            offerPrice.value = (productDetails?.special)!;
-            favourite.value = (productDetails?.iswishlist)!;
-          }
-        }
-        else
-        {
+      if (response.data!.logged == null || response.data!.logged == "null") {
+        print("LOG::::::${response.data!.logged}");
+        if (isLoggedIn.value == true) {
+          showAppNotificationNotifierInitial.value = true;
+        } else {
           productDetails = response.data;
           isImageEmpty.value = true;
           carousalImages.value = (productDetails?.images)!;
@@ -93,11 +76,18 @@ class ProductDetailsController extends GetxController {
           offerPrice.value = (productDetails?.special)!;
           favourite.value = (productDetails?.iswishlist)!;
         }
-
+      } else {
+        productDetails = response.data;
+        isImageEmpty.value = true;
+        carousalImages.value = (productDetails?.images)!;
+        productDetailLoader.value = false;
+        price.value = (productDetails?.price)!;
+        offerPrice.value = (productDetails?.special)!;
+        favourite.value = (productDetails?.iswishlist)!;
       }
+    }
     update();
   }
-
 
   onProductWeightSelected(int index) {
     optionId.value = (productDetails?.options?[0].productOptionId)!;
@@ -138,6 +128,7 @@ class ProductDetailsController extends GetxController {
   getCartCount() async {
     var response = await ApiHelper.cartCount();
     cartCount.value = int.parse(response["text_items"]);
+    cartCount.refresh();
     update();
   }
 
@@ -146,6 +137,7 @@ class ProductDetailsController extends GetxController {
     optionId.value = "";
     optionValueId.value = "";
     counter.value = 0;
+    cartCount.value = 0;
     data.value = {};
     update();
   }

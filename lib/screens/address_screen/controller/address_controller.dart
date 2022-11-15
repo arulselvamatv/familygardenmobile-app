@@ -6,8 +6,7 @@ import '../../../network/api_helper.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/common_import/common_import.dart';
 
-class AddressController extends GetxController with RouteAware
-{
+class AddressController extends GetxController with RouteAware {
   ValueNotifier<bool> showAppNotificationNotifierInitial = ValueNotifier(false);
   var addressModel = CheckoutModel().obs;
   RxBool isLoader = true.obs;
@@ -15,6 +14,7 @@ class AddressController extends GetxController with RouteAware
   RxBool isEmptyAddress = true.obs;
   RxList checkBoxBoolList = [].obs;
   RxBool pickCheckBox = false.obs;
+  RxBool isSelectAddress = false.obs;
   var selectedAddressIndex = 0.obs;
   RxDouble totalPrice = 0.0.obs;
   RxDouble savedPrice = 0.0.obs;
@@ -42,7 +42,6 @@ class AddressController extends GetxController with RouteAware
     getCheckout();
   }
 
-
   @override
   void dispose() {
     routeObserver.unsubscribe(this);
@@ -56,15 +55,11 @@ class AddressController extends GetxController with RouteAware
     print(ApiConstants.jwtToken);
     print(addressModel.value.logged);
     print("LOG::::::${response.data!.logged}");
-    if (response.data!.logged == null || response.data!.logged == "null")
-    {
+    if (response.data!.logged == null || response.data!.logged == "null") {
       print("LOG::::::${response.data!.logged}");
       showAppNotificationNotifierInitial.value = true;
-    }
-    else
-    {
-      if ((addressModel.value.addresses?.length)! > 0)
-      {
+    } else {
+      if ((addressModel.value.addresses?.length)! > 0) {
         getDatas();
         isEmptyAddress.value = false;
       } else {
@@ -109,8 +104,10 @@ class AddressController extends GetxController with RouteAware
         checkBoxBoolList.indexWhere((element) => element == true);
     if (searchIndex != -1) {
       checkBoxBoolList[searchIndex] = false;
+      isSelectAddress.value = value;
       checkBoxBoolList[index] = value;
     } else {
+      isSelectAddress.value = value;
       checkBoxBoolList[index] = value;
     }
     pickCheckBox.value = true;

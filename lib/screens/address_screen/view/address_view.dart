@@ -60,8 +60,7 @@ class AddressView extends GetView<AddressController> {
       ),
       body: Obx(
         () => Stack(
-          children:
-          [
+          children: [
             Container(
               height: Get.height,
               width: Get.width,
@@ -101,10 +100,11 @@ class AddressView extends GetView<AddressController> {
                                               )),
                                           child: ListView.separated(
                                             scrollDirection: Axis.vertical,
-                                            physics: NeverScrollableScrollPhysics(),
+                                            physics:
+                                                NeverScrollableScrollPhysics(),
                                             shrinkWrap: true,
-                                            itemCount: controller.addressModel.value
-                                                    .addresses?.length ??
+                                            itemCount: controller.addressModel
+                                                    .value.addresses?.length ??
                                                 0,
                                             padding: EdgeInsets.only(
                                                 bottom: 30, top: 10),
@@ -121,7 +121,8 @@ class AddressView extends GetView<AddressController> {
                                                             CrossAxisAlignment
                                                                 .start,
                                                         mainAxisAlignment:
-                                                            MainAxisAlignment.start,
+                                                            MainAxisAlignment
+                                                                .start,
                                                         children: [
                                                           Padding(
                                                             padding:
@@ -140,20 +141,22 @@ class AddressView extends GetView<AddressController> {
                                                                           .circular(
                                                                               2.0),
                                                                 ),
-                                                                side:
-                                                                    MaterialStateBorderSide
-                                                                        .resolveWith(
+                                                                side: MaterialStateBorderSide
+                                                                    .resolveWith(
                                                                   (states) => BorderSide(
-                                                                      width: 0.75,
+                                                                      width:
+                                                                          0.75,
                                                                       color: Color(
                                                                           0xffC0BEBE)),
                                                                 ),
-                                                                activeColor: AppColors
-                                                                    .primaryColor,
+                                                                activeColor:
+                                                                    AppColors
+                                                                        .primaryColor,
                                                                 value: controller
                                                                     .checkBoxBoolList
                                                                     .value[index],
-                                                                onChanged: (value) {
+                                                                onChanged:
+                                                                    (value) {
                                                                   controller
                                                                       .onCheckBoxClick(
                                                                           value,
@@ -182,37 +185,35 @@ class AddressView extends GetView<AddressController> {
                                                                       controller
                                                                               .addressModel
                                                                               .value
-                                                                              .addresses?[
-                                                                                  index]
+                                                                              .addresses?[index]
                                                                               .firstname ??
                                                                           "",
                                                                       style: TextStyle(
                                                                           fontSize:
                                                                               13.5,
                                                                           fontWeight:
-                                                                              FontWeight
-                                                                                  .w600),
+                                                                              FontWeight.w600),
                                                                     ),
                                                                     SizedBox(
                                                                       width: 13,
                                                                     ),
                                                                     Container(
-                                                                      height: 16,
+                                                                      height:
+                                                                          16,
                                                                       width: 45,
                                                                       decoration: BoxDecoration(
                                                                           color: AppColors
                                                                               .silver,
                                                                           borderRadius:
-                                                                              BorderRadius.circular(
-                                                                                  5)),
-                                                                      child: Center(
-                                                                        child: Text(
+                                                                              BorderRadius.circular(5)),
+                                                                      child:
+                                                                          Center(
+                                                                        child:
+                                                                            Text(
                                                                           "Home",
                                                                           style: TextStyle(
-                                                                              fontSize:
-                                                                                  8,
-                                                                              fontWeight:
-                                                                                  FontWeight.w600),
+                                                                              fontSize: 8,
+                                                                              fontWeight: FontWeight.w600),
                                                                         ),
                                                                       ),
                                                                     )
@@ -259,8 +260,8 @@ class AddressView extends GetView<AddressController> {
                                                           index,
                                                       child: GestureDetector(
                                                         onTap: () {
-                                                          Get.toNamed(
-                                                                  Routes.ADDADDRESS)
+                                                          Get.toNamed(Routes
+                                                                  .ADDADDRESS)
                                                               ?.then((value) =>
                                                                   controller
                                                                       .getCheckout());
@@ -287,7 +288,8 @@ class AddressView extends GetView<AddressController> {
                                                                 Text(
                                                                   "Add New Address",
                                                                   style: TextStyle(
-                                                                      fontSize: 15,
+                                                                      fontSize:
+                                                                          15,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w500),
@@ -315,30 +317,35 @@ class AddressView extends GetView<AddressController> {
                                   height: 20,
                                   width: Get.width,
                                 ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 20),
-                                  child: SizedBox(
-                                    height: 50,
-                                    width: Get.width,
-                                    child: ElevatedButton(
-                                        onPressed: () {
-                                          controller.deliverHereBtn(context);
-                                          // controller.onPressAddBtn();
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                            primary: AppColors.primaryColor,
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(13))),
-                                        child: TextWidget(
-                                          'Deliver Here',
-                                          color: AppColors.white,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 14,
-                                        )),
-                                  ),
-                                ),
+                                controller.isSelectAddress.value
+                                    ? Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        child: SizedBox(
+                                          height: 50,
+                                          width: Get.width,
+                                          child: ElevatedButton(
+                                              onPressed: () {
+                                                controller
+                                                    .deliverHereBtn(context);
+                                                // controller.onPressAddBtn();
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                  primary:
+                                                      AppColors.primaryColor,
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              13))),
+                                              child: TextWidget(
+                                                'Deliver Here',
+                                                color: AppColors.white,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 14,
+                                              )),
+                                        ),
+                                      )
+                                    : Container(),
                                 SizedBox(
                                   height: 20,
                                 )
@@ -349,26 +356,23 @@ class AddressView extends GetView<AddressController> {
                       child: CircularProgressIndicator(),
                     ),
             ),
-
             ValueListenableBuilder<bool>(
               valueListenable: controller.showAppNotificationNotifierInitial,
-              builder: (context, value, child)
-              {
-                print("HomeBooksView :: showAppNotificationNotifier $value :: ${MediaQuery.of(context).size}");
+              builder: (context, value, child) {
+                print(
+                    "HomeBooksView :: showAppNotificationNotifier $value :: ${MediaQuery.of(context).size}");
                 return AnimatedPositioned(
-                  top: value ? 0 : - Get.width - 1000,
+                  top: value ? 0 : -Get.width - 1000,
                   duration: const Duration(milliseconds: 500),
                   curve: Curves.easeInCubic,
                   child: PopUpNotificationView(
-                    onClosePressed: ()
-                    async {
+                    onClosePressed: () async {
                       print(ApiConstants.jwtToken);
                       int res = await ApiHelper.logOut();
                       var prefs = await SharedPreferences.getInstance();
                       prefs.clear();
                       var response = await ApiHelper.getToken();
-                      if (response.data?.apiToken != null)
-                      {
+                      if (response.data?.apiToken != null) {
                         SetLocalDatas.setToken((response.data?.apiToken)!);
                         print(ApiConstants.jwtToken);
                         Navigator.pop(context);
@@ -380,7 +384,6 @@ class AddressView extends GetView<AddressController> {
                 );
               },
             ),
-
           ],
         ),
       ),

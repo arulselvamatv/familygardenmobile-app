@@ -34,6 +34,8 @@ class PaymentController extends GetxController {
       actulPrice.value = Get.arguments[0];
       savedPrice.value = Get.arguments[1];
       deliveryCharges.value = Get.arguments[2];
+      print("deliveryCharges $deliveryCharges");
+      print(deliveryCharges.runtimeType);
       payableAmount.value = deliveryCharges.value + actulPrice.value;
       update();
     }

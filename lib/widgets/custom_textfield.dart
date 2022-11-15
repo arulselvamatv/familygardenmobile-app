@@ -72,7 +72,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               color: Color(0xff535353),
             ),
           SizedBox(
-            height: 30,
+            height: 45,
             child: TextFormField(
               controller: widget.controller,
               style: TextStyle(

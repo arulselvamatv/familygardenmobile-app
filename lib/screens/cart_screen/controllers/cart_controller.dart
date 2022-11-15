@@ -75,17 +75,25 @@ class CartController extends GetxController {
 
   Future<String> getCoupon(String couponCode) async {
     var response = await ApiHelper.getCoupon(couponCode);
-    print("Coupon Data ${response.data?.error}");
+    // print("Coupon Data ${response.data?.error}");
     return response.data?.error ?? "";
   }
 
-  hitAddCartAPI() async {
+  Future<int> hitAddCartAPI() async {
     if ((productData.value["product_info"]?.length)! > 0) {
       var response = await ApiHelper.addCart(productData.value);
       if (response.isSuccessFul) {
-        getCartListDatas();
+        print("Is successful");
+        return 0;
+        // getCartListDatas();
+      } else {
+        print("Is Failure");
+        return 0;
       }
-    } else {}
+    } else {
+      print("Is Failure");
+      return 0;
+    }
   }
 
   getListDatas() {
@@ -157,61 +165,42 @@ class CartController extends GetxController {
       "prodcut_option_value_id": optionValueId[index],
       "action": "MINUS"
     });
-    // print(productData.value);
-    // if (addCartTimer.isActive) addCartTimer.cancel();
-    // addCartTimer = Timer(Duration(seconds: 350), () async {
-    //   hitAddCartAPI();
-    // });
     update();
   }
 
   minus(int index) {
     double actualprice = double.parse(
         (products.value.products?[index].actualPrice)?.substring(1) ?? "0.0");
-    print((products.value.products?[index].offerPrice)?.substring(1));
     double offerPrice = double.parse(
         (products.value.products?[index].offerPrice)?.substring(1) ?? "0");
-    print((products.value.products?[index].offerPrice));
-    print("$totalPrice $offerPrice");
     totalPrice.value = totalPrice.value - offerPrice;
     savedPrice.value = savedPrice.value - (actualprice - offerPrice);
-    print(totalPrice.value);
-    print(savedPrice.value);
-    if (counterList.value[index] == "1") {
-      counterList.value[index] = int.parse(counterList.value[index]) - 1;
-      counterList.value[index] = "${counterList.value[index]}";
-      print("counterList $counterList");
-      removeProduct(index);
-      // counterList.value.removeAt(index);
-      print("Cart count ${counterList.isEmpty}");
-    } else {
-      counterList.value[index] = int.parse(counterList.value[index]) - 1;
-      counterList.value[index] = "${counterList.value[index]}";
-      print("counterList $counterList");
-      removeProduct(index);
-    }
+    counterList.value[index] = int.parse(counterList.value[index]) - 1;
+    counterList.value[index] = "${counterList.value[index]}";
+    removeProduct(index);
     counterList.refresh();
-    // }
     update();
-    print(productData);
   }
 
   removeProduct(index) {
-    print(products.value.products?[index].productId);
-    int? quantityIncreasingIndex = productData.value["product_info"]
-        ?.indexWhere((element) =>
-            element["product_id"] ==
-            products.value.products?[index].productId!);
-    // print(quantityIncreasingIndex);
-    int? minusIndex = productData.value["product_info"]
-        ?.indexWhere((element) => element["action"] == "MINUS");
-    print(minusIndex);
-    if (quantityIncreasingIndex != -1 &&
-        minusIndex != -1 &&
-        quantityIncreasingIndex == minusIndex) {
-      productData.value["product_info"]?[quantityIncreasingIndex!]["qty"] =
-          productData.value["product_info"]?[quantityIncreasingIndex]["qty"] +
-              1;
+    int? indexx;
+    // print(products.value.products?[index].productId);
+    for (var i = 0; i < (productData.value["product_info"]?.length)!; i++) {
+      if (productData.value["product_info"]?[i]["product_id"] ==
+              products.value.products?[index].productId! &&
+          productData.value["product_info"]?[i]["action"] == "MINUS") {
+        indexx = i;
+      }
+    }
+    // int? quantityIncreasingIndex = productData.value["product_info"]
+    //     ?.indexWhere((element) =>
+    //         element["product_id"] ==
+    //        );
+    // int? minusIndex = productData.value["product_info"]
+    //     ?.indexWhere((element) => element["action"] == "MINUS");
+    if (indexx != null) {
+      productData.value["product_info"]?[indexx]["qty"] =
+          productData.value["product_info"]?[indexx]["qty"] + 1;
     } else {
       if (products.value.products?[index].productOptionId != null) {
         productId[index] = products.value.products?[index].productId!;
@@ -224,30 +213,34 @@ class CartController extends GetxController {
         removeCartDatas(index);
       }
     }
-    print(productData);
+    // print(productData);
   }
 
   existingAddCartData(index) {
-    int? QuantityIncreasingIndex = productData.value["product_info"]
-        ?.indexWhere((element) =>
-            element["product_id"] ==
-            products.value.products?[index].productId!);
-    int? addIndex = productData.value["product_info"]
-        ?.indexWhere((element) => element["action"] == "ADD");
-    if (QuantityIncreasingIndex != -1 &&
-        addIndex != -1 &&
-        QuantityIncreasingIndex == addIndex) {
-      productData.value["product_info"]?[QuantityIncreasingIndex!]["qty"] =
-          productData.value["product_info"]?[QuantityIncreasingIndex]["qty"] +
-              1;
+    int? indexx;
+    for (var i = 0; i < (productData.value["product_info"]?.length)!; i++) {
+      if (productData.value["product_info"]?[i]["product_id"] ==
+              products.value.products?[index].productId! &&
+          productData.value["product_info"]?[i]["action"] == "ADD") {
+        indexx = i;
+      }
+    }
+    // int? QuantityIncreasingIndex = productData.value["product_info"]
+    //     ?.indexWhere((element) =>
+    //         element["product_id"] ==
+    //         products.value.products?[index].productId!);
+    // int? addIndex = productData.value["product_info"]
+    //     ?.indexWhere((element) => element["action"] == "ADD");
+    if (indexx != null) {
+      productData.value["product_info"]?[indexx]["qty"] =
+          productData.value["product_info"]?[indexx]["qty"] + 1;
       if (optionId.value[index] !=
-          productData.value["product_info"]?[QuantityIncreasingIndex!]
-              ["product_option_id"]) ;
+          productData.value["product_info"]?[indexx]["product_option_id"]) ;
       {
-        productData.value["product_info"]?[QuantityIncreasingIndex!]
-            ["product_option_id"] = optionId.value[index];
-        productData.value["product_info"]?[QuantityIncreasingIndex!]
-            ["prodcut_option_value_id"] = optionValueId.value[index];
+        productData.value["product_info"]?[indexx]["product_option_id"] =
+            optionId.value[index];
+        productData.value["product_info"]?[indexx]["prodcut_option_value_id"] =
+            optionValueId.value[index];
       }
     } else {
       newAddCart(index);
@@ -284,6 +277,6 @@ class CartController extends GetxController {
       newAddCart(index);
     }
     update();
-    print(productData);
+    // print(productData);
   }
 }

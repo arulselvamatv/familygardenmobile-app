@@ -20,6 +20,7 @@ import '../models/category_product_model.dart';
 import '../models/change_password_model.dart';
 import '../models/checkoutConfirmCODModel.dart';
 import '../models/coupon_model.dart';
+import '../models/delete_address_model.dart';
 import '../models/home_features_model.dart';
 import '../models/informationDetailsModel.dart';
 import '../models/order_history_model.dart';
@@ -631,6 +632,7 @@ class ApiHelper {
     String url =
         "${ApiConstants.baseUrl}${EndPoints.shippingMethod}&api_token=${ApiConstants.jwtToken}";
     try {
+      print(url);
       var response = await http.post(
         Uri.parse(url),
       );
@@ -972,16 +974,8 @@ class ApiHelper {
     }
   }
 
-  static Future<HTTPResponse<AddAddressModel>> addAddresses(
-      firstname,
-      address_1,
-      country_id,
-      zone_id,
-      telephone,
-      city,
-      postcode,
-      company,
-      address_2) async {
+  static Future<HTTPResponse<AddAddressModel>> addAddresses(firstname,
+      address_1, countryId, zoneId, telephone, city, postcode) async {
     String url =
         "${ApiConstants.baseUrl}${EndPoints.addAddress}&api_token=${ApiConstants.jwtToken}";
     try {
@@ -990,13 +984,11 @@ class ApiHelper {
       request.bodyFields = {
         'firstname': firstname,
         'address_1': address_1,
-        'country_id': country_id,
-        'zone_id': zone_id,
+        'country_id': countryId,
+        'zone_id': zoneId,
         'telephone': telephone,
         'city': city,
-        'postcode': postcode,
-        'company': company,
-        'address_2': address_2
+        'postcode': postcode
       };
       request.headers.addAll(headers);
 
@@ -1701,6 +1693,62 @@ class ApiHelper {
             "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<DeleteAddressModel>> deleteAddress(
+      String addressId) async {
+    try {
+      final response = await http.post(
+        Uri.parse(
+            "${ApiConstants.baseUrl}${EndPoints.updatePassword}&api_token=${ApiConstants.jwtToken}"),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        encoding: Encoding.getByName('utf-8'),
+        body: {
+          'address_id': addressId,
+        },
+      );
+      print("PASSWORD::::${response.body}");
+
+      var body = jsonDecode(response.body);
+      var res = DeleteAddressModel.fromJson(body);
+      if (response.statusCode == 200) {
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print(e);
       return HTTPResponse(
         false,
         null,
