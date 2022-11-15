@@ -1287,6 +1287,8 @@ class ApiHelper {
           'confirm': confirmPassword,
         },
       );
+      print("PASSWORD::::${response.body}");
+
       var body = jsonDecode(response.body);
       var res = ChangePasswordModel.fromJson(body);
       if (response.statusCode == 200) {
@@ -1426,6 +1428,8 @@ class ApiHelper {
     );
     if (req.statusCode == 200) {
       var body = json.decode(req.body);
+      print("${body["status"]}");
+      print(body["status"].runtimeType);
       return body["status"];
     }
     return 0;

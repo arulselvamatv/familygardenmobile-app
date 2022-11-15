@@ -17,6 +17,7 @@ class ProfileController extends GetxController {
   RxString lastName = "".obs;
   RxString emailId = "".obs;
   RxString telephone = "".obs;
+  //ValueNotifier<bool> showAppNotificationNotifierInitial = ValueNotifier(false);
 
   @override
   void onInit() async {
@@ -41,11 +42,15 @@ class ProfileController extends GetxController {
 
   Future<void> updatePassword(String password, String confirmPassword) async {
     var response = await ApiHelper.updatePassword(password, confirmPassword);
-    print("${response.data?.success}");
     if (response.isSuccessFul) {
       Get.snackbar('success', "Your password has been updated successfully!");
       Navigator.of(Get.context!).pop();
     }
+    /* else
+      {
+        Navigator.of(Get.context!).pop();
+        showAppNotificationNotifierInitial.value = true;
+      }*/
   }
 
   onPressSaveChangesBtn(context) async {
@@ -60,13 +65,14 @@ class ProfileController extends GetxController {
       // lastName.value = prefs.getString("lastName")!;
       // emailId.value = prefs.getString("emailId")!;
       // telephone.value = prefs.getString("telephone")!;
-      Get.snackbar('success', "Updated Successfully");
-      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      //   content: Text("Updated Successfully"),
-      // ));
+      // Get.snackbar('success', "Updated Successfully");
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Updated Successfully"),
+      ));
       Get.back();
     } else {
       Get.snackbar('warning', "Attempt Failed");
+      //showAppNotificationNotifierInitial.value = true;
       // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       //   content: Text("Attempt Failed"),
       // ));

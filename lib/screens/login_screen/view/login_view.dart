@@ -102,7 +102,7 @@ class LoginView extends GetView<LoginController> {
                           Get.toNamed(Routes.VERIFY_OTP);
                         },
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primaryColor,
+                            primary: AppColors.primaryColor,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(13))),
                         child: TextWidget(

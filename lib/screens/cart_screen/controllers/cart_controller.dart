@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../../models/cart_list_model.dart';
 import '../../../network/api_constants/api_constants.dart';
 import '../../../network/api_helper.dart';
@@ -10,6 +12,8 @@ class CartController extends GetxController {
   TextEditingController cuponCode = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  ValueNotifier<bool> showAppNotificationNotifierInitial = ValueNotifier(false);
+
   var products = CartListModel().obs;
   RxBool isProductsLoader = true.obs;
   String staticImage = "assets/images/Carrot.png";
@@ -25,6 +29,7 @@ class CartController extends GetxController {
   RxList productId = [].obs;
   RxList minusCounterList = [].obs;
   late Timer addCartTimer = Timer(const Duration(seconds: 300), () {});
+  var isLoggedIn = false.obs;
 
   // @override
   // void onInit() {
@@ -34,21 +39,36 @@ class CartController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    getLoginDetails();
     getCartListDatas();
   }
 
+  getLoginDetails() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey("Login")) {
+      String login = prefs.getString("Login")!;
+      if (login == "true") {
+        isLoggedIn.value = true;
+      }
+    }
+    update();
+  }
+
   getCartListDatas() async {
-    print("Called");
     var response = await ApiHelper.cartList();
     if (response.isSuccessFul) {
       products.value = response.data!;
-      isProductsLoader.value = false;
-      // if (products.value.logged == null || products.value.logged == "null") {
-      //   Get.offNamed(Routes.LOGIN);
-      // } else {
-      //   isProductsLoader.value = true;
-      // }
-      getListDatas();
+      if (products.value.logged == null || products.value.logged == "null") {
+        if (isLoggedIn.value == true) {
+          showAppNotificationNotifierInitial.value = true;
+        } else {
+          isProductsLoader.value = false;
+          getListDatas();
+        }
+      } else {
+        isProductsLoader.value = false;
+        getListDatas();
+      }
     }
     update();
   }
@@ -60,8 +80,6 @@ class CartController extends GetxController {
   }
 
   hitAddCartAPI() async {
-    print(ApiConstants.jwtToken);
-    // print(productData);
     if ((productData.value["product_info"]?.length)! > 0) {
       var response = await ApiHelper.addCart(productData.value);
       if (response.isSuccessFul) {
@@ -97,9 +115,6 @@ class CartController extends GetxController {
     }
     totalPrice.value = offerPriceAmount;
     savedPrice.value = actualPriceAmount - offerPriceAmount;
-    // for (int i = 0; i < (products.value.products?.length)!; i++) {
-    //
-    // }
     if (products.value.totals != null) {
       for (var item in products.value.totals!) {
         if (item.title == "Total") {
@@ -125,10 +140,10 @@ class CartController extends GetxController {
       "prodcut_option_value_id": optionValueId[index],
       "action": "ADD"
     });
-    if (addCartTimer.isActive) addCartTimer.cancel();
-    addCartTimer = Timer(Duration(seconds: 400), () async {
-      hitAddCartAPI();
-    });
+    // if (addCartTimer.isActive) addCartTimer.cancel();
+    // addCartTimer = Timer(Duration(seconds: 400), () async {
+    //   hitAddCartAPI();
+    // });
     update();
   }
 
@@ -151,10 +166,17 @@ class CartController extends GetxController {
   }
 
   minus(int index) {
-    print("Cart count ${counterList.length}");
-    // if (counterList.value[index] == "0") {
-    //   return;
-    // } else {
+    double actualprice = double.parse(
+        (products.value.products?[index].actualPrice)?.substring(1) ?? "0.0");
+    print((products.value.products?[index].offerPrice)?.substring(1));
+    double offerPrice = double.parse(
+        (products.value.products?[index].offerPrice)?.substring(1) ?? "0");
+    print((products.value.products?[index].offerPrice));
+    print("$totalPrice $offerPrice");
+    totalPrice.value = totalPrice.value - offerPrice;
+    savedPrice.value = savedPrice.value - (actualprice - offerPrice);
+    print(totalPrice.value);
+    print(savedPrice.value);
     if (counterList.value[index] == "1") {
       counterList.value[index] = int.parse(counterList.value[index]) - 1;
       counterList.value[index] = "${counterList.value[index]}";
@@ -171,6 +193,7 @@ class CartController extends GetxController {
     counterList.refresh();
     // }
     update();
+    print(productData);
   }
 
   removeProduct(index) {
@@ -183,20 +206,12 @@ class CartController extends GetxController {
     int? minusIndex = productData.value["product_info"]
         ?.indexWhere((element) => element["action"] == "MINUS");
     print(minusIndex);
-    if (quantityIncreasingIndex != -1) {
-      if (minusIndex != -1) {
-        if (quantityIncreasingIndex == minusIndex) {
-          productData.value["product_info"]?[quantityIncreasingIndex!]["qty"] =
-              productData.value["product_info"]?[quantityIncreasingIndex]
-                      ["qty"] +
-                  1;
-        } else {
-          productData.value["product_info"]?[quantityIncreasingIndex!]["qty"] =
-              productData.value["product_info"]?[quantityIncreasingIndex]
-                      ["qty"] +
-                  1;
-        }
-      } else {}
+    if (quantityIncreasingIndex != -1 &&
+        minusIndex != -1 &&
+        quantityIncreasingIndex == minusIndex) {
+      productData.value["product_info"]?[quantityIncreasingIndex!]["qty"] =
+          productData.value["product_info"]?[quantityIncreasingIndex]["qty"] +
+              1;
     } else {
       if (products.value.products?[index].productOptionId != null) {
         productId[index] = products.value.products?[index].productId!;
@@ -217,7 +232,11 @@ class CartController extends GetxController {
         ?.indexWhere((element) =>
             element["product_id"] ==
             products.value.products?[index].productId!);
-    if (QuantityIncreasingIndex != -1) {
+    int? addIndex = productData.value["product_info"]
+        ?.indexWhere((element) => element["action"] == "ADD");
+    if (QuantityIncreasingIndex != -1 &&
+        addIndex != -1 &&
+        QuantityIncreasingIndex == addIndex) {
       productData.value["product_info"]?[QuantityIncreasingIndex!]["qty"] =
           productData.value["product_info"]?[QuantityIncreasingIndex]["qty"] +
               1;
@@ -252,6 +271,12 @@ class CartController extends GetxController {
 
   add(int index) {
     counterList.value[index] = int.parse(counterList.value[index]) + 1;
+    double actualprice = double.parse(
+        (products.value.products?[index].actualPrice)?.substring(1) ?? "0.0");
+    double offerPrice = double.parse(
+        (products.value.products?[index].offerPrice)?.substring(1) ?? "0");
+    totalPrice.value = totalPrice.value + offerPrice;
+    savedPrice.value = savedPrice.value + (actualprice - offerPrice);
     counterList.value[index] = "${counterList.value[index]}";
     if ((productData.value["product_info"]?.length)! > 0) {
       existingAddCartData(index);
@@ -259,5 +284,6 @@ class CartController extends GetxController {
       newAddCart(index);
     }
     update();
+    print(productData);
   }
 }

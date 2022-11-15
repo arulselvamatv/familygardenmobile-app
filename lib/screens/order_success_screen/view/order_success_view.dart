@@ -72,7 +72,7 @@ class OrderSuccessView extends GetView<OrderSuccessController> {
                         Get.offAllNamed(Routes.ORDER_HISTORY_SCREEN);
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xffFF8A00),
+                        primary: Color(0xffFF8A00),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(13),
                         ),
@@ -100,7 +100,7 @@ class OrderSuccessView extends GetView<OrderSuccessController> {
                           Get.offAllNamed(Routes.DASHBOARD);
                         },
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.bgColor,
+                            primary: AppColors.bgColor,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(13))),
                         child: TextWidget(

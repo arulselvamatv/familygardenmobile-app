@@ -213,7 +213,9 @@ class AccountView extends GetView<AccountController> {
                                         onTap: () {
                                           if (controller.isLoggedIn.value ==
                                               true) {
-                                            Get.toNamed(Routes.EDIT_PROFILE);
+                                            Get.toNamed(Routes.EDIT_PROFILE)
+                                                ?.then((value) => controller
+                                                    .getLoginDetails());
                                           } else {
                                             Get.snackbar(
                                                 'warning', "Kindly login");
@@ -448,8 +450,7 @@ class AccountView extends GetView<AccountController> {
                                             // controller.logout();
                                           },
                                           style: ElevatedButton.styleFrom(
-                                              backgroundColor:
-                                                  AppColors.primaryColor,
+                                              primary: AppColors.primaryColor,
                                               shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(
