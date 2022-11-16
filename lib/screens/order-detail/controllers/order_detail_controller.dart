@@ -11,7 +11,10 @@ class OrderDetailController extends GetxController {
   RxBool isChecked = false.obs;
   RxList boolList = [].obs;
   ValueNotifier<bool> showAppNotificationNotifierInitial = ValueNotifier(false);
-
+  RxDouble subTotal = 0.0.obs;
+  RxDouble shippingRate = 0.0.obs;
+  RxDouble couponRate = 0.0.obs;
+  RxDouble total = 0.0.obs;
   // var orderInfo = OrderInfoModel().obs;
 
   @override
@@ -19,6 +22,7 @@ class OrderDetailController extends GetxController {
     isLoaded.value = false;
     orderId.value = Get.arguments;
     getOrderInfo(orderId.value);
+    print("sfdsdf");
     super.onInit();
   }
 
@@ -32,18 +36,19 @@ class OrderDetailController extends GetxController {
     super.onClose();
   }
 
-  Future<void> getOrderInfo(String orderID) async {
+  getOrderInfo(String orderID) async {
     print(ApiConstants.jwtToken);
     boolList.clear();
     print("Data $orderId");
     var response = await ApiHelper.getOrderInfo(orderId: int.parse(orderID));
     print("LOG::::::${response.data!.logged}");
-
     if (response.data!.logged == null || response.data!.logged == "null") {
       print("LOG::::::${response.data!.logged}");
       showAppNotificationNotifierInitial.value = true;
     } else {
       orderInfo.value = response.data!;
+      // subTotal.value =
+      //     double.parse(orderInfo.value.subTotals?.value!.toStringAsFixed(2));
       getBoolList();
     }
     isLoaded.value = true;

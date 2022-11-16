@@ -12,8 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../controllers/order_detail_controller.dart';
 
 class OrderDetailView extends GetView<OrderDetailController> {
-  const OrderDetailView({Key? key}) : super(key: key);
-
+  var controller = Get.put(OrderDetailController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -402,7 +401,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                                 width: 50,
                                                 child: Text(
                                                   controller.orderInfo.value
-                                                          .totals?[0].text ??
+                                                          .subTotals?.value ??
                                                       "",
                                                   style: TextStyle(
                                                       fontSize: 12,
@@ -438,7 +437,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                                 width: 50,
                                                 child: Text(
                                                   controller.orderInfo.value
-                                                          .totals?[1].text ??
+                                                          .shipping?.value ??
                                                       "",
                                                   style: TextStyle(
                                                       fontSize: 12,
@@ -473,7 +472,9 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                               SizedBox(
                                                 width: 50,
                                                 child: Text(
-                                                  "0",
+                                                  controller.orderInfo.value
+                                                          .coupon?.value ??
+                                                      "",
                                                   style: TextStyle(
                                                       fontSize: 12,
                                                       fontWeight:
@@ -513,7 +514,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                                 width: 50,
                                                 child: Text(
                                                   controller.orderInfo.value
-                                                          .totals?[2].text ??
+                                                          .totals?.value ??
                                                       "0",
                                                   style: TextStyle(
                                                       fontSize: 14,
@@ -553,13 +554,20 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                 AppSize.size.h20,
                                 Padding(
                                   padding: const EdgeInsets.only(left: 50.0),
-                                  child: Text(
-                                    controller.orderInfo.value.paymentMethod ??
-                                        "",
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500),
-                                  ),
+                                  child: controller
+                                              .orderInfo.value.paymentMethod ==
+                                          "Cash On Delivery"
+                                      ? Text(
+                                          controller.orderInfo.value
+                                                  .paymentMethod ??
+                                              "",
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500),
+                                        )
+                                      : Html(
+                                          data: controller
+                                              .orderInfo.value.paymentMethod),
                                 ),
                                 AppSize.size.h16,
                                 Padding(

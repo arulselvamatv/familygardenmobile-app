@@ -112,7 +112,7 @@ class ManageAddressView extends GetView<ManageAddressController> {
                                             itemBuilder: (context, index) {
                                               return Column(
                                                 children: [
-                                                  Container(
+                                                  SizedBox(
                                                     width: Get.width,
                                                     child: Container(
                                                       height: 150,
@@ -133,6 +133,9 @@ class ManageAddressView extends GetView<ManageAddressController> {
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
                                                                       .spaceBetween,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
                                                               children: [
                                                                 SizedBox(
                                                                   width:
@@ -149,11 +152,69 @@ class ManageAddressView extends GetView<ManageAddressController> {
                                                                           true),
                                                                 ),
                                                                 Container(
-                                                                  height: 25,
-                                                                  width: 25,
-                                                                  child: SvgPicture
-                                                                      .asset(
-                                                                          "assets/icons/edit_address.svg"),
+                                                                  height: 40,
+                                                                  width: 100,
+                                                                  child: Row(
+                                                                    children: [
+                                                                      GestureDetector(
+                                                                        onTap:
+                                                                            () {
+                                                                          Get.toNamed(Routes.ADDADDRESS, arguments: controller.addresses.value.addresses?[index].addressId)?.then((value) =>
+                                                                              controller.getAccountAddresses());
+                                                                        },
+                                                                        child:
+                                                                            Container(
+                                                                          height:
+                                                                              40,
+                                                                          width:
+                                                                              40,
+                                                                          child:
+                                                                              SvgPicture.asset("assets/icons/edit_address.svg"),
+                                                                        ),
+                                                                      ),
+                                                                      GestureDetector(
+                                                                        onTap:
+                                                                            () async {
+                                                                          print(controller
+                                                                              .addresses
+                                                                              .value
+                                                                              .addresses?[index]
+                                                                              .addressId);
+                                                                          var res = await ApiHelper.deleteAddress((controller
+                                                                              .addresses
+                                                                              .value
+                                                                              .addresses?[index]
+                                                                              .addressId)!);
+                                                                          print(
+                                                                              res.responseCode);
+                                                                          if (res.responseCode ==
+                                                                              200) {
+                                                                            controller.addresses.value.addresses?.removeAt(index);
+                                                                            if ((controller.addresses.value.addresses?.isEmpty)!) {
+                                                                              controller.isEmptyAddress.value = true;
+                                                                            }
+                                                                            controller.update();
+                                                                            controller.addresses.refresh();
+                                                                          }
+                                                                        },
+                                                                        child:
+                                                                            SizedBox(
+                                                                          height:
+                                                                              25,
+                                                                          width:
+                                                                              25,
+                                                                          child:
+                                                                              SvgPicture.asset(
+                                                                            "assets/icons/delete_address.svg",
+                                                                            height:
+                                                                                25,
+                                                                            width:
+                                                                                25,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
                                                                 )
                                                               ],
                                                             ),

@@ -14,6 +14,7 @@ import 'package:family_garden/models/payment_method_model.dart';
 import 'package:flutter_svg/avd.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/account_address_model.dart';
+import '../models/address_view_model.dart';
 import '../models/cart_count_model.dart';
 import '../models/categories_model.dart';
 import '../models/category_product_model.dart';
@@ -21,6 +22,7 @@ import '../models/change_password_model.dart';
 import '../models/checkoutConfirmCODModel.dart';
 import '../models/coupon_model.dart';
 import '../models/delete_address_model.dart';
+import '../models/edit_address_model.dart';
 import '../models/home_features_model.dart';
 import '../models/informationDetailsModel.dart';
 import '../models/order_history_model.dart';
@@ -993,6 +995,7 @@ class ApiHelper {
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
+      print(response.statusCode);
       if (response.statusCode == 200) {
         var body = jsonDecode(await response.stream.bytesToString());
         print(body);
@@ -1052,6 +1055,7 @@ class ApiHelper {
       );
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
+        print(body);
         var res = HomeFeaturesModel.fromJson(body);
         return HTTPResponse(
           true,
@@ -1596,6 +1600,9 @@ class ApiHelper {
     String url =
         "${ApiConstants.baseUrl}${EndPoints.getOrdersEndpoint}&api_token=${ApiConstants.jwtToken}";
     try {
+      print(url);
+      print(orderId);
+
       var response =
           await http.post(Uri.parse(url), body: {'order_id': '$orderId'});
       if (response.statusCode == 200) {
@@ -1706,7 +1713,7 @@ class ApiHelper {
     try {
       final response = await http.post(
         Uri.parse(
-            "${ApiConstants.baseUrl}${EndPoints.updatePassword}&api_token=${ApiConstants.jwtToken}"),
+            "${ApiConstants.baseUrl}${EndPoints.deleteAddress}&api_token=${ApiConstants.jwtToken}"),
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -1755,5 +1762,84 @@ class ApiHelper {
         message: "Something went wrong! Please try again in a minute or two.",
       );
     }
+  }
+
+  static Future<HTTPResponse<EditAddressModel>> editAddress(
+      addressId,
+      firstname,
+      address_1,
+      countryId,
+      zoneId,
+      telephone,
+      city,
+      postcode) async {
+    String url =
+        "${ApiConstants.baseUrl}${EndPoints.editAddres}&api_token=${ApiConstants.jwtToken}";
+    try {
+      var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+      var request = http.Request('POST', Uri.parse(url));
+      request.bodyFields = {
+        'address_id': addressId,
+        'firstname': firstname,
+        'address_1': address_1,
+        'country_id': countryId,
+        'zone_id': zoneId,
+        'telephone': telephone,
+        'city': city,
+        'postcode': postcode
+      };
+      request.headers.addAll(headers);
+      http.StreamedResponse response = await request.send();
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        var body = jsonDecode(await response.stream.bytesToString());
+        print(body);
+        var res = EditAddressModel.fromJson(body);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print(e);
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static addressDetails(addressId) async {
+    var url = Uri.parse(
+        "${ApiConstants.baseUrl}${EndPoints.addressView}&api_token=${ApiConstants.jwtToken}");
+    var response = await http.post(url, body: {'address_id': addressId});
+    if (response.statusCode == 200) {
+      print(json.decode(response.body));
+      return json.decode(response.body);
+    }
+    return null;
   }
 }

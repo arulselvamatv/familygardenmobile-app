@@ -155,7 +155,7 @@ class AppPages {
         binding: OrdersuccessBinding()),
     GetPage(
       name: _Paths.ORDER_DETAIL,
-      page: () => const OrderDetailView(),
+      page: () => OrderDetailView(),
       binding: OrderDetailBinding(),
     ),
     GetPage(

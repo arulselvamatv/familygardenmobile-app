@@ -12,26 +12,60 @@ class AddAddressController extends GetxController {
   TextEditingController stateController = TextEditingController();
   TextEditingController pinCodeController = TextEditingController();
   TextEditingController phoneNumController = TextEditingController();
+  RxString addresId = "".obs;
 
   @override
   void onInit() {
     cityController.text = 'Chennai';
     stateController.text = 'Tamil Nadu';
+    if (Get.arguments != null) {
+      getAddressData(addressId: Get.arguments);
+    }
     super.onInit();
   }
 
+  getAddressData({required String addressId}) async {
+    var response = await ApiHelper.addressDetails(addressId);
+    if (response != null) {
+      print(response["address"]["address_id"]);
+      addresId.value = response["address"]["address_id"];
+      nameController.text = response["address"]["firstname"];
+      phoneNumController.text = response["address"]["telephone"];
+      pinCodeController.text = response["address"]["postcode"];
+      addressController.text = response["address"]["address_1"];
+      update();
+    }
+  }
+
   saveAddress() async {
-    var response = await ApiHelper.addAddresses(
-      nameController.text,
-      addressController.text,
-      "99",
-      "1503",
-      phoneNumController.text,
-      cityController.text,
-      pinCodeController.text,
-    );
-    if (response.responseCode == 200) {
-      Get.back();
+    if (Get.arguments != null) {
+      var response = await ApiHelper.editAddress(
+        addresId.value,
+        nameController.text,
+        addressController.text,
+        "99",
+        "1503",
+        phoneNumController.text,
+        cityController.text,
+        pinCodeController.text,
+      );
+      if (response.responseCode == 200) {
+        Get.back();
+      }
+    } else {
+      var response = await ApiHelper.addAddresses(
+        nameController.text,
+        addressController.text,
+        "99",
+        "1503",
+        phoneNumController.text,
+        cityController.text,
+        pinCodeController.text,
+      );
+      print(response.responseCode);
+      if (response.responseCode == 200) {
+        Get.back();
+      }
     }
   }
 
