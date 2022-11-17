@@ -1609,6 +1609,10 @@ class ApiHelper {
         var body = jsonDecode(response.body);
         print(body);
         var res = OrderInfoModel.fromJson(body);
+        print('sub total: ${res.subTotals?.value}');
+        print('total: ${res.totals?.value}');
+        print('shipping: ${res.shipping?.value}');
+
         return HTTPResponse(
           true,
           res,

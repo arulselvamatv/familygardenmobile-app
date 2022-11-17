@@ -46,8 +46,34 @@ class OrderDetailController extends GetxController {
       print("LOG::::::${response.data!.logged}");
       showAppNotificationNotifierInitial.value = true;
     } else {
+      // sub total
+      var doubleString = response.data?.subTotals?.value;
+      if (doubleString != null) {
+        var subTotalDouble = double.parse(doubleString);
+        response.data?.subTotals?.value = subTotalDouble.toStringAsFixed(2);
+      }
+      // sub total
+      doubleString = response.data?.totals?.value;
+      if (doubleString != null) {
+        var subTotalDouble = double.parse(doubleString);
+        response.data?.totals?.value = subTotalDouble.toStringAsFixed(2);
+      }
+      // sub total
+      doubleString = response.data?.shipping?.value;
+      if (doubleString != null) {
+        var subTotalDouble = double.parse(doubleString);
+        response.data?.shipping?.value = subTotalDouble.toStringAsFixed(2);
+      }
+      // sub total
+      doubleString = response.data?.coupon?.value;
+      if (doubleString != null) {
+        var subTotalDouble = double.parse(doubleString);
+        response.data?.coupon?.value = subTotalDouble.toStringAsFixed(2);
+      }
       orderInfo.value = response.data!;
-      // subTotal.value =
+      print('Model ${orderInfo.value.subTotals?.value}, ${orderInfo.value.totals?.value}, ${orderInfo.value.shipping?.value}, ${orderInfo.value.coupon?.value}');
+      print('Response ${response.data?.subTotals?.value}, ${response.data?.totals?.value}, ${response.data?.shipping?.value}, ${response.data?.coupon?.value}');
+      // doubleString.value =
       //     double.parse(orderInfo.value.subTotals?.value!.toStringAsFixed(2));
       getBoolList();
     }

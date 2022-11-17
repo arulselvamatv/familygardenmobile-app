@@ -81,7 +81,7 @@ class OrderInfoModel {
             : Coupon.fromJson(json["sub_totals"]),
         shipping:
             json["shipping"] == null ? null : Coupon.fromJson(json["shipping"]),
-        coupon: json["coupon"] == null ? null : Coupon.fromJson(json["coupon"]),
+        coupon: (json["coupon"] is Map<String, dynamic>) ? Coupon.fromJson(json["coupon"]) : Coupon(title: "", value: "0.00"),
         totals: json["totals"] == null ? null : Coupon.fromJson(json["totals"]),
         comment: json["comment"] == null ? null : json["comment"],
         histories: json["histories"] == null
@@ -143,11 +143,11 @@ class Breadcrumb {
 class Coupon {
   Coupon({
     this.title,
-    this.value,
+    required this.value,
   });
 
-  final String? title;
-  final String? value;
+  late final String? title;
+  late String? value;
 
   factory Coupon.fromJson(Map<String, dynamic> json) => Coupon(
         title: json["title"] == null ? null : json["title"],

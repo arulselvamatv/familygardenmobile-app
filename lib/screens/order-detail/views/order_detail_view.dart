@@ -399,10 +399,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                               Spacer(),
                                               SizedBox(
                                                 width: 50,
-                                                child: Text(
-                                                  controller.orderInfo.value
-                                                          .subTotals?.value ??
-                                                      "",
+                                                child: Text(controller.orderInfo.value.subTotals?.value ?? "0.00",
                                                   style: TextStyle(
                                                       fontSize: 12,
                                                       fontWeight:
@@ -435,10 +432,8 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                               Spacer(),
                                               SizedBox(
                                                 width: 50,
-                                                child: Text(
-                                                  controller.orderInfo.value
-                                                          .shipping?.value ??
-                                                      "",
+                                                child: Text(controller.orderInfo.value
+                                                    .shipping?.value ?? "0.00",
                                                   style: TextStyle(
                                                       fontSize: 12,
                                                       fontWeight:
@@ -471,10 +466,8 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                               Spacer(),
                                               SizedBox(
                                                 width: 50,
-                                                child: Text(
-                                                  controller.orderInfo.value
-                                                          .coupon?.value ??
-                                                      "",
+                                                child: Text(controller.orderInfo.value
+                                                    .coupon?.value ?? "0.00",
                                                   style: TextStyle(
                                                       fontSize: 12,
                                                       fontWeight:
@@ -512,10 +505,8 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                               Spacer(),
                                               SizedBox(
                                                 width: 50,
-                                                child: Text(
-                                                  controller.orderInfo.value
-                                                          .totals?.value ??
-                                                      "0",
+                                                child: Text(controller.orderInfo.value
+                                                    .totals?.value ?? "0.00",
                                                   style: TextStyle(
                                                       fontSize: 14,
                                                       fontWeight:
@@ -553,7 +544,9 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                 ),
                                 AppSize.size.h20,
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 50.0),
+                                  padding: controller
+                                      .orderInfo.value.paymentMethod ==
+                                      "Cash On Delivery" ? const EdgeInsets.only(left: 50.0) : const EdgeInsets.only(left: 15.0, right: 15.0),
                                   child: controller
                                               .orderInfo.value.paymentMethod ==
                                           "Cash On Delivery"

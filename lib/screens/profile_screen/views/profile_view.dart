@@ -2,6 +2,7 @@ import 'package:family_garden/network/api_constants/api_constants.dart';
 import 'package:family_garden/network/api_helper.dart';
 import 'package:family_garden/network/set_local_datas.dart';
 import 'package:family_garden/routes/app_pages.dart';
+import 'package:family_garden/screens/account_screen/controllers/account_controller.dart';
 import 'package:family_garden/screens/profile_screen/controllers/profile_controller.dart';
 import 'package:family_garden/widgets/LoginWidget/pop_up_notification_view.dart';
 import 'package:family_garden/widgets/custom_textfield.dart';
@@ -10,6 +11,8 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../utils/common_import/common_import.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
+import '../../dashboard/controllers/dashboard_controller.dart';
+import '../../drawer_screen/controllers/drawer_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
   @override
@@ -155,23 +158,72 @@ class ProfileView extends GetView<ProfileController> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              flex: 2,
-                              child: TextWidget(
-                                'Delete Account',
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.black,
+                        child: GestureDetector(
+                          onTap: () async {
+                        print(ApiConstants.jwtToken);
+                        int res = await ApiHelper.logOut();
+                        final prefs =
+                        await SharedPreferences
+                            .getInstance();
+                        if (res == 1) {
+                        prefs.clear();
+                        // controller.isLoggedIn.value =
+                        // false;
+                        // controller.isLoggedIn.refresh();
+                        // controller.update();
+                        Get.put(DrawerWidgetController());
+                        Get.put(AccountController());
+                        Get.find<AccountController>().isLoggedIn.value = false;
+                        Get.find<AccountController>().isLoggedIn.refresh();
+                        Get.find<DrawerWidgetController>()
+                            .isLoggedin
+                            .value = true;
+                        Get.find<DrawerWidgetController>()
+                            .isLoggedin
+                            .refresh();
+                        var response =
+                        await ApiHelper.getToken();
+                        if (response.data?.apiToken !=
+                        null) {
+                        SetLocalDatas.setToken(
+                        (response.data?.apiToken)!);
+                        print(ApiConstants.jwtToken);
+                        }
+                        Get.put(DashboardController());
+                        Get.find<DashboardController>()
+                            .isLoggedIn
+                            .value = false;
+                        // Get.snackbar('success',
+                        //     "Logout successfully");
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(SnackBar(
+                        duration:
+                        Duration(milliseconds: 350),
+                        content:
+                        Text("Account deleted successfully"),
+                        ));
+                        Get.back();
+                        }
+                        // controller.logout();
+                        },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                flex: 2,
+                                child: TextWidget(
+                                  'Delete Account',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.black,
+                                ),
                               ),
-                            ),
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              size: 15,
-                            )
-                          ],
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                size: 15,
+                              )
+                            ],
+                          ),
                         ),
                       ),
                       Divider(
