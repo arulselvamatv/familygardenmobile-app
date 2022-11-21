@@ -1,6 +1,7 @@
 import 'package:family_garden/screens/drawer_screen/controllers/drawer_controller.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:family_garden/widgets/custom_text.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../network/api_constants/api_constants.dart';
@@ -281,7 +282,7 @@ class DrawerView extends GetView<DrawerWidgetController> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset('assets/icons/c.png'),
+                        SvgPicture.asset('assets/icons/copy_rights_icon.svg'),
                         AppSize.size.w5,
                         TextWidget(
                           'Family Garden. 2022',
@@ -469,7 +470,7 @@ class DrawerView extends GetView<DrawerWidgetController> {
                                       }
                                     },
                                     style: ElevatedButton.styleFrom(
-                                        primary: AppColors.primaryColor,
+                                        backgroundColor: AppColors.primaryColor,
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(13))),

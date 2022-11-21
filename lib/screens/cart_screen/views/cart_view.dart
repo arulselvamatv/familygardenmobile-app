@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../routes/app_pages.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
+import '../../dashboard/controllers/dashboard_controller.dart';
 import '../controllers/cart_controller.dart';
 
 class CartView extends GetView<CartController> {
@@ -484,7 +485,7 @@ class CartView extends GetView<CartController> {
                   ),
                   style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.all(0),
-                      primary: AppColors.primaryColor,
+                      backgroundColor: AppColors.primaryColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(6),
                       )),
@@ -538,7 +539,7 @@ class CartView extends GetView<CartController> {
                           color: AppColors.white,
                         ),
                         style: ElevatedButton.styleFrom(
-                            primary: AppColors.primaryColor,
+                            backgroundColor: AppColors.primaryColor,
                             padding: const EdgeInsets.all(0),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(6),
@@ -686,6 +687,9 @@ class CartView extends GetView<CartController> {
             child: ElevatedButton(
                 onPressed: () {
                   // controller.hitAddCartAPI();
+                  Get.find<DashboardController>().tabController?.animateTo(0);
+                  Get.find<DashboardController>().selectedIndex.value = 0;
+                  Get.find<DashboardController>().selectedIndex.refresh();
                   Get.toNamed(Routes.DASHBOARD);
                 },
                 style: ElevatedButton.styleFrom(

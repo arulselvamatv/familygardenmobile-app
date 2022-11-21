@@ -21,7 +21,7 @@ class LoginWidgetView extends GetView<LoginWidgetController> {
   Widget build(BuildContext context) {
     final formGlobalKey = GlobalKey<FormState>();
     return SingleChildScrollView(
-      // physics: NeverScrollableScrollPhysics(),
+      physics: NeverScrollableScrollPhysics(),
       child: Obx(
         () => Container(
           height: screenName == "Account Login" ? Get.height : Get.height - 140,
@@ -211,7 +211,7 @@ class LoginWidgetView extends GetView<LoginWidgetController> {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                            primary: AppColors.primaryColor,
+                            backgroundColor: AppColors.primaryColor,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(13))),
                         child: TextWidget(

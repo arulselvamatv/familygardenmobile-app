@@ -31,14 +31,13 @@ class ManageAddressController extends GetxController {
     stateController.text = "Tamil Nadu";
   }
 
-
   getAccountAddresses() async {
+    print("hello");
     var response = await ApiHelper.accountAddress();
     if (response.responseCode == 200) {
       isLoader.value = true;
     }
-    if (response.data?.logged == null || response.data?.logged == "null")
-    {
+    if (response.data?.logged == null || response.data?.logged == "null") {
       print("LOG::::::${response.data?.logged}");
       showAppNotificationNotifierInitial.value = true;
     }

@@ -78,32 +78,45 @@ class SearchView extends GetView<SearchController> {
                         topRight: Radius.circular(30),
                         topLeft: Radius.circular(30),
                       )),
-                  child: Obx(() => controller.isLoader.value ? Center(child: CircularProgressIndicator()) : Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: ListView.separated (
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          primary: false,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                print(controller.productName.value[index]['product_id']);
-                                Get.toNamed(Routes.PRODUCT_DETAILS_SCREEN,
-                                    arguments: controller.productName.value[index]['product_id']);
-                              },
-                              child: Container(
-                                child: TextWidget(
-                                  controller.productName.value[index]['name'],
-                                  fontSize: 20,color: AppColors.black,
-                                ),
+                  child: Obx(
+                    () => controller.isLoader.value
+                        ? Center(child: CircularProgressIndicator())
+                        : controller.productName.isNotEmpty
+                            ? Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                child: ListView.separated(
+                                    scrollDirection: Axis.vertical,
+                                    shrinkWrap: true,
+                                    primary: false,
+                                    itemBuilder: (context, index) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          print(controller.productName
+                                              .value[index]['product_id']);
+                                          Get.toNamed(
+                                              Routes.PRODUCT_DETAILS_SCREEN,
+                                              arguments: controller.productName
+                                                  .value[index]['product_id']);
+                                        },
+                                        child: Container(
+                                          child: TextWidget(
+                                            controller.productName.value[index]
+                                                ['name'],
+                                            fontSize: 20,
+                                            color: AppColors.black,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    separatorBuilder: (context, index) {
+                                      return AppSize.size.h15;
+                                    },
+                                    itemCount: controller.productName.length),
+                              )
+                            : Center(
+                                child: Text("No result found"),
                               ),
-                            );
-                          },
-                          separatorBuilder: (context, index) {
-                            return AppSize.size.h15;
-                          },
-                          itemCount: controller.productName.length),
-                  ),
                   )),
             )
           ],

@@ -768,7 +768,7 @@ class ApiHelper {
             "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
-      print(e);
+      print(" sdasd $e");
       return HTTPResponse(
         false,
         null,
@@ -816,7 +816,7 @@ class ApiHelper {
             "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
-      print(e);
+      print("sdfsdf $e");
       return HTTPResponse(
         false,
         null,

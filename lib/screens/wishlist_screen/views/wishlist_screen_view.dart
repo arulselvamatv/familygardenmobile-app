@@ -121,7 +121,8 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Image.asset('assets/images/wishlist-empty.png'),
+                                  Image.asset(
+                                      'assets/images/wishlist-empty.png'),
                                   const SizedBox(
                                     height: 10,
                                   ),
@@ -140,9 +141,11 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                     itemBuilder: (context, index) {
                                       return GestureDetector(
                                         onTap: () {
-                                          Get.toNamed(Routes.PRODUCT_DETAILS_SCREEN,
+                                          Get.toNamed(
+                                                  Routes.PRODUCT_DETAILS_SCREEN,
                                                   arguments: controller
-                                                      .products[index].productId)
+                                                      .products[index]
+                                                      .productId)
                                               ?.then((value) =>
                                                   controller.getCartCount());
                                         },
@@ -164,8 +167,8 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                                     height: 90,
                                                     width: 90,
                                                     child: Image.network(
-                                                      controller
-                                                          .products[index].thumb!,
+                                                      controller.products[index]
+                                                          .thumb!,
                                                       fit: BoxFit.fill,
                                                       height: 90,
                                                       width: 90,
@@ -198,29 +201,33 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                                   print(response.responseCode);
                                                   if (response.responseCode ==
                                                       200) {
-                                                    int count = int.parse(controller
-                                                                .cartCount.value ==
-                                                            ""
-                                                        ? "0"
-                                                        : controller
-                                                            .cartCount.value);
+                                                    int count = int.parse(
+                                                        controller.cartCount
+                                                                    .value ==
+                                                                ""
+                                                            ? "0"
+                                                            : controller
+                                                                .cartCount
+                                                                .value);
                                                     controller.cartCount.value =
                                                         "${count + 1}";
                                                     controller.products[index]
                                                         .addToCart = true;
-                                                    controller.products.refresh();
+                                                    controller.products
+                                                        .refresh();
                                                   }
                                                   print("OnTap");
                                                 },
                                                 child: SizedBox(
                                                   width: Get.width / 2.40,
                                                   child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.symmetric(
-                                                            vertical: 12),
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        vertical: 12),
                                                     child: Column(
                                                       crossAxisAlignment:
-                                                          CrossAxisAlignment.start,
+                                                          CrossAxisAlignment
+                                                              .start,
                                                       children: [
                                                         SizedBox(
                                                           // width: Get.width / 2.6,
@@ -246,11 +253,13 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                                         Obx(
                                                           () => Container(
                                                             padding:
-                                                                const EdgeInsets.only(
+                                                                const EdgeInsets
+                                                                        .only(
                                                                     left: 20.0,
                                                                     right: 20.0,
                                                                     top: 5.0,
-                                                                    bottom: 5.0),
+                                                                    bottom:
+                                                                        5.0),
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
@@ -272,10 +281,11 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                                             child: TextWidget(
                                                               "Add to Cart",
                                                               fontSize: 12,
-                                                              color:
-                                                                  AppColors.white,
+                                                              color: AppColors
+                                                                  .white,
                                                               fontWeight:
-                                                                  FontWeight.w500,
+                                                                  FontWeight
+                                                                      .w500,
                                                             ),
                                                           ),
                                                         )
@@ -286,19 +296,22 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                               ),
                                               const SizedBox(width: 20),
                                               Padding(
-                                                padding: const EdgeInsets.only(right: 17),
+                                                padding: const EdgeInsets.only(
+                                                    right: 17),
                                                 child: SizedBox(
                                                   width: 75,
                                                   child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.symmetric(
-                                                            vertical: 12),
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        vertical: 12),
                                                     child: Column(
                                                       crossAxisAlignment:
-                                                          CrossAxisAlignment.center,
+                                                          CrossAxisAlignment
+                                                              .center,
                                                       children: [
                                                         TextWidget(
-                                                          controller.products[index]
+                                                          controller
+                                                              .products[index]
                                                               .stock,
                                                           fontSize: 12,
                                                           fontWeight:
@@ -306,70 +319,83 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                                           maxLines: 1,
                                                           color: Colors.red,
                                                           textOverflow:
-                                                              TextOverflow.ellipsis,
+                                                              TextOverflow
+                                                                  .ellipsis,
                                                         ),
                                                         AppSize.size.h5,
                                                         TextWidget(
-                                                          controller.products[index]
+                                                          controller
+                                                              .products[index]
                                                               .special,
                                                           fontSize: 16,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           maxLines: 1,
                                                           textOverflow:
-                                                              TextOverflow.ellipsis,
+                                                              TextOverflow
+                                                                  .ellipsis,
                                                         ),
                                                         const Padding(
                                                             padding:
                                                                 EdgeInsets.only(
                                                                     top: 2.0)),
                                                         TextWidget(
-                                                          controller.products[index]
+                                                          controller
+                                                              .products[index]
                                                               .price,
                                                           fontSize: 12,
                                                           fontWeight:
                                                               FontWeight.w500,
-                                                          decoration: TextDecoration
-                                                              .lineThrough,
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .lineThrough,
                                                         ),
                                                         const Spacer(),
                                                         GestureDetector(
                                                           onTap: () {
                                                             controller.removeWishlist(
                                                                 controller
-                                                                    .products[index]
+                                                                    .products[
+                                                                        index]
                                                                     .productId!,
                                                                 controller
-                                                                    .products[index]
+                                                                    .products[
+                                                                        index]
                                                                     .productOptionId!,
                                                                 controller
-                                                                    .products[index]
+                                                                    .products[
+                                                                        index]
                                                                     .productOptionValueId!);
-                                                            Get.snackbar('success',
+                                                            Get.snackbar(
+                                                                'success',
                                                                 "Removed");
                                                           },
                                                           child: Container(
                                                             padding:
-                                                                const EdgeInsets.only(
+                                                                const EdgeInsets
+                                                                        .only(
                                                                     left: 10.0,
                                                                     right: 10,
                                                                     top: 5.0,
-                                                                    bottom: 5.0),
+                                                                    bottom:
+                                                                        5.0),
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
                                                                           25.0),
-                                                              color: Colors.amber,
+                                                              color:
+                                                                  Colors.amber,
                                                             ),
                                                             child: TextWidget(
                                                               "Remove",
                                                               fontSize: 12,
-                                                              color:
-                                                                  AppColors.white,
+                                                              color: AppColors
+                                                                  .white,
                                                               fontWeight:
-                                                                  FontWeight.w500,
+                                                                  FontWeight
+                                                                      .w500,
                                                             ),
                                                           ),
                                                         )
@@ -393,27 +419,24 @@ class WishListScreenView extends GetView<WishListScreenController> {
                               ],
                             )),
                 ),
-
                 ValueListenableBuilder<bool>(
-                  valueListenable: controller.showAppNotificationNotifierInitial,
-                  builder: (context, value, child)
-                  {
-                    print("HomeBooksView :: showAppNotificationNotifier $value :: ${MediaQuery.of(context).size}");
+                  valueListenable:
+                      controller.showAppNotificationNotifierInitial,
+                  builder: (context, value, child) {
+                    print(
+                        "HomeBooksView :: showAppNotificationNotifier $value :: ${MediaQuery.of(context).size}");
                     return AnimatedPositioned(
-                      top: value ? 0 : - Get.width - 1000,
+                      top: value ? 0 : -Get.width - 1000,
                       duration: const Duration(milliseconds: 500),
                       curve: Curves.easeInCubic,
                       child: PopUpNotificationView(
-                        onClosePressed: ()
-                        async
-                        {
+                        onClosePressed: () async {
                           print(ApiConstants.jwtToken);
                           int res = await ApiHelper.logOut();
                           var prefs = await SharedPreferences.getInstance();
                           prefs.clear();
                           var response = await ApiHelper.getToken();
-                          if (response.data?.apiToken != null)
-                          {
+                          if (response.data?.apiToken != null) {
                             SetLocalDatas.setToken((response.data?.apiToken)!);
                             print(ApiConstants.jwtToken);
                             Navigator.pop(context);
@@ -441,7 +464,7 @@ class WishListScreenView extends GetView<WishListScreenController> {
                       child: ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
-                              primary: AppColors.primaryColor,
+                              backgroundColor: AppColors.primaryColor,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(13))),
                           child: TextWidget(

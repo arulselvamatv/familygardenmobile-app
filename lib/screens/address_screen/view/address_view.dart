@@ -18,7 +18,7 @@ class AddressView extends GetView<AddressController> {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(55),
+        preferredSize: const Size.fromHeight(55),
         child: CustomAppbarView(
           leading_width: 50,
           appbar_leading: Container(
@@ -114,7 +114,7 @@ class AddressView extends GetView<AddressController> {
                                                   Container(
                                                     width: Get.width,
                                                     child: Container(
-                                                      height: 139,
+                                                      height: 165,
                                                       color: Colors.white,
                                                       child: Row(
                                                         crossAxisAlignment:
@@ -233,7 +233,37 @@ class AddressView extends GetView<AddressController> {
                                                                   ),
                                                                 ),
                                                                 SizedBox(
-                                                                  height: 17,
+                                                                  height: 10,
+                                                                ),
+                                                                Text(controller
+                                                                        .addressModel
+                                                                        .value
+                                                                        .addresses?[
+                                                                            index]
+                                                                        .city ??
+                                                                    ""),
+                                                                SizedBox(
+                                                                  height: 10,
+                                                                ),
+                                                                Text(controller
+                                                                        .addressModel
+                                                                        .value
+                                                                        .addresses?[
+                                                                            index]
+                                                                        .zone ??
+                                                                    ""),
+                                                                SizedBox(
+                                                                  height: 10,
+                                                                ),
+                                                                Text(controller
+                                                                        .addressModel
+                                                                        .value
+                                                                        .addresses?[
+                                                                            index]
+                                                                        .email ??
+                                                                    ""),
+                                                                SizedBox(
+                                                                  height: 10,
                                                                 ),
                                                                 Text(controller
                                                                         .addressModel
@@ -331,7 +361,7 @@ class AddressView extends GetView<AddressController> {
                                                 // controller.onPressAddBtn();
                                               },
                                               style: ElevatedButton.styleFrom(
-                                                  primary:
+                                                  backgroundColor:
                                                       AppColors.primaryColor,
                                                   shape: RoundedRectangleBorder(
                                                       borderRadius:

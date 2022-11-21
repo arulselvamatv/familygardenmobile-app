@@ -68,7 +68,7 @@ class PaymentView extends GetView<PaymentController> {
                                 Get.offAllNamed(Routes.DASHBOARD);
                               },
                               style: ElevatedButton.styleFrom(
-                                  primary: AppColors.primaryColor,
+                                  backgroundColor: AppColors.primaryColor,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(13))),
                               child: TextWidget(
@@ -413,7 +413,7 @@ class PaymentView extends GetView<PaymentController> {
                                           // controller.onPressAddBtn();
                                         },
                                         style: ElevatedButton.styleFrom(
-                                            primary: AppColors.primaryColor,
+                                            backgroundColor: AppColors.primaryColor,
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(13))),

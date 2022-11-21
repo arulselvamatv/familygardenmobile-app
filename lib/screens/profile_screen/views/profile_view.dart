@@ -95,6 +95,9 @@ class ProfileView extends GetView<ProfileController> {
                         fontSize: 12,
                         controller: controller.telephoneController,
                         hint: '',
+                        maxlength: 10,
+                        counterText: "",
+                        keyboardType: TextInputType.number,
                         readOnly: false,
                       ),
                       AppSize.size.h55,
@@ -160,52 +163,48 @@ class ProfileView extends GetView<ProfileController> {
                         padding: const EdgeInsets.all(10.0),
                         child: GestureDetector(
                           onTap: () async {
-                        print(ApiConstants.jwtToken);
-                        int res = await ApiHelper.logOut();
-                        final prefs =
-                        await SharedPreferences
-                            .getInstance();
-                        if (res == 1) {
-                        prefs.clear();
-                        // controller.isLoggedIn.value =
-                        // false;
-                        // controller.isLoggedIn.refresh();
-                        // controller.update();
-                        Get.put(DrawerWidgetController());
-                        Get.put(AccountController());
-                        Get.find<AccountController>().isLoggedIn.value = false;
-                        Get.find<AccountController>().isLoggedIn.refresh();
-                        Get.find<DrawerWidgetController>()
-                            .isLoggedin
-                            .value = true;
-                        Get.find<DrawerWidgetController>()
-                            .isLoggedin
-                            .refresh();
-                        var response =
-                        await ApiHelper.getToken();
-                        if (response.data?.apiToken !=
-                        null) {
-                        SetLocalDatas.setToken(
-                        (response.data?.apiToken)!);
-                        print(ApiConstants.jwtToken);
-                        }
-                        Get.put(DashboardController());
-                        Get.find<DashboardController>()
-                            .isLoggedIn
-                            .value = false;
-                        // Get.snackbar('success',
-                        //     "Logout successfully");
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(SnackBar(
-                        duration:
-                        Duration(milliseconds: 350),
-                        content:
-                        Text("Account deleted successfully"),
-                        ));
-                        Get.back();
-                        }
-                        // controller.logout();
-                        },
+                            print(ApiConstants.jwtToken);
+                            int res = await ApiHelper.logOut();
+                            final prefs = await SharedPreferences.getInstance();
+                            if (res == 1) {
+                              prefs.clear();
+                              // controller.isLoggedIn.value =
+                              // false;
+                              // controller.isLoggedIn.refresh();
+                              // controller.update();
+                              Get.put(DrawerWidgetController());
+                              Get.put(AccountController());
+                              Get.find<AccountController>().isLoggedIn.value =
+                                  false;
+                              Get.find<AccountController>()
+                                  .isLoggedIn
+                                  .refresh();
+                              Get.find<DrawerWidgetController>()
+                                  .isLoggedin
+                                  .value = true;
+                              Get.find<DrawerWidgetController>()
+                                  .isLoggedin
+                                  .refresh();
+                              var response = await ApiHelper.getToken();
+                              if (response.data?.apiToken != null) {
+                                SetLocalDatas.setToken(
+                                    (response.data?.apiToken)!);
+                                print(ApiConstants.jwtToken);
+                              }
+                              Get.put(DashboardController());
+                              Get.find<DashboardController>().isLoggedIn.value =
+                                  false;
+                              // Get.snackbar('success',
+                              //     "Logout successfully");
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                duration: Duration(milliseconds: 350),
+                                content: Text("Account deleted successfully"),
+                              ));
+                              Get.back();
+                            }
+                            // controller.logout();
+                          },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -304,12 +303,12 @@ openAlertBox(BuildContext context, ProfileController controller) {
                       padding: EdgeInsets.only(top: 20.0),
                     ),
                     TextFormField(
-                      // validator: (value) {
-                      //   if (value == null || value.isEmpty) {
-                      //     return 'please enter password';
-                      //   }
-                      //   return null;
-                      // },
+                      validator: (value) {
+                        // if (value == null || value.isEmpty) {
+                        //   return 'please enter password';
+                        // }
+                        // return null;
+                      },
                       maxLength: 20,
                       controller: controller.passwordController,
                       decoration: InputDecoration(
@@ -342,12 +341,17 @@ openAlertBox(BuildContext context, ProfileController controller) {
                       ),
                     ),
                     TextFormField(
-                      // validator: (value) {
-                      //   if (value == null || value.isEmpty) {
-                      //     return 'please enter password';
-                      //   }
-                      //   return null;
-                      // },
+                      validator: (value) {
+                        // if (value == null || value.isEmpty) {
+                        //   return 'please enter password';
+                        // } else {
+                        //   if (controller.passwordController.text == value) {
+                        //     return null;
+                        //   } else {
+                        //     return "Password and confirm password mismatch";
+                        //   }
+                        // }
+                      },
                       controller: controller.confirmPasswordController,
                       maxLength: 20,
                       decoration: InputDecoration(
@@ -396,13 +400,27 @@ openAlertBox(BuildContext context, ProfileController controller) {
                               Get.snackbar(
                                   'warning', "Please fill necessary fields!");
                               return;
+                            } else if (controller
+                                        .passwordController.text.length >=
+                                    4 &&
+                                controller.passwordController.text.length >=
+                                    4) {
+                              if (controller.passwordController.text !=
+                                  controller.confirmPasswordController.text) {
+                                Get.snackbar('warning',
+                                    "Password and confirm password mismatch!");
+                              } else {
+                                controller.updatePassword(
+                                    controller.passwordController.text,
+                                    controller.confirmPasswordController.text);
+                              }
+                            } else {
+                              Get.snackbar("warning",
+                                  "password must contain 4-20 characters");
                             }
-                            controller.updatePassword(
-                                controller.passwordController.text,
-                                controller.confirmPasswordController.text);
                           },
                           style: ElevatedButton.styleFrom(
-                              primary: AppColors.primaryColor,
+                              backgroundColor: AppColors.primaryColor,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(13))),
                           child: TextWidget(

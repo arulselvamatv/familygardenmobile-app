@@ -399,7 +399,10 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                               Spacer(),
                                               SizedBox(
                                                 width: 50,
-                                                child: Text(controller.orderInfo.value.subTotals?.value ?? "0.00",
+                                                child: Text(
+                                                  controller.orderInfo.value
+                                                          .subTotals?.value ??
+                                                      "0.00",
                                                   style: TextStyle(
                                                       fontSize: 12,
                                                       fontWeight:
@@ -432,8 +435,10 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                               Spacer(),
                                               SizedBox(
                                                 width: 50,
-                                                child: Text(controller.orderInfo.value
-                                                    .shipping?.value ?? "0.00",
+                                                child: Text(
+                                                  controller.orderInfo.value
+                                                          .shipping?.value ??
+                                                      "0.00",
                                                   style: TextStyle(
                                                       fontSize: 12,
                                                       fontWeight:
@@ -466,8 +471,10 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                               Spacer(),
                                               SizedBox(
                                                 width: 50,
-                                                child: Text(controller.orderInfo.value
-                                                    .coupon?.value ?? "0.00",
+                                                child: Text(
+                                                  controller.orderInfo.value
+                                                          .coupon?.value ??
+                                                      "0.00",
                                                   style: TextStyle(
                                                       fontSize: 12,
                                                       fontWeight:
@@ -505,8 +512,10 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                               Spacer(),
                                               SizedBox(
                                                 width: 50,
-                                                child: Text(controller.orderInfo.value
-                                                    .totals?.value ?? "0.00",
+                                                child: Text(
+                                                  controller.orderInfo.value
+                                                          .totals?.value ??
+                                                      "0.00",
                                                   style: TextStyle(
                                                       fontSize: 14,
                                                       fontWeight:
@@ -531,47 +540,76 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                 ),
                                 AppSize.size.h30,
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 22.0),
-                                  child: SizedBox(
-                                    height: 20,
-                                    child: Text(
-                                      "Payment Method",
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                  ),
-                                ),
-                                AppSize.size.h20,
-                                Padding(
-                                  padding: controller
-                                      .orderInfo.value.paymentMethod ==
-                                      "Cash On Delivery" ? const EdgeInsets.only(left: 50.0) : const EdgeInsets.only(left: 15.0, right: 15.0),
-                                  child: controller
-                                              .orderInfo.value.paymentMethod ==
-                                          "Cash On Delivery"
-                                      ? Text(
-                                          controller.orderInfo.value
-                                                  .paymentMethod ??
-                                              "",
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 14.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 20,
+                                        child: Text(
+                                          "Payment Method",
                                           style: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w500),
-                                        )
-                                      : Html(
-                                          data: controller
-                                              .orderInfo.value.paymentMethod),
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ),
+                                      AppSize.size.h20,
+                                      controller.orderInfo.value
+                                                  .paymentMethod ==
+                                              "Cash On Delivery"
+                                          ? Text(
+                                              controller.orderInfo.value
+                                                      .paymentMethod ??
+                                                  "",
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w500),
+                                            )
+                                          : Html(
+                                              data: controller.orderInfo.value
+                                                  .paymentMethod),
+                                    ],
+                                  ),
                                 ),
                                 AppSize.size.h16,
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 22.0),
-                                  child: Text(
-                                    "Shipping Method: ${controller.orderInfo.value.shippingMethod ?? ""}",
-                                    style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w500),
+                                  padding: const EdgeInsets.only(left: 14.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 20,
+                                        child: Text(
+                                          "Shipping Method: ",
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ),
+                                      AppSize.size.h20,
+                                      Text(
+                                        controller.orderInfo.value
+                                                .shippingMethod ??
+                                            "",
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ],
                                   ),
                                 ),
+                                // Padding(
+                                //   padding: const EdgeInsets.only(left: 22.0),
+                                //   child: Text(
+                                //     "Shipping Method: ${controller.orderInfo.value.shippingMethod ?? ""}",
+                                //     style: TextStyle(
+                                //         fontSize: 10,
+                                //         fontWeight: FontWeight.w500),
+                                //   ),
+                                // ),
                                 AppSize.size.h40,
                                 Center(
                                   child: Text(
@@ -581,165 +619,155 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                         fontWeight: FontWeight.w600),
                                   ),
                                 ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      height: 100,
-                                      width: Get.width - 36,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          AppSize.size.w16,
-                                          Container(
-                                            height: 26.37,
-                                            width: 26.37,
-                                            decoration: BoxDecoration(
-                                                // color: AppColors.primaryColor,
-                                                shape: BoxShape.circle,
-                                                border: Border.all(
-                                                  color: AppColors.primaryColor,
-                                                )),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 7.77,
-                                                      vertical: 8.05),
-                                              child: Container(
-                                                height: 10.55,
-                                                width: 10.55,
-                                                decoration: const BoxDecoration(
-                                                    color:
-                                                        AppColors.primaryColor,
-                                                    shape: BoxShape.circle),
-                                              ),
-                                            ),
-                                          ),
-                                          controller.orderInfo.value
-                                                      .histories?[0].status ==
-                                                  "Completed"
-                                              ? SizedBox(
-                                                  width: Get.width / 3,
-                                                  child: dashedHorizontalLine())
-                                              : SizedBox(
-                                                  width: Get.width / 3,
-                                                ),
-                                          Container(
-                                            height: 26.37,
-                                            width: 26.37,
-                                            decoration: BoxDecoration(
-                                                // color: AppColors.primaryColor,
-                                                shape: BoxShape.circle,
-                                                border: Border.all(
-                                                  color: AppColors.primaryColor,
-                                                )),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 7.77,
-                                                      vertical: 8.05),
-                                              child: Container(
-                                                height: 10.55,
-                                                width: 10.55,
-                                                decoration: const BoxDecoration(
-                                                    color:
-                                                        AppColors.primaryColor,
-                                                    shape: BoxShape.circle),
-                                              ),
-                                            ),
-                                          ),
-                                          controller.orderInfo.value
-                                                      .histories?[0].status ==
-                                                  "Completed"
-                                              ? SizedBox(
-                                                  width: Get.width / 3,
-                                                  child: dashedHorizontalLine())
-                                              : SizedBox(
-                                                  width: Get.width / 3,
-                                                ),
-                                          Container(
-                                            height: 26.37,
-                                            width: 26.37,
-                                            decoration: BoxDecoration(
-                                                // color: AppColors.primaryColor,
-                                                shape: BoxShape.circle,
-                                                border: Border.all(
-                                                  color: AppColors.primaryColor,
-                                                )),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 7.77,
-                                                      vertical: 8.05),
-                                              child: Container(
-                                                height: 10.55,
-                                                width: 10.55,
-                                                decoration: const BoxDecoration(
-                                                    color:
-                                                        AppColors.primaryColor,
-                                                    shape: BoxShape.circle),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      height: 100,
-                                      width: Get.width,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          // AppSize.size.w16,
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 16.0),
+                                Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 16.0),
+                                  child: SizedBox(
+                                    height: 75,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          height: 26.37,
+                                          width: 26.37,
+                                          decoration: BoxDecoration(
+                                              // color: AppColors.primaryColor,
+                                              shape: BoxShape.circle,
+                                              border: Border.all(
+                                                color: AppColors.primaryColor,
+                                              )),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 7.77,
+                                                vertical: 8.05),
                                             child: Container(
-                                              height: 35,
-                                              width: 100,
-                                              // width: ,
-                                              // width: 26.37,
-                                              child: Center(
-                                                child: Text(
-                                                  "Order Successful",
-                                                  maxLines: 2,
-                                                ),
-                                              ),
+                                              height: 10.55,
+                                              width: 10.55,
+                                              decoration: const BoxDecoration(
+                                                  color: AppColors.primaryColor,
+                                                  shape: BoxShape.circle),
                                             ),
                                           ),
-                                          Container(
-                                              height: 35,
-                                              width: 100,
+                                        ),
+                                        controller.orderInfo.value.histories?[0]
+                                                    .status !=
+                                                "Completed"
+                                            ? SizedBox(
+                                                width: Get.width / 3,
+                                                child: dashedHorizontalLine())
+                                            : SizedBox(
+                                                width: Get.width / 3,
+                                              ),
+                                        Container(
+                                          height: 26.37,
+                                          width: 26.37,
+                                          decoration: BoxDecoration(
+                                              // color: AppColors.primaryColor,
+                                              shape: BoxShape.circle,
+                                              border: Border.all(
+                                                color: AppColors.primaryColor,
+                                              )),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 7.77,
+                                                vertical: 8.05),
+                                            child: Container(
+                                              height: 10.55,
+                                              width: 10.55,
+                                              decoration: const BoxDecoration(
+                                                  color: AppColors.primaryColor,
+                                                  shape: BoxShape.circle),
+                                            ),
+                                          ),
+                                        ),
+                                        controller.orderInfo.value.histories?[0]
+                                                    .status !=
+                                                "Completed"
+                                            ? SizedBox(
+                                                width: Get.width / 3,
+                                                child: dashedHorizontalLine())
+                                            : SizedBox(
+                                                width: Get.width / 3,
+                                              ),
+                                        Container(
+                                          height: 26.37,
+                                          width: 26.37,
+                                          decoration: BoxDecoration(
+                                              // color: AppColors.primaryColor,
+                                              shape: BoxShape.circle,
+                                              border: Border.all(
+                                                color: AppColors.primaryColor,
+                                              )),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 7.77,
+                                                vertical: 8.05),
+                                            child: Container(
+                                              height: 10.55,
+                                              width: 10.55,
+                                              decoration: const BoxDecoration(
+                                                  color: AppColors.primaryColor,
+                                                  shape: BoxShape.circle),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0),
+                                  child: SizedBox(
+                                    height: 100,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        // AppSize.size.w16,
+                                        SizedBox(
+                                          height: 35,
+                                          width: 100,
+                                          // width: ,
+                                          // width: 26.37,
+                                          child: Align(
+                                            alignment: Alignment.topLeft,
+                                            child: Text(
+                                              "Order Successful",
+                                              maxLines: 2,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                            height: 35,
+                                            width: 100,
+                                            child: Align(
+                                              alignment: Alignment.topCenter,
                                               child: Text(controller
                                                       .orderInfo
                                                       .value
                                                       .histories?[0]
                                                       .status ??
-                                                  "")),
-                                          Container(
-                                            height: 35,
-                                            width: 100,
-                                            child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 7.77,
-                                                        vertical: 8.05),
-                                                child: Text(controller
-                                                        .orderInfo
-                                                        .value
-                                                        .histories?[1]
-                                                        .status ??
-                                                    "")),
+                                                  ""),
+                                            )),
+
+                                        SizedBox(
+                                          height: 35,
+                                          width: 100,
+                                          child: Align(
+                                            alignment: Alignment.topRight,
+                                            child: Text(controller
+                                                    .orderInfo
+                                                    .value
+                                                    .histories?[1]
+                                                    .status ??
+                                                ""),
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 ),
                                 // GestureDetector(
                                 //   onTap: () {

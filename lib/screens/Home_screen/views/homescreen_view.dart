@@ -981,7 +981,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                       child: Center(
                                                         child: TextWidget(
                                                           // "${controller.fruitPercentage[index]}% off",
-                                                          "${controller.homeFeaturesData.value.categories?[index].products?[indexx].percentage}%",
+                                                          "${controller.homeFeaturesData.value.categories?[index].products?[indexx].percentage} %",
                                                           fontSize: 8,
                                                           fontWeight:
                                                               FontWeight.w600,

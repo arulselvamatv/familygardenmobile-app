@@ -7,6 +7,7 @@ import 'package:family_garden/screens/offers_screen/controller/offers_controller
 import 'package:family_garden/screens/offers_screen/view/offer_screen_view.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:family_garden/widgets/common_appbar/custom_appbar_view.dart';
+import 'package:flutter_svg/svg.dart';
 import '../../../routes/app_pages.dart';
 import '../../Home_screen/controllers/homescreen_controller.dart';
 import '../../Home_screen/views/homescreen_view.dart';
@@ -171,8 +172,8 @@ class DashboardView extends GetView<DashboardController> {
               tabs: [
                 Tab(
                   text: 'Home',
-                  icon: Image.asset(
-                    'assets/icons/home.png',
+                  icon: SvgPicture.asset(
+                    'assets/icons/home_icon_.svg',
                     height: 21,
                     width: 21,
                     color: controller.selectedIndex.value == 0
@@ -193,8 +194,8 @@ class DashboardView extends GetView<DashboardController> {
                 ),
                 Tab(
                   text: 'Offers',
-                  icon: Image.asset(
-                    'assets/icons/offers.png',
+                  icon: SvgPicture.asset(
+                    'assets/icons/offers_icon.svg',
                     height: 21,
                     width: 21,
                     color: controller.selectedIndex.value == 2
@@ -204,8 +205,8 @@ class DashboardView extends GetView<DashboardController> {
                 ),
                 Tab(
                   text: 'Account',
-                  icon: Image.asset(
-                    'assets/icons/account.png',
+                  icon: SvgPicture.asset(
+                    'assets/icons/account_icon.svg',
                     height: 21,
                     width: 21,
                     color: controller.selectedIndex.value == 3

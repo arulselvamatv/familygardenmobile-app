@@ -253,7 +253,7 @@ class ManageAddressView extends GetView<ManageAddressController> {
                                           controller.addAddressBtn(context);
                                         },
                                         style: ElevatedButton.styleFrom(
-                                            primary: AppColors.primaryColor,
+                                            backgroundColor: AppColors.primaryColor,
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(13))),
