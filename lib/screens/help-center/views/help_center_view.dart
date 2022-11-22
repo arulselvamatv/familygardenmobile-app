@@ -62,12 +62,12 @@ class HelpCenterView extends GetView<HelpCenterController> {
                 )),
             Expanded(
                 child: SingleChildScrollView(
-              physics: ScrollPhysics(),
+              // physics: ScrollPhysics(),
               child: Column(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisSize: MainAxisSize.max,
                 children: [
                   Container(
-                    padding: EdgeInsets.only(bottom: 50),
+                    padding: EdgeInsets.only(bottom: 63),
                     height: MediaQuery.of(context).size.height,
                     child: WebView(
                       onWebViewCreated: (WebViewController webViewController) {
@@ -81,7 +81,7 @@ class HelpCenterView extends GetView<HelpCenterController> {
                       onPageFinished: (String url) {
                         print('Page finished loading: $url');
                         controller.webViewCtrl!
-                            .evaluateJavascript("javascript:(function() { " +
+                            .runJavascriptReturningResult("javascript:(function() { " +
                                 "var head = document.getElementsByTagName('header')[0];" +
                                 "head.parentNode.removeChild(head);" +
                                 "var footer = document.getElementsByTagName('footer')[0];" +

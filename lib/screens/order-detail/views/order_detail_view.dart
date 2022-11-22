@@ -732,7 +732,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                           // width: ,
                                           // width: 26.37,
                                           child: Align(
-                                            alignment: Alignment.topLeft,
+                                            alignment: Alignment.centerLeft,
                                             child: Text(
                                               "Order Successful",
                                               maxLines: 2,
@@ -743,7 +743,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                             height: 35,
                                             width: 100,
                                             child: Align(
-                                              alignment: Alignment.topCenter,
+                                              alignment: Alignment.center,
                                               child: Text(controller
                                                       .orderInfo
                                                       .value
@@ -756,7 +756,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                           height: 35,
                                           width: 100,
                                           child: Align(
-                                            alignment: Alignment.topRight,
+                                            alignment: Alignment.centerRight,
                                             child: Text(controller
                                                     .orderInfo
                                                     .value

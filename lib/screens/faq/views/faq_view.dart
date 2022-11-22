@@ -11,6 +11,7 @@ import '../controllers/faq_controller.dart';
 
 class FaqView extends GetView<FaqController> {
   const FaqView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,44 +63,70 @@ class FaqView extends GetView<FaqController> {
               child: SizedBox(
                 height: 30,
               )),
-          Expanded(
-              child: SingleChildScrollView(
-            physics: ScrollPhysics(),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(bottom: 50),
-                  height: MediaQuery.of(context).size.height,
-                  child: WebView(
-                    onWebViewCreated: (WebViewController webViewController) {
-                      controller.webViewCtrl = webViewController;
-                      controller.ctrl.complete(webViewController);
-                    },
-                    gestureRecognizers: controller.gestureRecognizers,
-                    gestureNavigationEnabled: true,
-                    javascriptMode: JavascriptMode.unrestricted,
-                    initialUrl: 'https://www.familygarden.in/faq',
-                    onPageFinished: (String url) {
-                      print('Page finished loading: $url');
-                      controller.webViewCtrl!
-                          .evaluateJavascript("javascript:(function() { " +
-                              "var head = document.getElementsByTagName('header')[0];" +
-                              "head.parentNode.removeChild(head);" +
-                              "var footer = document.getElementsByTagName('footer')[0];" +
-                              "footer.parentNode.removeChild(footer);" +
-                              "document.getElementById('search').outerHTML='';" +
-                              "document.getElementsByClassName('sec-bg').outerHTML='';" +
-                              "})()")
-                          .then((value) =>
-                              debugPrint('Page finished loading Javascript'))
-                          .catchError((onError) => debugPrint('$onError'));
-                    },
+          Obx(
+            () => Expanded(
+                child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Stack(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(bottom: 50),
+                        height: Get.height,
+                        child: WebView(
+                          onWebViewCreated:
+                              (WebViewController webViewController) {
+                            controller.webViewCtrl = webViewController;
+                            controller.ctrl.complete(webViewController);
+                          },
+                          gestureRecognizers: controller.gestureRecognizers,
+                          gestureNavigationEnabled: true,
+                          javascriptMode: JavascriptMode.unrestricted,
+                          initialUrl: 'https://www.familygarden.in/faq',
+                          onPageFinished: (String url) {
+                            print('Page finished loading: $url');
+                            controller.webViewCtrl!
+                                .runJavascriptReturningResult("javascript:(function() { " +
+                                    "var head = document.getElementsByTagName('header')[0];" +
+                                    "head.parentNode.removeChild(head);" +
+                                    "var title = Array.from(document.getElementsByClassName('navbar navbar-expand-lg navbar-light bg-white menu sticky-top'));" +
+                                    "title.forEach(tit =>{ tit.remove();});" +
+                                    "var title = Array.from(document.getElementsByClassName('container  mt-4'));" +
+                                    "title.forEach(tit =>{ tit.remove();});" +
+                                    "var footer = document.getElementsByTagName('footer')[0];" +
+                                    "footer.parentNode.removeChild(footer);" +
+                                    "document.getElementById('search').outerHTML='';" +
+                                    "document.getElementsByClassName('sec-bg').outerHTML='';" +
+                                    "})()")
+                                .then((value) {
+                              controller.isLoader.value = true;
+                              debugPrint('Page finished loading Javascript');
+                              controller.isLoader.refresh();
+                            }).catchError((onError) => debugPrint('$onError'));
+                          },
+                        ),
+                      ),
+                      controller.isLoader.value
+                          ? Container()
+                          : Positioned(
+                              child: Container(
+                              height: Get.height / 1.5,
+                              color: controller.isLoader.value
+                                  ? Colors.transparent
+                                  : Colors.white,
+                              child: controller.isLoader.value
+                                  ? null
+                                  : Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                            ))
+                    ],
                   ),
-                ),
-              ],
-            ),
-          ))
+                ],
+              ),
+            )),
+          )
         ]),
       ),
     );

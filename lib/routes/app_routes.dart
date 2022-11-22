@@ -30,6 +30,8 @@ abstract class Routes {
   static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
   static const HELP_CENTER = _Paths.HELP_CENTER;
   static const SEARCH_SCREEN = _Paths.SEARCH_SCREEN;
+  static const FORGOT_PASSWORD = _Paths.FORGOT_PASSWORD;
+  static const CHANGE_PASSWORD = _Paths.CHANGE_PASSWORD;
 }
 
 abstract class _Paths {
@@ -60,4 +62,6 @@ abstract class _Paths {
   static const EDIT_PROFILE = '/edit-profile';
   static const HELP_CENTER = '/help-center';
   static const SEARCH_SCREEN = '/search';
+  static const CHANGE_PASSWORD = "/change-password";
+  static const FORGOT_PASSWORD = "/forgot-password";
 }

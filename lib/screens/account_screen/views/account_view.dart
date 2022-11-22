@@ -315,6 +315,8 @@ class AccountView extends GetView<AccountController> {
                                           padding: EdgeInsets.only(top: 10.0)),
                                       GestureDetector(
                                         onTap: () {
+                                          // Get.toNamed(Routes.FORGOT_PASSWORD);
+                                          // Get.toNamed(Routes.VERIFY_OTP);
                                           Get.toNamed(
                                               Routes.TERMS_AND_CONDITIONS);
                                         },

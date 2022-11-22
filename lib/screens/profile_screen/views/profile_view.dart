@@ -131,7 +131,8 @@ class ProfileView extends GetView<ProfileController> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          openAlertBox(context, controller);
+                          Get.toNamed(Routes.CHANGE_PASSWORD);
+                          // openAlertBox(context, controller);
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
