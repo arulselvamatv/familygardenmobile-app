@@ -49,139 +49,122 @@ class VerifyOTPView extends GetView<VerifyOTPController> {
             )),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: !controller.isLoader.value? SingleChildScrollView(
+            child: Obx(
+              ()=> Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    height: 79,
-                    width: 79,
-                    child: SvgPicture.asset("assets/images/appLogo.svg"),
-                  ),
-                  Column(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const SizedBox(
-                        height: 70,
-                      ),
                       Container(
-                        height: 150,
-                        width: 105,
-                        child: SvgPicture.asset("assets/icons/sofa_girl.svg"),
+                        height: 79,
+                        width: 79,
+                        child: SvgPicture.asset("assets/images/appLogo.svg"),
+                      ),
+                      Column(
+                        children: [
+                          const SizedBox(
+                            height: 70,
+                          ),
+                          Container(
+                            height: 150,
+                            width: 105,
+                            child: SvgPicture.asset("assets/icons/sofa_girl.svg"),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                  const Text(
+                    "Verify OTP",
+                    style: TextStyle(
+                        color: AppColors.darkGreen,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 22),
+                  ),
+                  AppSize.size.h20,
+                  Text(
+                      "Please enter the OTP Sent to Mobile Number +91 ${controller.mobileNum}",
+                      style: TextStyle(fontWeight: FontWeight.w400, fontSize: 12),
+                    ),
+                  AppSize.size.h55,
+                  SizedBox(
+                    height: 30,
+                    child: PinFieldAutoFill(
+                      codeLength: 4,
+                      controller: controller.otpController,
+                      currentCode: controller.otp.value,
+                      onCodeChanged: (code) {
+                        if (code!.length == 4) {
+                          FocusScope.of(context).requestFocus(FocusNode());
+                        }
+                      },
+                    ),
+                  ),
+                  AppSize.size.h24,
+                  controller.isNotValid.value? Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(
+                        Icons.error,
+                        color: Colors.red,
+                        size: 12,
+                      ),
+                      AppSize.size.w5,
+                      Text(
+                        "Verification failed! Please enter the correct OTP",
+                        style: TextStyle(color: Colors.red, fontSize: 9),
                       ),
                     ],
-                  )
-                ],
-              ),
-              const Text(
-                "Verify OTP",
-                style: TextStyle(
-                    color: AppColors.darkGreen,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 22),
-              ),
-              AppSize.size.h20,
-              Text(
-                "Please enter the OTP Sent to Mobile Number +91 6383293348",
-                style: TextStyle(fontWeight: FontWeight.w400, fontSize: 12),
-              ),
-              AppSize.size.h55,
-              SizedBox(
-                height: 30,
-                child: PinFieldAutoFill(
-                  codeLength: 6,
-                  controller: controller.otpController,
-                  currentCode: controller.otp.value,
-                  onCodeChanged: (val) {
-                    // if (val?.length == 6 && otpVerified == false) {
-                    //   Future otpVerify({required String emailId}) async {
-                    //     var variables = {"emailId": emailId, "otp": val};
-                    //
-                    //     Map data = {
-                    //       "query": verifyOTP,
-                    //       "operationName": "VerifyOTP",
-                    //       "variables": variables
-                    //     };
-                    //     var body = json.encode(data);
-                    //     var respondeData = await clientApiCall(
-                    //       body: body,
-                    //     );
-                    //     if (respondeData['data']['verifyOTP']['message'] ==
-                    //         "OTP verified successfully.") {
-                    //       final prefs = await SharedPreferences.getInstance();
-                    //       await prefs.remove("otp");
-                    //
-                    //       await prefs.setString('otp', '$val');
-                    //       var otp1 = prefs.getString('otp');
-                    //       print("otp1 $otp1");
-                    //       getOtpValues();
-                    //       setState(() {
-                    //         otpVerified = true;
-                    //       });
-                    //     } else {
-                    //       Fluttertoast.showToast(
-                    //           msg: "Invalid OTP",
-                    //           toastLength: Toast.LENGTH_LONG,
-                    //           gravity: ToastGravity.BOTTOM,
-                    //           timeInSecForIosWeb: 1,
-                    //           backgroundColor: Colors.red,
-                    //           textColor: Colors.white,
-                    //           fontSize: 16.0);
-                    //     }
-                    //   }
-                    //
-                    //   otpVerify(emailId: widget.emailId);
-                    // }
-                  },
-                ),
-              ),
-              AppSize.size.h24,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Icon(
-                    Icons.error,
-                    color: Colors.red,
-                    size: 12,
+                  ):Container(),
+                  AppSize.size.h30,
+                  Container(
+                    height: 50,
+                    width: Get.width,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          if(controller.otpController.text.length < 4){
+                            print("Not valid");
+                          }else{
+                            controller.checkOtp();
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.primaryColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(13))),
+                        child: TextWidget(
+                          'Verify OTP',
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                        )),
                   ),
-                  AppSize.size.w5,
-                  Text(
-                    "Verification failed! Please enter the correct OTP",
-                    style: TextStyle(color: Colors.red, fontSize: 9),
+                  AppSize.size.h15,
+                  GestureDetector(
+                    onTap: (){controller.sendAccountOtp();
+                      print("Resending");
+                    },
+                    child: Container(
+                      height: 50,
+                      child: Center(
+                        child: Text(
+                          "Resend OTP",
+                          style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.oopsColor),
+                        ),
+                      ),
+                    ),
                   ),
+                  AppSize.size.h30,
                 ],
-              ),
-              AppSize.size.h30,
-              Container(
-                height: 50,
-                width: Get.width,
-                child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primaryColor,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(13))),
-                    child: TextWidget(
-                      'Verify OTP',
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                    )),
-              ),
-              AppSize.size.h15,
-              Center(
-                child: Text(
-                  "Resend OTP",
-                  style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.oopsColor),
-                ),
               )
-            ],
-          ),
+            ),
+          ):Center(child: CircularProgressIndicator ()),
         ),
       ),
     );

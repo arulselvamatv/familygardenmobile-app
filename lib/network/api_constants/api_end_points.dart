@@ -85,4 +85,8 @@ class EndPoints {
   static const coupon = "/index.php?route=mobileapi/coupon";
 
   static const addressView = "/index.php?route=mobileapi/account/address/view";
+
+  static const accountOtpSend = "/index.php?route=mobileapi/account/forgotten";
+
+  static const verifyOtp = "/index.php?route=mobileapi/account/forgotten/otp_verify";
 }

@@ -7,6 +7,7 @@ import '../../../widgets/custom_textfield.dart';
 class ForgotPasswordView extends GetView<ForgotPasswordController> {
   @override
   var controller = Get.put(ForgotPasswordController());
+  final formGlobalKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -49,86 +50,117 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
               topRight: Radius.circular(30),
               topLeft: Radius.circular(30),
             )),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: SingleChildScrollView(
-            physics: NeverScrollableScrollPhysics(),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      height: 79,
-                      width: 79,
-                      child: SvgPicture.asset("assets/images/appLogo.svg"),
-                    ),
-                    Column(
-                      children: [
-                        const SizedBox(
-                          height: 70,
+        child: Obx(
+            ()=>controller.loader.value ? Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              child: Form(
+                  key: formGlobalKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            height: 79,
+                            width: 79,
+                            child: SvgPicture.asset("assets/images/appLogo.svg"),
+                          ),
+                          Column(
+                            children: [
+                              const SizedBox(
+                                height: 70,
+                              ),
+                              Container(
+                                height: 150,
+                                width: 105,
+                                child:
+                                    SvgPicture.asset("assets/icons/sofa_girl.svg"),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                      // const Text(
+                      //   "Verify OTP",
+                      //   style: TextStyle(
+                      //       color: AppColors.darkGreen,
+                      //       fontWeight: FontWeight.w700,
+                      //       fontSize: 22),
+                      // ),
+                      // AppSize.size.h20,
+                      Text(
+                        "Enter Your E- Mail Address / Mobile Number",
+                        style: TextStyle(fontWeight: FontWeight.w400, fontSize: 12),
+                      ),
+                      AppSize.size.h10,
+                      TextFormField(
+                        keyboardType: TextInputType.number,
+                        controller: controller.mobileNumberController,
+                        maxLength: 10,
+                        decoration: InputDecoration(
+                          counterText: "",
                         ),
-                        Container(
-                          height: 150,
-                          width: 105,
-                          child: SvgPicture.asset("assets/icons/sofa_girl.svg"),
-                        ),
-                      ],
-                    )
-                  ],
+                        validator: (value) {
+                          if (value!.isEmpty || value == "") {
+                            return "enter phone number";
+                          } else if (value.length < 10) {
+                            return "entered mobile number invalid";
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
+                      AppSize.size.h24,
+                       controller.isMobileAlredyExist.value
+                            ? Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Icon(
+                                    Icons.error,
+                                    color: Colors.red,
+                                    size: 12,
+                                  ),
+                                  AppSize.size.w5,
+                                  Text(
+                                    "Mobile Number / E Mail Not Exist",
+                                    style:
+                                        TextStyle(color: Colors.red, fontSize: 9),
+                                  ),
+                                ],
+                              )
+                            : Container(),
+
+                      AppSize.size.h30,
+                      Container(
+                        height: 50,
+                        width: Get.width,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              if (formGlobalKey.currentState!.validate()) {
+                                formGlobalKey.currentState!.save();
+                                controller.sendAccountOtp();
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.primaryColor,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(13))),
+                            child: TextWidget(
+                              'Send OTP',
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                            )),
+                      ),
+                    ],
+                  )
                 ),
-                // const Text(
-                //   "Verify OTP",
-                //   style: TextStyle(
-                //       color: AppColors.darkGreen,
-                //       fontWeight: FontWeight.w700,
-                //       fontSize: 22),
-                // ),
-                // AppSize.size.h20,
-                Text(
-                  "Enter Your E- Mail Address / Mobile Number",
-                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 12),
-                ),
-                AppSize.size.h10,
-                TextFormField(),
-                AppSize.size.h24,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Icon(
-                      Icons.error,
-                      color: Colors.red,
-                      size: 12,
-                    ),
-                    AppSize.size.w5,
-                    Text(
-                      "Mobile Number / E Mail Not Exist",
-                      style: TextStyle(color: Colors.red, fontSize: 9),
-                    ),
-                  ],
-                ),
-                AppSize.size.h30,
-                Container(
-                  height: 50,
-                  width: Get.width,
-                  child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primaryColor,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(13))),
-                      child: TextWidget(
-                        'Send OTP',
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
-                      )),
-                ),
-              ],
             ),
-          ),
+          ):Center(child: CircularProgressIndicator(),),
         ),
       ),
     );

@@ -13,6 +13,7 @@ import 'package:family_garden/models/login_model.dart';
 import 'package:family_garden/models/payment_method_model.dart';
 import 'package:flutter_svg/avd.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../models/accountOtpModel.dart';
 import '../models/account_address_model.dart';
 import '../models/address_view_model.dart';
 import '../models/cart_count_model.dart';
@@ -33,6 +34,7 @@ import '../models/product_detail_model.dart';
 import '../models/shipping_method_model.dart';
 import '../models/shipping_method_save_model.dart';
 import '../models/signupModel.dart';
+import '../models/verifyOtpModel.dart';
 import '../models/wishlistmodel.dart';
 import 'api_constants/api_constants.dart';
 import 'api_constants/api_end_points.dart';
@@ -1845,5 +1847,108 @@ class ApiHelper {
       return json.decode(response.body);
     }
     return null;
+  }
+
+  static Future<HTTPResponse<accountOtpModel>> accountOtpSend(mobileNum) async {
+    try {
+      final response = await http.post(
+        Uri.parse("${ApiConstants.baseUrl}${EndPoints.accountOtpSend}&api_token=${ApiConstants.jwtToken}"),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        encoding: Encoding.getByName('utf-8'),
+        body: {"telephone": mobileNum},
+      );
+      print({"telephone": mobileNum});
+      if (response.statusCode == 200) {
+        var body = jsonDecode(response.body);
+        print(body);
+        var res = accountOtpModel.fromJson(body);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+          "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+        "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+        "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<verifyOtpModel>> verifyOtp(otp) async {
+    try {
+      final response = await http.post(
+        Uri.parse("${ApiConstants.baseUrl}${EndPoints.verifyOtp}&api_token=${ApiConstants.jwtToken}"),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        encoding: Encoding.getByName('utf-8'),
+        body: {"otp": otp},
+      );
+      print({"otp": otp});
+      if (response.statusCode == 200) {
+        var body = jsonDecode(response.body);
+        print(body);
+        var res = verifyOtpModel.fromJson(body);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+          "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+        "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+        "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print(e);
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
   }
 }

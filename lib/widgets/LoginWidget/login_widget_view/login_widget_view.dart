@@ -143,16 +143,23 @@ class LoginWidgetView extends GetView<LoginWidgetController> {
                     ),
                   ),
                   AppSize.size.h20,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextWidget(
-                        'Forgot Password ?',
-                        fontSize: 9,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff535353),
+                  GestureDetector(
+                    onTap: (){
+                      Get.toNamed(Routes.FORGOT_PASSWORD);
+                    },
+                    child: Container (
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextWidget(
+                            'Forgot Password ?',
+                            fontSize: 9,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xff535353),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                   AppSize.size.h40,
                   SizedBox(
