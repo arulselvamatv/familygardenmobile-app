@@ -17,7 +17,7 @@ class ProfileController extends GetxController {
   RxString lastName = "".obs;
   RxString emailId = "".obs;
   RxString telephone = "".obs;
-  //ValueNotifier<bool> showAppNotificationNotifierInitial = ValueNotifier(false);
+  ValueNotifier<bool> showAppNotificationNotifierInitial = ValueNotifier(false);
 
   @override
   void onInit() async {
@@ -42,39 +42,64 @@ class ProfileController extends GetxController {
 
   Future<void> updatePassword(String password, String confirmPassword) async {
     var response = await ApiHelper.updatePassword(password, confirmPassword);
-    if (response.isSuccessFul) {
-      Get.snackbar('success', "Your password has been updated successfully!");
-      Navigator.of(Get.context!).pop();
-    }
-   /* else
+    print("PASSWORD::::${response.data!.logged}");
+
+    if (response.isSuccessFul)
+    {
+      if (response.data!.logged == null || response.data!.logged == "null")
       {
+        print("LOG::::::${response.data!.logged }");
         Navigator.of(Get.context!).pop();
         showAppNotificationNotifierInitial.value = true;
-      }*/
+      }
+      else
+        {
+          Get.snackbar('success', "Your password has been updated successfully!");
+          Navigator.of(Get.context!).pop();
+        }
+
+    }
   }
 
   onPressSaveChangesBtn(context) async {
     var response = await ApiHelper.accountUpdate(nameController.text, "", emailController.text, telephoneController.text);
-    if (response == 1) {
-      var prefs = await SharedPreferences.getInstance();
-      prefs.setString("firstName", nameController.text);
-      prefs.setString("lastName", '');
-      prefs.setString("emailId", emailController.text);
-      prefs.setString("telephone", telephoneController.text);
-      // lastName.value = prefs.getString("lastName")!;
-      // emailId.value = prefs.getString("emailId")!;
-      // telephone.value = prefs.getString("telephone")!;
-      Get.snackbar('success', "Updated Successfully");
-      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      //   content: Text("Updated Successfully"),
-      // ));
-      Get.back();
-    } else {
-      Get.snackbar('warning', "Attempt Failed");
-      //showAppNotificationNotifierInitial.value = true;
-      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      //   content: Text("Attempt Failed"),
-      // ));
+
+    if (response.isSuccessFul)
+    {
+      if (response.data!.logged == null || response.data!.logged == "null")
+      {
+        print("LOG111::::::${response.data!.logged }");
+        showAppNotificationNotifierInitial.value = true;
+      }
+      else
+      {
+        print("LOG222::::::${response.data!.logged }");
+
+        if (response.data!.status == 1) {
+          var prefs = await SharedPreferences.getInstance();
+          prefs.setString("firstName", nameController.text);
+          prefs.setString("lastName", '');
+          prefs.setString("emailId", emailController.text);
+          prefs.setString("telephone", telephoneController.text);
+          // lastName.value = prefs.getString("lastName")!;
+          // emailId.value = prefs.getString("emailId")!;
+          // telephone.value = prefs.getString("telephone")!;
+          Get.snackbar('success', "Updated Successfully");
+          // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          //   content: Text("Updated Successfully"),
+          // ));
+          Get.back();
+        } else {
+          Get.snackbar('warning', "Attempt Failed");
+          //showAppNotificationNotifierInitial.value = true;
+          // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          //   content: Text("Attempt Failed"),
+          // ));
+        }
+      }
+
     }
+
+
   }
 }

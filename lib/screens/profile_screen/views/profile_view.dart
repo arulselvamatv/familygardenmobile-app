@@ -161,7 +161,7 @@ class ProfileView extends GetView<ProfileController> {
             ),
           ),
 
-/*
+
           ValueListenableBuilder<bool>(
             valueListenable: controller.showAppNotificationNotifierInitial,
             builder: (context, value, child)
@@ -191,7 +191,6 @@ class ProfileView extends GetView<ProfileController> {
               );
             },
           ),
-*/
 
         ],
       ),
