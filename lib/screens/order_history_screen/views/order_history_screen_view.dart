@@ -74,69 +74,71 @@ class OrderHistoryView extends GetView<OrderHistoryScreenController> {
                         : SingleChildScrollView(
                             child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 20, bottom: 10, right: 15),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsets.symmetric(horizontal: 15),
-                                          child: Container(
-                                            height: 45,
-                                            child: TextFormField(
-                                              controller: controller.search,
-                                              maxLines: 1,
-                                              onChanged: (value) {},
-                                              style: TextStyle(
-                                                  color: Color(0xff000000),
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.w400),
-                                              decoration: InputDecoration(
-                                                prefixIcon: ImageIcon(AssetImage(
-                                                    'assets/icons/search.png')),
-                                                hintText: "Search orders",
-                                                contentPadding:
-                                                    EdgeInsets.symmetric(
-                                                        vertical: 4),
-                                                hintStyle: TextStyle(
-                                                    color: Color(0xff464646),
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.w400),
-                                                border: OutlineInputBorder(
-                                                    borderSide: BorderSide.none,
-                                                    borderRadius:
-                                                        BorderRadius.circular(30)),
-                                                fillColor: AppColors.lightGrey,
-                                                filled: true,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          TextWidget(
-                                            'Filter',
-                                            color: AppColors.black,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 13,
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(left: 8.0),
-                                            child: Icon(
-                                              Icons.filter_list,
-                                              size: 15,
-                                              color: AppColors.black,
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ),
+                                // Padding(
+                                //   padding: const EdgeInsets.only(
+                                //       top: 20, bottom: 10, right: 15),
+                                //   child: Row(
+                                //     children: [
+                                //       Expanded(
+                                //         child: Padding(
+                                //           padding: EdgeInsets.symmetric(
+                                //               horizontal: 15),
+                                //           child: Container(
+                                //             height: 45,
+                                //             child: TextFormField(
+                                //               controller: controller.search,
+                                //               maxLines: 1,
+                                //               onChanged: (value) {},
+                                //               style: TextStyle(
+                                //                   color: Color(0xff000000),
+                                //                   fontSize: 15,
+                                //                   fontWeight: FontWeight.w400),
+                                //               decoration: InputDecoration(
+                                //                 prefixIcon: ImageIcon(AssetImage(
+                                //                     'assets/icons/search.png')),
+                                //                 hintText: "Search orders",
+                                //                 contentPadding:
+                                //                     EdgeInsets.symmetric(
+                                //                         vertical: 4),
+                                //                 hintStyle: TextStyle(
+                                //                     color: Color(0xff464646),
+                                //                     fontSize: 15,
+                                //                     fontWeight:
+                                //                         FontWeight.w400),
+                                //                 border: OutlineInputBorder(
+                                //                     borderSide: BorderSide.none,
+                                //                     borderRadius:
+                                //                         BorderRadius.circular(
+                                //                             30)),
+                                //                 fillColor: AppColors.lightGrey,
+                                //                 filled: true,
+                                //               ),
+                                //             ),
+                                //           ),
+                                //         ),
+                                //       ),
+                                //       Row(
+                                //         children: [
+                                //           TextWidget(
+                                //             'Filter',
+                                //             color: AppColors.black,
+                                //             fontWeight: FontWeight.w600,
+                                //             fontSize: 13,
+                                //           ),
+                                //           Padding(
+                                //             padding: const EdgeInsets.only(
+                                //                 left: 8.0),
+                                //             child: Icon(
+                                //               Icons.filter_list,
+                                //               size: 15,
+                                //               color: AppColors.black,
+                                //             ),
+                                //           )
+                                //         ],
+                                //       )
+                                //     ],
+                                //   ),
+                                // ),
                                 ListView.separated(
                                     scrollDirection: Axis.vertical,
                                     shrinkWrap: true,
@@ -146,8 +148,8 @@ class OrderHistoryView extends GetView<OrderHistoryScreenController> {
                                       return GestureDetector(
                                         onTap: () {
                                           Get.toNamed(Routes.ORDER_DETAIL,
-                                              arguments:
-                                                  controller.orders[index].orderId);
+                                              arguments: controller
+                                                  .orders[index].orderId);
                                           controller.update();
                                         },
                                         child: Container(
@@ -166,14 +168,15 @@ class OrderHistoryView extends GetView<OrderHistoryScreenController> {
                                                     height: 90,
                                                     width: 90,
                                                     child: Image.asset(
-                                                      controller.staticImage.value,
+                                                      controller
+                                                          .staticImage.value,
                                                       fit: BoxFit.fill,
                                                     )),
                                               ),
 
                                               Padding(
-                                                  padding:
-                                                      EdgeInsets.only(left: 10.0)),
+                                                  padding: EdgeInsets.only(
+                                                      left: 10.0)),
 
                                               Expanded(
                                                 flex: 3,
@@ -200,7 +203,8 @@ class OrderHistoryView extends GetView<OrderHistoryScreenController> {
                                                           TextWidget(
                                                             "#" +
                                                                 controller
-                                                                    .orders[index]
+                                                                    .orders[
+                                                                        index]
                                                                     .orderId
                                                                     .toString(),
                                                             fontSize: 13,
@@ -221,11 +225,13 @@ class OrderHistoryView extends GetView<OrderHistoryScreenController> {
                                                         controller.orders[index]
                                                             .dateAdded,
                                                         fontSize: 12,
-                                                        fontWeight: FontWeight.w500,
+                                                        fontWeight:
+                                                            FontWeight.w500,
                                                         color: AppColors.black,
                                                         maxLines: 1,
                                                         textOverflow:
-                                                            TextOverflow.ellipsis,
+                                                            TextOverflow
+                                                                .ellipsis,
                                                       ),
                                                     ),
                                                     AppSize.size.h5,
@@ -236,16 +242,19 @@ class OrderHistoryView extends GetView<OrderHistoryScreenController> {
                                                           fontSize: 12,
                                                           fontWeight:
                                                               FontWeight.w600,
-                                                          color: AppColors.black,
+                                                          color:
+                                                              AppColors.black,
                                                         ),
                                                         TextWidget(
-                                                          controller.orders[index]
+                                                          controller
+                                                              .orders[index]
                                                               .products
                                                               .toString(),
                                                           fontSize: 12,
                                                           fontWeight:
                                                               FontWeight.w700,
-                                                          color: AppColors.black,
+                                                          color:
+                                                              AppColors.black,
                                                         ),
                                                       ],
                                                     ),
@@ -267,9 +276,11 @@ class OrderHistoryView extends GetView<OrderHistoryScreenController> {
                                                       controller
                                                           .orders[index].total,
                                                       fontSize: 13,
-                                                      fontWeight: FontWeight.w600,
+                                                      fontWeight:
+                                                          FontWeight.w600,
                                                       maxLines: 1,
-                                                      color: AppColors.primaryColor,
+                                                      color: AppColors
+                                                          .primaryColor,
                                                       textOverflow:
                                                           TextOverflow.ellipsis,
                                                     ),
@@ -277,14 +288,16 @@ class OrderHistoryView extends GetView<OrderHistoryScreenController> {
                                                     TextWidget(
                                                       "status:",
                                                       fontSize: 12,
-                                                      fontWeight: FontWeight.w500,
+                                                      fontWeight:
+                                                          FontWeight.w500,
                                                     ),
                                                     AppSize.size.h5,
                                                     TextWidget(
                                                       controller
                                                           .orders[index].status,
                                                       fontSize: 12,
-                                                      fontWeight: FontWeight.w600,
+                                                      fontWeight:
+                                                          FontWeight.w600,
                                                       maxLines: 1,
                                                       color: Colors.red,
                                                       textOverflow:
@@ -293,9 +306,7 @@ class OrderHistoryView extends GetView<OrderHistoryScreenController> {
                                                   ],
                                                 ),
                                               ),
-
                                               //   Padding(padding: EdgeInsets.only(left: 5.0)),
-
                                               Expanded(
                                                 flex: 1,
                                                 child: Column(
@@ -308,9 +319,11 @@ class OrderHistoryView extends GetView<OrderHistoryScreenController> {
                                                       child: CircleAvatar(
                                                         radius: 10,
                                                         backgroundColor:
-                                                            AppColors.primaryColor,
+                                                            AppColors
+                                                                .primaryColor,
                                                         child: Icon(
-                                                          Icons.arrow_forward_ios,
+                                                          Icons
+                                                              .arrow_forward_ios,
                                                           size: 13,
                                                         ),
                                                       ),
@@ -320,11 +333,13 @@ class OrderHistoryView extends GetView<OrderHistoryScreenController> {
                                                       child: TextWidget(
                                                         "show more",
                                                         fontSize: 8,
-                                                        fontWeight: FontWeight.w600,
-                                                        maxLines: 1,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        maxLines: 2,
                                                         color: Colors.black,
                                                         textOverflow:
-                                                            TextOverflow.ellipsis,
+                                                            TextOverflow
+                                                                .ellipsis,
                                                       ),
                                                     ),
                                                   ],
@@ -346,26 +361,23 @@ class OrderHistoryView extends GetView<OrderHistoryScreenController> {
                             ),
                           ),
               ),
-
               ValueListenableBuilder<bool>(
                 valueListenable: controller.showAppNotificationNotifierInitial,
-                builder: (context, value, child)
-                {
-                  print("HomeBooksView :: showAppNotificationNotifier $value :: ${MediaQuery.of(context).size}");
+                builder: (context, value, child) {
+                  print(
+                      "HomeBooksView :: showAppNotificationNotifier $value :: ${MediaQuery.of(context).size}");
                   return AnimatedPositioned(
-                    top: value ? 0 : - Get.width - 1000,
+                    top: value ? 0 : -Get.width - 1000,
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.easeInCubic,
                     child: PopUpNotificationView(
-                      onClosePressed: ()
-                      async {
+                      onClosePressed: () async {
                         print(ApiConstants.jwtToken);
                         int res = await ApiHelper.logOut();
                         var prefs = await SharedPreferences.getInstance();
                         prefs.clear();
                         var response = await ApiHelper.getToken();
-                        if (response.data?.apiToken != null)
-                        {
+                        if (response.data?.apiToken != null) {
                           SetLocalDatas.setToken((response.data?.apiToken)!);
                           print(ApiConstants.jwtToken);
                           Navigator.pop(context);
@@ -377,7 +389,6 @@ class OrderHistoryView extends GetView<OrderHistoryScreenController> {
                   );
                 },
               ),
-
             ],
           )),
     );

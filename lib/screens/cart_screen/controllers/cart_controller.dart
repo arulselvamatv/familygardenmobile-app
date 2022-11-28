@@ -47,8 +47,7 @@ class CartController extends GetxController {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey("Login")) {
       String login = prefs.getString("Login")!;
-      if (login == "true")
-      {
+      if (login == "true") {
         isLoggedIn.value = true;
       }
     }
@@ -57,47 +56,44 @@ class CartController extends GetxController {
 
   getCartListDatas() async {
     var response = await ApiHelper.cartList();
-    if (response.isSuccessFul)
-    {
+    if (response.isSuccessFul) {
       products.value = response.data!;
-      if (products.value.logged == null || products.value.logged == "null")
-      {
-        print("LOG::::::${products.value.logged}");
-        if(isLoggedIn.value == true)
-        {
+      if (products.value.logged == null || products.value.logged == "null") {
+        if (isLoggedIn.value == true) {
           showAppNotificationNotifierInitial.value = true;
-        }
-        else
-        {
+        } else {
           isProductsLoader.value = false;
           getListDatas();
         }
-      }
-      else
-      {
+      } else {
         isProductsLoader.value = false;
         getListDatas();
       }
-
     }
     update();
   }
 
   Future<String> getCoupon(String couponCode) async {
     var response = await ApiHelper.getCoupon(couponCode);
-    print("Coupon Data ${response.data?.error}");
+    // print("Coupon Data ${response.data?.error}");
     return response.data?.error ?? "";
   }
 
-  hitAddCartAPI() async {
-    print(ApiConstants.jwtToken);
-    // print(productData);
+  Future<int> hitAddCartAPI() async {
     if ((productData.value["product_info"]?.length)! > 0) {
       var response = await ApiHelper.addCart(productData.value);
       if (response.isSuccessFul) {
-        getCartListDatas();
+        print("Is successful");
+        return 0;
+        // getCartListDatas();
+      } else {
+        print("Is Failure");
+        return 0;
       }
-    } else {}
+    } else {
+      print("Is Failure");
+      return 0;
+    }
   }
 
   getListDatas() {
@@ -105,7 +101,8 @@ class CartController extends GetxController {
     optionId.value.clear();
     optionValueId.value.clear();
     counterList.value.clear();
-    checkBoxBoolList = RxList<bool>.filled((products.value.products?.length)!, false);
+    checkBoxBoolList =
+        RxList<bool>.filled((products.value.products?.length)!, false);
     var actualPriceAmount = 0.0;
     var offerPriceAmount = 0.0;
     for (int i = 0; i < (products.value.products?.length)!; i++) {
@@ -126,9 +123,6 @@ class CartController extends GetxController {
     }
     totalPrice.value = offerPriceAmount;
     savedPrice.value = actualPriceAmount - offerPriceAmount;
-    // for (int i = 0; i < (products.value.products?.length)!; i++) {
-    //
-    // }
     if (products.value.totals != null) {
       for (var item in products.value.totals!) {
         if (item.title == "Total") {
@@ -154,10 +148,10 @@ class CartController extends GetxController {
       "prodcut_option_value_id": optionValueId[index],
       "action": "ADD"
     });
-    if (addCartTimer.isActive) addCartTimer.cancel();
-    addCartTimer = Timer(Duration(seconds: 400), () async {
-      hitAddCartAPI();
-    });
+    // if (addCartTimer.isActive) addCartTimer.cancel();
+    // addCartTimer = Timer(Duration(seconds: 400), () async {
+    //   hitAddCartAPI();
+    // });
     update();
   }
 
@@ -171,61 +165,42 @@ class CartController extends GetxController {
       "prodcut_option_value_id": optionValueId[index],
       "action": "MINUS"
     });
-    // print(productData.value);
-    // if (addCartTimer.isActive) addCartTimer.cancel();
-    // addCartTimer = Timer(Duration(seconds: 350), () async {
-    //   hitAddCartAPI();
-    // });
     update();
   }
 
   minus(int index) {
-    print("Cart count ${counterList.length}");
-    // if (counterList.value[index] == "0") {
-    //   return;
-    // } else {
-    if (counterList.value[index] == "1") {
-      counterList.value[index] = int.parse(counterList.value[index]) - 1;
-      counterList.value[index] = "${counterList.value[index]}";
-      print("counterList $counterList");
-      removeProduct(index);
-      // counterList.value.removeAt(index);
-      print("Cart count ${counterList.isEmpty}");
-    } else {
-      counterList.value[index] = int.parse(counterList.value[index]) - 1;
-      counterList.value[index] = "${counterList.value[index]}";
-      print("counterList $counterList");
-      removeProduct(index);
-    }
+    double actualprice = double.parse(
+        (products.value.products?[index].actualPrice)?.substring(1) ?? "0.0");
+    double offerPrice = double.parse(
+        (products.value.products?[index].offerPrice)?.substring(1) ?? "0");
+    totalPrice.value = totalPrice.value - offerPrice;
+    savedPrice.value = savedPrice.value - (actualprice - offerPrice);
+    counterList.value[index] = int.parse(counterList.value[index]) - 1;
+    counterList.value[index] = "${counterList.value[index]}";
+    removeProduct(index);
     counterList.refresh();
-    // }
     update();
   }
 
   removeProduct(index) {
-    print(products.value.products?[index].productId);
-    int? quantityIncreasingIndex = productData.value["product_info"]
-        ?.indexWhere((element) =>
-            element["product_id"] ==
-            products.value.products?[index].productId!);
-    // print(quantityIncreasingIndex);
-    int? minusIndex = productData.value["product_info"]
-        ?.indexWhere((element) => element["action"] == "MINUS");
-    print(minusIndex);
-    if (quantityIncreasingIndex != -1) {
-      if (minusIndex != -1) {
-        if (quantityIncreasingIndex == minusIndex) {
-          productData.value["product_info"]?[quantityIncreasingIndex!]["qty"] =
-              productData.value["product_info"]?[quantityIncreasingIndex]
-                      ["qty"] +
-                  1;
-        } else {
-          productData.value["product_info"]?[quantityIncreasingIndex!]["qty"] =
-              productData.value["product_info"]?[quantityIncreasingIndex]
-                      ["qty"] +
-                  1;
-        }
-      } else {}
+    int? indexx;
+    // print(products.value.products?[index].productId);
+    for (var i = 0; i < (productData.value["product_info"]?.length)!; i++) {
+      if (productData.value["product_info"]?[i]["product_id"] ==
+              products.value.products?[index].productId! &&
+          productData.value["product_info"]?[i]["action"] == "MINUS") {
+        indexx = i;
+      }
+    }
+    // int? quantityIncreasingIndex = productData.value["product_info"]
+    //     ?.indexWhere((element) =>
+    //         element["product_id"] ==
+    //        );
+    // int? minusIndex = productData.value["product_info"]
+    //     ?.indexWhere((element) => element["action"] == "MINUS");
+    if (indexx != null) {
+      productData.value["product_info"]?[indexx]["qty"] =
+          productData.value["product_info"]?[indexx]["qty"] + 1;
     } else {
       if (products.value.products?[index].productOptionId != null) {
         productId[index] = products.value.products?[index].productId!;
@@ -238,26 +213,34 @@ class CartController extends GetxController {
         removeCartDatas(index);
       }
     }
-    print(productData);
+    // print(productData);
   }
 
   existingAddCartData(index) {
-    int? QuantityIncreasingIndex = productData.value["product_info"]
-        ?.indexWhere((element) =>
-            element["product_id"] ==
-            products.value.products?[index].productId!);
-    if (QuantityIncreasingIndex != -1) {
-      productData.value["product_info"]?[QuantityIncreasingIndex!]["qty"] =
-          productData.value["product_info"]?[QuantityIncreasingIndex]["qty"] +
-              1;
+    int? indexx;
+    for (var i = 0; i < (productData.value["product_info"]?.length)!; i++) {
+      if (productData.value["product_info"]?[i]["product_id"] ==
+              products.value.products?[index].productId! &&
+          productData.value["product_info"]?[i]["action"] == "ADD") {
+        indexx = i;
+      }
+    }
+    // int? QuantityIncreasingIndex = productData.value["product_info"]
+    //     ?.indexWhere((element) =>
+    //         element["product_id"] ==
+    //         products.value.products?[index].productId!);
+    // int? addIndex = productData.value["product_info"]
+    //     ?.indexWhere((element) => element["action"] == "ADD");
+    if (indexx != null) {
+      productData.value["product_info"]?[indexx]["qty"] =
+          productData.value["product_info"]?[indexx]["qty"] + 1;
       if (optionId.value[index] !=
-          productData.value["product_info"]?[QuantityIncreasingIndex!]
-              ["product_option_id"]) ;
+          productData.value["product_info"]?[indexx]["product_option_id"]) ;
       {
-        productData.value["product_info"]?[QuantityIncreasingIndex!]
-            ["product_option_id"] = optionId.value[index];
-        productData.value["product_info"]?[QuantityIncreasingIndex!]
-            ["prodcut_option_value_id"] = optionValueId.value[index];
+        productData.value["product_info"]?[indexx]["product_option_id"] =
+            optionId.value[index];
+        productData.value["product_info"]?[indexx]["prodcut_option_value_id"] =
+            optionValueId.value[index];
       }
     } else {
       newAddCart(index);
@@ -281,6 +264,12 @@ class CartController extends GetxController {
 
   add(int index) {
     counterList.value[index] = int.parse(counterList.value[index]) + 1;
+    double actualprice = double.parse(
+        (products.value.products?[index].actualPrice)?.substring(1) ?? "0.0");
+    double offerPrice = double.parse(
+        (products.value.products?[index].offerPrice)?.substring(1) ?? "0");
+    totalPrice.value = totalPrice.value + offerPrice;
+    savedPrice.value = savedPrice.value + (actualprice - offerPrice);
     counterList.value[index] = "${counterList.value[index]}";
     if ((productData.value["product_info"]?.length)! > 0) {
       existingAddCartData(index);
@@ -288,5 +277,6 @@ class CartController extends GetxController {
       newAddCart(index);
     }
     update();
+    // print(productData);
   }
 }

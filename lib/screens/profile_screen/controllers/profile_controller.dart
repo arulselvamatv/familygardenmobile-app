@@ -53,10 +53,10 @@ class ProfileController extends GetxController {
         showAppNotificationNotifierInitial.value = true;
       }
       else
-        {
-          Get.snackbar('success', "Your password has been updated successfully!");
-          Navigator.of(Get.context!).pop();
-        }
+      {
+        Get.snackbar('success', "Your password has been updated successfully!");
+        Navigator.of(Get.context!).pop();
+      }
 
     }
   }

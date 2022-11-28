@@ -33,6 +33,18 @@ class SignupController extends GetxController {
         '1');
     if (response.data?.errorWarning != "" ||
         response.data?.errorWarning != null) {
+      firstnameController.text = "";
+      emailController.text = "";
+      telephoneController.text = "";
+      passwordController.text = "";
+      confirmController.text = "";
+      isNameTextFielld.value = false;
+      isEmailTextFielld.value = false;
+      isMobileTextFielld.value = false;
+      isPasswordTextFielld.value = false;
+      isConfirmPasswordTextFielld.value = false;
+      showPassword.value = true;
+      showConfirmPassword.value = true;
       Get.toNamed(Routes.DASHBOARD);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("Signup Successful Login to continue"),

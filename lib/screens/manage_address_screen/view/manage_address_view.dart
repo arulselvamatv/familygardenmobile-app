@@ -4,11 +4,11 @@ import 'package:family_garden/network/set_local_datas.dart';
 import 'package:family_garden/screens/manage_address_screen/controller/manage_address_controller.dart';
 import 'package:family_garden/widgets/LoginWidget/pop_up_notification_view.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/common_import/common_import.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
-import '../../../widgets/custom_textfield.dart';
 
 class ManageAddressView extends GetView<ManageAddressController> {
   @override
@@ -101,56 +101,125 @@ class ManageAddressView extends GetView<ManageAddressController> {
                                               )),
                                           child: ListView.separated(
                                             scrollDirection: Axis.vertical,
-                                            physics: NeverScrollableScrollPhysics(),
+                                            physics:
+                                                NeverScrollableScrollPhysics(),
                                             shrinkWrap: true,
-                                            itemCount: controller.addresses.value
-                                                    .addresses?.length ??
+                                            itemCount: controller.addresses
+                                                    .value.addresses?.length ??
                                                 0,
                                             padding: EdgeInsets.only(
                                                 bottom: 30, top: 10),
                                             itemBuilder: (context, index) {
                                               return Column(
                                                 children: [
-                                                  Container(
+                                                  SizedBox(
                                                     width: Get.width,
                                                     child: Container(
-                                                      height: 200,
+                                                      height: 150,
                                                       width: Get.width,
                                                       color: Colors.white,
-                                                      child: Row(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment.start,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    left: 16.0,
-                                                                    top: 17),
-                                                            child: Column(
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 16.0,
+                                                                top: 17),
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Row(
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
-                                                                      .start,
+                                                                      .spaceBetween,
                                                               crossAxisAlignment:
                                                                   CrossAxisAlignment
                                                                       .start,
                                                               children: [
-                                                                Html(
-                                                                    data: controller
-                                                                        .addresses
-                                                                        .value
-                                                                        .addresses?[
-                                                                            index]
-                                                                        .address,
-                                                                    shrinkWrap:
-                                                                        true),
+                                                                SizedBox(
+                                                                  width:
+                                                                      Get.width /
+                                                                          2,
+                                                                  child: Html(
+                                                                      data: controller
+                                                                          .addresses
+                                                                          .value
+                                                                          .addresses?[
+                                                                              index]
+                                                                          .address,
+                                                                      shrinkWrap:
+                                                                          true),
+                                                                ),
+                                                                Container(
+                                                                  height: 40,
+                                                                  width: 100,
+                                                                  child: Row(
+                                                                    children: [
+                                                                      GestureDetector(
+                                                                        onTap:
+                                                                            () {
+                                                                          Get.toNamed(Routes.ADDADDRESS, arguments: controller.addresses.value.addresses?[index].addressId)?.then((value) =>
+                                                                              controller.getAccountAddresses());
+                                                                        },
+                                                                        child:
+                                                                            Container(
+                                                                          height:
+                                                                              40,
+                                                                          width:
+                                                                              40,
+                                                                          child:
+                                                                              SvgPicture.asset("assets/icons/edit_address.svg"),
+                                                                        ),
+                                                                      ),
+                                                                      GestureDetector(
+                                                                        onTap:
+                                                                            () async {
+                                                                          print(controller
+                                                                              .addresses
+                                                                              .value
+                                                                              .addresses?[index]
+                                                                              .addressId);
+                                                                          var res = await ApiHelper.deleteAddress((controller
+                                                                              .addresses
+                                                                              .value
+                                                                              .addresses?[index]
+                                                                              .addressId)!);
+                                                                          print(
+                                                                              res.responseCode);
+                                                                          if (res.responseCode ==
+                                                                              200) {
+                                                                            controller.addresses.value.addresses?.removeAt(index);
+                                                                            if ((controller.addresses.value.addresses?.isEmpty)!) {
+                                                                              controller.isEmptyAddress.value = true;
+                                                                            }
+                                                                            controller.update();
+                                                                            controller.addresses.refresh();
+                                                                          }
+                                                                        },
+                                                                        child:
+                                                                            SizedBox(
+                                                                          height:
+                                                                              25,
+                                                                          width:
+                                                                              25,
+                                                                          child:
+                                                                              SvgPicture.asset(
+                                                                            "assets/icons/delete_address.svg",
+                                                                            height:
+                                                                                25,
+                                                                            width:
+                                                                                25,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                )
                                                               ],
                                                             ),
-                                                          ),
-                                                        ],
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
@@ -174,8 +243,8 @@ class ManageAddressView extends GetView<ManageAddressController> {
                                   width: Get.width,
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 20),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
                                   child: SizedBox(
                                     height: 50,
                                     width: Get.width,
@@ -184,7 +253,7 @@ class ManageAddressView extends GetView<ManageAddressController> {
                                           controller.addAddressBtn(context);
                                         },
                                         style: ElevatedButton.styleFrom(
-                                            primary: AppColors.primaryColor,
+                                            backgroundColor: AppColors.primaryColor,
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(13))),
@@ -204,22 +273,20 @@ class ManageAddressView extends GetView<ManageAddressController> {
                       : Center(child: CircularProgressIndicator())),
               ValueListenableBuilder<bool>(
                 valueListenable: controller.showAppNotificationNotifierInitial,
-                builder: (context, value, child)
-                {
-                  print("HomeBooksView :: showAppNotificationNotifier $value :: ${MediaQuery.of(context).size}");
+                builder: (context, value, child) {
+                  print(
+                      "HomeBooksView :: showAppNotificationNotifier $value :: ${MediaQuery.of(context).size}");
                   return AnimatedPositioned(
-                    top: value ? 0 : - Get.width - 1000,
+                    top: value ? 0 : -Get.width - 1000,
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.easeInCubic,
                     child: PopUpNotificationView(
-                      onClosePressed: ()
-                      async {
+                      onClosePressed: () async {
                         print(ApiConstants.jwtToken);
                         var prefs = await SharedPreferences.getInstance();
                         prefs.clear();
                         var response = await ApiHelper.getToken();
-                        if (response.data?.apiToken != null)
-                        {
+                        if (response.data?.apiToken != null) {
                           SetLocalDatas.setToken((response.data?.apiToken)!);
                           print(ApiConstants.jwtToken);
                           Navigator.pop(context);

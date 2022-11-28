@@ -27,6 +27,18 @@ class SignupView extends GetView<SignupController> {
                     children: [
                       GestureDetector(
                         onTap: () {
+                          controller.firstnameController.text = "";
+                          controller.emailController.text = "";
+                          controller.telephoneController.text = "";
+                          controller.passwordController.text = "";
+                          controller.confirmController.text = "";
+                          controller.isNameTextFielld.value = false;
+                          controller.isEmailTextFielld.value = false;
+                          controller.isMobileTextFielld.value = false;
+                          controller.isPasswordTextFielld.value = false;
+                          controller.isConfirmPasswordTextFielld.value = false;
+                          controller.showPassword.value = true;
+                          controller.showConfirmPassword.value = true;
                           Get.back();
                         },
                         child: Padding(
@@ -202,10 +214,19 @@ class SignupView extends GetView<SignupController> {
                                           true;
                                       controller.update();
                                       return 'please enter phone number';
+                                    } else {
+                                      if (value.length < 10) {
+                                        controller.isMobileTextFielld.value =
+                                            true;
+                                        controller.update();
+                                        return "entered mobile number invalid";
+                                      } else {
+                                        controller.isMobileTextFielld.value =
+                                            false;
+                                        controller.update();
+                                        return null;
+                                      }
                                     }
-                                    controller.isMobileTextFielld.value = false;
-                                    controller.update();
-                                    return null;
                                   },
                                   maxLength: 10,
                                   keyboardType: TextInputType.number,
@@ -559,7 +580,7 @@ class SignupView extends GetView<SignupController> {
                                 }
                               },
                               style: ElevatedButton.styleFrom(
-                                  primary: AppColors.primaryColor,
+                                  backgroundColor: AppColors.primaryColor,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(13))),
                               child: TextWidget(

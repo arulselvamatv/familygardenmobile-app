@@ -6,6 +6,7 @@ import 'package:family_garden/screens/drawer_screen/controllers/drawer_controlle
 import 'package:family_garden/screens/profile_screen/controllers/profile_controller.dart';
 import 'package:family_garden/widgets/custom_textfield.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../network/set_local_datas.dart';
@@ -96,9 +97,9 @@ class AccountView extends GetView<AccountController> {
                                                                             18,
                                                                         width:
                                                                             18,
-                                                                        child: Image
+                                                                        child: SvgPicture
                                                                             .asset(
-                                                                          'assets/icons/orderHistory.png',
+                                                                          'assets/icons/order_history_icon.svg',
                                                                           fit: BoxFit
                                                                               .fill,
                                                                           color:
@@ -157,9 +158,9 @@ class AccountView extends GetView<AccountController> {
                                                                             18,
                                                                         width:
                                                                             18,
-                                                                        child: Image
+                                                                        child: SvgPicture
                                                                             .asset(
-                                                                          'assets/icons/wishist.png',
+                                                                          'assets/icons/wishlist_icon.svg',
                                                                           fit: BoxFit
                                                                               .fill,
                                                                           color:
@@ -213,7 +214,9 @@ class AccountView extends GetView<AccountController> {
                                         onTap: () {
                                           if (controller.isLoggedIn.value ==
                                               true) {
-                                            Get.toNamed(Routes.EDIT_PROFILE);
+                                            Get.toNamed(Routes.EDIT_PROFILE)
+                                                ?.then((value) => controller
+                                                    .getLoginDetails());
                                           } else {
                                             Get.snackbar(
                                                 'warning', "Kindly login");
@@ -232,8 +235,8 @@ class AccountView extends GetView<AccountController> {
                                               SizedBox(
                                                   height: 18,
                                                   width: 18,
-                                                  child: Image.asset(
-                                                    'assets/icons/account.png',
+                                                  child: SvgPicture.asset(
+                                                    'assets/icons/edit_profile_icon.svg',
                                                     fit: BoxFit.fill,
                                                     color:
                                                         AppColors.primaryColor,
@@ -269,8 +272,8 @@ class AccountView extends GetView<AccountController> {
                                               SizedBox(
                                                   height: 18,
                                                   width: 18,
-                                                  child: Image.asset(
-                                                    'assets/icons/address book.png',
+                                                  child: SvgPicture.asset(
+                                                    'assets/icons/saved_address_icon.svg',
                                                     fit: BoxFit.fill,
                                                     color:
                                                         AppColors.primaryColor,
@@ -312,6 +315,8 @@ class AccountView extends GetView<AccountController> {
                                           padding: EdgeInsets.only(top: 10.0)),
                                       GestureDetector(
                                         onTap: () {
+                                          // Get.toNamed(Routes.FORGOT_PASSWORD);
+                                          // Get.toNamed(Routes.VERIFY_OTP);
                                           Get.toNamed(
                                               Routes.TERMS_AND_CONDITIONS);
                                         },
@@ -324,8 +329,8 @@ class AccountView extends GetView<AccountController> {
                                               SizedBox(
                                                   height: 18,
                                                   width: 18,
-                                                  child: Image.asset(
-                                                    'assets/icons/address book.png',
+                                                  child: SvgPicture.asset(
+                                                    'assets/icons/terms & condition.svg',
                                                     fit: BoxFit.fill,
                                                     color:
                                                         AppColors.primaryColor,
@@ -360,8 +365,8 @@ class AccountView extends GetView<AccountController> {
                                               SizedBox(
                                                   height: 18,
                                                   width: 18,
-                                                  child: Image.asset(
-                                                    'assets/icons/Faq.png',
+                                                  child: SvgPicture.asset(
+                                                    "assets/icons/faq's.svg",
                                                     fit: BoxFit.fill,
                                                     color:
                                                         AppColors.primaryColor,
@@ -448,7 +453,7 @@ class AccountView extends GetView<AccountController> {
                                             // controller.logout();
                                           },
                                           style: ElevatedButton.styleFrom(
-                                              primary:
+                                              backgroundColor:
                                                   AppColors.primaryColor,
                                               shape: RoundedRectangleBorder(
                                                   borderRadius:

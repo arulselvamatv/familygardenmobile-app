@@ -9,6 +9,11 @@ class EndPoints {
 
   static const addAddress = "/index.php?route=mobileapi/account/address/add";
 
+  static const deleteAddress =
+      "/index.php?route=mobileapi/account/address/delete";
+
+  static const editAddres = "/index.php?route=mobileapi/account/address/edit";
+
   static const apiRoutes = "?route=mobileapi/homefeature";
 
   static const homeCarousel = "/index.php?route=mobileapi/homeslider";
@@ -78,4 +83,10 @@ class EndPoints {
   static const accountAdress = "/index.php?route=mobileapi/account/address";
 
   static const coupon = "/index.php?route=mobileapi/coupon";
+
+  static const addressView = "/index.php?route=mobileapi/account/address/view";
+
+  static const accountOtpSend = "/index.php?route=mobileapi/account/forgotten";
+
+  static const verifyOtp = "/index.php?route=mobileapi/account/forgotten/otp_verify";
 }

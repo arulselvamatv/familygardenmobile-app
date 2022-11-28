@@ -68,7 +68,7 @@ class PaymentView extends GetView<PaymentController> {
                                 Get.offAllNamed(Routes.DASHBOARD);
                               },
                               style: ElevatedButton.styleFrom(
-                                  primary: AppColors.primaryColor,
+                                  backgroundColor: AppColors.primaryColor,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(13))),
                               child: TextWidget(
@@ -111,7 +111,7 @@ class PaymentView extends GetView<PaymentController> {
                                                 color: AppColors.black)),
                                         TextSpan(
                                             text:
-                                                "Rs. ${controller.savedPrice.value}",
+                                                "Rs. ${controller.savedPrice.value}0",
                                             style: TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.bold,
@@ -311,7 +311,7 @@ class PaymentView extends GetView<PaymentController> {
                                               fontWeight: FontWeight.w500,
                                               color: AppColors.opacityGrey),
                                         ),
-                                        Text("Rs. ${controller.actulPrice}",
+                                        Text("Rs. ${controller.actulPrice}0",
                                             style: TextStyle(
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w500,
@@ -332,7 +332,8 @@ class PaymentView extends GetView<PaymentController> {
                                               fontWeight: FontWeight.w500,
                                               color: AppColors.opacityGrey),
                                         ),
-                                        Text("${controller.deliveryCharges}",
+                                        Text(
+                                            "${controller.deliveryCharges.value == 0 ? "Free" : "${controller.deliveryCharges.value}.00"}",
                                             style: TextStyle(
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w500,
@@ -358,7 +359,7 @@ class PaymentView extends GetView<PaymentController> {
                                         fontWeight: FontWeight.w600,
                                         color: AppColors.black),
                                   ),
-                                  Text("Rs. ${controller.payableAmount}",
+                                  Text("Rs. ${controller.payableAmount}0",
                                       style: TextStyle(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w600,
@@ -380,12 +381,12 @@ class PaymentView extends GetView<PaymentController> {
                                     width: Get.width / 2.5,
                                     child: ElevatedButton(
                                         onPressed: () {
-                                          Get.toNamed(Routes.DASHBOARD);
+                                          Get.offAllNamed(Routes.DASHBOARD);
                                           // controller.deliverHereBtn(context);
                                           // controller.onPressAddBtn();
                                         },
                                         style: ElevatedButton.styleFrom(
-                                            primary: AppColors.white,
+                                            backgroundColor: AppColors.white,
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(13),
@@ -412,8 +413,7 @@ class PaymentView extends GetView<PaymentController> {
                                           // controller.onPressAddBtn();
                                         },
                                         style: ElevatedButton.styleFrom(
-                                            primary:
-                                                AppColors.primaryColor,
+                                            backgroundColor: AppColors.primaryColor,
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(13))),

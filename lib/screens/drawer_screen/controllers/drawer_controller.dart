@@ -55,6 +55,10 @@ class DrawerWidgetController extends GetxController {
   sideMenuNavigation(int index) {
     print(index);
     if (index == 0) {
+      Get.find<DashboardController>().tabController?.animateTo(0);
+      Get.find<DashboardController>().selectedIndex.value = 0;
+      Get.find<DashboardController>().selectedIndex.refresh();
+      // Get.back();
       Get.back();
       // // print("Hitted");
       // Get.toNamed(Routes.DASHBOARD);

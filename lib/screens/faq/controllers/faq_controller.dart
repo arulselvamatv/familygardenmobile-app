@@ -13,6 +13,7 @@ class FaqController extends GetxController {
   final Completer<WebViewController> ctrl = Completer<WebViewController>();
 
   WebViewController? webViewCtrl;
+  RxBool isLoader = false.obs;
 
   @override
   void onInit() {

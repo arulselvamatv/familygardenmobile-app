@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../routes/app_pages.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
+import '../../dashboard/controllers/dashboard_controller.dart';
 import '../controllers/cart_controller.dart';
 
 class CartView extends GetView<CartController> {
@@ -20,9 +21,14 @@ class CartView extends GetView<CartController> {
     controller.onInit();
     return WillPopScope(
       onWillPop: () async {
-        controller.hitAddCartAPI();
-        Get.back();
-        return true;
+        int response = await controller.hitAddCartAPI();
+        if (response == 0) {
+          Get.back();
+          return true;
+        } else {
+          Get.back();
+          return true;
+        }
       },
       child: Scaffold(
           backgroundColor: AppColors.primaryColor,
@@ -37,9 +43,13 @@ class CartView extends GetView<CartController> {
                     Padding(
                       padding: const EdgeInsets.only(left: 15.0),
                       child: GestureDetector(
-                          onTap: () {
-                            controller.hitAddCartAPI();
-                            Get.back();
+                          onTap: () async {
+                            int response = await controller.hitAddCartAPI();
+                            if (response == 0) {
+                              Get.back();
+                            } else {
+                              Get.back();
+                            }
                           },
                           child: Image.asset(
                             'assets/icons/backButton.png',
@@ -58,7 +68,6 @@ class CartView extends GetView<CartController> {
           ),
           body: Obx(
             () => Stack(
-
               children: [
                 Container(
                   height: Get.height,
@@ -70,30 +79,29 @@ class CartView extends GetView<CartController> {
                         topLeft: Radius.circular(30),
                       )),
                   child: controller.isProductsLoader.value
-                      ? const Center(child:  CircularProgressIndicator())
+                      ? const Center(child: CircularProgressIndicator())
                       : controller.productListLength.value <= 0 ||
                               controller.counterList.value.isEmpty
                           ? cartEmptyDesign(context)
                           : cartDatasDesign(context),
                 ),
                 ValueListenableBuilder<bool>(
-                  valueListenable: controller.showAppNotificationNotifierInitial,
-                  builder: (context, value, child)
-                  {
-                    print("HomeBooksView :: showAppNotificationNotifier $value :: ${MediaQuery.of(context).size}");
+                  valueListenable:
+                      controller.showAppNotificationNotifierInitial,
+                  builder: (context, value, child) {
+                    print(
+                        "HomeBooksView :: showAppNotificationNotifier $value :: ${MediaQuery.of(context).size}");
                     return AnimatedPositioned(
-                      top: value ? 0 : - Get.width - 1000,
+                      top: value ? 0 : -Get.width - 1000,
                       duration: const Duration(milliseconds: 500),
                       curve: Curves.easeInCubic,
                       child: PopUpNotificationView(
-                        onClosePressed: ()
-                        async {
+                        onClosePressed: () async {
                           print(ApiConstants.jwtToken);
                           var prefs = await SharedPreferences.getInstance();
                           prefs.clear();
                           var response = await ApiHelper.getToken();
-                          if (response.data?.apiToken != null)
-                          {
+                          if (response.data?.apiToken != null) {
                             SetLocalDatas.setToken((response.data?.apiToken)!);
                             print(ApiConstants.jwtToken);
                             Navigator.pop(context);
@@ -268,8 +276,8 @@ class CartView extends GetView<CartController> {
                                                         fontSize: 10.5,
                                                         fontWeight:
                                                             FontWeight.w400,
-                                                        color:
-                                                            const Color(0xff666666)),
+                                                        color: const Color(
+                                                            0xff666666)),
                                               ],
                                             ),
                                             const Spacer(),
@@ -306,7 +314,8 @@ class CartView extends GetView<CartController> {
                                                     "${cart.products.value.products?[index].offerPercentage} %",
                                                     fontSize: 13,
                                                     fontWeight: FontWeight.w500,
-                                                    color: const Color(0xffFF8A00),
+                                                    color:
+                                                        const Color(0xffFF8A00),
                                                   ),
                                                   AppSize.size.h10,
                                                   Container(
@@ -321,7 +330,8 @@ class CartView extends GetView<CartController> {
                                                         boxShadow: [
                                                           BoxShadow(
                                                             offset:
-                                                                const Offset(0, 0),
+                                                                const Offset(
+                                                                    0, 0),
                                                             blurRadius: 3,
                                                             spreadRadius: 3,
                                                             color: const Color(
@@ -448,23 +458,23 @@ class CartView extends GetView<CartController> {
                 child: ElevatedButton(
                   onPressed: () async {
                     final prefs = await SharedPreferences.getInstance();
-                    if (prefs.containsKey("Login")) {
-                      String nameText = prefs.getString('Login') ?? '';
-                      if (nameText == "true") {
-                        Get.toNamed(Routes.ADDRESS, arguments: [
-                          controller.totalPrice.value,
-                          controller.savedPrice.value
-                        ]);
-                        controller.hitAddCartAPI();
+                    int response = await controller.hitAddCartAPI();
+                    if (response == 0) {
+                      if (prefs.containsKey("Login")) {
+                        String nameText = prefs.getString('Login') ?? '';
+                        if (nameText == "true") {
+                          Get.toNamed(Routes.ADDRESS, arguments: [
+                            controller.totalPrice.value,
+                            controller.savedPrice.value
+                          ]);
+                        } else {
+                          Get.toNamed(Routes.LOGIN, arguments: "Cart")
+                              ?.then((value) => controller.getCartListDatas());
+                        }
                       } else {
                         Get.toNamed(Routes.LOGIN, arguments: "Cart")
                             ?.then((value) => controller.getCartListDatas());
-                        controller.hitAddCartAPI();
                       }
-                    } else {
-                      Get.toNamed(Routes.LOGIN, arguments: "Cart")
-                          ?.then((value) => controller.getCartListDatas());
-                      controller.hitAddCartAPI();
                     }
                   },
                   child: TextWidget(
@@ -475,7 +485,7 @@ class CartView extends GetView<CartController> {
                   ),
                   style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.all(0),
-                      primary: AppColors.primaryColor,
+                      backgroundColor: AppColors.primaryColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(6),
                       )),
@@ -529,7 +539,7 @@ class CartView extends GetView<CartController> {
                           color: AppColors.white,
                         ),
                         style: ElevatedButton.styleFrom(
-                            primary: AppColors.primaryColor,
+                            backgroundColor: AppColors.primaryColor,
                             padding: const EdgeInsets.all(0),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(6),
@@ -561,7 +571,7 @@ class CartView extends GetView<CartController> {
                             color: const Color(0xff141414)),
                         children: <TextSpan>[
                           TextSpan(
-                            text: controller.totalPrice.value.toString(),
+                            text: "${controller.totalPrice.value}0",
                             style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -570,7 +580,7 @@ class CartView extends GetView<CartController> {
                         ]),
                   ),
                   TextWidget(
-                    'Saved: ₹ ${controller.savedPrice.value}',
+                    'Saved: ₹ ${controller.savedPrice.value}0',
                     fontSize: 10.5,
                     fontWeight: FontWeight.w600,
                     color: const Color(0xff4A8D30),
@@ -677,10 +687,13 @@ class CartView extends GetView<CartController> {
             child: ElevatedButton(
                 onPressed: () {
                   // controller.hitAddCartAPI();
+                  Get.find<DashboardController>().tabController?.animateTo(0);
+                  Get.find<DashboardController>().selectedIndex.value = 0;
+                  Get.find<DashboardController>().selectedIndex.refresh();
                   Get.toNamed(Routes.DASHBOARD);
                 },
                 style: ElevatedButton.styleFrom(
-                    primary: AppColors.primaryColor,
+                    backgroundColor: AppColors.primaryColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(13))),
                 child: TextWidget(

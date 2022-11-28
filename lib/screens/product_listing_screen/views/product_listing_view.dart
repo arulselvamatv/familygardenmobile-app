@@ -648,31 +648,47 @@ class ProductListingView extends GetView<ProductListingController> {
                                               Positioned(
                                                   bottom: 0,
                                                   right: 0,
-                                                  child: InkWell(
-                                                    onTap: () {
-                                                      controller.cartButton(
-                                                          index, "plus");
-                                                    },
-                                                    child: Container(
-                                                      height: 60,
-                                                      width: 50,
-                                                      // color: Colors.brown,
-                                                    ),
-                                                  )),
+                                                  child: controller
+                                                              .products
+                                                              .value[index]
+                                                              .quantity! !=
+                                                          "0"
+                                                      ? InkWell(
+                                                          onTap: () {
+                                                            controller
+                                                                .cartButton(
+                                                                    index,
+                                                                    "plus");
+                                                          },
+                                                          child: Container(
+                                                            height: 60,
+                                                            width: 50,
+                                                            // color: Colors.brown,
+                                                          ),
+                                                        )
+                                                      : Container()),
                                               Positioned(
                                                   bottom: 0,
                                                   right: 50,
-                                                  child: InkWell(
-                                                    onTap: () {
-                                                      controller.cartButton(
-                                                          index, "minus");
-                                                    },
-                                                    child: Container(
-                                                      height: 60,
-                                                      width: 50,
-                                                      // color: Colors.blueGrey,
-                                                    ),
-                                                  )),
+                                                  child: controller
+                                                              .products
+                                                              .value[index]
+                                                              .quantity! !=
+                                                          "0"
+                                                      ? InkWell(
+                                                          onTap: () {
+                                                            controller
+                                                                .cartButton(
+                                                                    index,
+                                                                    "minus");
+                                                          },
+                                                          child: Container(
+                                                            height: 60,
+                                                            width: 50,
+                                                            // color: Colors.blueGrey,
+                                                          ),
+                                                        )
+                                                      : Container()),
                                               Positioned(
                                                 top: 0,
                                                 left: 0,

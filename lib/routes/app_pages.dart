@@ -3,6 +3,7 @@ import 'package:family_garden/screens/account_screen/bindings/account_binding.da
 import 'package:family_garden/screens/add_address_screen/binding/add_address_binding.dart';
 import 'package:family_garden/screens/add_address_screen/view/add_address_view.dart';
 import 'package:family_garden/screens/cart_screen/views/cart_view.dart';
+import 'package:family_garden/screens/change_password_screen/binding/change_password_binding.dart';
 import 'package:family_garden/screens/dashboard/views/dashboard_view.dart';
 import 'package:family_garden/screens/initiate_payment_screen/binding/initiate_payment_binding.dart';
 import 'package:family_garden/screens/initiate_payment_screen/view/initiate_payment_view.dart';
@@ -26,9 +27,12 @@ import '../screens/account_login/view/account_login_view.dart';
 import '../screens/address_screen/binding/address_binding.dart';
 import '../screens/address_screen/view/address_view.dart';
 import '../screens/cart_screen/bindings/cart_binding.dart';
+import '../screens/change_password_screen/view/change_password_view.dart';
 import '../screens/dashboard/bindings/dashboard_bindings.dart';
 import '../screens/faq/bindings/faq_binding.dart';
 import '../screens/faq/views/faq_view.dart';
+import '../screens/forgot_password_screen/binding/forgot_password_binding.dart';
+import '../screens/forgot_password_screen/view/forgot_password_view.dart';
 import '../screens/help-center/bindings/help_center_binding.dart';
 import '../screens/help-center/views/help_center_view.dart';
 import '../screens/order-detail/bindings/order_detail_binding.dart';
@@ -155,7 +159,7 @@ class AppPages {
         binding: OrdersuccessBinding()),
     GetPage(
       name: _Paths.ORDER_DETAIL,
-      page: () => const OrderDetailView(),
+      page: () => OrderDetailView(),
       binding: OrderDetailBinding(),
     ),
     GetPage(
@@ -187,6 +191,16 @@ class AppPages {
       name: _Paths.SEARCH_SCREEN,
       page: () => SearchView(),
       binding: SearchBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHANGE_PASSWORD,
+      page: () => ChangePasswordView(),
+      binding: ChangePasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.FORGOT_PASSWORD,
+      page: () => ForgotPasswordView(),
+      binding: ForgotPasswordBinding(),
     ),
   ];
 }

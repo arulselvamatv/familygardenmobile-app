@@ -6,14 +6,14 @@ import 'package:google_fonts/google_fonts.dart';
 class PopUpNotificationView extends StatefulWidget {
   final Function onClosePressed;
 
-  const PopUpNotificationView({Key? key, required this.onClosePressed}) : super(key: key);
+  const PopUpNotificationView({Key? key, required this.onClosePressed})
+      : super(key: key);
 
   @override
   PopUpNotificationViewState createState() => PopUpNotificationViewState();
 }
 
 class PopUpNotificationViewState extends State<PopUpNotificationView> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,23 +38,18 @@ class PopUpNotificationViewState extends State<PopUpNotificationView> {
             child: Stack(
               fit: StackFit.loose,
               clipBehavior: Clip.none,
-              children:
-              [
-
-
+              children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 8.0,right: 8.0,top: 14.0,bottom: 14.0),
+                  padding: const EdgeInsets.only(
+                      left: 8.0, right: 8.0, top: 14.0, bottom: 14.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children:
-                        [
-
+                        children: [
                           Image.asset(
                             'assets/icons/session_expired_image.png',
                             height: 100,
@@ -67,16 +62,18 @@ class PopUpNotificationViewState extends State<PopUpNotificationView> {
                               text: 'OOPS!',
                               style: TextStyle(
                                   fontSize: 22,
-                                  fontWeight:
-                                  FontWeight.w500,color:AppColors.oopsColor),
-                              children:  <TextSpan>[
-                                TextSpan(text: '\nYour Session Has\nExpired', style:  TextStyle(fontSize: 18,color: Colors.black)),
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.oopsColor),
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text: '\nYour Session Has\nExpired',
+                                    style: TextStyle(
+                                        fontSize: 18, color: Colors.black)),
                               ],
                             ),
                           ),
                         ],
                       ),
-
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
@@ -93,16 +90,15 @@ class PopUpNotificationViewState extends State<PopUpNotificationView> {
                           ),
                         ),
                       ),
-
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 18.0,left: 20,right: 20),
+                        padding: const EdgeInsets.only(
+                            bottom: 18.0, left: 20, right: 20),
                         child: SizedBox(
                           height: 49,
                           width: MediaQuery.of(context).size.width,
                           child: MaterialButton(
-                            color : AppColors.primaryColor,
-                            onPressed: ()
-                            {
+                            color: AppColors.primaryColor,
+                            onPressed: () {
                               widget.onClosePressed();
                             },
                             shape: RoundedRectangleBorder(
@@ -110,7 +106,9 @@ class PopUpNotificationViewState extends State<PopUpNotificationView> {
                             child: const Text(
                               "Login",
                               style: TextStyle(
-                                  color: Colors.white, fontSize: 16,fontWeight: FontWeight.w500),
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500),
                             ),
                           ),
                         ),
@@ -118,7 +116,6 @@ class PopUpNotificationViewState extends State<PopUpNotificationView> {
                     ],
                   ),
                 ),
-
                 Positioned(
                   right: -8,
                   top: -8,
@@ -148,8 +145,6 @@ class PopUpNotificationViewState extends State<PopUpNotificationView> {
                     ),
                   ),
                 ),
-
-
               ],
             ),
           ),
@@ -157,5 +152,4 @@ class PopUpNotificationViewState extends State<PopUpNotificationView> {
       ),
     );
   }
-
 }

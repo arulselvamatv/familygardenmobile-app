@@ -249,7 +249,7 @@ openAlertBox(BuildContext context, ProfileController controller) {
                           color: Color(0xff909094),
                         ),
                         prefixIconConstraints:
-                            BoxConstraints(minWidth: 10, minHeight: 10),
+                        BoxConstraints(minWidth: 10, minHeight: 10),
                         labelText: "Enter new password *",
                         labelStyle: TextStyle(
                             fontSize: 12,
@@ -257,7 +257,7 @@ openAlertBox(BuildContext context, ProfileController controller) {
                             color: Color(0xff535353)),
                         enabledBorder: UnderlineInputBorder(
                             borderSide:
-                                BorderSide(color: AppColors.dividerColor)),
+                            BorderSide(color: AppColors.dividerColor)),
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                             color: AppColors.dividerColor,
@@ -287,7 +287,7 @@ openAlertBox(BuildContext context, ProfileController controller) {
                           color: Color(0xff909094),
                         ),
                         prefixIconConstraints:
-                            BoxConstraints(minWidth: 10, minHeight: 10),
+                        BoxConstraints(minWidth: 10, minHeight: 10),
                         labelText: "Confirm new password *",
                         labelStyle: TextStyle(
                             fontSize: 12,
@@ -295,7 +295,7 @@ openAlertBox(BuildContext context, ProfileController controller) {
                             color: Color(0xff535353)),
                         enabledBorder: UnderlineInputBorder(
                             borderSide:
-                                BorderSide(color: AppColors.dividerColor)),
+                            BorderSide(color: AppColors.dividerColor)),
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                             color: AppColors.dividerColor,

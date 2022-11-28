@@ -88,6 +88,7 @@ class ProductListingController extends GetxController {
     optionId.value.clear();
     optionValueId.value.clear();
     productData.value = {"product_info": []};
+    cartCount.value = 0;
     update();
   }
 
@@ -167,19 +168,18 @@ class ProductListingController extends GetxController {
   }
 
   Future<int> hitAddCartAPI() async {
-    print(productData.value);
     if ((productData.value["product_info"]?.length ?? 0) > 0) {
       var response = await ApiHelper.addCart(productData.value);
-      print(response.responseCode);
+      // print(response.responseCode);
       if (response.responseCode == 200) {
-        print("response code true");
+        // print("response code true");
         return 0;
       } else {
-        print("response code false");
+        // print("response code false");
         return 0;
       }
     } else {
-      print("response code length");
+      // print("response code length");
       return 0;
     }
   }
@@ -261,6 +261,7 @@ class ProductListingController extends GetxController {
   getCartCount() async {
     var response = await ApiHelper.cartCount();
     cartCount.value = int.parse(response["text_items"]);
+    cartCount.refresh();
     update();
   }
 }

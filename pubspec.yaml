@@ -49,6 +49,8 @@ dependencies:
   flutter_svg: ^0.23.0+1
   webview_flutter: ^2.8.0
   dio: ^4.0.6
+  dotted_decoration: ^2.0.0
+  sms_autofill: ^2.2.0
 
 dev_dependencies:
   flutter_test:

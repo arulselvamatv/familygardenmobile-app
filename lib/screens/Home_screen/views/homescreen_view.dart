@@ -599,22 +599,35 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                       AppSize.size.h10,
                                                       GestureDetector(
                                                         onTap: () {
-                                                          Get.toNamed(Routes.PRODUCT_DETAILS_SCREEN,
-                                                                  arguments: controller
+                                                          controller
                                                                       .homeFeaturesData
                                                                       .value
                                                                       .categories?[
                                                                           index]
                                                                       .products?[
                                                                           indexx]
-                                                                      .productId)
-                                                              ?.then((value) {
-                                                            controller
-                                                                .getHomeFeatures();
-                                                            Get.find<
-                                                                    DashboardController>()
-                                                                .getCartCount();
-                                                          });
+                                                                      .quantity ==
+                                                                  "0"
+                                                              ? null
+                                                              : Get.toNamed(
+                                                                      Routes
+                                                                          .PRODUCT_DETAILS_SCREEN,
+                                                                      arguments: controller
+                                                                          .homeFeaturesData
+                                                                          .value
+                                                                          .categories?[
+                                                                              index]
+                                                                          .products?[
+                                                                              indexx]
+                                                                          .productId)
+                                                                  ?.then(
+                                                                      (value) {
+                                                                  controller
+                                                                      .getHomeFeatures();
+                                                                  Get.find<
+                                                                          DashboardController>()
+                                                                      .getCartCount();
+                                                                });
                                                         },
                                                         child: Padding(
                                                           padding:
@@ -724,58 +737,14 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                                 child:
                                                                     DropdownButtonHideUnderline(
                                                                   child:
-                                                                      DropdownButton2(
-                                                                    items: controller
-                                                                        .homeFeaturesData
-                                                                        .value
-                                                                        .categories?[
-                                                                            index]
-                                                                        .products?[
-                                                                            indexx]
-                                                                        .options?[
-                                                                            0]
-                                                                        .productOptionValue
-                                                                        ?.map((item) =>
-                                                                            DropdownMenuItem<String>(
-                                                                              value: item.productOptionValueId.toString(),
-                                                                              child: Padding(
-                                                                                padding: const EdgeInsets.only(left: 5.0),
-                                                                                child: Text("${item.name}-${item.price}", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 9)),
-                                                                              ),
-                                                                            ))
-                                                                        .toList(),
-                                                                    value: controller.homeFeaturesData.value.categories?[index].products?[indexx].options?[0].selectedDropdownValue !=
-                                                                            ""
-                                                                        ? (controller
-                                                                            .homeFeaturesData
-                                                                            .value
-                                                                            .categories?[
-                                                                                index]
-                                                                            .products?[
-                                                                                indexx]
-                                                                            .options?[
-                                                                                0]
-                                                                            .selectedDropdownValue)!
-                                                                        : (controller
-                                                                            .homeFeaturesData
-                                                                            .value
-                                                                            .categories?[index]
-                                                                            .products?[indexx]
-                                                                            .options?[0]
-                                                                            .productOptionValue?[0]
-                                                                            .productOptionValueId)!,
-                                                                    onChanged:
-                                                                        (value) {
-                                                                      // controller.fruitOptionId
-                                                                      //             .value[
-                                                                      //         index] =
-                                                                      //     controller
-                                                                      //         .fruitsList[
-                                                                      //             index]
-                                                                      //         .options?[
-                                                                      //             0]
-                                                                      //         .productOptionId;
-                                                                      controller
+                                                                      IgnorePointer(
+                                                                    ignoring: controller.homeFeaturesData.value.categories?[index].products?[indexx].quantity ==
+                                                                            "0"
+                                                                        ? true
+                                                                        : false,
+                                                                    child:
+                                                                        DropdownButton2(
+                                                                      items: controller
                                                                           .homeFeaturesData
                                                                           .value
                                                                           .categories?[
@@ -784,24 +753,72 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                                               indexx]
                                                                           .options?[
                                                                               0]
-                                                                          .selectedDropdownValue = value as String;
-                                                                      controller
-                                                                          .homeFeaturesData
-                                                                          .refresh();
-                                                                      // controller.fruitOptionValueId
-                                                                      //             .value[
-                                                                      //         index] =
-                                                                      //     value
-                                                                      //         as String;
-                                                                      controller
-                                                                          .update();
-                                                                    },
-                                                                    buttonHeight:
-                                                                        35,
-                                                                    buttonWidth:
-                                                                        160,
-                                                                    itemHeight:
-                                                                        50,
+                                                                          .productOptionValue
+                                                                          ?.map((item) =>
+                                                                              DropdownMenuItem<String>(
+                                                                                value: item.productOptionValueId.toString(),
+                                                                                child: Padding(
+                                                                                  padding: const EdgeInsets.only(left: 5.0),
+                                                                                  child: Text("${item.name}-${item.price}", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 9)),
+                                                                                ),
+                                                                              ))
+                                                                          .toList(),
+                                                                      value: controller.homeFeaturesData.value.categories?[index].products?[indexx].options?[0].selectedDropdownValue !=
+                                                                              ""
+                                                                          ? (controller
+                                                                              .homeFeaturesData
+                                                                              .value
+                                                                              .categories?[
+                                                                                  index]
+                                                                              .products?[
+                                                                                  indexx]
+                                                                              .options?[
+                                                                                  0]
+                                                                              .selectedDropdownValue)!
+                                                                          : (controller
+                                                                              .homeFeaturesData
+                                                                              .value
+                                                                              .categories?[index]
+                                                                              .products?[indexx]
+                                                                              .options?[0]
+                                                                              .productOptionValue?[0]
+                                                                              .productOptionValueId)!,
+                                                                      onChanged:
+                                                                          (value) {
+                                                                        // controller.fruitOptionId
+                                                                        //             .value[
+                                                                        //         index] =
+                                                                        //     controller
+                                                                        //         .fruitsList[
+                                                                        //             index]
+                                                                        //         .options?[
+                                                                        //             0]
+                                                                        //         .productOptionId;
+                                                                        controller
+                                                                            .homeFeaturesData
+                                                                            .value
+                                                                            .categories?[index]
+                                                                            .products?[indexx]
+                                                                            .options?[0]
+                                                                            .selectedDropdownValue = value as String;
+                                                                        controller
+                                                                            .homeFeaturesData
+                                                                            .refresh();
+                                                                        // controller.fruitOptionValueId
+                                                                        //             .value[
+                                                                        //         index] =
+                                                                        //     value
+                                                                        //         as String;
+                                                                        controller
+                                                                            .update();
+                                                                      },
+                                                                      buttonHeight:
+                                                                          35,
+                                                                      buttonWidth:
+                                                                          160,
+                                                                      itemHeight:
+                                                                          50,
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ),
@@ -981,7 +998,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                       child: Center(
                                                         child: TextWidget(
                                                           // "${controller.fruitPercentage[index]}% off",
-                                                          "${controller.homeFeaturesData.value.categories?[index].products?[indexx].percentage}%",
+                                                          "${controller.homeFeaturesData.value.categories?[index].products?[indexx].percentage} %",
                                                           fontSize: 8,
                                                           fontWeight:
                                                               FontWeight.w600,
