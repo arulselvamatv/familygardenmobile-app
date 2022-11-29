@@ -100,9 +100,11 @@ class FaqView extends GetView<FaqController> {
                                     "document.getElementsByClassName('sec-bg').outerHTML='';" +
                                     "})()")
                                 .then((value) {
-                              controller.isLoader.value = true;
-                              debugPrint('Page finished loading Javascript');
-                              controller.isLoader.refresh();
+                              Future.delayed(const Duration(seconds: 1), () {
+                                controller.isLoader.value = true;
+                                debugPrint('Page finished loading Javascript');
+                                controller.isLoader.refresh();
+                              });
                             }).catchError((onError) => debugPrint('$onError'));
                           },
                         ),
@@ -111,13 +113,13 @@ class FaqView extends GetView<FaqController> {
                           ? Container()
                           : Positioned(
                               child: Container(
-                              height: Get.height / 1.5,
+                              height: Get.height - 85,
                               color: controller.isLoader.value
                                   ? Colors.transparent
                                   : Colors.white,
                               child: controller.isLoader.value
                                   ? null
-                                  : Center(
+                                  : const Center(
                                       child: CircularProgressIndicator(),
                                     ),
                             ))

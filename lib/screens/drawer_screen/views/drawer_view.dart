@@ -148,7 +148,7 @@ class DrawerView extends GetView<DrawerWidgetController> {
                           onTap: () {
                             controller.sideMenuNavigation(index);
                           },
-                          leading: SvgPicture.asset(
+                          leading: index == 0 ? Image.asset(controller.sideMenus[index]["image"],height: 24,width: 24,):SvgPicture.asset(
                             controller.sideMenus[index]["image"],
                             height: 24,
                             width: 24,

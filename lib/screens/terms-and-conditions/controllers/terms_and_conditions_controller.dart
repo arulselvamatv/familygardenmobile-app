@@ -9,6 +9,7 @@ class TermsAndConditionsController extends GetxController {
   final Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers = [
     Factory(() => EagerGestureRecognizer()),
   ].toSet();
+  RxBool isLoader = false.obs;
 
   final Completer<WebViewController> ctrl = Completer<WebViewController>();
 

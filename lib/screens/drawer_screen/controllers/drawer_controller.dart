@@ -7,7 +7,7 @@ import '../../../routes/app_pages.dart';
 class DrawerWidgetController extends GetxController {
   final formGlobalKey = GlobalKey<FormState>();
   RxList sideMenus = [
-    {'name': 'Home', 'image': 'assets/icons/home_icon_.svg'},
+    {'name': 'Home', 'image': 'assets/icons/home.png'},
     {'name': 'My Cart', 'image': 'assets/icons/drawer_cart.svg'},
     {'name': 'Wishlist', 'image': 'assets/icons/drawer_wishlist.svg'},
     {'name': 'Order History', 'image': 'assets/icons/drawer_order_history.svg'},

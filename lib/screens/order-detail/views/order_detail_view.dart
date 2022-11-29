@@ -844,9 +844,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
                     thickness: 2,
                   ),
                 ),
-                Expanded(
-                  child: Container(),
-                ),
+                Container(width: 2,),
               ],
             ),
           ),

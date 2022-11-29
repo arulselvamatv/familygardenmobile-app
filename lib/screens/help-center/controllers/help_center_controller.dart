@@ -10,6 +10,8 @@ class HelpCenterController extends GetxController {
     Factory(() => EagerGestureRecognizer()),
   ].toSet();
   final Completer<WebViewController> ctrl = Completer<WebViewController>();
+  RxBool isLoader = false.obs;
+
 
   WebViewController? webViewCtrl;
 
