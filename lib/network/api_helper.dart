@@ -22,8 +22,10 @@ import '../models/category_product_model.dart';
 import '../models/change_password_model.dart';
 import '../models/checkoutConfirmCODModel.dart';
 import '../models/coupon_model.dart';
+import '../models/delete_account_model.dart';
 import '../models/delete_address_model.dart';
 import '../models/edit_address_model.dart';
+import '../models/forgotPasswordModel.dart';
 import '../models/home_features_model.dart';
 import '../models/informationDetailsModel.dart';
 import '../models/order_history_model.dart';
@@ -1270,20 +1272,27 @@ class ApiHelper {
     }
   }
 
-  static Future<HTTPResponse<ChangePasswordModel>> updatePassword(
-      String password, String confirmPassword) async {
+  static Future<HTTPResponse<ChangePasswordModel>> forgotPassword(
+      String password, String confirmPassword,String mobileNum) async {
     try {
+      print("Upgrade password ${{
+        'new_password': password.toString(),
+        'confirm_password': confirmPassword.toString(),
+        'telephone': mobileNum.toString(),
+      }}");
+      var body1 = {
+        'new_password': password.toString(),
+        'confirm_password': confirmPassword.toString(),
+        'telephone': mobileNum.toString(),
+      };
       final response = await http.post(
         Uri.parse(
-            "${ApiConstants.baseUrl}${EndPoints.updatePassword}&api_token=${ApiConstants.jwtToken}"),
+            "${ApiConstants.baseUrl}${EndPoints.forgotPassword}&api_token=${ApiConstants.jwtToken}"),
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
         encoding: Encoding.getByName('utf-8'),
-        body: {
-          'password': password,
-          'confirm': confirmPassword,
-        },
+        body: body1,
       );
       print("PASSWORD::::${response.body}");
 
@@ -1316,6 +1325,65 @@ class ApiHelper {
         null,
         message:
             "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print("Upgrade password1");
+
+      print(e);
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<ForgotPasswordModel>> updatePassword(
+      String password, String confirmPassword) async {
+    try {
+      final response = await http.post(
+        Uri.parse(
+            "${ApiConstants.baseUrl}${EndPoints.updatePassword}&api_token=${ApiConstants.jwtToken}"),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        encoding: Encoding.getByName('utf-8'),
+        body: {
+          'password': password,
+          'confirm': confirmPassword,
+        },
+      );
+      print("PASSWORD::::${response.body}");
+
+      var body = jsonDecode(response.body);
+      var res = ForgotPasswordModel.fromJson(body);
+      if (response.statusCode == 200) {
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+          "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+        "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -1900,7 +1968,7 @@ class ApiHelper {
     }
   }
 
-  static Future<HTTPResponse<verifyOtpModel>> verifyOtp(otp) async {
+  static Future<HTTPResponse<verifyOtpModel>> verifyOtp(otp,mobileNum) async {
     try {
       final response = await http.post(
         Uri.parse("${ApiConstants.baseUrl}${EndPoints.verifyOtp}&api_token=${ApiConstants.jwtToken}"),
@@ -1908,13 +1976,65 @@ class ApiHelper {
           "Content-Type": "application/x-www-form-urlencoded",
         },
         encoding: Encoding.getByName('utf-8'),
-        body: {"otp": otp},
+        body: {"otp": otp,"telephone":mobileNum},
       );
       print({"otp": otp});
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
         print(body);
         var res = verifyOtpModel.fromJson(body);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+          "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+        "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+        "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print(e);
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<DeleteAccountModel>> deleteAccount(customerId) async {
+    try {
+      final response = await http.post(
+        Uri.parse("${ApiConstants.baseUrl}${EndPoints.deleteAccount}&api_token=${ApiConstants.jwtToken}"),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        encoding: Encoding.getByName('utf-8'),
+        body: {"customer_id": customerId},
+      );
+      print({"customer_id": customerId});
+      if (response.statusCode == 200) {
+        var body = jsonDecode(response.body);
+        print(body);
+        var res = DeleteAccountModel.fromJson(body);
         return HTTPResponse(
           true,
           res,

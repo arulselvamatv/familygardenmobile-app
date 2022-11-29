@@ -81,7 +81,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.fromLTRB(10, 30, 10, 1),
+                                  padding: EdgeInsets.fromLTRB(10, 5, 10, 1),
                                   child: Row(children: [
                                     Column(
                                       mainAxisAlignment:

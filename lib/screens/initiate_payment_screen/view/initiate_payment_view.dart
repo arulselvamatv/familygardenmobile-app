@@ -74,23 +74,23 @@ class InitiatePaymentView extends GetView<InitatePaymentController> {
               controller.url = url.toString();
               print("onPageFinished $url");
               // showLog("URL $url");
-              if (url.toString().contains(controller.paymentUrl)) {
-                Uri uri = Uri.parse(url.toString());
-                // if (url.toString().contains("order_id")) {
-                //   controller.showLog("FINAL $url");
-                //   String? orderNumber = uri.queryParameters['order_id'];
-                //   var prefs = await SharedPreferences.getInstance();
-                //   await prefs.setString("orderNumber", orderNumber!);
-                //   print("orderNumber ::::$orderNumber");
-                Get.back();
-                Get.offAndToNamed(Routes.ORDER_SUCCESS_SCREEN);
-                // Get.to(() => Routes.ORDER_SUCCESS_SCREEN, arguments: [
-                //   {"first": 'First data'},
-                //   {"second": 'Second data'}
-                // ]);
-                // Get.toNamed<void>(Routes.ORDER_SUCCESS_SCREEN, arguments: {"orderNumber": orderNumber});
-                // }
-              }
+              // if (url.toString().contains(controller.paymentUrl)) {
+              //   Uri uri = Uri.parse(url.toString());
+              //   // if (url.toString().contains("order_id")) {
+              //   //   controller.showLog("FINAL $url");
+              //   //   String? orderNumber = uri.queryParameters['order_id'];
+              //   //   var prefs = await SharedPreferences.getInstance();
+              //   //   await prefs.setString("orderNumber", orderNumber!);
+              //   //   print("orderNumber ::::$orderNumber");
+              //   Get.back();
+              //   Get.offAndToNamed(Routes.ORDER_SUCCESS_SCREEN);
+              //   // Get.to(() => Routes.ORDER_SUCCESS_SCREEN, arguments: [
+              //   //   {"first": 'First data'},
+              //   //   {"second": 'Second data'}
+              //   // ]);
+              //   // Get.toNamed<void>(Routes.ORDER_SUCCESS_SCREEN, arguments: {"orderNumber": orderNumber});
+              //   // }
+              // }
             } catch (e) {
               print(e);
             }

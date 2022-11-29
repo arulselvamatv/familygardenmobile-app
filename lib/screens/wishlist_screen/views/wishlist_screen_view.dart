@@ -252,14 +252,8 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                                         const Spacer(),
                                                         Obx(
                                                           () => Container(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    left: 20.0,
-                                                                    right: 20.0,
-                                                                    top: 5.0,
-                                                                    bottom:
-                                                                        5.0),
+                                                            width: 110,
+                                                            height: 26,
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
@@ -278,14 +272,16 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                                                   : AppColors
                                                                       .primaryColor,
                                                             ),
-                                                            child: TextWidget(
-                                                              "Add to Cart",
-                                                              fontSize: 12,
-                                                              color: AppColors
-                                                                  .white,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
+                                                            child: Center(
+                                                              child: TextWidget (
+                                                                "Add to Cart",
+                                                                fontSize: 12,
+                                                                color: AppColors
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ),
                                                             ),
                                                           ),
                                                         )
@@ -294,12 +290,12 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                                   ),
                                                 ),
                                               ),
-                                              const SizedBox(width: 20),
+                                              // const SizedBox(width: 20),
                                               Padding(
                                                 padding: const EdgeInsets.only(
                                                     right: 17),
                                                 child: SizedBox(
-                                                  width: 75,
+                                                  width: 80,
                                                   child: Padding(
                                                     padding: const EdgeInsets
                                                             .symmetric(
@@ -371,14 +367,8 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                                                 "Removed");
                                                           },
                                                           child: Container(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    left: 10.0,
-                                                                    right: 10,
-                                                                    top: 5.0,
-                                                                    bottom:
-                                                                        5.0),
+                                                            height: 26,
+                                                            width: 80,
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
@@ -388,14 +378,16 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                                               color:
                                                                   Colors.amber,
                                                             ),
-                                                            child: TextWidget(
-                                                              "Remove",
-                                                              fontSize: 12,
-                                                              color: AppColors
-                                                                  .white,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
+                                                            child: Center(
+                                                              child: TextWidget(
+                                                                "Remove",
+                                                                fontSize: 12,
+                                                                color: AppColors
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ),
                                                             ),
                                                           ),
                                                         )

@@ -164,47 +164,46 @@ class ProfileView extends GetView<ProfileController> {
                         padding: const EdgeInsets.all(10.0),
                         child: GestureDetector(
                           onTap: () async {
-                            print(ApiConstants.jwtToken);
-                            int res = await ApiHelper.logOut();
-                            final prefs = await SharedPreferences.getInstance();
-                            if (res == 1) {
-                              prefs.clear();
-                              // controller.isLoggedIn.value =
-                              // false;
-                              // controller.isLoggedIn.refresh();
-                              // controller.update();
-                              Get.put(DrawerWidgetController());
-                              Get.put(AccountController());
-                              Get.find<AccountController>().isLoggedIn.value =
-                                  false;
-                              Get.find<AccountController>()
-                                  .isLoggedIn
-                                  .refresh();
-                              Get.find<DrawerWidgetController>()
-                                  .isLoggedin
-                                  .value = true;
-                              Get.find<DrawerWidgetController>()
-                                  .isLoggedin
-                                  .refresh();
-                              var response = await ApiHelper.getToken();
-                              if (response.data?.apiToken != null) {
-                                SetLocalDatas.setToken(
-                                    (response.data?.apiToken)!);
-                                print(ApiConstants.jwtToken);
-                              }
-                              Get.put(DashboardController());
-                              Get.find<DashboardController>().isLoggedIn.value =
-                                  false;
-                              // Get.snackbar('success',
-                              //     "Logout successfully");
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                duration: Duration(milliseconds: 350),
-                                content: Text("Account deleted successfully"),
-                              ));
-                              Get.back();
-                            }
-                            // controller.logout();
+                            Get.toNamed(Routes.DELETE_ACCOUNT);
+                            // int res = await ApiHelper.logOut();
+                            // final prefs = await SharedPreferences.getInstance();
+                            // if (res == 1) {
+                            //   prefs.clear();
+                            //   // controller.isLoggedIn.value =
+                            //   // false;
+                            //   // controller.isLoggedIn.refresh();
+                            //   // controller.update();
+                            //   Get.put(DrawerWidgetController());
+                            //   Get.put(AccountController());
+                            //   Get.find<AccountController>().isLoggedIn.value =
+                            //       false;
+                            //   Get.find<AccountController>()
+                            //       .isLoggedIn
+                            //       .refresh();
+                            //   Get.find<DrawerWidgetController>()
+                            //       .isLoggedin
+                            //       .value = true;
+                            //   Get.find<DrawerWidgetController>()
+                            //       .isLoggedin
+                            //       .refresh();
+                            //   var response = await ApiHelper.getToken();
+                            //   if (response.data?.apiToken != null) {
+                            //     SetLocalDatas.setToken(
+                            //         (response.data?.apiToken)!);
+                            //     print(ApiConstants.jwtToken);
+                            //   }
+                            //   Get.put(DashboardController());
+                            //   Get.find<DashboardController>().isLoggedIn.value =
+                            //       false;
+                            //   // Get.snackbar('success',
+                            //   //     "Logout successfully");
+                            //   ScaffoldMessenger.of(context)
+                            //       .showSnackBar(SnackBar(
+                            //     duration: Duration(milliseconds: 350),
+                            //     content: Text("Account deleted successfully"),
+                            //   ));
+                            //   Get.back();
+                            // }
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,

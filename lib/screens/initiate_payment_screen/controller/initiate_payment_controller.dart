@@ -24,7 +24,8 @@ class InitatePaymentController extends GetxController {
           "&encRequest=" +
           (paymentRes?.payment.encRequest)! +
           "&access_code=" +
-          (paymentRes?.payment.accessCode)!;
+          (paymentRes?.payment.accessCode)! + "merchant_param2=MOBILE_APP";
+      print("Complete URL ${data}");
     }
     super.onInit();
   }

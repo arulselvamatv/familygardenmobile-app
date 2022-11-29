@@ -49,25 +49,25 @@ class OrderDetailController extends GetxController {
       // sub total
       var doubleString = response.data?.subTotals?.value;
       if (doubleString != null) {
-        var subTotalDouble = double.parse(doubleString);
+        var subTotalDouble = double.parse(doubleString.substring(1));
         response.data?.subTotals?.value = subTotalDouble.toStringAsFixed(2);
       }
       // sub total
       doubleString = response.data?.totals?.value;
       if (doubleString != null) {
-        var subTotalDouble = double.parse(doubleString);
+        var subTotalDouble = double.parse(doubleString.substring(1));
         response.data?.totals?.value = subTotalDouble.toStringAsFixed(2);
       }
       // sub total
       doubleString = response.data?.shipping?.value;
       if (doubleString != null) {
-        var subTotalDouble = double.parse(doubleString);
+        var subTotalDouble = double.parse(doubleString.substring(1));
         response.data?.shipping?.value = subTotalDouble.toStringAsFixed(2);
       }
       // sub total
       doubleString = response.data?.coupon?.value;
       if (doubleString != null) {
-        var subTotalDouble = double.parse(doubleString);
+        var subTotalDouble = double.parse(doubleString.substring(1));
         response.data?.coupon?.value = subTotalDouble.toStringAsFixed(2);
       }
       orderInfo.value = response.data!;

@@ -14,14 +14,15 @@ class ForgotPasswordController extends GetxController {
   sendAccountOtp()async{
     loader.value = false;
     var response = await ApiHelper.accountOtpSend(mobileNumberController.text);
+    print(response.data?.status);
+    print(response.data?.status.runtimeType);
     if(response.data?.status == 1){
       loader.value = true;
-
       Get.toNamed(Routes.VERIFY_OTP,arguments: mobileNumberController.text);
     }else{
       loader.value = true;
       isMobileAlredyExist.value = true;
-      // Get.snackbar("warning", "Mobile Num not valid");
+      // Get.snackbar("warning", "${response.data?.message}");
     }
     update();
   }

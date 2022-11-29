@@ -292,8 +292,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                       width: 42.85,
                                       decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(8),
-                                          color: Color(0xfff9f9f9)),
+                                              BorderRadius.circular(8),),
                                       // child: ScalableImageWidget.fromSISource(
                                       //     si: ScalableImageSource
                                       //         .fromSvgHttpUrl(Uri.parse(
@@ -330,8 +329,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                       width: 36,
                                       decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(8),
-                                          color: Color(0xfff9f9f9)),
+                                              BorderRadius.circular(8),),
                                       // child: ScalableImageWidget.fromSISource(
                                       //     si: ScalableImageSource
                                       //         .fromSvgHttpUrl(Uri.parse(
@@ -368,8 +366,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                       width: 39.62,
                                       decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(8),
-                                          color: Color(0xfff9f9f9)),
+                                              BorderRadius.circular(8),),
                                       // child: ScalableImageWidget.fromSISource(
                                       //     si: ScalableImageSource
                                       //         .fromSvgHttpUrl(Uri.parse(
@@ -406,8 +403,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                       width: 36,
                                       decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(8),
-                                          color: Color(0xfff9f9f9)),
+                                              BorderRadius.circular(8),),
                                       // child: ScalableImageWidget.fromSISource(
                                       //     si: ScalableImageSource
                                       //         .fromSvgHttpUrl(Uri.parse(
@@ -998,7 +994,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                       child: Center(
                                                         child: TextWidget(
                                                           // "${controller.fruitPercentage[index]}% off",
-                                                          "${controller.homeFeaturesData.value.categories?[index].products?[indexx].percentage} %",
+                                                          "${controller.homeFeaturesData.value.categories?[index].products?[indexx].percentage}% off",
                                                           fontSize: 8,
                                                           fontWeight:
                                                               FontWeight.w600,

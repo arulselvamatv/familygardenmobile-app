@@ -114,7 +114,7 @@ class AddressView extends GetView<AddressController> {
                                                   Container(
                                                     width: Get.width,
                                                     child: Container(
-                                                      height: 165,
+                                                      height: 200,
                                                       color: Colors.white,
                                                       child: Row(
                                                         crossAxisAlignment:
@@ -271,6 +271,15 @@ class AddressView extends GetView<AddressController> {
                                                                         .addresses?[
                                                                             index]
                                                                         .telephone ??
+                                                                    ""), SizedBox(
+                                                                  height: 10,
+                                                                ),
+                                                                Text(controller
+                                                                        .addressModel
+                                                                        .value
+                                                                        .addresses?[
+                                                                            index]
+                                                                        .postcode ??
                                                                     ""),
                                                               ],
                                                             ),

@@ -29,6 +29,8 @@ import '../screens/address_screen/view/address_view.dart';
 import '../screens/cart_screen/bindings/cart_binding.dart';
 import '../screens/change_password_screen/view/change_password_view.dart';
 import '../screens/dashboard/bindings/dashboard_bindings.dart';
+import '../screens/delete_account_screen/binding/delete_account_binding.dart';
+import '../screens/delete_account_screen/view/delete_account_view.dart';
 import '../screens/faq/bindings/faq_binding.dart';
 import '../screens/faq/views/faq_view.dart';
 import '../screens/forgot_password_screen/binding/forgot_password_binding.dart';
@@ -201,6 +203,11 @@ class AppPages {
       name: _Paths.FORGOT_PASSWORD,
       page: () => ForgotPasswordView(),
       binding: ForgotPasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.DELETE_ACCOUNT,
+      page: () => DeleteAccountView(),
+      binding: DeleteAccountBinding(),
     ),
   ];
 }

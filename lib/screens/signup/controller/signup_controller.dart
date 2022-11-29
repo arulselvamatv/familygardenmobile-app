@@ -31,8 +31,8 @@ class SignupController extends GetxController {
         passwordController.text,
         confirmController.text,
         '1');
-    if (response.data?.errorWarning != "" ||
-        response.data?.errorWarning != null) {
+
+    if (response.data?.errorWarning == "") {
       firstnameController.text = "";
       emailController.text = "";
       telephoneController.text = "";

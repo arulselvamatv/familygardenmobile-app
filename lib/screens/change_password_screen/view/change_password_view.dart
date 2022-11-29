@@ -220,10 +220,9 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                             if (controller.formGlobalKey.currentState!
                                 .validate()) {
                               controller.formGlobalKey.currentState!.save();
-                              openAlertBox(context, controller);
-                              // controller.updatePassword(
-                              //     controller.passwordController.text,
-                              //     controller.confirmPasswordController.text);
+                              controller.updatePassword(
+                                  controller.passwordController.text,
+                                  controller.confirmPasswordController.text,context,controller);
                             }
                             // if (controller.passwordController.text
                             //         .toString()
@@ -270,112 +269,5 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
     );
   }
 
-  openAlertBox(BuildContext context, ChangePasswordController controller) {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(32.0))),
-            contentPadding: EdgeInsets.only(top: 10.0),
-            content: Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(
-                      left: 20.0, right: 20.0, top: 15, bottom: 20),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Container(
-                        height: 250,
-                        width: Get.width / 1.4,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              "assets/icons/changed_password.svg",
-                              height: 94.61,
-                              width: 94.61,
-                              color: Colors.red,
-                            ),
-                            AppSize.size.h20,
-                            Text(
-                              "Done!",
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.w500),
-                            ),
-                            AppSize.size.h10,
-                            Text(
-                              "Password Changed Successfully",
-                              style: TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.w400),
-                            ),
-                            AppSize.size.h20,
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 22, right: 22),
-                              child: SizedBox(
-                                height: 50,
-                                width: Get.width,
-                                child: ElevatedButton(
-                                    onPressed: () {
-                                      Get.back();
-                                      Get.back();
 
-                                      // Get.toNamed(Routes.VERIFY_OTP);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor: AppColors.primaryColor,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(13))),
-                                    child: TextWidget(
-                                      'Ok',
-                                      color: AppColors.white,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 14,
-                                    )),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Positioned(
-                  right: -5.0,
-                  top: -15,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(boxShadow: [
-                        BoxShadow(
-                          offset: Offset(2, 2),
-                          blurRadius: 12,
-                          color: Color.fromRGBO(0, 0, 0, 0.16),
-                        )
-                      ]),
-                      child: Align(
-                        alignment: Alignment.topRight,
-                        child: CircleAvatar(
-                          radius: 14.0,
-                          backgroundColor: Colors.white,
-                          child: Icon(Icons.close, color: Colors.orange),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          );
-        });
-  }
 }

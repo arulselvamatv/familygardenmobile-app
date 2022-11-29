@@ -22,13 +22,13 @@ class VerifyOTPController extends GetxController {
 
   checkOtp() async {
     isLoader.value = true;
-    var response = await ApiHelper.verifyOtp(otpController.text);
+    var response = await ApiHelper.verifyOtp(otpController.text,mobileNum.value);
     if (response.data?.status == "1") {
       isNotValid.value = false;
       isLoader.value = true;
       otpController.text = "";
       print("OTP RECEIVED SUCCESSFlly : ${response.data?.message}");
-      Get.toNamed(Routes.CHANGE_PASSWORD);
+      Get.toNamed(Routes.CHANGE_PASSWORD,arguments: mobileNum.value);
     } else {
       isNotValid.value = true;
       otpController.text = "";

@@ -1,20 +1,20 @@
-class ChangePasswordModel {
-  String? status;
-  String? message;
+class DeleteAccountModel {
+  String? success;
+  int? status;
   String? logged;
 
-  ChangePasswordModel({this.status, this.message, this.logged});
+  DeleteAccountModel({this.success, this.status, this.logged});
 
-  ChangePasswordModel.fromJson(Map<String, dynamic> json) {
+  DeleteAccountModel.fromJson(Map<String, dynamic> json) {
+    success = json['success'];
     status = json['status'];
-    message = json['message'];
     logged = json['logged'].toString();
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['success'] = this.success;
     data['status'] = this.status;
-    data['message'] = this.message;
     data['logged'] = this.logged;
     return data;
   }

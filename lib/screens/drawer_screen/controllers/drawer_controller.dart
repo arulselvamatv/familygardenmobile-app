@@ -7,13 +7,13 @@ import '../../../routes/app_pages.dart';
 class DrawerWidgetController extends GetxController {
   final formGlobalKey = GlobalKey<FormState>();
   RxList sideMenus = [
-    {'name': 'Home', 'image': 'assets/icons/homeSideMenu.png'},
-    {'name': 'My Cart', 'image': 'assets/icons/myCart.png'},
-    {'name': 'Wishlist', 'image': 'assets/icons/wishist.png'},
-    {'name': 'Order History', 'image': 'assets/icons/orderHistory.png'},
-    {'name': 'Offers & Deals', 'image': 'assets/icons/offers&Deals.png'},
-    {'name': 'Customer Service', 'image': 'assets/icons/customerCare.png'},
-    {'name': 'FAQ', 'image': 'assets/icons/Faq.png'},
+    {'name': 'Home', 'image': 'assets/icons/home_icon_.svg'},
+    {'name': 'My Cart', 'image': 'assets/icons/drawer_cart.svg'},
+    {'name': 'Wishlist', 'image': 'assets/icons/drawer_wishlist.svg'},
+    {'name': 'Order History', 'image': 'assets/icons/drawer_order_history.svg'},
+    {'name': 'Offers & Deals', 'image': 'assets/icons/drawer_offers_deals.svg'},
+    {'name': 'Customer Service', 'image': 'assets/icons/drawer_customer_service.svg'},
+    {'name': 'FAQ', 'image': 'assets/icons/drawer_faq.svg'},
   ].obs;
   RxString login = "".obs;
   RxBool isLoggedin = true.obs;

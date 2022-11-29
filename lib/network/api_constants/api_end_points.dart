@@ -69,6 +69,9 @@ class EndPoints {
 
   static const updatePassword = "/index.php?route=mobileapi/account/password";
 
+
+  static const forgotPassword = "/index.php?route=mobileapi/account/forgotten/forgot_password";
+
   static const loguout = "/index.php?route=mobileapi/logout";
 
   static const paymentExistingAddressSave =
@@ -89,4 +92,6 @@ class EndPoints {
   static const accountOtpSend = "/index.php?route=mobileapi/account/forgotten";
 
   static const verifyOtp = "/index.php?route=mobileapi/account/forgotten/otp_verify";
+
+  static const deleteAccount = "/index.php?route=mobileapi/account/delete";
 }

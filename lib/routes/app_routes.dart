@@ -32,6 +32,7 @@ abstract class Routes {
   static const SEARCH_SCREEN = _Paths.SEARCH_SCREEN;
   static const FORGOT_PASSWORD = _Paths.FORGOT_PASSWORD;
   static const CHANGE_PASSWORD = _Paths.CHANGE_PASSWORD;
+  static const DELETE_ACCOUNT = _Paths.DELETE_ACCOUNT;
 }
 
 abstract class _Paths {
@@ -64,4 +65,5 @@ abstract class _Paths {
   static const SEARCH_SCREEN = '/search';
   static const CHANGE_PASSWORD = "/change-password";
   static const FORGOT_PASSWORD = "/forgot-password";
+  static const DELETE_ACCOUNT = "/delete-account";
 }
