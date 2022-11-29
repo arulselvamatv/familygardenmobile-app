@@ -11,6 +11,7 @@ import 'package:family_garden/models/home_feature_model.dart';
 import 'package:family_garden/models/home_slider_model.dart';
 import 'package:family_garden/models/login_model.dart';
 import 'package:family_garden/models/payment_method_model.dart';
+import 'package:family_garden/models/profile_update_model.dart';
 import 'package:flutter_svg/avd.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/accountOtpModel.dart';
@@ -1272,7 +1273,7 @@ class ApiHelper {
     }
   }
 
-  static Future<HTTPResponse<ChangePasswordModel>> forgotPassword(
+  static Future<HTTPResponse<ForgotPasswordModel>> forgotPassword(
       String password, String confirmPassword,String mobileNum) async {
     try {
       print("Upgrade password ${{
@@ -1297,7 +1298,7 @@ class ApiHelper {
       print("PASSWORD::::${response.body}");
 
       var body = jsonDecode(response.body);
-      var res = ChangePasswordModel.fromJson(body);
+      var res = ForgotPasswordModel.fromJson(body);
       if (response.statusCode == 200) {
         return HTTPResponse(
           true,
@@ -1338,8 +1339,7 @@ class ApiHelper {
     }
   }
 
-  static Future<HTTPResponse<ForgotPasswordModel>> updatePassword(
-      String password, String confirmPassword) async {
+  static Future<HTTPResponse<ChangePasswordModel>> updatePassword(String password, String confirmPassword) async {
     try {
       final response = await http.post(
         Uri.parse(
@@ -1356,14 +1356,17 @@ class ApiHelper {
       print("PASSWORD::::${response.body}");
 
       var body = jsonDecode(response.body);
-      var res = ForgotPasswordModel.fromJson(body);
-      if (response.statusCode == 200) {
+      var res = ChangePasswordModel.fromJson(body);
+      if (response.statusCode == 200)
+      {
         return HTTPResponse(
           true,
           res,
           responseCode: response.statusCode,
         );
-      } else {
+      }
+      else
+      {
         return HTTPResponse(
           false,
           null,
@@ -1394,6 +1397,67 @@ class ApiHelper {
       );
     }
   }
+
+
+  static Future<HTTPResponse<ChangeProfileModel>> accountUpdate(firstName, lastName, emailId, telephone) async
+  {
+    try {
+      var response = await http.post(Uri.parse("${ApiConstants.baseUrl}${EndPoints.editAccount}&api_token=${ApiConstants.jwtToken}"),
+        headers: {"Content-Type": "application/x-www-form-urlencoded",},
+        encoding: Encoding.getByName('utf-8'),
+        body: {
+          'firstname': firstName,
+          'lastname': lastName,
+          'email': emailId,
+          'telephone': telephone,
+        },
+      );
+      print("PASSWORD::::${response.body}");
+
+      var body = jsonDecode(response.body);
+      var res = ChangeProfileModel.fromJson(body);
+      if (response.statusCode == 200)
+      {
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      }
+      else
+      {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+          "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+        "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+        "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print(e);
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+
 
   static Future<HTTPResponse<PaymentAddressSaveModel>>
       existingPaymentAddressSave(formData) async {
@@ -1476,30 +1540,6 @@ class ApiHelper {
     return "0";
   }
 
-  static Future<int> accountUpdate(
-      firstName, lastName, emailId, telephone) async {
-    var req = await http.post(
-      Uri.parse(
-          "${ApiConstants.baseUrl}${EndPoints.editAccount}&api_token=${ApiConstants.jwtToken}"),
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      encoding: Encoding.getByName('utf-8'),
-      body: {
-        'firstname': firstName,
-        'lastname': lastName,
-        'email': emailId,
-        'telephone': telephone,
-      },
-    );
-    if (req.statusCode == 200) {
-      var body = json.decode(req.body);
-      print("${body["status"]}");
-      print(body["status"].runtimeType);
-      return body["status"];
-    }
-    return 0;
-  }
 
   static addWishList(
       String productId, String optionId, String optionValueId) async {

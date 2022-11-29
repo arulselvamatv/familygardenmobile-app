@@ -2,7 +2,6 @@ import 'package:family_garden/network/api_constants/api_constants.dart';
 import 'package:family_garden/network/api_helper.dart';
 import 'package:family_garden/network/set_local_datas.dart';
 import 'package:family_garden/routes/app_pages.dart';
-import 'package:family_garden/screens/account_screen/controllers/account_controller.dart';
 import 'package:family_garden/screens/profile_screen/controllers/profile_controller.dart';
 import 'package:family_garden/widgets/LoginWidget/pop_up_notification_view.dart';
 import 'package:family_garden/widgets/custom_textfield.dart';
@@ -11,10 +10,9 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../utils/common_import/common_import.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
-import '../../dashboard/controllers/dashboard_controller.dart';
-import '../../drawer_screen/controllers/drawer_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
+
   @override
   var controller = Get.put(ProfileController());
 
@@ -95,9 +93,6 @@ class ProfileView extends GetView<ProfileController> {
                         fontSize: 12,
                         controller: controller.telephoneController,
                         hint: '',
-                        maxlength: 10,
-                        counterText: "",
-                        keyboardType: TextInputType.number,
                         readOnly: false,
                       ),
                       AppSize.size.h55,
@@ -113,7 +108,7 @@ class ProfileView extends GetView<ProfileController> {
                                 controller.onPressSaveChangesBtn(context);
                               },
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.primaryColor,
+                                  primary: AppColors.primaryColor,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(13))),
                               child: TextWidget(
@@ -236,7 +231,7 @@ class ProfileView extends GetView<ProfileController> {
             ),
           ),
 
-/*
+
           ValueListenableBuilder<bool>(
             valueListenable: controller.showAppNotificationNotifierInitial,
             builder: (context, value, child)
@@ -266,7 +261,7 @@ class ProfileView extends GetView<ProfileController> {
               );
             },
           ),
-*/
+
         ],
       ),
       // bottomNavigationBar:
@@ -303,12 +298,12 @@ openAlertBox(BuildContext context, ProfileController controller) {
                       padding: EdgeInsets.only(top: 20.0),
                     ),
                     TextFormField(
-                      validator: (value) {
-                        // if (value == null || value.isEmpty) {
-                        //   return 'please enter password';
-                        // }
-                        // return null;
-                      },
+                      // validator: (value) {
+                      //   if (value == null || value.isEmpty) {
+                      //     return 'please enter password';
+                      //   }
+                      //   return null;
+                      // },
                       maxLength: 20,
                       controller: controller.passwordController,
                       decoration: InputDecoration(
@@ -324,7 +319,7 @@ openAlertBox(BuildContext context, ProfileController controller) {
                           color: Color(0xff909094),
                         ),
                         prefixIconConstraints:
-                            BoxConstraints(minWidth: 10, minHeight: 10),
+                        BoxConstraints(minWidth: 10, minHeight: 10),
                         labelText: "Enter new password *",
                         labelStyle: TextStyle(
                             fontSize: 12,
@@ -332,7 +327,7 @@ openAlertBox(BuildContext context, ProfileController controller) {
                             color: Color(0xff535353)),
                         enabledBorder: UnderlineInputBorder(
                             borderSide:
-                                BorderSide(color: AppColors.dividerColor)),
+                            BorderSide(color: AppColors.dividerColor)),
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                             color: AppColors.dividerColor,
@@ -341,17 +336,12 @@ openAlertBox(BuildContext context, ProfileController controller) {
                       ),
                     ),
                     TextFormField(
-                      validator: (value) {
-                        // if (value == null || value.isEmpty) {
-                        //   return 'please enter password';
-                        // } else {
-                        //   if (controller.passwordController.text == value) {
-                        //     return null;
-                        //   } else {
-                        //     return "Password and confirm password mismatch";
-                        //   }
-                        // }
-                      },
+                      // validator: (value) {
+                      //   if (value == null || value.isEmpty) {
+                      //     return 'please enter password';
+                      //   }
+                      //   return null;
+                      // },
                       controller: controller.confirmPasswordController,
                       maxLength: 20,
                       decoration: InputDecoration(
@@ -367,7 +357,7 @@ openAlertBox(BuildContext context, ProfileController controller) {
                           color: Color(0xff909094),
                         ),
                         prefixIconConstraints:
-                            BoxConstraints(minWidth: 10, minHeight: 10),
+                        BoxConstraints(minWidth: 10, minHeight: 10),
                         labelText: "Confirm new password *",
                         labelStyle: TextStyle(
                             fontSize: 12,
@@ -375,7 +365,7 @@ openAlertBox(BuildContext context, ProfileController controller) {
                             color: Color(0xff535353)),
                         enabledBorder: UnderlineInputBorder(
                             borderSide:
-                                BorderSide(color: AppColors.dividerColor)),
+                            BorderSide(color: AppColors.dividerColor)),
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                             color: AppColors.dividerColor,
@@ -391,36 +381,18 @@ openAlertBox(BuildContext context, ProfileController controller) {
                       width: Get.width,
                       child: ElevatedButton(
                           onPressed: () {
-                            if (controller.passwordController.text
-                                    .toString()
-                                    .isEmpty ||
-                                controller.confirmPasswordController.text
-                                    .toString()
-                                    .isEmpty) {
+                            if (controller.passwordController.text.toString().isEmpty ||
+                                controller.confirmPasswordController.text.toString().isEmpty) {
                               Get.snackbar(
                                   'warning', "Please fill necessary fields!");
                               return;
-                            } else if (controller
-                                        .passwordController.text.length >=
-                                    4 &&
-                                controller.passwordController.text.length >=
-                                    4) {
-                              if (controller.passwordController.text !=
-                                  controller.confirmPasswordController.text) {
-                                Get.snackbar('warning',
-                                    "Password and confirm password mismatch!");
-                              } else {
-                                controller.updatePassword(
-                                    controller.passwordController.text,
-                                    controller.confirmPasswordController.text);
-                              }
-                            } else {
-                              Get.snackbar("warning",
-                                  "password must contain 4-20 characters");
                             }
+                            controller.updatePassword(
+                                controller.passwordController.text,
+                                controller.confirmPasswordController.text);
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.primaryColor,
+                              primary: AppColors.primaryColor,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(13))),
                           child: TextWidget(

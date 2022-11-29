@@ -1,5 +1,5 @@
 class ForgotPasswordModel {
-  int? status;
+  String? status;
   String? message;
   String? logged;
 

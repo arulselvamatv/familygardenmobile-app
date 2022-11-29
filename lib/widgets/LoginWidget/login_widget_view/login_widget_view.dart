@@ -218,7 +218,7 @@ class LoginWidgetView extends GetView<LoginWidgetController> {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primaryColor,
+                            primary : AppColors.primaryColor,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(13))),
                         child: TextWidget(
