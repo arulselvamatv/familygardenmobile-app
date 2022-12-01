@@ -151,6 +151,9 @@ class Products {
   String? name;
   String? pnameTamil;
   String? description;
+  String? productOptionId;
+  String? productOptionValueId;
+  String? selectedDropdownValue;
   String? price;
   String? special;
   String? tax;
@@ -164,8 +167,12 @@ class Products {
   Products(
       {this.productId,
       this.option,
+      this.counter,
       this.thumb,
       this.name,
+      this.productOptionId,
+      this.productOptionValueId,
+      this.selectedDropdownValue,
       this.pnameTamil,
       this.description,
       this.price,
@@ -189,6 +196,10 @@ class Products {
     name = json['name'];
     pnameTamil = json['pname_tamil'];
     description = json['description'];
+    selectedDropdownValue = "";
+    productOptionId = "";
+    productOptionValueId = "";
+    counter = 0;
     price = json['price'];
     special = json['special'];
     tax = json['tax'];

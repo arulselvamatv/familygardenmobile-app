@@ -27,12 +27,16 @@ class ProductListingController extends GetxController {
   ScrollController scrollController = ScrollController();
   RxInt onPageChange = 1.obs;
   RxInt totalPages = 1.obs;
+  RxDouble scrolledPosition = 0.0.obs;
+
   @override
   void onInit() async {
     super.onInit();
     categoriesIndex.value = Get.arguments[0];
     categoryId.value = Get.arguments[1];
     scrollController.addListener(() {
+      print(scrollController.position.pixels);
+      scrolledPosition.value = scrollController.position.pixels;
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
         if (onPageChange.value <= totalPages.value) {
@@ -80,15 +84,16 @@ class ProductListingController extends GetxController {
   }
 
   clearAll() {
-    isCategoryProductLoader.value = true;
-    selectedDropdownValue.value.clear();
-    cartBoolList.value.clear();
+    // isCategoryProductLoader.value = true;
+    // selectedDropdownValue.value.clear();
+    // cartBoolList.value.clear();
     counterList.value.clear();
     productId.value.clear();
     optionId.value.clear();
     optionValueId.value.clear();
     productData.value = {"product_info": []};
-    cartCount.value = 0;
+    // isCategoryProductLoader.value = true;
+    // cartCount.value = 0;
     update();
   }
 
@@ -108,6 +113,18 @@ class ProductListingController extends GetxController {
     productId.refresh();
     optionId.refresh();
     optionValueId.refresh();
+    // scrollController = ScrollController(initialScrollOffset:scrolledPosition.value);
+    // scrollController.jumpTo(scrolledPosition.value);
+    if(scrollController.hasClients){
+      print("Scrollcontroller has hasclients");
+      scrollController.jumpTo(scrolledPosition.value);
+      scrollController.animateTo(scrolledPosition.value, duration: Duration(microseconds: 0), curve: Curves.ease);
+      // scrollController.animateTo(offset, duration: duration, curve: Curves.c.ease)
+    }else{
+      print("Scrollcontroller dosen't hasclients");
+
+    }
+    // scrollController.animateTo(scrolledPosition.value, duration: Duration(microseconds: 300), curve: Curves.easeOut,);
     update();
   }
 
@@ -224,12 +241,12 @@ class ProductListingController extends GetxController {
               1;
       if (optionId.value[index] !=
           productData.value["product_info"]?[QuantityIncreasingIndex!]
-              ["product_option_id"]) ;
+          ["product_option_id"]) ;
       {
         productData.value["product_info"]?[QuantityIncreasingIndex!]
-            ["product_option_id"] = optionId.value[index];
+        ["product_option_id"] = optionId.value[index];
         productData.value["product_info"]?[QuantityIncreasingIndex!]
-            ["prodcut_option_value_id"] = optionValueId.value[index];
+        ["prodcut_option_value_id"] = optionValueId.value[index];
       }
     } else {
       newAddCart(index);

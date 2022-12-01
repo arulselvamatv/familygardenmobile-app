@@ -92,6 +92,7 @@ class ProfileView extends GetView<ProfileController> {
                         hasCaption: true,
                         fontSize: 12,
                         controller: controller.telephoneController,
+                        keyboardType: TextInputType.number,
                         hint: '',
                         readOnly: false,
                       ),
@@ -108,7 +109,7 @@ class ProfileView extends GetView<ProfileController> {
                                 controller.onPressSaveChangesBtn(context);
                               },
                               style: ElevatedButton.styleFrom(
-                                  primary: AppColors.primaryColor,
+                                  backgroundColor: AppColors.primaryColor,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(13))),
                               child: TextWidget(

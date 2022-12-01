@@ -910,7 +910,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                                               child: Container(
                                                                                 width: 30,
                                                                                 padding: const EdgeInsets.all(8.0),
-                                                                                child: Image.asset("assets/icons/minus.png"),
+                                                                                child: SvgPicture.asset("assets/icons/minus_icon.svg"),
                                                                               ),
                                                                             ),
                                                                             Spacer(),
@@ -928,7 +928,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                                               },
                                                                               child: Container(
                                                                                 padding: const EdgeInsets.all(8.0),
-                                                                                child: Image.asset("assets/icons/add.png"),
+                                                                                child: SvgPicture.asset("assets/icons/plus_icon.svg"),
                                                                               ),
                                                                             ),
                                                                           ],

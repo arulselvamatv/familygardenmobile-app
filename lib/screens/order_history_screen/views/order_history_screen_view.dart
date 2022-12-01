@@ -266,6 +266,7 @@ class OrderHistoryView extends GetView<OrderHistoryScreenController> {
 
                                               Expanded(
                                                 flex: 2,
+                                                // width: 75,
                                                 child: Column(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
@@ -307,8 +308,8 @@ class OrderHistoryView extends GetView<OrderHistoryScreenController> {
                                                 ),
                                               ),
                                               //   Padding(padding: EdgeInsets.only(left: 5.0)),
-                                              Expanded(
-                                                flex: 1,
+                                              Container(
+                                                width: 45,
                                                 child: Column(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
@@ -335,7 +336,7 @@ class OrderHistoryView extends GetView<OrderHistoryScreenController> {
                                                         fontSize: 8,
                                                         fontWeight:
                                                             FontWeight.w600,
-                                                        maxLines: 2,
+                                                        maxLines: 1,
                                                         color: Colors.black,
                                                         textOverflow:
                                                             TextOverflow

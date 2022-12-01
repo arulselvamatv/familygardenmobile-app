@@ -355,8 +355,8 @@ class CartView extends GetView<CartController> {
                                                               padding:
                                                                   const EdgeInsets
                                                                       .all(8.0),
-                                                              child: Image.asset(
-                                                                  "assets/icons/minus.png"),
+                                                              child: SvgPicture.asset(
+                                                                  "assets/icons/minus_icon.svg"),
                                                             ),
                                                           ),
                                                           const Spacer(),
@@ -379,8 +379,8 @@ class CartView extends GetView<CartController> {
                                                               padding:
                                                                   const EdgeInsets
                                                                       .all(8.0),
-                                                              child: Image.asset(
-                                                                  "assets/icons/add.png"),
+                                                              child: SvgPicture.asset(
+                                                                  "assets/icons/plus_icon.svg"),
                                                             ),
                                                           ),
                                                         ],

@@ -5,6 +5,7 @@ import 'package:family_garden/network/set_local_datas.dart';
 import 'package:family_garden/screens/product_details_screen/controllers/product_details_controller.dart';
 import 'package:family_garden/widgets/LoginWidget/pop_up_notification_view.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/common_import/common_import.dart';
@@ -490,8 +491,8 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                                 width: 30,
                                                 padding:
                                                     const EdgeInsets.all(8.0),
-                                                child: Image.asset(
-                                                    "assets/icons/minus.png"),
+                                                child: SvgPicture.asset(
+                                                    "assets/icons/minus_icon.svg"),
                                               ),
                                               Spacer(),
                                               // TextWidget('-',color: AppColors.white,fontSize: 8,),
@@ -509,8 +510,8 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                                                 child: Container(
                                                   padding:
                                                       const EdgeInsets.all(8.0),
-                                                  child: Image.asset(
-                                                      "assets/icons/add.png"),
+                                                  child: SvgPicture.asset(
+                                                      "assets/icons/plus_icon.svg"),
                                                 ),
                                               ),
                                             ],

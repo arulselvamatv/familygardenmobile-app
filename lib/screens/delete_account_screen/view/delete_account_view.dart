@@ -116,7 +116,7 @@ class DeleteAccountView extends GetView<DeleteAccountController> {
                             children: [
                               TextSpan(text: 'You’re requested to delete ',style: TextStyle(fontSize: 11,fontWeight: FontWeight.w400,height: 1.5)),
                               TextSpan(text: controller.userName.value,style: TextStyle(fontSize: 11,fontWeight: FontWeight.w600,height: 1.5)),
-                              TextSpan(text: ", You can stop the deletion process by logging back your LetsFame account with in 15 Days.",style: TextStyle(fontSize: 11,fontWeight: FontWeight.w600,height: 1.5))
+                              TextSpan(text: ", You can stop the deletion process by logging back your Family Garden account with in 15 Days.",style: TextStyle(fontSize: 11,fontWeight: FontWeight.w600,height: 1.5))
                             ]
                           )),
                         ),

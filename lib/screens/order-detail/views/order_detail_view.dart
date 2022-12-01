@@ -13,6 +13,7 @@ import '../controllers/order_detail_controller.dart';
 
 class OrderDetailView extends GetView<OrderDetailController> {
   var controller = Get.put(OrderDetailController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -567,9 +568,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w500),
                                             )
-                                          : Html(
-                                              data: controller.orderInfo.value
-                                                  .paymentMethod),
+                                          : Image.asset("assets/images/ccavenue_pay_options.jpg"),
                                     ],
                                   ),
                                 ),
@@ -626,7 +625,8 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                     height: 75,
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
                                         Container(
                                           height: 26.37,
@@ -747,9 +747,11 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                               child: Text(controller
                                                       .orderInfo
                                                       .value
-                                                      .histories?[0]
-                                                      .status ??
-                                                  ""),
+                                                      .histories!
+                                                      .isNotEmpty
+                                                  ? (controller.orderInfo.value
+                                                      .histories?[0].status) ?? ""
+                                                  : ""),
                                             )),
 
                                         SizedBox(
@@ -757,12 +759,15 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                           width: 100,
                                           child: Align(
                                             alignment: Alignment.centerRight,
-                                            child: Text(controller
-                                                    .orderInfo
-                                                    .value
-                                                    .histories?[1]
-                                                    .status ??
-                                                ""),
+                                            child: (controller.orderInfo.value
+                                                    .histories?.length)! > 1
+                                                ? Text(controller
+                                                        .orderInfo
+                                                        .value
+                                                        .histories?[1]
+                                                        .status ??
+                                                    "")
+                                                : Text(""),
                                           ),
                                         ),
                                       ],
@@ -834,17 +839,19 @@ class OrderDetailView extends GetView<OrderDetailController> {
   Widget dashedHorizontalLine() {
     return Row(
       children: [
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 30; i++)
           Expanded(
             child: Row(
               children: [
                 Expanded(
                   child: Divider(
-                    color: AppColors.darkGreen,
+                    color: AppColors.black,
                     thickness: 2,
                   ),
                 ),
-                Container(width: 2,),
+                Container(
+                  width: 2,
+                ),
               ],
             ),
           ),

@@ -476,9 +476,12 @@ class AccountView extends GetView<AccountController> {
                   ),
                 ),
               )
-            : LoginWidgetView(
-                screenName: '',
-              ),
+            : SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
+              child: LoginWidgetView(
+                  screenName: '',
+                ),
+            ),
       ),
     );
   }
