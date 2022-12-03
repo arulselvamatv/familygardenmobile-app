@@ -1,5 +1,6 @@
 import 'package:family_garden/screens/account_login/controller/account_login_controller.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../widgets/LoginWidget/login_widget_view/login_widget_view.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
@@ -22,8 +23,8 @@ class AccountLoginView extends GetView<AccountLoginController> {
                       onTap: () {
                         Get.back();
                       },
-                      child: Image.asset(
-                        'assets/icons/backButton.png',
+                      child: SvgPicture.asset(
+                        'assets/icons/BackIcon.svg',
                         height: 24,
                         width: 24,
                       )),

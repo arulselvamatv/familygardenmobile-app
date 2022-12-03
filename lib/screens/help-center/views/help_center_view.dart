@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 
@@ -28,8 +29,8 @@ class HelpCenterView extends GetView<HelpCenterController> {
                         onTap: () {
                           Get.back();
                         },
-                        child: Image.asset(
-                          'assets/icons/backButton.png',
+                        child: SvgPicture.asset(
+                          'assets/icons/BackIcon.svg',
                           height: 24,
                           width: 24,
                         )),

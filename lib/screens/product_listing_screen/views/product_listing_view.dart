@@ -1,5 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:family_garden/screens/product_listing_screen/controllers/products_listing_controller.dart';
+import 'package:flutter_svg/svg.dart';
 import '../../../utils/common_import/common_import.dart';
 import '../../../routes/app_pages.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
@@ -39,8 +40,8 @@ class ProductListingView extends GetView<ProductListingController> {
                                   Get.back();
                                 }
                               },
-                              child: Image.asset(
-                                'assets/icons/backButton.png',
+                              child: SvgPicture.asset(
+                                'assets/icons/BackIcon.svg',
                                 height: 24,
                                 width: 24,
                               )),
@@ -346,7 +347,7 @@ class ProductListingView extends GetView<ProductListingController> {
                                                     left: 14,
                                                     bottom: 12,
                                                     top: 29,
-                                                    right: 20),
+                                                    right: 7),
                                                 child: Container(
                                                   height: 90,
                                                   width: 90,

@@ -6,6 +6,7 @@ import 'package:family_garden/screens/profile_screen/controllers/profile_control
 import 'package:family_garden/widgets/LoginWidget/pop_up_notification_view.dart';
 import 'package:family_garden/widgets/custom_textfield.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../utils/common_import/common_import.dart';
@@ -34,8 +35,8 @@ class ProfileView extends GetView<ProfileController> {
                       onTap: () {
                         Get.back();
                       },
-                      child: Image.asset(
-                        'assets/icons/backButton.png',
+                      child: SvgPicture.asset(
+                        'assets/icons/BackIcon.svg',
                         height: 24,
                         width: 24,
                       )),

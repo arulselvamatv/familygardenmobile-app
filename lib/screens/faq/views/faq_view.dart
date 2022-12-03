@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:family_garden/widgets/common_appbar/custom_appbar_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -30,8 +31,8 @@ class FaqView extends GetView<FaqController> {
                       onTap: () {
                         Get.back();
                       },
-                      child: Image.asset(
-                        'assets/icons/backButton.png',
+                      child: SvgPicture.asset(
+                        'assets/icons/BackIcon.svg',
                         height: 24,
                         width: 24,
                       )),

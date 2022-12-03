@@ -3,6 +3,7 @@ import 'package:family_garden/screens/add_address_screen/controller/add_address_
 import 'package:family_garden/screens/profile_screen/controllers/profile_controller.dart';
 import 'package:family_garden/widgets/custom_textfield.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../../../utils/common_import/common_import.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
@@ -28,8 +29,8 @@ class AddAddressView extends GetView<AddAddressController> {
                       onTap: () {
                         Get.back();
                       },
-                      child: Image.asset(
-                        'assets/icons/backButton.png',
+                      child: SvgPicture.asset(
+                        'assets/icons/BackIcon.svg',
                         height: 24,
                         width: 24,
                       )),

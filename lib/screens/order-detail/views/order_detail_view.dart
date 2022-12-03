@@ -7,6 +7,7 @@ import 'package:family_garden/widgets/LoginWidget/pop_up_notification_view.dart'
 import 'package:family_garden/widgets/common_appbar/custom_appbar_view.dart';
 import 'package:family_garden/widgets/loading_widget.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controllers/order_detail_controller.dart';
@@ -32,8 +33,8 @@ class OrderDetailView extends GetView<OrderDetailController> {
                         onTap: () {
                           Get.back();
                         },
-                        child: Image.asset(
-                          'assets/icons/backButton.png',
+                        child: SvgPicture.asset(
+                          'assets/icons/BackIcon.svg',
                           height: 24,
                           width: 24,
                         )),
@@ -720,7 +721,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 16.0),
                                   child: SizedBox(
-                                    height: 100,
+                                    height: 55,
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,

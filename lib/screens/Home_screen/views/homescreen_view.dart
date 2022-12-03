@@ -254,8 +254,8 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                       width: 36,
                                       decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(8),
-                                          color: Color(0xfff9f9f9)),
+                                              BorderRadius.circular(8),),
+                                          // color: Color(0xfff9f9f9)),
                                       // child: ScalableImageWidget.fromSISource(
                                       //     si: ScalableImageSource
                                       //         .fromSvgHttpUrl(Uri.parse(

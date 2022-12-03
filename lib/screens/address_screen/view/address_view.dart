@@ -2,6 +2,7 @@ import 'package:family_garden/network/api_constants/api_constants.dart';
 import 'package:family_garden/network/api_helper.dart';
 import 'package:family_garden/network/set_local_datas.dart';
 import 'package:family_garden/widgets/LoginWidget/pop_up_notification_view.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../routes/app_pages.dart';
@@ -31,8 +32,8 @@ class AddressView extends GetView<AddressController> {
                       onTap: () {
                         Get.back();
                       },
-                      child: Image.asset(
-                        'assets/icons/backButton.png',
+                      child: SvgPicture.asset(
+                        'assets/icons/BackIcon.svg',
                         height: 24,
                         width: 24,
                       )),

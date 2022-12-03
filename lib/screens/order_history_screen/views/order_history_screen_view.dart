@@ -4,6 +4,7 @@ import 'package:family_garden/network/set_local_datas.dart';
 import 'package:family_garden/routes/app_pages.dart';
 import 'package:family_garden/widgets/LoginWidget/pop_up_notification_view.dart';
 import 'package:family_garden/widgets/loading_widget.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../utils/common_import/common_import.dart';
@@ -31,8 +32,8 @@ class OrderHistoryView extends GetView<OrderHistoryScreenController> {
                           onTap: () {
                             Get.back();
                           },
-                          child: Image.asset(
-                            'assets/icons/backButton.png',
+                          child: SvgPicture.asset(
+                            'assets/icons/BackIcon.svg',
                             height: 24,
                             width: 24,
                           )),

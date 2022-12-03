@@ -1,5 +1,6 @@
 import 'package:family_garden/screens/payments_screen/controller/payment_controller.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_svg/svg.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/common_import/common_import.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
@@ -25,8 +26,8 @@ class PaymentView extends GetView<PaymentController> {
                       onTap: () {
                         Get.back();
                       },
-                      child: Image.asset(
-                        'assets/icons/backButton.png',
+                      child: SvgPicture.asset(
+                        'assets/icons/BackIcon.svg',
                         height: 24,
                         width: 24,
                       )),

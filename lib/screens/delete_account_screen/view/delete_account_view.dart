@@ -24,8 +24,8 @@ class DeleteAccountView extends GetView<DeleteAccountController> {
                       onTap: () {
                         Get.back();
                       },
-                      child: Image.asset(
-                        'assets/icons/backButton.png',
+                      child: SvgPicture.asset(
+                        'assets/icons/BackIcon.svg',
                         height: 24,
                         width: 24,
                       )),
@@ -59,11 +59,11 @@ class DeleteAccountView extends GetView<DeleteAccountController> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppSize.size.h30,
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: SizedBox(height: 98, width: 98, child: CircleAvatar()),
-                    ),
+                    // AppSize.size.h30,
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    //   child: SizedBox(height: 98, width: 98, child: CircleAvatar()),
+                    // ),
                     AppSize.size.h30,
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -80,7 +80,7 @@ class DeleteAccountView extends GetView<DeleteAccountController> {
                       padding: EdgeInsets.symmetric(horizontal: 20.0),
                       child: Padding(
                         padding: EdgeInsets.only(right: 50.0),
-                        child: Text("Your profile, jobs, posts, comments, likes and connections will be permanently deleted.",style: TextStyle(fontSize: 11,height: 1.5),),
+                        child: Text("Your profile, wishlist, order history and saved address will be permanently deleted.",style: TextStyle(fontSize: 11,height: 1.5),),
                       ),
                     ),
                     AppSize.size.h3,
@@ -116,7 +116,7 @@ class DeleteAccountView extends GetView<DeleteAccountController> {
                             children: [
                               TextSpan(text: 'You’re requested to delete ',style: TextStyle(fontSize: 11,fontWeight: FontWeight.w400,height: 1.5)),
                               TextSpan(text: controller.userName.value,style: TextStyle(fontSize: 11,fontWeight: FontWeight.w600,height: 1.5)),
-                              TextSpan(text: ", You can stop the deletion process by logging back your Family Garden account with in 15 Days.",style: TextStyle(fontSize: 11,fontWeight: FontWeight.w600,height: 1.5))
+                              TextSpan(text: ", You can stop the deletion process by logging back your Family Garden account with in 30 Days.",style: TextStyle(fontSize: 11,fontWeight: FontWeight.w600,height: 1.5))
                             ]
                           )),
                         ),

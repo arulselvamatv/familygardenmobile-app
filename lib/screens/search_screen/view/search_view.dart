@@ -1,4 +1,5 @@
 import 'package:family_garden/utils/common_import/common_import.dart';
+import 'package:flutter_svg/svg.dart';
 import '../../../routes/app_pages.dart';
 import '../controller/search_controller.dart';
 
@@ -26,8 +27,8 @@ class SearchView extends GetView<SearchController> {
                           onTap: () {
                             Get.back();
                           },
-                          child: Image.asset(
-                            'assets/icons/backButton.png',
+                          child: SvgPicture.asset(
+                            'assets/icons/BackIcon.svg',
                             height: 24,
                             width: 24,
                           )),

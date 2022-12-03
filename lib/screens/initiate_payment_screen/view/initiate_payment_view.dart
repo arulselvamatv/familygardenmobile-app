@@ -4,6 +4,7 @@ import 'package:family_garden/routes/app_pages.dart';
 import 'package:family_garden/screens/initiate_payment_screen/controller/initiate_payment_controller.dart';
 import 'package:family_garden/screens/order_success_screen/view/order_success_view.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 // import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -29,8 +30,8 @@ class InitiatePaymentView extends GetView<InitatePaymentController> {
                       onTap: () {
                         Get.back();
                       },
-                      child: Image.asset(
-                        'assets/icons/backButton.png',
+                      child: SvgPicture.asset(
+                        'assets/icons/BackIcon.svg',
                         height: 24,
                         width: 24,
                       )),
