@@ -53,7 +53,7 @@ class ProfileView extends GetView<ProfileController> {
       body: Stack(
         children: [
           SingleChildScrollView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             child: Padding(
               padding: const EdgeInsets.only(top: 0),
               child: Container(

@@ -32,7 +32,7 @@ class SignupController extends GetxController {
         confirmController.text,
         '1');
 
-    if (response.data?.errorWarning == "") {
+    if (response.data?.status == 1) {
       firstnameController.text = "";
       emailController.text = "";
       telephoneController.text = "";
@@ -47,11 +47,12 @@ class SignupController extends GetxController {
       showConfirmPassword.value = true;
       Get.toNamed(Routes.DASHBOARD);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Signup Successful Login to continue"),
+        content: Text(response.data?.message ?? ""),
       ));
     } else {
+      print(response.data?.message ?? "");
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(response.data?.errorWarning ?? ""),
+        content: Text(response.data?.message ?? ""),
       ));
     }
   }

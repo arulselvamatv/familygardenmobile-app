@@ -942,7 +942,7 @@ class ApiHelper {
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
         var body = jsonDecode(await response.stream.bytesToString());
-        print(body);
+        print("only for success state ${body["status"]}");
         var res = SignupModel.fromJson(body);
         return HTTPResponse(
           true,
