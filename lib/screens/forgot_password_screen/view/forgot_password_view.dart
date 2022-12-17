@@ -37,7 +37,7 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
             ),
           ),
           font_size: 19,
-          appbar_title: "Forget Password ?",
+          appbar_title: "Forgot Password ?",
           center_title: true,
         ),
       ),
@@ -93,7 +93,7 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                       // ),
                       // AppSize.size.h20,
                       Text(
-                        "Enter Your E- Mail Address / Mobile Number",
+                        "Enter Your Mobile Number",
                         style: TextStyle(fontWeight: FontWeight.w400, fontSize: 12),
                       ),
                       AppSize.size.h10,

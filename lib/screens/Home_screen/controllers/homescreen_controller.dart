@@ -123,6 +123,7 @@ class HomeScreenController extends GetxController with RouteAware {
   }
 
   homeFeatureMinusBtn(int index, int indexx) {
+    print("Clicked minus btn");
     var count = Get.find<DashboardController>().cartCount.value - 1;
     Get.find<DashboardController>().cartCount.value = count;
     if (homeFeaturesData.value.categories![index].products![indexx].count ==

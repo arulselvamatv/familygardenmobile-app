@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_controller.dart';
+import 'package:family_garden/network/api_constants/api_constants.dart';
 import 'package:family_garden/network/api_helper.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -59,6 +60,7 @@ class ProductDetailsController extends GetxController {
   }
 
   getProductDetails(int productId) async {
+    print("product ID ${productId}");
     var response = await ApiHelper.getProductCategoryDetails(productId);
     if (response.responseCode == 200) {
       print("LOG::::::${response.data!.logged}");
@@ -104,13 +106,16 @@ class ProductDetailsController extends GetxController {
     update();
   }
 
-  onFavouriteButtonSelected() {
+  onFavouriteButtonSelected() async{
     if (favourite.value == false) {
       if (productDetails?.options?.isNotEmpty ?? false) {
         favourite.value = true;
         optionId.value = (productDetails?.options?[0].productOptionId)!;
         optionValueId.value = (productDetails
             ?.options?[0].productOptionValue?[0].productOptionValueId)!;
+        print(ApiConstants.jwtToken);
+        print(optionId);
+        print(optionValueId);
         ApiHelper.addWishList(
             productId.value, optionId.value, optionValueId.value);
       } else {
@@ -118,10 +123,20 @@ class ProductDetailsController extends GetxController {
         // ApiHelper.addWishList(productId.value, "", "");
       }
     }
-    // else {
-    //   favourite.value = false;
-    //   ApiHelper.removeWishList(productId.value);
-    // }
+    else {
+      // favourite.value = false;
+      optionId.value = (productDetails?.options?[0].productOptionId)!;
+      optionValueId.value = (productDetails
+          ?.options?[0].productOptionValue?[0].productOptionValueId)!;
+      print(optionId);
+      print(optionValueId);
+      var res = await ApiHelper.removeWishList(productId.value,optionId.value,optionValueId.value);
+      print(res.responseCode);
+      if(res.responseCode == 200){
+        print("Success");
+        favourite.value = false;
+      }
+    }
     update();
   }
 

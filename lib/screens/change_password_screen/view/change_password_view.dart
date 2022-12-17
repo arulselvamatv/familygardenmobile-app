@@ -53,7 +53,7 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
         child: Padding(
           padding: const EdgeInsets.only(left: 20.0, right: 20),
           child: Form(
-            key: controller.formGlobalKey,
+            key: formGlobalKey,
             child: SingleChildScrollView(
               physics: NeverScrollableScrollPhysics(),
               child: Obx(
@@ -217,9 +217,9 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                       width: Get.width,
                       child: ElevatedButton(
                           onPressed: () {
-                            if (controller.formGlobalKey.currentState!
+                            if (formGlobalKey.currentState!
                                 .validate()) {
-                              controller.formGlobalKey.currentState!.save();
+                              formGlobalKey.currentState!.save();
                               controller.updatePassword(
                                   controller.passwordController.text,
                                   controller.confirmPasswordController.text,context,controller);

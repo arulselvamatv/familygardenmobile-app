@@ -106,7 +106,7 @@ class CartView extends GetView<CartController> {
                             print(ApiConstants.jwtToken);
                             Navigator.pop(context);
                             Get.offAndToNamed(Routes.LOGIN_VIEW);
-                            Get.toNamed(Routes.LOGIN_VIEW);
+                            // Get.toNamed(Routes.LOGIN_VIEW);
                           }
                         },
                       ),
@@ -190,7 +190,9 @@ class CartView extends GetView<CartController> {
                           : Stack(
                               children: [
                                 GestureDetector(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Get.toNamed(Routes.PRODUCT_DETAILS_SCREEN,arguments: controller.products.value.products?[index].productId)?.then((value) =>controller.getCartListDatas());
+                                  },
                                   child: Container(
                                     width: Get.width,
                                     child: Column(

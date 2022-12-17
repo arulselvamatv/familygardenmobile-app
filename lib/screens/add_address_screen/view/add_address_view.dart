@@ -94,10 +94,14 @@ class AddAddressView extends GetView<AddAddressController> {
                         hint: '',
                         counterText: "",
                         validator: (value) {
-                          if (value == null || value == "") {
-                            return "please enter phone number";
+                          if (value == null || value.isEmpty) {
+                            return 'please enter phone number';
                           } else {
-                            return null;
+                            if (value.length < 10) {
+                              return "entered mobile number invalid";
+                            } else {
+                              return null;
+                            }
                           }
                         },
                         maxlength: 10,

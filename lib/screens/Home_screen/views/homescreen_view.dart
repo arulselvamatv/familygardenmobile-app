@@ -885,55 +885,67 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                                             .products?[indexx]
                                                                             .count !=
                                                                         0
-                                                                    ? Container(
-                                                                        height:
-                                                                            26,
-                                                                        width:
-                                                                            71,
-                                                                        decoration: BoxDecoration(
-                                                                            borderRadius: BorderRadius.circular(20),
-                                                                            // border: Border.all(),
+                                                                    ? Stack(
+                                                                      children: [
+                                                                        Container(
+                                                                            height:
+                                                                                26,
+                                                                            width:
+                                                                                71,
+                                                                            decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.circular(20),
+                                                                                // border: Border.all(),
 
-                                                                            boxShadow: [
-                                                                              BoxShadow(offset: Offset(0, 0), blurRadius: 3, spreadRadius: 3, color: Color(0xff000000).withOpacity(controller.homeFeaturesData.value.categories?[index].products?[indexx].count != 0 ? 0.2 : 0)),
-                                                                            ],
-                                                                            color: controller.homeFeaturesData.value.categories?[index].products?[indexx].count != 0 ? AppColors.white : AppColors.primaryColor),
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.start,
-                                                                          children: [
-                                                                            GestureDetector(
-                                                                              onTap: () {
-                                                                                controller.homeFeatureMinusBtn(index, indexx);
-                                                                              },
-                                                                              child: Container(
-                                                                                width: 30,
-                                                                                padding: const EdgeInsets.all(8.0),
-                                                                                child: SvgPicture.asset("assets/icons/minus_icon.svg"),
-                                                                              ),
+                                                                                boxShadow: [
+                                                                                  BoxShadow(offset: Offset(0, 0), blurRadius: 3, spreadRadius: 3, color: Color(0xff000000).withOpacity(controller.homeFeaturesData.value.categories?[index].products?[indexx].count != 0 ? 0.2 : 0)),
+                                                                                ],
+                                                                                color: controller.homeFeaturesData.value.categories?[index].products?[indexx].count != 0 ? AppColors.white : AppColors.primaryColor),
+                                                                            child:
+                                                                                Row(
+                                                                              mainAxisAlignment:
+                                                                                  MainAxisAlignment.start,
+                                                                              children: [
+                                                                                Container(
+                                                                                  width: 30,
+                                                                                  padding: const EdgeInsets.all(8.0),
+                                                                                  child: SvgPicture.asset("assets/icons/minus_icon.svg"),
+                                                                                ),
+                                                                                Spacer(),
+                                                                                // TextWidget('-',color: AppColors.white,fontSize: 8,),
+                                                                                TextWidget(
+                                                                                  controller.homeFeaturesData.value.categories?[index].products?[indexx].count.toString(),
+                                                                                  color: Colors.black,
+                                                                                  fontSize: 13,
+                                                                                  fontWeight: FontWeight.w600,
+                                                                                ),
+                                                                                Spacer(),
+                                                                                Container(
+                                                                                  padding: const EdgeInsets.all(8.0),
+                                                                                  child: SvgPicture.asset("assets/icons/plus_icon.svg"),
+                                                                                ),
+                                                                              ],
                                                                             ),
-                                                                            Spacer(),
-                                                                            // TextWidget('-',color: AppColors.white,fontSize: 8,),
-                                                                            TextWidget(
-                                                                              controller.homeFeaturesData.value.categories?[index].products?[indexx].count.toString(),
-                                                                              color: Colors.black,
-                                                                              fontSize: 13,
-                                                                              fontWeight: FontWeight.w600,
-                                                                            ),
-                                                                            Spacer(),
-                                                                            GestureDetector(
-                                                                              onTap: () {
+                                                                          ),
+                                                                        Positioned(top: 0,
+                                                                        left: 0,
+                                                                        child: GestureDetector(
+                                                                          onTap: (){
+                                                                            controller.homeFeatureMinusBtn(index, indexx);
+                                                                          },
+                                                                          child: Container(
+                                                                            height: 26,width: 35.5,color: Colors.transparent,),
+                                                                        )),
+                                                                        Positioned(top: 0,
+                                                                            right: 0,
+                                                                            child: GestureDetector(
+                                                                              onTap: (){
                                                                                 controller.homeFeatureAddBtn(index, indexx);
                                                                               },
                                                                               child: Container(
-                                                                                padding: const EdgeInsets.all(8.0),
-                                                                                child: SvgPicture.asset("assets/icons/plus_icon.svg"),
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      )
+                                                                                height: 26,width: 35.5,color: Colors.transparent,),
+                                                                            ))
+                                                                      ],
+                                                                    )
                                                                     : GestureDetector(
                                                                         onTap:
                                                                             () {

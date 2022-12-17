@@ -5,7 +5,7 @@ import '../../../network/api_helper.dart';
 import '../../../routes/app_pages.dart';
 
 class ChangePasswordController extends GetxController {
-  final formGlobalKey = GlobalKey<FormState>();
+  // final formGlobalKey = GlobalKey<FormState>();
   RxBool isErrorPassword = false.obs;
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
@@ -110,7 +110,9 @@ getDatas() {
                                 width: Get.width,
                                 child: ElevatedButton(
                                     onPressed: () {
-                                      Get.toNamed(Routes.DASHBOARD);
+                                      controller.passwordController.text = "";
+                                      controller.confirmPasswordController.text = "";
+                                      Get.offNamed(Routes.DASHBOARD);
                                       // Get.toNamed(Routes.VERIFY_OTP);
                                     },
                                     style: ElevatedButton.styleFrom(

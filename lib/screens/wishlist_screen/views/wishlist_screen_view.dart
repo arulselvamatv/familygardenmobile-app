@@ -147,8 +147,10 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                                   arguments: controller
                                                       .products[index]
                                                       .productId)
-                                              ?.then((value) =>
-                                                  controller.getCartCount());
+                                              ?.then((value) {
+                                                controller.getWishlists();
+                                            controller.getCartCount();
+                                          });
                                         },
                                         child: Container(
                                           height: 130,
@@ -177,47 +179,54 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                               ),
                                               GestureDetector(
                                                 onTap: () async {
-                                                  var productData = {
-                                                    "product_info": [
-                                                      {
-                                                        "product_id": controller
-                                                            .products[index]
-                                                            .productId,
-                                                        "qty": 1,
-                                                        "product_option_id":
-                                                            controller
-                                                                .products[index]
-                                                                .productOptionId,
-                                                        "prodcut_option_value_id":
-                                                            controller
-                                                                .products[index]
-                                                                .productOptionValueId,
-                                                        "action": "ADD"
-                                                      }
-                                                    ]
-                                                  };
-                                                  var response =
-                                                      await ApiHelper.addCart(
-                                                          productData);
-                                                  print(response.responseCode);
-                                                  if (response.responseCode ==
-                                                      200) {
-                                                    int count = int.parse(
-                                                        controller.cartCount
-                                                                    .value ==
-                                                                ""
-                                                            ? "0"
-                                                            : controller
-                                                                .cartCount
-                                                                .value);
-                                                    controller.cartCount.value =
-                                                        "${count + 1}";
-                                                    controller.products[index]
-                                                        .addToCart = true;
-                                                    controller.products
-                                                        .refresh();
+                                                  if(controller
+                                                      .products[
+                                                  index]
+                                                      .addToCart == false){
+                                                    var productData = {
+                                                      "product_info": [
+                                                        {
+                                                          "product_id": controller
+                                                              .products[index]
+                                                              .productId,
+                                                          "qty": 1,
+                                                          "product_option_id":
+                                                          controller
+                                                              .products[index]
+                                                              .productOptionId,
+                                                          "prodcut_option_value_id":
+                                                          controller
+                                                              .products[index]
+                                                              .productOptionValueId,
+                                                          "action": "ADD"
+                                                        }
+                                                      ]
+                                                    };
+                                                    var response =
+                                                    await ApiHelper.addCart(
+                                                        productData);
+                                                    print(response.responseCode);
+                                                    if (response.responseCode ==
+                                                        200) {
+                                                      int count = int.parse(
+                                                          controller.cartCount
+                                                              .value ==
+                                                              ""
+                                                              ? "0"
+                                                              : controller
+                                                              .cartCount
+                                                              .value);
+                                                      controller.cartCount.value =
+                                                      "${count + 1}";
+                                                      controller.products[index]
+                                                          .addToCart = true;
+                                                      controller.products
+                                                          .refresh();
+                                                    }
+                                                    print("OnTap");
+                                                  }else{
+                                                    print("Data failure");
                                                   }
-                                                  print("OnTap");
                                                 },
                                                 child: SizedBox(
                                                   width: Get.width / 2.40,
@@ -323,7 +332,7 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                                         TextWidget(
                                                           controller
                                                               .products[index]
-                                                              .special,
+                                                              .productPrice,
                                                           fontSize: 16,
                                                           fontWeight:
                                                               FontWeight.w600,
@@ -337,9 +346,7 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                                                 EdgeInsets.only(
                                                                     top: 2.0)),
                                                         TextWidget(
-                                                          controller
-                                                              .products[index]
-                                                              .price,
+                                                          controller.products[index].special,
                                                           fontSize: 12,
                                                           fontWeight:
                                                               FontWeight.w500,
@@ -444,31 +451,31 @@ class WishListScreenView extends GetView<WishListScreenController> {
               ],
             ),
           ),
-          bottomNavigationBar: controller.products.isEmpty
-              ? const SizedBox()
-              : Container(
-                  color: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 25),
-                    child: SizedBox(
-                      height: 50,
-                      width: Get.width,
-                      child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.primaryColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(13))),
-                          child: TextWidget(
-                            'Continue',
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14,
-                          )),
-                    ),
-                  ),
-                ),
+          // bottomNavigationBar: controller.products.isEmpty
+          //     ? const SizedBox()
+          //     : Container(
+          //         color: Colors.white,
+          //         child: Padding(
+          //           padding: const EdgeInsets.symmetric(
+          //               horizontal: 20, vertical: 25),
+          //           child: SizedBox(
+          //             height: 50,
+          //             width: Get.width,
+          //             child: ElevatedButton(
+          //                 onPressed: () {},
+          //                 style: ElevatedButton.styleFrom(
+          //                     backgroundColor: AppColors.primaryColor,
+          //                     shape: RoundedRectangleBorder(
+          //                         borderRadius: BorderRadius.circular(13))),
+          //                 child: TextWidget(
+          //                   'Continue',
+          //                   color: Colors.white,
+          //                   fontWeight: FontWeight.w500,
+          //                   fontSize: 14,
+          //                 )),
+          //           ),
+          //         ),
+          //       ),
         ),
       ),
     );

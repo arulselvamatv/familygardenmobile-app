@@ -27,6 +27,12 @@ class ProfileController extends GetxController {
     getLocalDatas();
   }
 
+  bool isValidEmail(String emailString) {
+    return RegExp(
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+        .hasMatch(emailString);
+  }
+
   getLocalDatas() async {
     var prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey("Login")) {
@@ -74,8 +80,9 @@ class ProfileController extends GetxController {
       else
       {
         print("LOG222::::::${response.data!.logged }");
-
+        print("Status of edit profile ${response.data!.status}");
         if (response.data!.status == 1) {
+          print("Success");
           var prefs = await SharedPreferences.getInstance();
           prefs.setString("firstName", nameController.text);
           prefs.setString("lastName", '');
@@ -84,22 +91,19 @@ class ProfileController extends GetxController {
           // lastName.value = prefs.getString("lastName")!;
           // emailId.value = prefs.getString("emailId")!;
           // telephone.value = prefs.getString("telephone")!;
-          Get.snackbar('success', "Updated Successfully");
-          // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          //   content: Text("Updated Successfully"),
-          // ));
+          // Get.snackbar('success', "Updated Successfully");
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(response.data!.message ?? ""),
+          ));
           Get.back();
         } else {
-          Get.snackbar('warning', "Attempt Failed");
-          //showAppNotificationNotifierInitial.value = true;
-          // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          //   content: Text("Attempt Failed"),
-          // ));
+          // Get.snackbar(response.data!.message ?? "");
+          // showAppNotificationNotifierInitial.value = true;
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(response.data!.message ?? ""),
+          ));
         }
       }
-
     }
-
-
   }
 }

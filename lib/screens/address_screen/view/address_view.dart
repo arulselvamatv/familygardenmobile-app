@@ -51,9 +51,11 @@ class AddressView extends GetView<AddressController> {
                   ?.then((value) => controller.getCheckout());
             },
             child: Padding(
-              padding: const EdgeInsets.only(right: 20, top: 15),
-              child: Image.asset(
-                "assets/icons/plus.png",
+              padding: const EdgeInsets.only(right: 20),
+              child: SvgPicture.asset(
+                "assets/icons/plus_btn.svg",
+                height: 24,
+                width: 24,
               ),
             ),
           ),
@@ -234,7 +236,7 @@ class AddressView extends GetView<AddressController> {
                                                                   ),
                                                                 ),
                                                                 SizedBox(
-                                                                  height: 10,
+                                                                  height: 3,
                                                                 ),
                                                                 Text(controller
                                                                         .addressModel
@@ -244,7 +246,7 @@ class AddressView extends GetView<AddressController> {
                                                                         .city ??
                                                                     ""),
                                                                 SizedBox(
-                                                                  height: 10,
+                                                                  height: 3,
                                                                 ),
                                                                 Text(controller
                                                                         .addressModel
@@ -254,7 +256,7 @@ class AddressView extends GetView<AddressController> {
                                                                         .zone ??
                                                                     ""),
                                                                 SizedBox(
-                                                                  height: 10,
+                                                                  height: 3,
                                                                 ),
                                                                 Text(controller
                                                                         .addressModel
@@ -264,7 +266,7 @@ class AddressView extends GetView<AddressController> {
                                                                         .email ??
                                                                     ""),
                                                                 SizedBox(
-                                                                  height: 10,
+                                                                  height: 3,
                                                                 ),
                                                                 Text(controller
                                                                         .addressModel
@@ -273,7 +275,7 @@ class AddressView extends GetView<AddressController> {
                                                                             index]
                                                                         .telephone ??
                                                                     ""), SizedBox(
-                                                                  height: 10,
+                                                                  height: 3,
                                                                 ),
                                                                 Text(controller
                                                                         .addressModel
