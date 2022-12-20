@@ -249,21 +249,26 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                 width: 50,
                                 child: Column(
                                   children: [
-                                    Container(
-                                      height: 36,
-                                      width: 36,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8),),
-                                          // color: Color(0xfff9f9f9)),
-                                      // child: ScalableImageWidget.fromSISource(
-                                      //     si: ScalableImageSource
-                                      //         .fromSvgHttpUrl(Uri.parse(
-                                      //             'https://jovial.com/images/jupiter.svg'))),
-                                      child: Image.asset(
-                                        controller.category.value[0]["image"],
-                                        fit: BoxFit.contain,
-                                        matchTextDirection: false,
+                                    GestureDetector(
+                                      onTap:(){
+                                        Get.toNamed(Routes.TIME_AND_ORDER_CONFIRMATION);
+                                      },
+                                      child: Container(
+                                        height: 36,
+                                        width: 36,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),),
+                                            // color: Color(0xfff9f9f9)),
+                                        // child: ScalableImageWidget.fromSISource(
+                                        //     si: ScalableImageSource
+                                        //         .fromSvgHttpUrl(Uri.parse(
+                                        //             'https://jovial.com/images/jupiter.svg'))),
+                                        child: Image.asset(
+                                          controller.category.value[0]["image"],
+                                          fit: BoxFit.contain,
+                                          matchTextDirection: false,
+                                        ),
                                       ),
                                     ),
                                     AppSize.size.h10,

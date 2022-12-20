@@ -62,7 +62,6 @@ class ProductListingView extends GetView<ProductListingController> {
                       }
                       int vals = await controller.hitAddCartAPI();
                       if (vals == 0) {
-
                         print("value : $vals");
                         Get.toNamed(Routes.CART_SCREEN)?.then((value) {
                           controller.productData.value = {"product_info": []};

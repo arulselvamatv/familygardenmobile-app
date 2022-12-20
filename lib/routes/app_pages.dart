@@ -55,6 +55,8 @@ import '../screens/splash_screen/bindings/splash_bindings.dart';
 import '../screens/splash_screen/views/splash_view.dart';
 import '../screens/terms-and-conditions/bindings/terms_and_conditions_binding.dart';
 import '../screens/terms-and-conditions/views/terms_and_conditions_view.dart';
+import '../screens/time_and_order_confirmation_screen/binding/time_and_order_confirmation_binding.dart';
+import '../screens/time_and_order_confirmation_screen/view/time_and_order_confirmation_view.dart';
 import '../screens/wishlist_screen/bindings/wishlist_screen_binding.dart';
 import '../screens/wishlist_screen/views/wishlist_screen_view.dart';
 
@@ -208,6 +210,11 @@ class AppPages {
       name: _Paths.DELETE_ACCOUNT,
       page: () => DeleteAccountView(),
       binding: DeleteAccountBinding(),
+    ),
+    GetPage(
+      name: _Paths.TIME_AND_ORDER_CONFIRMATION,
+      page: () => TimeAndOrderConfirmationView(),
+      binding: TimeAndOrderConfirmationBinding(),
     ),
   ];
 }
