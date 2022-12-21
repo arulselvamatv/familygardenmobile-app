@@ -20,6 +20,7 @@ class ManageAddressController extends GetxController {
   TextEditingController pinCodeController = TextEditingController();
   ValueNotifier<bool> showAppNotificationNotifierInitial = ValueNotifier(false);
 
+  @override
   void onInit() {
     super.onInit();
     assignFixedValues();

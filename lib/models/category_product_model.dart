@@ -15,7 +15,7 @@ class ProductCategoryModel {
   String? sort;
   String? order;
   int? limit;
-  Null? logged;
+  dynamic? logged;
 
   ProductCategoryModel(
       {this.breadcrumbs,
@@ -153,7 +153,6 @@ class Products {
   String? description;
   String? productOptionId;
   String? productOptionValueId;
-  String? selectedDropdownValue;
   String? price;
   String? special;
   String? tax;
@@ -172,7 +171,6 @@ class Products {
       this.name,
       this.productOptionId,
       this.productOptionValueId,
-      this.selectedDropdownValue,
       this.pnameTamil,
       this.description,
       this.price,
@@ -196,7 +194,6 @@ class Products {
     name = json['name'];
     pnameTamil = json['pname_tamil'];
     description = json['description'];
-    selectedDropdownValue = "";
     productOptionId = "";
     productOptionValueId = "";
     counter = 0;
@@ -235,6 +232,7 @@ class Products {
 class Option {
   String? productOptionId;
   List<ProductOptionValue>? productOptionValue;
+  String? selectedProductOptionId;
   String? optionId;
   String? name;
   String? type;
@@ -283,6 +281,7 @@ class Option {
 
 class ProductOptionValue {
   String? productOptionValueId;
+  String? selectedProductOptionValueId;
   String? optionValueId;
   String? name;
   Null? image;
@@ -294,6 +293,7 @@ class ProductOptionValue {
 
   ProductOptionValue(
       {this.productOptionValueId,
+      this.selectedProductOptionValueId,
       this.optionValueId,
       this.name,
       this.image,
@@ -305,6 +305,7 @@ class ProductOptionValue {
 
   ProductOptionValue.fromJson(Map<String, dynamic> json) {
     productOptionValueId = json['product_option_value_id'];
+    selectedProductOptionValueId = "";
     optionValueId = json['option_value_id'];
     name = json['name'];
     image = json['image'];

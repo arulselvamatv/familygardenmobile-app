@@ -28,6 +28,7 @@ class ProductListingController extends GetxController {
   RxInt onPageChange = 1.obs;
   RxInt totalPages = 1.obs;
   RxDouble scrolledPosition = 0.0.obs;
+  RxBool bottomLoader = true.obs;
 
   @override
   void onInit() async {
@@ -63,6 +64,9 @@ class ProductListingController extends GetxController {
   getCategoryProduct(categoryId, page, {bool? fg = false}) async {
     if (onPageChange.value == 1) {
       isCategoryProductLoader.value = true;
+    }else{
+      bottomLoader.value = false;
+      bottomLoader.refresh();
     }
     if (fg == false) {
       clearAll();
@@ -120,10 +124,10 @@ class ProductListingController extends GetxController {
       scrollController.jumpTo(scrolledPosition.value);
       scrollController.animateTo(scrolledPosition.value, duration: Duration(microseconds: 0), curve: Curves.ease);
       // scrollController.animateTo(offset, duration: duration, curve: Curves.c.ease)
-    }else{
+    } else{
       print("Scrollcontroller dosen't hasclients");
-
     }
+    bottomLoader.value = true;
     // scrollController.animateTo(scrolledPosition.value, duration: Duration(microseconds: 300), curve: Curves.easeOut,);
     update();
   }

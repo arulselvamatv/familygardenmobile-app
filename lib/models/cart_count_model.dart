@@ -5,7 +5,7 @@ class cartCountModel {
   List<Totals>? totals;
   String? cart;
   String? checkout;
-  Null? logged;
+  dynamic? logged;
 
   cartCountModel(
       {this.textItems,

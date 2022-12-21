@@ -5,6 +5,7 @@ import '../../../widgets/custom_textfield.dart';
 import '../controller/signup_controller.dart';
 
 class SignupView extends GetView<SignupController> {
+  @override
   var controller = Get.put(SignupController());
   @override
   Widget build(BuildContext context) {

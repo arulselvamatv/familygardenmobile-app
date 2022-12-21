@@ -882,12 +882,18 @@ class ApiHelper {
     String url =
         "${ApiConstants.baseUrl}${EndPoints.login}&api_token=${ApiConstants.jwtToken}";
     try {
+      var prefs = await SharedPreferences.getInstance();
+      String deviceId = DateTime.now().microsecondsSinceEpoch.toString();
+      print("Device Id : $deviceId");
+      prefs.setString("device_id", deviceId);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields.addAll({'email': email, 'password': password});
+      request.fields.addAll({'email': email, 'password': password, 'device_id': deviceId});
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
         var body = jsonDecode(await response.stream.bytesToString());
         var res = LoginModel.fromJson(body);
+        print("User TOken : ${res.userToken}");
+        prefs.setString("userToken", res.userToken ?? "");
         return HTTPResponse(
           true,
           res,
@@ -1534,6 +1540,7 @@ class ApiHelper {
       var body = json.decode(req.body);
       if (body["status"] == 1) {
         final prefs = await SharedPreferences.getInstance();
+        prefs.remove("device_id");
         prefs.setString('Login', "false");
         return 1;
       }

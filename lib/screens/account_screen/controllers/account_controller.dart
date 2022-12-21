@@ -6,7 +6,9 @@ class AccountController extends GetxController {
   var isLoggedIn = false.obs;
   RxString firstName = "".obs;
 
+  @override
   void onInit() {
+    super.onInit();
     getLoginDetails();
   }
 

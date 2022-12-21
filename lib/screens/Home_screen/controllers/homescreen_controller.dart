@@ -37,7 +37,7 @@ class HomeScreenController extends GetxController with RouteAware {
   RxBool informationLoader = false.obs;
 
   @override
-  void onInit() async {
+  void onInit() {
     super.onInit();
     getToken();
   }
@@ -46,10 +46,10 @@ class HomeScreenController extends GetxController with RouteAware {
     var res = await GetLocalDatas.getToken();
     ApiConstants.jwtToken = res!;
     if (ApiConstants.jwtToken != "") {
-      informationDetails();
-      getHomeSliderDetails();
-      getCategories();
-      getHomeFeatures();
+      await informationDetails();
+      await getHomeSliderDetails();
+      await getCategories();
+      await getHomeFeatures();
     }
   }
 

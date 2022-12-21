@@ -12,6 +12,7 @@ class SearchController extends GetxController {
   RxBool isLoader = false.obs;
   RxList productName = [].obs;
 
+  @override
   void onInit() {
     super.onInit();
     searchProducts();

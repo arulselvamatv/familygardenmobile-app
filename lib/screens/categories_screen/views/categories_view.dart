@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import '../../../routes/app_pages.dart';
 
 class CategoriesView extends GetView<CategoriesController> {
+  @override
   var controller = Get.put(CategoriesController());
   @override
   Widget build(BuildContext context) {

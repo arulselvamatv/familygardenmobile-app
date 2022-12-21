@@ -16,6 +16,7 @@ class LoginWidgetView extends GetView<LoginWidgetController> {
     Key? key,
     required this.screenName,
   }) : super(key: key);
+  @override
   var controller = Get.put(LoginWidgetController());
   @override
   Widget build(BuildContext context) {
@@ -70,7 +71,7 @@ class LoginWidgetView extends GetView<LoginWidgetController> {
                   )
                 ],
               ),
-              Text(
+              const Text(
                 "Login",
                 style: TextStyle(
                     color: AppColors.darkGreen,
@@ -85,7 +86,7 @@ class LoginWidgetView extends GetView<LoginWidgetController> {
                   return null;
                 },
                 controller: controller.emailController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: "Email / Mobile No *",
                   labelStyle: TextStyle(
                       fontSize: 12,
@@ -115,7 +116,7 @@ class LoginWidgetView extends GetView<LoginWidgetController> {
                 controller: controller.passwordController,
                 decoration: InputDecoration(
                   suffixIconConstraints:
-                  BoxConstraints(minHeight: 24, minWidth: 24),
+                  const BoxConstraints(minHeight: 24, minWidth: 24),
                   suffixIcon: !controller.showPassword.value
                       ? GestureDetector(
                       onTap: () {
@@ -136,14 +137,14 @@ class LoginWidgetView extends GetView<LoginWidgetController> {
                         color: AppColors.black,
                       )),
                   labelText: "Password *",
-                  labelStyle: TextStyle(
+                  labelStyle: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
                       color: Color(0xff535353)),
-                  enabledBorder: UnderlineInputBorder(
+                  enabledBorder: const UnderlineInputBorder(
                       borderSide:
                       BorderSide(color: AppColors.dividerColor)),
-                  focusedBorder: UnderlineInputBorder(
+                  focusedBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(
                       color: AppColors.dividerColor,
                     ),
@@ -181,7 +182,9 @@ class LoginWidgetView extends GetView<LoginWidgetController> {
                         var response = await ApiHelper.login(
                             controller.emailController.text,
                             controller.passwordController.text);
-                        if (response.data?.errorWarning == "") {
+                        if (response.data?.status == 1) {
+                          prefs.setString("userToken", (response.data?.userToken)!);
+                          print("user Token : ${response.data?.userToken}");
                           // Get.toNamed(Routes.CART_SCREEN);
                           prefs.setString("Login", "true");
                           prefs.setString(
@@ -216,7 +219,7 @@ class LoginWidgetView extends GetView<LoginWidgetController> {
                           // controller.passwordController.text = "";
                           // Get.back();
                           Get.snackbar(
-                              'warning', response.data?.errorWarning ?? "");
+                              'warning', response.data?.status.toString() ?? "" );
                           // ScaffoldMessenger.of(context)
                           //     .showSnackBar(SnackBar(
                           //   content:
@@ -226,7 +229,7 @@ class LoginWidgetView extends GetView<LoginWidgetController> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                        primary : AppColors.primaryColor,
+                        backgroundColor : AppColors.primaryColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(13))),
                     child: TextWidget(

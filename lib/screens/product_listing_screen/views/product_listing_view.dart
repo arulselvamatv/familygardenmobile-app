@@ -264,7 +264,7 @@ class ProductListingView extends GetView<ProductListingController> {
                                                         .primaryColor),
                                               ),
                                             ),
-                                          )
+                                          ),
                                         ],
                                       ),
                                     ),

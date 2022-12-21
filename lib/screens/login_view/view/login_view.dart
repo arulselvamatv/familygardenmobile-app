@@ -207,7 +207,7 @@ class LoginView extends GetView<LoginViewController> {
                                   var response = await ApiHelper.login(
                                       controller.emailController.text,
                                       controller.passwordController.text);
-                                  if (response.data?.errorWarning == "") {
+                                  if (response.data?.status == 1) {
                                     // Get.toNamed(Routes.CART_SCREEN);
                                     prefs.setString("Login", "true");
                                     prefs.setString(

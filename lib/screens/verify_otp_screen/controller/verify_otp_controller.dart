@@ -10,6 +10,7 @@ class VerifyOTPController extends GetxController {
   RxString mobileNum = "".obs;
   RxBool isNotValid = false.obs;
 
+  @override
   void onInit() {
     getMobileNum();
     super.onInit();

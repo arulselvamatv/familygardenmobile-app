@@ -13,6 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../controllers/order_detail_controller.dart';
 
 class OrderDetailView extends GetView<OrderDetailController> {
+  @override
   var controller = Get.put(OrderDetailController());
 
   @override

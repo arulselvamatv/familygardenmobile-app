@@ -82,7 +82,7 @@ class PrivacyPolicyView extends GetView<PrivacyPolicyController> {
                     onPageFinished: (String url) {
                       print('Page finished loading: $url');
                       controller.webViewCtrl!
-                          .evaluateJavascript("javascript:(function() { " +
+                          .runJavascriptReturningResult("javascript:(function() { " +
                               "var head = document.getElementsByTagName('header')[0];" +
                               "head.parentNode.removeChild(head);" +
                               "var footer = document.getElementsByTagName('footer')[0];" +

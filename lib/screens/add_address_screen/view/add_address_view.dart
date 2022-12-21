@@ -9,6 +9,7 @@ import '../../../utils/common_import/common_import.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
 
 class AddAddressView extends GetView<AddAddressController> {
+  @override
   var controller = Get.put(AddAddressController());
 
   @override

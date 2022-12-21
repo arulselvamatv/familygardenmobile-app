@@ -45,6 +45,8 @@ import '../screens/privacy-policy/bindings/privacy_policy_binding.dart';
 import '../screens/privacy-policy/views/privacy_policy_view.dart';
 import '../screens/product_details_screen/bindings/product_details_binding.dart';
 import '../screens/product_details_screen/views/product_detail_view.dart';
+import '../screens/product_listing_screen/bindings/product_list_binding.dart';
+import '../screens/product_listing_screen/views/product_liist_view.dart';
 import '../screens/profile_screen/bindings/profile_binding.dart';
 import '../screens/profile_screen/views/profile_view.dart';
 import '../screens/search_screen/binding/search_binding.dart';
@@ -142,6 +144,11 @@ class AppPages {
       name: _Paths.PRODUCT_LISTING_SCREEN,
       page: () => ProductListingView(),
       binding: ProductListingBinding(),
+    ),
+    GetPage(
+      name: _Paths.PRODUCT_LIST_SCREEN,
+      page: () => ProductListView(),
+      binding: ProductListBinding(),
     ),
     GetPage(
       name: _Paths.PRODUCT_DETAILS_SCREEN,
