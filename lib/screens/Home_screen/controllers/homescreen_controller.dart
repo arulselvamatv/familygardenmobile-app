@@ -46,10 +46,10 @@ class HomeScreenController extends GetxController with RouteAware {
     var res = await GetLocalDatas.getToken();
     ApiConstants.jwtToken = res!;
     if (ApiConstants.jwtToken != "") {
-      await informationDetails();
-      await getHomeSliderDetails();
-      await getCategories();
-      await getHomeFeatures();
+       await informationDetails();
+       getHomeSliderDetails();
+       getCategories();
+       getHomeFeatures();
     }
   }
 
@@ -65,7 +65,6 @@ class HomeScreenController extends GetxController with RouteAware {
   }
 
   getHomeFeatures() async {
-    print(ApiConstants.jwtToken);
     clearHomeFeatureDatas();
     var response = await ApiHelper.getHomeFeatures();
     if (response.responseCode == 200) {

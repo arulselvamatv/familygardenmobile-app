@@ -34,6 +34,7 @@ import '../models/order_info_model.dart';
 import '../models/payment_address_save_model.dart';
 import '../models/payment_method_save_model.dart';
 import '../models/product_detail_model.dart';
+import '../models/re_create_session_model.dart';
 import '../models/shipping_method_model.dart';
 import '../models/shipping_method_save_model.dart';
 import '../models/signupModel.dart';
@@ -295,6 +296,8 @@ class ApiHelper {
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
         var res = HomeFeatureModel.fromJson(body);
+        print("res.logged ${res.logged}");
+
         return HTTPResponse(
           true,
           res,
@@ -331,13 +334,13 @@ class ApiHelper {
     }
   }
 
-  static Future<HTTPResponse<AddCartModel>> addCart(body) async {
+  static Future<HTTPResponse<AddCartModel>> addCart(bodys) async {
     try {
       Map<String, String> headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       };
-      var encodedBody = json.encode(body);
+      var encodedBody = json.encode(bodys);
       var response = await http.post(
           Uri.parse(
               "${ApiConstants.baseUrl}${EndPoints.cartAdd}&api_token=${ApiConstants.jwtToken}"),
@@ -347,6 +350,14 @@ class ApiHelper {
         var body = jsonDecode(response.body);
         print(body);
         var res = AddCartModel.fromJson(body);
+        if(res.logged == null){
+          var res = await reCreateSession();
+          if(res.responseCode == 200){
+            addCart(bodys);
+          }else{
+
+          }
+        }
         return HTTPResponse(
           true,
           res,
@@ -358,7 +369,7 @@ class ApiHelper {
           null,
           message:
               "Invalid response received from server! Please try again in a minute or two.",
-        );
+        ) ;
       }
     } on SocketException {
       return HTTPResponse(
@@ -396,6 +407,12 @@ class ApiHelper {
         var body = jsonDecode(response.body);
         print(body);
         var res = CartListModel.fromJson(body);
+        if(res.logged == null){
+          var res = await reCreateSession();
+          if(res.responseCode == 200){
+            cartList();
+          }
+        }
         return HTTPResponse(
           true,
           res,
@@ -433,64 +450,64 @@ class ApiHelper {
     }
   }
 
-  static Future<HTTPResponse<AddCartModel>> addAddress(
-      firstName, lastName, address1, country_id, telephone, zone_id) async {
-    try {
-      final response = await http.post(
-        Uri.parse(
-            "${ApiConstants.baseUrl}${EndPoints.cartAdd}&api_token=${ApiConstants.jwtToken}"),
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        encoding: Encoding.getByName('utf-8'),
-        body: {
-          'firstname': firstName,
-          'lastname': lastName,
-          'address_1': address1,
-          'country_id': country_id,
-          'telephone': telephone,
-          'zone_id': zone_id
-        },
-      );
-      if (response.statusCode == 200) {
-        var body = jsonDecode(response.body);
-        var res = AddCartModel.fromJson(body);
-        return HTTPResponse(
-          true,
-          res,
-          responseCode: response.statusCode,
-        );
-      } else {
-        return HTTPResponse(
-          false,
-          null,
-          message:
-              "Invalid response received from server! Please try again in a minute or two.",
-        );
-      }
-    } on SocketException {
-      return HTTPResponse(
-        false,
-        null,
-        message:
-            "Unable to reach the internet! Please try again in a minute or two.",
-      );
-    } on FormatException {
-      return HTTPResponse(
-        false,
-        null,
-        message:
-            "Invalid response received from server! Please try again in a minute or two.",
-      );
-    } catch (e) {
-      print(e);
-      return HTTPResponse(
-        false,
-        null,
-        message: "Something went wrong! Please try again in a minute or two.",
-      );
-    }
-  }
+  // static Future<HTTPResponse<AddCartModel>> addAddress(
+  //     firstName, lastName, address1, country_id, telephone, zone_id) async {
+  //   try {
+  //     final response = await http.post(
+  //       Uri.parse(
+  //           "${ApiConstants.baseUrl}${EndPoints.cartAdd}&api_token=${ApiConstants.jwtToken}"),
+  //       headers: {
+  //         "Content-Type": "application/x-www-form-urlencoded",
+  //       },
+  //       encoding: Encoding.getByName('utf-8'),
+  //       body: {
+  //         'firstname': firstName,
+  //         'lastname': lastName,
+  //         'address_1': address1,
+  //         'country_id': country_id,
+  //         'telephone': telephone,
+  //         'zone_id': zone_id
+  //       },
+  //     );
+  //     if (response.statusCode == 200) {
+  //       var body = jsonDecode(response.body);
+  //       var res = AddCartModel.fromJson(body);
+  //       return HTTPResponse(
+  //         true,
+  //         res,
+  //         responseCode: response.statusCode,
+  //       );
+  //     } else {
+  //       return HTTPResponse(
+  //         false,
+  //         null,
+  //         message:
+  //             "Invalid response received from server! Please try again in a minute or two.",
+  //       );
+  //     }
+  //   } on SocketException {
+  //     return HTTPResponse(
+  //       false,
+  //       null,
+  //       message:
+  //           "Unable to reach the internet! Please try again in a minute or two.",
+  //     );
+  //   } on FormatException {
+  //     return HTTPResponse(
+  //       false,
+  //       null,
+  //       message:
+  //           "Invalid response received from server! Please try again in a minute or two.",
+  //     );
+  //   } catch (e) {
+  //     print(e);
+  //     return HTTPResponse(
+  //       false,
+  //       null,
+  //       message: "Something went wrong! Please try again in a minute or two.",
+  //     );
+  //   }
+  // }
 
   static Future<HTTPResponse<CheckoutModel>> checkOut() async {
     String url =
@@ -502,6 +519,12 @@ class ApiHelper {
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
         var res = CheckoutModel.fromJson(body);
+        if(res.logged == null){
+          var res = await reCreateSession();
+          if(res.responseCode == 200){
+            checkOut();
+          }
+        }
         return HTTPResponse(
           true,
           res,
@@ -547,6 +570,12 @@ class ApiHelper {
     );
     if (response.statusCode == 200) {
       var body = jsonDecode(response.body);
+      if(body["logged"] == null){
+        var res = await reCreateSession();
+        if(res.responseCode == 200){
+          paymentMethod();
+        }
+      }
       return body;
     }
   }
@@ -887,7 +916,8 @@ class ApiHelper {
       print("Device Id : $deviceId");
       prefs.setString("device_id", deviceId);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields.addAll({'email': email, 'password': password, 'device_id': deviceId});
+      request.fields.addAll(
+          {'email': email, 'password': password, 'device_id': deviceId});
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
         var body = jsonDecode(await response.stream.bytesToString());
@@ -1054,7 +1084,14 @@ class ApiHelper {
     var response = await http.post(
       Uri.parse(url),
     );
-    return jsonDecode(response.body);
+    var res = jsonDecode(response.body);
+    // if(res["logged"] == null){
+    //   var res = await reCreateSession();
+    //   if(res.responseCode == 200){
+    //     cartCount();
+    //   }
+    // }
+    return res;
   }
 
   static Future<HTTPResponse<HomeFeaturesModel>> getHomeFeatures() async {
@@ -1066,8 +1103,9 @@ class ApiHelper {
       );
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
-        print(body);
+        print("Response Body $body");
         var res = HomeFeaturesModel.fromJson(body);
+        print(res.logged);
         return HTTPResponse(
           true,
           res,
@@ -1144,6 +1182,12 @@ class ApiHelper {
         var body = jsonDecode(await response.stream.bytesToString());
         print(body);
         var res = OrderHistoryModel.fromJson(body);
+        if(res.logged == null){
+          var res = await reCreateSession();
+          if(res.responseCode == 200){
+            getOrders();
+          }
+        }
         return HTTPResponse(
           true,
           res,
@@ -1190,6 +1234,12 @@ class ApiHelper {
         var body = json.decode(await response.stream.bytesToString());
         print(body);
         var res = WishListModel.fromJson(body);
+        if(res.logged == null){
+          var res = await reCreateSession();
+          if(res.responseCode == 200){
+            getWishList();
+          }
+        }
         return HTTPResponse(
           true,
           res,
@@ -1244,8 +1294,7 @@ class ApiHelper {
         "${ApiConstants.baseUrl}${EndPoints.wishList}&api_token=${ApiConstants.jwtToken}";
     try {
       print("product");
-      var response = await http.post(Uri.parse(url),
-          body: json.encode(bodys));
+      var response = await http.post(Uri.parse(url), body: json.encode(bodys));
       // var request = http.MultipartRequest('POST', Uri.parse(url));
       // request.fields.addAll({'remove': "$productId"});
       // http.StreamedResponse response = await request.send();
@@ -1253,6 +1302,9 @@ class ApiHelper {
         var body = json.decode(response.body);
         print(body);
         var res = AddCartModel.fromJson(body);
+        if(res.logged == null){
+
+        }
         return HTTPResponse(
           true,
           res,
@@ -1291,7 +1343,7 @@ class ApiHelper {
   }
 
   static Future<HTTPResponse<ForgotPasswordModel>> forgotPassword(
-      String password, String confirmPassword,String mobileNum) async {
+      String password, String confirmPassword, String mobileNum) async {
     try {
       print("Upgrade password ${{
         'new_password': password.toString(),
@@ -1356,7 +1408,8 @@ class ApiHelper {
     }
   }
 
-  static Future<HTTPResponse<ChangePasswordModel>> updatePassword(String password, String confirmPassword) async {
+  static Future<HTTPResponse<ChangePasswordModel>> updatePassword(
+      String password, String confirmPassword) async {
     try {
       final response = await http.post(
         Uri.parse(
@@ -1374,21 +1427,18 @@ class ApiHelper {
 
       var body = jsonDecode(response.body);
       var res = ChangePasswordModel.fromJson(body);
-      if (response.statusCode == 200)
-      {
+      if (response.statusCode == 200) {
         return HTTPResponse(
           true,
           res,
           responseCode: response.statusCode,
         );
-      }
-      else
-      {
+      } else {
         return HTTPResponse(
           false,
           null,
           message:
-          "Invalid response received from server! Please try again in a minute or two.",
+              "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -1396,14 +1446,14 @@ class ApiHelper {
         false,
         null,
         message:
-        "Unable to reach the internet! Please try again in a minute or two.",
+            "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-        "Invalid response received from server! Please try again in a minute or two.",
+            "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -1415,12 +1465,15 @@ class ApiHelper {
     }
   }
 
-
-  static Future<HTTPResponse<ChangeProfileModel>> accountUpdate(firstName, lastName, emailId, telephone) async
-  {
+  static Future<HTTPResponse<ChangeProfileModel>> accountUpdate(
+      firstName, lastName, emailId, telephone) async {
     try {
-      var response = await http.post(Uri.parse("${ApiConstants.baseUrl}${EndPoints.editAccount}&api_token=${ApiConstants.jwtToken}"),
-        headers: {"Content-Type": "application/x-www-form-urlencoded",},
+      var response = await http.post(
+        Uri.parse(
+            "${ApiConstants.baseUrl}${EndPoints.editAccount}&api_token=${ApiConstants.jwtToken}"),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
         encoding: Encoding.getByName('utf-8'),
         body: {
           'firstname': firstName,
@@ -1433,21 +1486,18 @@ class ApiHelper {
 
       var body = jsonDecode(response.body);
       var res = ChangeProfileModel.fromJson(body);
-      if (response.statusCode == 200)
-      {
+      if (response.statusCode == 200) {
         return HTTPResponse(
           true,
           res,
           responseCode: response.statusCode,
         );
-      }
-      else
-      {
+      } else {
         return HTTPResponse(
           false,
           null,
           message:
-          "Invalid response received from server! Please try again in a minute or two.",
+              "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -1455,14 +1505,14 @@ class ApiHelper {
         false,
         null,
         message:
-        "Unable to reach the internet! Please try again in a minute or two.",
+            "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-        "Invalid response received from server! Please try again in a minute or two.",
+            "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -1473,8 +1523,6 @@ class ApiHelper {
       );
     }
   }
-
-
 
   static Future<HTTPResponse<PaymentAddressSaveModel>>
       existingPaymentAddressSave(formData) async {
@@ -1557,7 +1605,6 @@ class ApiHelper {
     }
     return "0";
   }
-
 
   static addWishList(
       String productId, String optionId, String optionValueId) async {
@@ -1978,7 +2025,8 @@ class ApiHelper {
   static Future<HTTPResponse<accountOtpModel>> accountOtpSend(mobileNum) async {
     try {
       final response = await http.post(
-        Uri.parse("${ApiConstants.baseUrl}${EndPoints.accountOtpSend}&api_token=${ApiConstants.jwtToken}"),
+        Uri.parse(
+            "${ApiConstants.baseUrl}${EndPoints.accountOtpSend}&api_token=${ApiConstants.jwtToken}"),
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -2000,7 +2048,7 @@ class ApiHelper {
           false,
           null,
           message:
-          "Invalid response received from server! Please try again in a minute or two.",
+              "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -2008,14 +2056,14 @@ class ApiHelper {
         false,
         null,
         message:
-        "Unable to reach the internet! Please try again in a minute or two.",
+            "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-        "Invalid response received from server! Please try again in a minute or two.",
+            "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       return HTTPResponse(
@@ -2026,15 +2074,16 @@ class ApiHelper {
     }
   }
 
-  static Future<HTTPResponse<verifyOtpModel>> verifyOtp(otp,mobileNum) async {
+  static Future<HTTPResponse<verifyOtpModel>> verifyOtp(otp, mobileNum) async {
     try {
       final response = await http.post(
-        Uri.parse("${ApiConstants.baseUrl}${EndPoints.verifyOtp}&api_token=${ApiConstants.jwtToken}"),
+        Uri.parse(
+            "${ApiConstants.baseUrl}${EndPoints.verifyOtp}&api_token=${ApiConstants.jwtToken}"),
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
         encoding: Encoding.getByName('utf-8'),
-        body: {"otp": otp,"telephone":mobileNum},
+        body: {"otp": otp, "telephone": mobileNum},
       );
       print({"otp": otp});
       if (response.statusCode == 200) {
@@ -2051,7 +2100,7 @@ class ApiHelper {
           false,
           null,
           message:
-          "Invalid response received from server! Please try again in a minute or two.",
+              "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -2059,14 +2108,14 @@ class ApiHelper {
         false,
         null,
         message:
-        "Unable to reach the internet! Please try again in a minute or two.",
+            "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-        "Invalid response received from server! Please try again in a minute or two.",
+            "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -2078,10 +2127,12 @@ class ApiHelper {
     }
   }
 
-  static Future<HTTPResponse<DeleteAccountModel>> deleteAccount(customerId) async {
+  static Future<HTTPResponse<DeleteAccountModel>> deleteAccount(
+      customerId) async {
     try {
       final response = await http.post(
-        Uri.parse("${ApiConstants.baseUrl}${EndPoints.deleteAccount}&api_token=${ApiConstants.jwtToken}"),
+        Uri.parse(
+            "${ApiConstants.baseUrl}${EndPoints.deleteAccount}&api_token=${ApiConstants.jwtToken}"),
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -2103,7 +2154,7 @@ class ApiHelper {
           false,
           null,
           message:
-          "Invalid response received from server! Please try again in a minute or two.",
+              "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -2111,14 +2162,73 @@ class ApiHelper {
         false,
         null,
         message:
-        "Unable to reach the internet! Please try again in a minute or two.",
+            "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-        "Invalid response received from server! Please try again in a minute or two.",
+            "Invalid response received from server! Please try again in a minute or two.",
+      );
+    } catch (e) {
+      print(e);
+      return HTTPResponse(
+        false,
+        null,
+        message: "Something went wrong! Please try again in a minute or two.",
+      );
+    }
+  }
+
+  static Future<HTTPResponse<ReCreateSessionModel>>
+      reCreateSession() async {
+    try {
+      print("RecreateSession");
+      var prefs = await SharedPreferences.getInstance();
+      String deviceId = prefs.getString("device_id")!;
+      String userToken = prefs.getString("userToken")!;
+      final response = await http.post(
+        Uri.parse(
+            "${ApiConstants.baseUrl}${EndPoints.reCreateSession}&api_token=${ApiConstants.jwtToken}"),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        encoding: Encoding.getByName('utf-8'),
+        body: {"device_id": deviceId, "user_token": userToken},
+      );
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        var body = jsonDecode(response.body);
+        print("Refresh Token Body ${body}");
+        var res = ReCreateSessionModel.fromJson(body);
+        prefs.setString("user_token", res.userToken!);
+        return HTTPResponse(
+          true,
+          res,
+          responseCode: response.statusCode,
+        );
+      } else {
+        return HTTPResponse(
+          false,
+          null,
+          message:
+              "Invalid response received from server! Please try again in a minute or two.",
+        );
+      }
+    } on SocketException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Unable to reach the internet! Please try again in a minute or two.",
+      );
+    } on FormatException {
+      return HTTPResponse(
+        false,
+        null,
+        message:
+            "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);

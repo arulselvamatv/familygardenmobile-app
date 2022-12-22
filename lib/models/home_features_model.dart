@@ -1,6 +1,7 @@
 class HomeFeaturesModel {
   String? code;
   List<Categories>? categories;
+  dynamic logged;
 
   HomeFeaturesModel({this.code, this.categories});
 
@@ -12,6 +13,7 @@ class HomeFeaturesModel {
         categories!.add(new Categories.fromJson(v));
       });
     }
+    logged = null;
   }
 
   Map<String, dynamic> toJson() {

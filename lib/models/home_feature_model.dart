@@ -2,6 +2,7 @@ class HomeFeatureModel {
   String? code;
   List<Vegetables>? vegetables;
   List<Fruits>? fruits;
+  dynamic logged;
 
   HomeFeatureModel({this.code, this.vegetables, this.fruits});
 
@@ -19,6 +20,7 @@ class HomeFeatureModel {
         fruits!.add(Fruits.fromJson(v));
       });
     }
+    logged = null;
   }
 
   Map<String, dynamic> toJson() {

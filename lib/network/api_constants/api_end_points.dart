@@ -94,4 +94,7 @@ class EndPoints {
   static const verifyOtp = "/index.php?route=mobileapi/account/forgotten/otp_verify";
 
   static const deleteAccount = "/index.php?route=mobileapi/account/delete";
+
+
+  static const reCreateSession = "/index.php?route=mobileapi/login_session";
 }
