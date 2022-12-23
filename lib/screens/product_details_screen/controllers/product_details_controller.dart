@@ -65,11 +65,11 @@ class ProductDetailsController extends GetxController {
     if (response.responseCode == 200) {
       print("LOG::::::${response.data!.logged}");
 
-      if (response.data!.logged == null || response.data!.logged == "null") {
-        print("LOG::::::${response.data!.logged}");
-        if (isLoggedIn.value == true) {
-          showAppNotificationNotifierInitial.value = true;
-        } else {
+      // if (response.data!.logged == null || response.data!.logged == "null") {
+      //   print("LOG::::::${response.data!.logged}");
+      //   if (isLoggedIn.value == true) {
+      //     showAppNotificationNotifierInitial.value = true;
+      //   } else {
           productDetails = response.data;
           isImageEmpty.value = true;
           carousalImages.value = (productDetails?.images)!;
@@ -77,16 +77,16 @@ class ProductDetailsController extends GetxController {
           price.value = (productDetails?.price)!;
           offerPrice.value = (productDetails?.special)!;
           favourite.value = (productDetails?.iswishlist)!;
-        }
-      } else {
-        productDetails = response.data;
-        isImageEmpty.value = true;
-        carousalImages.value = (productDetails?.images)!;
-        productDetailLoader.value = false;
-        price.value = (productDetails?.price)!;
-        offerPrice.value = (productDetails?.special)!;
-        favourite.value = (productDetails?.iswishlist)!;
-      }
+        // }
+      // } else {
+      //   productDetails = response.data;
+      //   isImageEmpty.value = true;
+      //   carousalImages.value = (productDetails?.images)!;
+      //   productDetailLoader.value = false;
+      //   price.value = (productDetails?.price)!;
+      //   offerPrice.value = (productDetails?.special)!;
+      //   favourite.value = (productDetails?.iswishlist)!;
+      // }
     }
     update();
   }

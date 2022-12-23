@@ -1,15 +1,18 @@
 class CouponModel {
-  String? error;
+  String? message;
+  String? logged;
 
-  CouponModel({this.error});
+  CouponModel({this.message, this.logged});
 
   CouponModel.fromJson(Map<String, dynamic> json) {
-    error = json['message'];
+    message = json['message'];
+    logged = json['logged'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['message'] = this.error;
+    data['message'] = this.message;
+    data['logged'] = this.logged;
     return data;
   }
 }

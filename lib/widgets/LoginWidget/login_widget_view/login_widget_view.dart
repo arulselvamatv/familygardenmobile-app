@@ -1,9 +1,7 @@
-import 'package:family_garden/screens/login_screen/controller/login_controller.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:family_garden/widgets/LoginWidget/login_widget_controller/login_widget_controller.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../network/api_helper.dart';
 import '../../../routes/app_pages.dart';
 import '../../../screens/account_screen/controllers/account_controller.dart';

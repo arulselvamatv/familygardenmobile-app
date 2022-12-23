@@ -350,13 +350,11 @@ class ApiHelper {
         var body = jsonDecode(response.body);
         print(body);
         var res = AddCartModel.fromJson(body);
-        if(res.logged == null){
+        if (res.logged == null) {
           var res = await reCreateSession();
-          if(res.responseCode == 200){
+          if (res.responseCode == 200) {
             addCart(bodys);
-          }else{
-
-          }
+          } else {}
         }
         return HTTPResponse(
           true,
@@ -369,7 +367,7 @@ class ApiHelper {
           null,
           message:
               "Invalid response received from server! Please try again in a minute or two.",
-        ) ;
+        );
       }
     } on SocketException {
       return HTTPResponse(
@@ -407,9 +405,9 @@ class ApiHelper {
         var body = jsonDecode(response.body);
         print(body);
         var res = CartListModel.fromJson(body);
-        if(res.logged == null){
+        if (res.logged == null) {
           var res = await reCreateSession();
-          if(res.responseCode == 200){
+          if (res.responseCode == 200) {
             cartList();
           }
         }
@@ -519,9 +517,9 @@ class ApiHelper {
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
         var res = CheckoutModel.fromJson(body);
-        if(res.logged == null){
+        if (res.logged == null) {
           var res = await reCreateSession();
-          if(res.responseCode == 200){
+          if (res.responseCode == 200) {
             checkOut();
           }
         }
@@ -576,6 +574,12 @@ class ApiHelper {
           paymentMethod();
         }
       }
+      // if(body["logged"] == null){
+      //   var res = await reCreateSession();
+      //   if(res.responseCode == 200){
+      //     paymentMethod();
+      //   }
+      // }
       return body;
     }
   }
@@ -627,6 +631,12 @@ class ApiHelper {
       if (response.statusCode == 200) {
         var body = jsonDecode(await response.stream.bytesToString());
         var res = PaymentAddressSaveModel.fromJson(body);
+        if (res.logged == null) {
+          var res = await reCreateSession();
+          if (res.responseCode == 200) {
+            paymentAddressSave(formData);
+            }
+        }
         return HTTPResponse(
           true,
           res,
@@ -675,6 +685,12 @@ class ApiHelper {
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
         var res = ShippingMethodModel.fromJson(body);
+        if(res.logged == null){
+          var res = await reCreateSession();
+          if(res.responseCode == 200){
+            shippingMethod();
+          }
+        }
         return HTTPResponse(
           true,
           res,
@@ -728,6 +744,12 @@ class ApiHelper {
 
       if (response.statusCode == 200) {
         var body = jsonDecode(await response.stream.bytesToString());
+        if(body["logged"] == null){
+          var res = await reCreateSession();
+          if(res.responseCode == 200){
+            shippingMethodSave();
+          }
+        }
         return HTTPResponse(
           true,
           null,
@@ -915,12 +937,17 @@ class ApiHelper {
       String deviceId = DateTime.now().microsecondsSinceEpoch.toString();
       print("Device Id : $deviceId");
       prefs.setString("device_id", deviceId);
-      var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields.addAll(
-          {'email': email, 'password': password, 'device_id': deviceId});
+      // var request = http.MultipartRequest('POST', Uri.parse(url));
+      var request = http.Request('POST', Uri.parse(url));
+      request.bodyFields = {
+        'email': email,
+        'password': password,
+        'device_id': deviceId
+      };
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
         var body = jsonDecode(await response.stream.bytesToString());
+        print(body);
         var res = LoginModel.fromJson(body);
         print("User TOken : ${res.userToken}");
         prefs.setString("userToken", res.userToken ?? "");
@@ -952,7 +979,7 @@ class ApiHelper {
             "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
-      print(e);
+      print("Error in login");
       return HTTPResponse(
         false,
         null,
@@ -1041,6 +1068,13 @@ class ApiHelper {
         var body = jsonDecode(await response.stream.bytesToString());
         print(body);
         var res = AddAddressModel.fromJson(body);
+        if(res.logged == 200){
+          var res = await reCreateSession();
+          if(res.responseCode == 200){
+            addAddresses(firstname,
+                address_1, countryId, zoneId, telephone, city, postcode);
+          }
+        }
         return HTTPResponse(
           true,
           res,
@@ -1182,9 +1216,9 @@ class ApiHelper {
         var body = jsonDecode(await response.stream.bytesToString());
         print(body);
         var res = OrderHistoryModel.fromJson(body);
-        if(res.logged == null){
+        if (res.logged == null) {
           var res = await reCreateSession();
-          if(res.responseCode == 200){
+          if (res.responseCode == 200) {
             getOrders();
           }
         }
@@ -1234,9 +1268,9 @@ class ApiHelper {
         var body = json.decode(await response.stream.bytesToString());
         print(body);
         var res = WishListModel.fromJson(body);
-        if(res.logged == null){
+        if (res.logged == null) {
           var res = await reCreateSession();
-          if(res.responseCode == 200){
+          if (res.responseCode == 200) {
             getWishList();
           }
         }
@@ -1302,8 +1336,11 @@ class ApiHelper {
         var body = json.decode(response.body);
         print(body);
         var res = AddCartModel.fromJson(body);
-        if(res.logged == null){
-
+        if (res.logged == null) {
+          var res = await reCreateSession();
+          if (res.responseCode == 200) {
+            removeWishList(productId, optionId, optionValueId);
+          }
         }
         return HTTPResponse(
           true,
@@ -1368,6 +1405,12 @@ class ApiHelper {
 
       var body = jsonDecode(response.body);
       var res = ForgotPasswordModel.fromJson(body);
+      if (res.logged == null) {
+        var res = await reCreateSession();
+        if (res.responseCode == 200) {
+          forgotPassword(password, confirmPassword, mobileNum);
+        }
+      }
       if (response.statusCode == 200) {
         return HTTPResponse(
           true,
@@ -1427,6 +1470,13 @@ class ApiHelper {
 
       var body = jsonDecode(response.body);
       var res = ChangePasswordModel.fromJson(body);
+
+      if (res.logged == null) {
+        var res = await reCreateSession();
+        if (res.responseCode == 200) {
+          updatePassword(password, confirmPassword);
+        }
+      }
       if (response.statusCode == 200) {
         return HTTPResponse(
           true,
@@ -1486,6 +1536,12 @@ class ApiHelper {
 
       var body = jsonDecode(response.body);
       var res = ChangeProfileModel.fromJson(body);
+      if (res.logged == null) {
+        var res = await reCreateSession();
+        if (res.responseCode == 200) {
+          accountUpdate(firstName, lastName, emailId, telephone);
+        }
+      }
       if (response.statusCode == 200) {
         return HTTPResponse(
           true,
@@ -1685,6 +1741,12 @@ class ApiHelper {
         var body = jsonDecode(response.body);
         print(body);
         var res = AccountAddressModel.fromJson(body);
+        if (res.logged == null) {
+          var res = await reCreateSession();
+          if (res.responseCode == 200) {
+            accountAddress();
+          }
+        }
         return HTTPResponse(
           true,
           res,
@@ -1733,6 +1795,12 @@ class ApiHelper {
         var body = jsonDecode(response.body);
         print(body);
         var res = OrderInfoModel.fromJson(body);
+        if (res.logged == null) {
+          var res = await reCreateSession();
+          if (res.responseCode == 200) {
+            getOrder(orderId: orderId);
+          }
+        }
         return HTTPResponse(
           true,
           res,
@@ -1787,7 +1855,9 @@ class ApiHelper {
         print('sub total: ${res.subTotals?.value}');
         print('total: ${res.totals?.value}');
         print('shipping: ${res.shipping?.value}');
-
+        if (res.logged == null) {
+          var res = await reCreateSession();
+        }
         return HTTPResponse(
           true,
           res,
@@ -1851,6 +1921,12 @@ class ApiHelper {
         var body = jsonDecode(response.body);
         print(body);
         var res = CouponModel.fromJson(body);
+        if(res.logged == null){
+          var res = await reCreateSession();
+          if(res.responseCode == 200){
+            getCoupon(couponCode);
+          }
+        }
         return HTTPResponse(
           true,
           res,
@@ -1905,6 +1981,12 @@ class ApiHelper {
 
       var body = jsonDecode(response.body);
       var res = DeleteAddressModel.fromJson(body);
+      if (res.logged == null) {
+        var res = await reCreateSession();
+        if (res.responseCode == 200) {
+          deleteAddress(addressId);
+        }
+      }
       if (response.statusCode == 200) {
         return HTTPResponse(
           true,
@@ -1974,6 +2056,20 @@ class ApiHelper {
         var body = jsonDecode(await response.stream.bytesToString());
         print(body);
         var res = EditAddressModel.fromJson(body);
+        if(res.logged == 200){
+          var res = await reCreateSession();
+          if(res.responseCode ==200){
+            editAddress(
+                addressId,
+                firstname,
+                address_1,
+                countryId,
+                zoneId,
+                telephone,
+                city,
+                postcode);
+          }
+        }
         return HTTPResponse(
           true,
           res,
@@ -2038,6 +2134,12 @@ class ApiHelper {
         var body = jsonDecode(response.body);
         print(body);
         var res = accountOtpModel.fromJson(body);
+        if (res.logged == null) {
+          var res = await reCreateSession();
+          if (res.responseCode == 200) {
+            accountOtpSend(mobileNum);
+          }
+        }
         return HTTPResponse(
           true,
           res,
@@ -2090,6 +2192,12 @@ class ApiHelper {
         var body = jsonDecode(response.body);
         print(body);
         var res = verifyOtpModel.fromJson(body);
+        if (res.logged == null) {
+          var res = await reCreateSession();
+          if (res.responseCode == 200) {
+            verifyOtp(otp, mobileNum);
+          }
+        }
         return HTTPResponse(
           true,
           res,
@@ -2144,6 +2252,12 @@ class ApiHelper {
         var body = jsonDecode(response.body);
         print(body);
         var res = DeleteAccountModel.fromJson(body);
+        if (res.logged == null) {
+          var res = await reCreateSession();
+          if (res.responseCode == 200) {
+            deleteAccount(customerId);
+          }
+        }
         return HTTPResponse(
           true,
           res,
@@ -2181,8 +2295,7 @@ class ApiHelper {
     }
   }
 
-  static Future<HTTPResponse<ReCreateSessionModel>>
-      reCreateSession() async {
+  static Future<HTTPResponse<ReCreateSessionModel>> reCreateSession() async {
     try {
       print("RecreateSession");
       var prefs = await SharedPreferences.getInstance();

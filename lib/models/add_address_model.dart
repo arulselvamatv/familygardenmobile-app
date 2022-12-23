@@ -1,20 +1,21 @@
 class AddAddressModel {
-  AddAddressModel({
-    required this.message,
-    required this.status,
-  });
-  late final String message;
-  late final int status;
+  String? success;
+  int? status;
+  String? logged;
+
+  AddAddressModel({this.success, this.status, this.logged});
 
   AddAddressModel.fromJson(Map<String, dynamic> json) {
-    message = json['message'];
+    success = json['success'];
     status = json['status'];
+    logged = json['logged'];
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['message'] = message;
-    _data['status'] = status;
-    return _data;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['success'] = this.success;
+    data['status'] = this.status;
+    data['logged'] = this.logged;
+    return data;
   }
 }

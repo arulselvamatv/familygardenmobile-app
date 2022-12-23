@@ -47,9 +47,9 @@ class HomeScreenController extends GetxController with RouteAware {
     ApiConstants.jwtToken = res!;
     if (ApiConstants.jwtToken != "") {
        await informationDetails();
-       getHomeSliderDetails();
-       getCategories();
-       getHomeFeatures();
+       await getHomeSliderDetails();
+       await getCategories();
+       await getHomeFeatures();
     }
   }
 

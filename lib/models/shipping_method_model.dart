@@ -16,12 +16,14 @@ class ShippingMethodModel {
     this.shippingMethods,
     this.code,
     this.comment,
+    this.logged,
   });
 
   final String? errorWarning;
   final ShippingMethods? shippingMethods;
   final String? code;
   final String? comment;
+  final String? logged;
 
   factory ShippingMethodModel.fromJson(Map<String, dynamic> json) =>
       ShippingMethodModel(
@@ -32,6 +34,7 @@ class ShippingMethodModel {
             : ShippingMethods.fromJson(json["shipping_methods"]),
         code: json["code"] == null ? null : json["code"],
         comment: json["comment"] == null ? null : json["comment"],
+        logged: json["logged"] == null ? null : json["logged"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -40,6 +43,7 @@ class ShippingMethodModel {
             shippingMethods == null ? null : shippingMethods?.toJson(),
         "code": code == null ? null : code,
         "comment": comment == null ? null : comment,
+        "logged": logged == null ? null : logged,
       };
 }
 

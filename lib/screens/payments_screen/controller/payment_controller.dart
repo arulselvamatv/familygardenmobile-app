@@ -109,6 +109,7 @@ class PaymentController extends GetxController {
   }
 
   codMethod() async {
+    print("sfsdfsf");
     var response = await http.post(Uri.parse(
         '${ApiConstants.baseUrl}/index.php?route=mobileapi/payment/cod/confirm&api_token=${ApiConstants.jwtToken}'));
     // var request = http.Request(
@@ -137,9 +138,13 @@ class PaymentController extends GetxController {
           }
         }
       } else {
+        print("kfdjsfsdf");
         var res = await ApiHelper.paymentMethodSave('cod');
         if (res.responseCode == 200) {
+          print("shbdfskf");
           var checkoutResponse = await ApiHelper.checkOutCODConfirm();
+          print(ApiConstants.jwtToken);
+          print(checkoutResponse.responseCode);
           if (checkoutResponse.responseCode == 200) {
             // paymentRes = checkoutResponse.data!;
             codMethod();

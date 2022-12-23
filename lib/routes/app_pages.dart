@@ -7,8 +7,6 @@ import 'package:family_garden/screens/change_password_screen/binding/change_pass
 import 'package:family_garden/screens/dashboard/views/dashboard_view.dart';
 import 'package:family_garden/screens/initiate_payment_screen/binding/initiate_payment_binding.dart';
 import 'package:family_garden/screens/initiate_payment_screen/view/initiate_payment_view.dart';
-import 'package:family_garden/screens/login_view/binding/login_binding.dart';
-import 'package:family_garden/screens/login_view/view/login_view.dart';
 import 'package:family_garden/screens/manage_address_screen/binding/manage_address_binding.dart';
 import 'package:family_garden/screens/manage_address_screen/view/manage_address_view.dart';
 import 'package:family_garden/screens/order_success_screen/binding/order_success_binding.dart';
@@ -79,11 +77,6 @@ class AppPages {
       name: _Paths.LOGIN,
       page: () => AccountLoginView(),
       binding: AccountBinding(),
-    ),
-    GetPage(
-      name: _Paths.LOGIN_VIEW,
-      page: () => LoginView(),
-      binding: LoginBinding(),
     ),
     GetPage(
       name: _Paths.VERIFY_OTP,

@@ -58,17 +58,17 @@ class CartController extends GetxController {
     var response = await ApiHelper.cartList();
     if (response.isSuccessFul) {
       products.value = response.data!;
-      if (products.value.logged == null || products.value.logged == "null") {
-        if (isLoggedIn.value == true) {
-          showAppNotificationNotifierInitial.value = true;
-        } else {
-          isProductsLoader.value = false;
-          getListDatas();
-        }
-      } else {
+      // if (products.value.logged == null || products.value.logged == "null") {
+      //   if (isLoggedIn.value == true) {
+      //     showAppNotificationNotifierInitial.value = true;
+      //   } else {
+      //     isProductsLoader.value = false;
+      //     getListDatas();
+      //   }
+      // } else {
         isProductsLoader.value = false;
         getListDatas();
-      }
+      // }
     }
     update();
   }
@@ -76,7 +76,7 @@ class CartController extends GetxController {
   Future<String> getCoupon(String couponCode) async {
     var response = await ApiHelper.getCoupon(couponCode);
     // print("Coupon Data ${response.data?.error}");
-    return response.data?.error ?? "";
+    return response.message ?? "";
   }
 
   Future<int> hitAddCartAPI() async {
