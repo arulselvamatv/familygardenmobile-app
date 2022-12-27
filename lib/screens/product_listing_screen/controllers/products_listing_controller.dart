@@ -183,8 +183,7 @@ class ProductListingController extends GetxController {
         "action": "ADD"
       });
     } else {
-      productData.value["product_info"]
-          ?.add({"product_id": productId[index], "qty": 1, "action": "ADD"});
+
     }
   }
 

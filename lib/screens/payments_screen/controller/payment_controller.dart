@@ -109,7 +109,6 @@ class PaymentController extends GetxController {
   }
 
   codMethod() async {
-    print("sfsdfsf");
     var response = await http.post(Uri.parse(
         '${ApiConstants.baseUrl}/index.php?route=mobileapi/payment/cod/confirm&api_token=${ApiConstants.jwtToken}'));
     // var request = http.Request(
@@ -118,9 +117,16 @@ class PaymentController extends GetxController {
     // request.headers.addAll(headers);
     if (response.statusCode == 200) {
       var body = json.decode(response.body);
-      if (body["order_id"] != null) {
-        Get.offAndToNamed(Routes.ORDER_SUCCESS_SCREEN,
-            arguments: body["order_id"]);
+      if(body["logged"] != null || body["logged"] != ""){
+        if (body["order_id"] != null) {
+          Get.offAndToNamed(Routes.ORDER_SUCCESS_SCREEN,
+              arguments: body["order_id"]);
+        }
+      }else{
+        var res =await  ApiHelper.reCreateSession();
+        if(res.responseCode == 200){
+          codMethod();
+        }
       }
     }
   }

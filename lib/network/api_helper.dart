@@ -54,7 +54,7 @@ class ApiHelper {
           "Content-Type": "application/x-www-form-urlencoded",
         },
         encoding: Encoding.getByName('utf-8'),
-        body: {"key": ApiConstants.key},
+        body: {"key": ApiConstants.getTokenkey},
       );
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
@@ -70,7 +70,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -78,14 +78,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       return HTTPResponse(
@@ -118,7 +118,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -126,14 +126,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       return HTTPResponse(
@@ -165,7 +165,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -173,14 +173,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       return HTTPResponse(
@@ -211,7 +211,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -219,14 +219,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -259,7 +259,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -267,14 +267,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -308,7 +308,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -316,14 +316,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       return HTTPResponse(
@@ -366,7 +366,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -374,14 +374,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -421,7 +421,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -429,14 +429,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -533,7 +533,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -541,14 +541,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -593,28 +593,28 @@ class ApiHelper {
               "${ApiConstants.baseUrl}${EndPoints.paymentAddressSave}&api_token=${ApiConstants.jwtToken}"));
       request.bodyFields = {
         'firstname':
-            formData["firstname"] == "" && formData["firstname"] == null
-                ? "deepa "
-                : formData["firstname"],
+        formData["firstname"] == "" && formData["firstname"] == null
+            ? "deepa "
+            : formData["firstname"],
         'lastname': formData["lastname"] == "" && formData["lastname"] == null
             ? "g"
             : formData["lastname"],
         'address_1':
-            formData["address_1"] == "" && formData["address_1"] == null
-                ? "chennai"
-                : formData["address_1"],
+        formData["address_1"] == "" && formData["address_1"] == null
+            ? "chennai"
+            : formData["address_1"],
         'city': formData["city"] == "" && formData["city"] == null
             ? "chennai"
             : formData["city"],
         'postcode': "600017",
         'telephone':
-            formData["telephone"] == "" && formData["telephone"] == null
-                ? "8097700316"
-                : formData["telephone"],
+        formData["telephone"] == "" && formData["telephone"] == null
+            ? "8097700316"
+            : formData["telephone"],
         'address_2':
-            formData["address_2"] == "" && formData["address_2"] == null
-                ? "chennai"
-                : formData["address_2"],
+        formData["address_2"] == "" && formData["address_2"] == null
+            ? "chennai"
+            : formData["address_2"],
         'company': formData["company"] == "" && formData["company"] == null
             ? "atv"
             : formData["company"],
@@ -635,7 +635,7 @@ class ApiHelper {
           var res = await reCreateSession();
           if (res.responseCode == 200) {
             paymentAddressSave(formData);
-            }
+          }
         }
         return HTTPResponse(
           true,
@@ -647,7 +647,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -655,14 +655,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -701,7 +701,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -709,14 +709,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -729,7 +729,7 @@ class ApiHelper {
   }
 
   static Future<HTTPResponse<ShippingMethodSaveModel>>
-      shippingMethodSave() async {
+  shippingMethodSave() async {
     try {
       var request = http.Request(
           'POST',
@@ -760,7 +760,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -768,14 +768,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -806,7 +806,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -814,14 +814,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(" sdasd $e");
@@ -854,7 +854,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -862,14 +862,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print("sdfsdf $e");
@@ -882,7 +882,7 @@ class ApiHelper {
   }
 
   static Future<HTTPResponse<CheckoutConfirmCODModel>>
-      checkOutCODConfirm() async {
+  checkOutCODConfirm() async {
     String url =
         "${ApiConstants.baseUrl}${EndPoints.checkoutConfirm}&api_token=${ApiConstants.jwtToken}";
     try {
@@ -902,7 +902,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -910,14 +910,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -961,7 +961,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -969,14 +969,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print("Error in login");
@@ -1017,7 +1017,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -1025,14 +1025,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -1085,7 +1085,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -1093,14 +1093,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -1150,7 +1150,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -1158,14 +1158,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -1232,7 +1232,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -1240,14 +1240,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       return HTTPResponse(
@@ -1284,7 +1284,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -1292,14 +1292,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       return HTTPResponse(
@@ -1352,7 +1352,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -1360,14 +1360,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -1422,7 +1422,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -1430,14 +1430,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print("Upgrade password1");
@@ -1488,7 +1488,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -1496,14 +1496,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -1553,7 +1553,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -1561,14 +1561,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -1581,7 +1581,7 @@ class ApiHelper {
   }
 
   static Future<HTTPResponse<PaymentAddressSaveModel>>
-      existingPaymentAddressSave(formData) async {
+  existingPaymentAddressSave(formData) async {
     try {
       var request = http.Request(
           'POST',
@@ -1610,7 +1610,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -1618,14 +1618,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -1687,12 +1687,12 @@ class ApiHelper {
   }
 
   static Future<HTTPResponse<informationDetailsModel>>
-      informationDetails() async {
+  informationDetails() async {
     String url =
         "${ApiConstants.baseUrl}${EndPoints.informationDetails}&api_token=${ApiConstants.jwtToken}";
     try {
       var response =
-          await http.post(Uri.parse(url), body: {'information_id': '10'});
+      await http.post(Uri.parse(url), body: {'information_id': '10'});
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
         var res = informationDetailsModel.fromJson(body);
@@ -1706,7 +1706,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -1714,14 +1714,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       return HTTPResponse(
@@ -1757,7 +1757,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -1765,14 +1765,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -1790,7 +1790,7 @@ class ApiHelper {
         "${ApiConstants.baseUrl}${EndPoints.getOrdersEndpoint}&api_token=${ApiConstants.jwtToken}";
     try {
       var response =
-          await http.post(Uri.parse(url), body: {'order_id': '$orderId'});
+      await http.post(Uri.parse(url), body: {'order_id': '$orderId'});
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
         print(body);
@@ -1811,7 +1811,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -1819,14 +1819,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print("e $e");
@@ -1847,7 +1847,7 @@ class ApiHelper {
       print(orderId);
 
       var response =
-          await http.post(Uri.parse(url), body: {'order_id': '$orderId'});
+      await http.post(Uri.parse(url), body: {'order_id': '$orderId'});
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
         print(body);
@@ -1868,7 +1868,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -1876,14 +1876,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print("e $e");
@@ -1937,7 +1937,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -1945,14 +1945,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       return HTTPResponse(
@@ -1998,7 +1998,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -2006,14 +2006,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -2080,7 +2080,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -2088,14 +2088,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -2150,7 +2150,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -2158,14 +2158,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       return HTTPResponse(
@@ -2208,7 +2208,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -2216,14 +2216,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -2268,7 +2268,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -2276,14 +2276,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);
@@ -2326,7 +2326,7 @@ class ApiHelper {
           false,
           null,
           message:
-              "Invalid response received from server! Please try again in a minute or two.",
+          "Invalid response received from server! Please try again in a minute or two.",
         );
       }
     } on SocketException {
@@ -2334,14 +2334,14 @@ class ApiHelper {
         false,
         null,
         message:
-            "Unable to reach the internet! Please try again in a minute or two.",
+        "Unable to reach the internet! Please try again in a minute or two.",
       );
     } on FormatException {
       return HTTPResponse(
         false,
         null,
         message:
-            "Invalid response received from server! Please try again in a minute or two.",
+        "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
       print(e);

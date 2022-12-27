@@ -147,6 +147,8 @@ class Breadcrumbs {
 class Products {
   String? productId;
   List<Option>? option;
+  String? selectedProductOptionId;
+  String? selectedProductOptionValueId;
   String? thumb;
   String? name;
   String? pnameTamil;
@@ -165,6 +167,8 @@ class Products {
 
   Products(
       {this.productId,
+      this.selectedProductOptionId,
+      this.selectedProductOptionValueId,
       this.option,
       this.counter,
       this.thumb,
@@ -184,6 +188,8 @@ class Products {
 
   Products.fromJson(Map<String, dynamic> json) {
     productId = json['product_id'];
+    selectedProductOptionId = "";
+    selectedProductOptionValueId = "";
     if (json['option'] != null) {
       option = <Option>[];
       json['option'].forEach((v) {

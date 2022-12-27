@@ -462,19 +462,8 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                       return GestureDetector(
                                         onTap: () {
                                           controller.hitAddCartAPI();
-                                          Get.toNamed(
-                                              Routes.PRODUCT_LISTING_SCREEN,
-                                              arguments: [
-                                                index,
-                                                controller.categoryList[index]
-                                                    .categoryId
-                                              ])?.then((value) {
-                                            controller.getHomeFeatures();
-                                            Get.find<DashboardController>()
-                                                .getCartCount();
-                                          });
                                           // Get.toNamed(
-                                          //     Routes.PRODUCT_LIST_SCREEN,
+                                          //     Routes.PRODUCT_LISTING_SCREEN,
                                           //     arguments: [
                                           //       index,
                                           //       controller.categoryList[index]
@@ -484,6 +473,17 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                           //   Get.find<DashboardController>()
                                           //       .getCartCount();
                                           // });
+                                          Get.toNamed(
+                                              Routes.PRODUCT_LIST_SCREEN,
+                                              arguments: [
+                                                index,
+                                                controller.categoryList[index]
+                                                    .categoryId
+                                              ])?.then((value) {
+                                            controller.getHomeFeatures();
+                                            Get.find<DashboardController>()
+                                                .getCartCount();
+                                          });
                                         },
                                         child: Container(
                                           child: Column(
@@ -555,7 +555,6 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                         controller.categoryList.value.length),
                           )),
                       AppSize.size.h30,
-
                       Obx(() => controller.ishomeFeatureLoader.value
                           ? Center(child: CircularProgressIndicator())
                           : ListView.separated(
