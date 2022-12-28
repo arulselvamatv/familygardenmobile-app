@@ -17,7 +17,6 @@ class ProfileController extends GetxController {
   RxString lastName = "".obs;
   RxString emailId = "".obs;
   RxString telephone = "".obs;
-  ValueNotifier<bool> showAppNotificationNotifierInitial = ValueNotifier(false);
 
   @override
   void onInit() async {
@@ -52,17 +51,9 @@ class ProfileController extends GetxController {
 
     if (response.isSuccessFul)
     {
-      if (response.data!.logged == null || response.data!.logged == "null")
-      {
-        print("LOG::::::${response.data!.logged }");
-        Navigator.of(Get.context!).pop();
-        showAppNotificationNotifierInitial.value = true;
-      }
-      else
-      {
+
         Get.snackbar('success', "Your password has been updated successfully!");
         Navigator.of(Get.context!).pop();
-      }
 
     }
   }
@@ -72,13 +63,7 @@ class ProfileController extends GetxController {
 
     if (response.isSuccessFul)
     {
-      if (response.data!.logged == null || response.data!.logged == "null")
-      {
-        print("LOG111::::::${response.data!.logged }");
-        showAppNotificationNotifierInitial.value = true;
-      }
-      else
-      {
+
         print("LOG222::::::${response.data!.logged }");
         print("Status of edit profile ${response.data!.status}");
         if (response.data!.status == 1) {
@@ -103,7 +88,6 @@ class ProfileController extends GetxController {
             content: Text(response.data!.message ?? ""),
           ));
         }
-      }
     }
   }
 }

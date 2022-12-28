@@ -5,7 +5,6 @@ import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:family_garden/widgets/LoginWidget/pop_up_notification_view.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../routes/app_pages.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
 import '../../dashboard/controllers/dashboard_controller.dart';
@@ -67,53 +66,21 @@ class CartView extends GetView<CartController> {
             ),
           ),
           body: Obx(
-            () => Stack(
-              children: [
-                Container(
-                  height: Get.height,
-                  width: Get.width,
-                  decoration: const BoxDecoration(
-                      color: Color(0xffFFFFFF),
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(30),
-                        topLeft: Radius.circular(30),
-                      )),
-                  child: controller.isProductsLoader.value
-                      ? const Center(child: CircularProgressIndicator())
-                      : controller.productListLength.value <= 0 ||
-                              controller.counterList.value.isEmpty
-                          ? cartEmptyDesign(context)
-                          : cartDatasDesign(context),
-                ),
-                ValueListenableBuilder<bool>(
-                  valueListenable:
-                      controller.showAppNotificationNotifierInitial,
-                  builder: (context, value, child) {
-                    print(
-                        "HomeBooksView :: showAppNotificationNotifier $value :: ${MediaQuery.of(context).size}");
-                    return AnimatedPositioned(
-                      top: value ? 0 : -Get.width - 1000,
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.easeInCubic,
-                      child: PopUpNotificationView(
-                        onClosePressed: () async {
-                          print(ApiConstants.jwtToken);
-                          var prefs = await SharedPreferences.getInstance();
-                          prefs.clear();
-                          var response = await ApiHelper.getToken();
-                          if (response.data?.apiToken != null) {
-                            SetLocalDatas.setToken((response.data?.apiToken)!);
-                            print(ApiConstants.jwtToken);
-                            Navigator.pop(context);
-                            Get.offAndToNamed(Routes.LOGIN_VIEW);
-                            // Get.toNamed(Routes.LOGIN_VIEW);
-                          }
-                        },
-                      ),
-                    );
-                  },
-                ),
-              ],
+            () => Container(
+              height: Get.height,
+              width: Get.width,
+              decoration: const BoxDecoration(
+                  color: Color(0xffFFFFFF),
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(30),
+                    topLeft: Radius.circular(30),
+                  )),
+              child: controller.isProductsLoader.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : controller.productListLength.value <= 0 ||
+                          controller.counterList.value.isEmpty
+                      ? cartEmptyDesign(context)
+                      : cartDatasDesign(context),
             ),
           )),
     );

@@ -61,245 +61,214 @@ class ManageAddressView extends GetView<ManageAddressController> {
           ),
         ),
         body: Obx(
-          () => Stack(
-            children: [
-              Container(
-                  height: Get.height,
-                  width: Get.width,
-                  decoration: const BoxDecoration(
-                      color: Color(0xffFFFFFF),
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(30),
-                        topLeft: Radius.circular(30),
-                      )),
-                  child: controller.isLoader.value
-                      ? controller.isEmptyAddress.value
-                          ? Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Center(
-                                  child: Text("Add Address to continue"),
-                                ),
-                              ],
-                            )
-                          : Column(
-                              children: [
-                                GetBuilder<ManageAddressController>(
-                                  builder: (value) => Expanded(
-                                      child: SingleChildScrollView(
-                                    child: Column(
-                                      children: [
-                                        SizedBox(
-                                          height: 32,
-                                        ),
-                                        Container(
-                                          decoration: const BoxDecoration(
-                                              color: Color(0xffFFFFFF),
-                                              borderRadius: BorderRadius.only(
-                                                topRight: Radius.circular(30),
-                                                topLeft: Radius.circular(30),
-                                              )),
-                                          child: ListView.separated(
-                                            scrollDirection: Axis.vertical,
-                                            physics:
-                                                NeverScrollableScrollPhysics(),
-                                            shrinkWrap: true,
-                                            itemCount: controller.addresses
-                                                    .value.addresses?.length ??
-                                                0,
-                                            padding: EdgeInsets.only(
-                                                bottom: 30, top: 10),
-                                            itemBuilder: (context, index) {
-                                              return Column(
-                                                children: [
-                                                  SizedBox(
-                                                    width: Get.width,
-                                                    child: Container(
-                                                      height: 150,
-                                                      width: Get.width,
-                                                      color: Colors.white,
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                left: 16.0,
-                                                                top: 17),
-                                                        child: Column(
+          () => Container(
+              height: Get.height,
+              width: Get.width,
+              decoration: const BoxDecoration(
+                  color: Color(0xffFFFFFF),
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(30),
+                    topLeft: Radius.circular(30),
+                  )),
+              child: controller.isLoader.value
+                  ? controller.isEmptyAddress.value
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Center(
+                              child: Text("Add Address to continue"),
+                            ),
+                          ],
+                        )
+                      : Column(
+                          children: [
+                            GetBuilder<ManageAddressController>(
+                              builder: (value) => Expanded(
+                                  child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 32,
+                                    ),
+                                    Container(
+                                      decoration: const BoxDecoration(
+                                          color: Color(0xffFFFFFF),
+                                          borderRadius: BorderRadius.only(
+                                            topRight: Radius.circular(30),
+                                            topLeft: Radius.circular(30),
+                                          )),
+                                      child: ListView.separated(
+                                        scrollDirection: Axis.vertical,
+                                        physics:
+                                            NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount: controller.addresses
+                                                .value.addresses?.length ??
+                                            0,
+                                        padding: EdgeInsets.only(
+                                            bottom: 30, top: 10),
+                                        itemBuilder: (context, index) {
+                                          return Column(
+                                            children: [
+                                              SizedBox(
+                                                width: Get.width,
+                                                child: Container(
+                                                  height: 150,
+                                                  width: Get.width,
+                                                  color: Colors.white,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets
+                                                                .only(
+                                                            left: 16.0,
+                                                            top: 17),
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Row(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
                                                                   .start,
                                                           children: [
-                                                            Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                SizedBox(
-                                                                  width:
-                                                                      Get.width /
-                                                                          2,
-                                                                  child: Html(
-                                                                      data: controller
+                                                            SizedBox(
+                                                              width:
+                                                                  Get.width /
+                                                                      2,
+                                                              child: Html(
+                                                                  data: controller
+                                                                      .addresses
+                                                                      .value
+                                                                      .addresses?[
+                                                                          index]
+                                                                      .address,
+                                                                  shrinkWrap:
+                                                                      true),
+                                                            ),
+                                                            Container(
+                                                              height: 40,
+                                                              width: 100,
+                                                              child: Row(
+                                                                children: [
+                                                                  GestureDetector(
+                                                                    onTap:
+                                                                        () {
+                                                                      Get.toNamed(Routes.ADDADDRESS, arguments: controller.addresses.value.addresses?[index].addressId)?.then((value) =>
+                                                                          controller.getAccountAddresses());
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      height:
+                                                                          40,
+                                                                      width:
+                                                                          40,
+                                                                      child:
+                                                                          SvgPicture.asset("assets/icons/edit_address.svg"),
+                                                                    ),
+                                                                  ),
+                                                                  GestureDetector(
+                                                                    onTap:
+                                                                        () async {
+                                                                      print(controller
                                                                           .addresses
                                                                           .value
-                                                                          .addresses?[
-                                                                              index]
-                                                                          .address,
-                                                                      shrinkWrap:
-                                                                          true),
-                                                                ),
-                                                                Container(
-                                                                  height: 40,
-                                                                  width: 100,
-                                                                  child: Row(
-                                                                    children: [
-                                                                      GestureDetector(
-                                                                        onTap:
-                                                                            () {
-                                                                          Get.toNamed(Routes.ADDADDRESS, arguments: controller.addresses.value.addresses?[index].addressId)?.then((value) =>
-                                                                              controller.getAccountAddresses());
-                                                                        },
-                                                                        child:
-                                                                            Container(
-                                                                          height:
-                                                                              40,
-                                                                          width:
-                                                                              40,
-                                                                          child:
-                                                                              SvgPicture.asset("assets/icons/edit_address.svg"),
-                                                                        ),
+                                                                          .addresses?[index]
+                                                                          .addressId);
+                                                                      var res = await ApiHelper.deleteAddress((controller
+                                                                          .addresses
+                                                                          .value
+                                                                          .addresses?[index]
+                                                                          .addressId)!);
+                                                                      print(
+                                                                          res.responseCode);
+                                                                      if (res.responseCode ==
+                                                                          200) {
+                                                                        controller.addresses.value.addresses?.removeAt(index);
+                                                                        if ((controller.addresses.value.addresses?.isEmpty)!) {
+                                                                          controller.isEmptyAddress.value = true;
+                                                                        }
+                                                                        controller.update();
+                                                                        controller.addresses.refresh();
+                                                                      }
+                                                                    },
+                                                                    child:
+                                                                        SizedBox(
+                                                                      height:
+                                                                          25,
+                                                                      width:
+                                                                          25,
+                                                                      child:
+                                                                          SvgPicture.asset(
+                                                                        "assets/icons/delete_address.svg",
+                                                                        height:
+                                                                            25,
+                                                                        width:
+                                                                            25,
                                                                       ),
-                                                                      GestureDetector(
-                                                                        onTap:
-                                                                            () async {
-                                                                          print(controller
-                                                                              .addresses
-                                                                              .value
-                                                                              .addresses?[index]
-                                                                              .addressId);
-                                                                          var res = await ApiHelper.deleteAddress((controller
-                                                                              .addresses
-                                                                              .value
-                                                                              .addresses?[index]
-                                                                              .addressId)!);
-                                                                          print(
-                                                                              res.responseCode);
-                                                                          if (res.responseCode ==
-                                                                              200) {
-                                                                            controller.addresses.value.addresses?.removeAt(index);
-                                                                            if ((controller.addresses.value.addresses?.isEmpty)!) {
-                                                                              controller.isEmptyAddress.value = true;
-                                                                            }
-                                                                            controller.update();
-                                                                            controller.addresses.refresh();
-                                                                          }
-                                                                        },
-                                                                        child:
-                                                                            SizedBox(
-                                                                          height:
-                                                                              25,
-                                                                          width:
-                                                                              25,
-                                                                          child:
-                                                                              SvgPicture.asset(
-                                                                            "assets/icons/delete_address.svg",
-                                                                            height:
-                                                                                25,
-                                                                            width:
-                                                                                25,
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ],
+                                                                    ),
                                                                   ),
-                                                                )
-                                                              ],
-                                                            ),
+                                                                ],
+                                                              ),
+                                                            )
                                                           ],
                                                         ),
-                                                      ),
+                                                      ],
                                                     ),
                                                   ),
-                                                  Divider()
-                                                ],
-                                              );
-                                            },
-                                            separatorBuilder: (context, index) {
-                                              return SizedBox(
-                                                height: 0,
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )),
-                                ),
-                                Container(
-                                  height: 20,
-                                  width: Get.width,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20),
-                                  child: SizedBox(
-                                    height: 50,
-                                    width: Get.width,
-                                    child: ElevatedButton(
-                                        onPressed: () {
-                                          controller.addAddressBtn(context);
+                                                ),
+                                              ),
+                                              Divider()
+                                            ],
+                                          );
                                         },
-                                        style: ElevatedButton.styleFrom(
-                                            backgroundColor: AppColors.primaryColor,
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(13))),
-                                        child: TextWidget(
-                                          'Add Address',
-                                          color: AppColors.white,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 14,
-                                        )),
-                                  ),
+                                        separatorBuilder: (context, index) {
+                                          return SizedBox(
+                                            height: 0,
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                SizedBox(
-                                  height: 20,
-                                )
-                              ],
+                              )),
+                            ),
+                            Container(
+                              height: 20,
+                              width: Get.width,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20),
+                              child: SizedBox(
+                                height: 50,
+                                width: Get.width,
+                                child: ElevatedButton(
+                                    onPressed: () {
+                                      controller.addAddressBtn(context);
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: AppColors.primaryColor,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(13))),
+                                    child: TextWidget(
+                                      'Add Address',
+                                      color: AppColors.white,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14,
+                                    )),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
                             )
-                      : Center(child: CircularProgressIndicator())),
-              ValueListenableBuilder<bool>(
-                valueListenable: controller.showAppNotificationNotifierInitial,
-                builder: (context, value, child) {
-                  print(
-                      "HomeBooksView :: showAppNotificationNotifier $value :: ${MediaQuery.of(context).size}");
-                  return AnimatedPositioned(
-                    top: value ? 0 : -Get.width - 1000,
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.easeInCubic,
-                    child: PopUpNotificationView(
-                      onClosePressed: () async {
-                        print(ApiConstants.jwtToken);
-                        var prefs = await SharedPreferences.getInstance();
-                        prefs.clear();
-                        var response = await ApiHelper.getToken();
-                        if (response.data?.apiToken != null) {
-                          SetLocalDatas.setToken((response.data?.apiToken)!);
-                          print(ApiConstants.jwtToken);
-                          Navigator.pop(context);
-                          Get.offAndToNamed(Routes.LOGIN_VIEW);
-                          Get.toNamed(Routes.LOGIN_VIEW);
-                        }
-                      },
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
+                          ],
+                        )
+                  : Center(child: CircularProgressIndicator())),
         ),
       ),
     );

@@ -18,7 +18,6 @@ class WishListScreenController extends GetxController {
   RxBool isProductLoader = true.obs;
   var productData = {"product_info": []}.obs;
   RxString cartCount = "".obs;
-  ValueNotifier<bool> showAppNotificationNotifierInitial = ValueNotifier(false);
 
   @override
   void onInit() async {
@@ -27,25 +26,14 @@ class WishListScreenController extends GetxController {
     getWishlists();
   }
 
-
   Future<void> getWishlists() async {
     products.clear();
     var response = await ApiHelper.getWishList();
     print(response.data?.toString());
-    if (response.responseCode == 200)
-    {
-      print("LOG::::::${response.data!.logged}");
-      if (response.data!.logged == null || response.data!.logged == "null")
-      {
-        print("LOG::::::${response.data!.logged}");
-        showAppNotificationNotifierInitial.value = true;
-      }
-      else
-      {
-        products.value = response.data!.products!;
-        print("dfgfg ${products.value.length}" + "");
-        // products.addAll(response.data!.products!);
-      }
+    if (response.responseCode == 200) {
+      products.value = response.data!.products!;
+      print("dfgfg ${products.value.length}" + "");
+      // products.addAll(response.data!.products!);
     }
     isProductLoader.value = false;
     update();

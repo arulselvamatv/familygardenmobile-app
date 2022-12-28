@@ -43,10 +43,6 @@ class ProductListController extends GetxController {
 
   getCategoryProduct(categoryId, page, {bool? fg = false}) async {
     print("sdfsdfsff $page");
-    // if(onPageChange.value !=1){
-    //   .value = false;
-    //   update();
-    // }
     var response = await ApiHelper.getProductCategory(categoryId, page);
     if (response.responseCode == 200) {
       if (onPageChange.value == 1) {
@@ -81,18 +77,25 @@ class ProductListController extends GetxController {
   getCartCount() async {
     var response = await ApiHelper.cartCount();
     cartCount.value = int.parse(response["text_items"]);
-    cartCount.refresh();
-    update();
+    refresh();
+    // update();
   }
 
-  void categoriesOnTap(int index) {
+  void categoriesOnTap(int index) async{
     products.value.clear();
     onPageChange.value = 1;
     categoriesIndex.value = index;
     isProductLoader.value = true;
     categoryId.value = (categoriesList.value[index].categoryId)!;
-    getCategoryProduct(
-        categoriesList.value[index].categoryId, onPageChange.value);
+    int isSuccess = await hitAddCartAPI();
+    if(isSuccess == 0){
+      productData.value = {"product_info": []};
+      getCategoryProduct(
+          categoriesList.value[index].categoryId, onPageChange.value);
+    }else{
+      getCategoryProduct(
+          categoriesList.value[index].categoryId, onPageChange.value);
+    }
     title.value = (categoriesList.value[index].name)!;
     update();
   }
@@ -105,52 +108,173 @@ class ProductListController extends GetxController {
     update();
   }
 
-  cartBtn(int index, String functionality) {
-    if (products[index].counter == 0) {
-      if (products[index].option?.isNotEmpty ?? false) {
-        productData.value["product_info"]?.add({
-          "product_id": products.value[index].productId,
-          "qty": 1,
-          "product_option_id":
-              products.value[index].selectedProductOptionId == ""
-                  ? products.value[index].selectedProductOptionId
-                  : products.value[index].selectedProductOptionId,
-          "prodcut_option_value_id":
-              products.value[index].selectedProductOptionValueId == ""
-                  ? products.value[index].selectedProductOptionValueId
-                  : products.value[index].selectedProductOptionValueId,
-          "action": "ADD"
-        });
-      } else {
-        productData.value["product_info"]?.add({
-          "product_id": products.value[index].productId,
-          "qty": 1,
-          "action": "ADD"
-        });
-      }
-      products.value[index].counter = products.value[index].counter! + 1;
+  addCart(index) {
+    if (products[index].option?.isNotEmpty ?? false) {
+      productData.value["product_info"]?.add({
+        "product_id": products.value[index].productId,
+        "qty": 1,
+        "product_option_id": products.value[index].selectedProductOptionId != ""
+            ? products.value[index].selectedProductOptionId
+            : products.value[index].option?[0].productOptionId,
+        "prodcut_option_value_id":
+            products.value[index].selectedProductOptionValueId != ""
+                ? products.value[index].selectedProductOptionValueId
+                : products.value[index].option?[0].productOptionValue?[0].productOptionValueId,
+        "action": "ADD"
+      });
     } else {
-      print(functionality);
-      if (functionality == "ADD") {
-        products.value[index].counter = products.value[index].counter! + 1;
-        if(products.value[index].option?.isNotEmpty ?? false){
-          print("product data is not empty");
-          if(products.value[index].selectedProductOptionId != ""){
-            print("selected dropdown");
-            var indexx = productData.value["product_info"]?.indexWhere((element) => element["product_id"] == products.value[index].productId);
-            print(indexx);
-          }else{
-            // var indexx = productData.value["product_info"]?.indexWhere((element) => element["product_id"] == products.value[index].productId);
-          }
-        }else{
-          print("Datea");
-        }
-      }else{
-        products.value[index].counter = products.value[index].counter! - 1;
+      productData.value["product_info"]?.add({
+        "product_id": products.value[index].productId,
+        "qty": 1,
+        "action": "ADD"
+      });
+    }
+  }
+
+  minusCart(index) {
+    if (products[index].option?.isNotEmpty ?? false) {
+      productData.value["product_info"]?.add({
+        "product_id": products.value[index].productId,
+        "qty": 1,
+        "product_option_id": products.value[index].selectedProductOptionId != ""
+            ? products.value[index].selectedProductOptionId
+            : products.value[index].option?[0].productOptionId,
+        "prodcut_option_value_id":
+            products.value[index].selectedProductOptionValueId != ""
+                ? products.value[index].selectedProductOptionValueId
+                : products.value[index].option?[0].productOptionValue?[0].productOptionValueId,
+        "action": "MINUS"
+      });
+    } else {
+      productData.value["product_info"]?.add({
+        "product_id": products.value[index].productId,
+        "qty": 1,
+        "action": "MINUS"
+      });
+    }
+  }
+
+  addCartBtn(int index, String purpose){
+    print(purpose);
+    if(purpose == "ADD"){
+      addData(index);
+      products[index].counter = products[index].counter! + 1;
+    }else{
+      removeData(index);
+      products[index].counter = products[index].counter! - 1;
+      if(products[index].counter == 0){
+        cartCount.value = cartCount.value  - 1;
       }
     }
     products.refresh();
     update();
-    print(productData.value);
+    print(productData);
   }
+
+  Future<int> hitAddCartAPI() async {
+    if ((productData.value["product_info"]?.length)! > 0) {
+      var response = await ApiHelper.addCart(productData.value);
+      if (response.isSuccessFul) {
+        print("Is successful");
+        return 0;
+        // getCartListDatas();
+      } else {
+        print("Is Failure");
+        return 0;
+      }
+    } else {
+      print("Is Failure");
+      return 0;
+    }
+  }
+
+  addData(index){
+    int? indexx;
+    for (var i = 0; i < (productData.value["product_info"]?.length)!; i++) {
+      if (productData.value["product_info"]?[i]["product_id"] ==
+          products.value[index].productId! &&
+          productData.value["product_info"]?[i]["action"] == "ADD") {
+        indexx = i;
+      }
+    }
+    if(indexx!=null){
+      productData.value["product_info"]?[indexx]["qty"] = productData.value["product_info"]?[indexx]["qty"] + 1;
+      if(products.value[index].selectedProductOptionValueId != ""){
+        productData.value["product_info"]?[indexx]["product_option_id"] = products.value[index].selectedProductOptionId;
+        productData.value["product_info"]?[indexx]["prodcut_option_value_id"] = products.value[index].selectedProductOptionValueId;
+      }
+    } else{
+      cartCount.value = cartCount.value +1;
+      addCart(index);
+    }
+  }
+
+  removeData(index){
+    int? indexx;
+    for (var i = 0; i < (productData.value["product_info"]?.length)!; i++) {
+      if (productData.value["product_info"]?[i]["product_id"] ==
+          products.value[index].productId! &&
+          productData.value["product_info"]?[i]["action"] == "MINUS") {
+        indexx = i;
+      }
+    }
+    if(indexx!=null){
+      productData.value["product_info"]?[indexx]["qty"] = productData.value["product_info"]?[indexx]["qty"] + 1;
+      if(products.value[index].selectedProductOptionValueId != ""){
+        productData.value["product_info"]?[indexx]["product_option_id"] = products.value[index].selectedProductOptionId;
+        productData.value["product_info"]?[indexx]["prodcut_option_value_id"] = products.value[index].selectedProductOptionValueId;
+      }
+    }else{
+      minusCart(index);
+    }
+  }
+
+  // cartBtn(int index, String functionality) {
+  //   print(functionality);
+  //   if (products[index].counter == 0) {
+  //     addCart(index);
+  //     products.value[index].counter = products.value[index].counter! + 1;
+  //   } else {
+  //     // int? addIndex;
+  //     print(functionality);
+  //     if (functionality == "ADD") {
+  //       for (var i = 0; i < productData.value["product_info"]!.length; i++) {
+  //         if (productData.value["product_info"]![i]["action"] == "ADD") {
+  //           if (productData.value["product_info"]![i]["product_id"] ==
+  //               products.value[index].productId) {
+  //             productData.value["product_info"]![i]["qty"] =
+  //                 productData.value["product_info"]![i]["qty"] + 1;
+  //             if (products[index].option?.isNotEmpty ?? false) {
+  //               productData.value["product_info"]![i]["product_option_id"] =
+  //                   products.value[index].selectedProductOptionId == ""
+  //                       ? products.value[index].selectedProductOptionId
+  //                       : products.value[index].selectedProductOptionId;
+  //               productData.value["product_info"]![i]
+  //                       ["prodcut_option_value_id"] =
+  //                   products.value[index].selectedProductOptionValueId == ""
+  //                       ? products.value[index].selectedProductOptionValueId
+  //                       : products.value[index].selectedProductOptionValueId;
+  //             } else {}
+  //           }
+  //         }
+  //       }
+  //       products.value[index].counter = products.value[index].counter! + 1;
+  //     } else {
+  //       bool isNoDataMatch = false;
+  //       for (var i = 0; i < productData.value["product_info"]!.length; i++) {
+  //         if (productData.value["product_info"]![i]["action"] == "MINUS") {
+  //         }else{
+  //           isNoDataMatch = true;
+  //         }
+  //       }
+  //       if(isNoDataMatch == true){
+  //         minusCart(index);
+  //       }
+  //       products.value[index].counter = products.value[index].counter! - 1;
+  //     }
+  //   }
+  //   products.refresh();
+  //   update();
+  //   print(productData.value);
+  // }
 }

@@ -1137,7 +1137,7 @@ class ApiHelper {
       );
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
-        print("Response Body $body");
+        // print("Response Body $body");
         var res = HomeFeaturesModel.fromJson(body);
         print(res.logged);
         return HTTPResponse(

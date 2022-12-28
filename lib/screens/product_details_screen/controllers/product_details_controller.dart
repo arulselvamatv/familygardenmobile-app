@@ -7,7 +7,6 @@ import '../../../models/product_detail_model.dart';
 
 class ProductDetailsController extends GetxController {
   final CarouselController carouselController = CarouselController();
-  ValueNotifier<bool> showAppNotificationNotifierInitial = ValueNotifier(false);
 
   RxInt selecteIndex = 0.obs;
   RxInt counter = 0.obs;

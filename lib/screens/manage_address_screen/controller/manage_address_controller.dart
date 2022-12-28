@@ -18,7 +18,6 @@ class ManageAddressController extends GetxController {
   TextEditingController cityController = TextEditingController();
   TextEditingController stateController = TextEditingController();
   TextEditingController pinCodeController = TextEditingController();
-  ValueNotifier<bool> showAppNotificationNotifierInitial = ValueNotifier(false);
 
   @override
   void onInit() {
@@ -37,10 +36,6 @@ class ManageAddressController extends GetxController {
     var response = await ApiHelper.accountAddress();
     if (response.responseCode == 200) {
       isLoader.value = true;
-    }
-    if (response.data?.logged == null || response.data?.logged == "null") {
-      print("LOG::::::${response.data?.logged}");
-      showAppNotificationNotifierInitial.value = true;
     }
     if (response.data?.addresses?.isEmpty ?? false) {
       isEmptyAddress.value = true;

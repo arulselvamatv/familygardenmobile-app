@@ -10,7 +10,6 @@ class OrderDetailController extends GetxController {
   var orderInfo = OrderInfoModel().obs;
   RxBool isChecked = false.obs;
   RxList boolList = [].obs;
-  ValueNotifier<bool> showAppNotificationNotifierInitial = ValueNotifier(false);
   RxDouble subTotal = 0.0.obs;
   RxDouble shippingRate = 0.0.obs;
   RxDouble couponRate = 0.0.obs;
@@ -41,11 +40,6 @@ class OrderDetailController extends GetxController {
     boolList.clear();
     print("Data $orderId");
     var response = await ApiHelper.getOrderInfo(orderId: int.parse(orderID));
-    print("LOG::::::${response.data!.logged}");
-    if (response.data!.logged == null || response.data!.logged == "null") {
-      print("LOG::::::${response.data!.logged}");
-      showAppNotificationNotifierInitial.value = true;
-    } else {
       // sub total
       var doubleString = response.data?.subTotals?.value;
       if (doubleString != null) {
@@ -76,7 +70,6 @@ class OrderDetailController extends GetxController {
       // doubleString.value =
       //     double.parse(orderInfo.value.subTotals?.value!.toStringAsFixed(2));
       getBoolList();
-    }
     isLoaded.value = true;
     update();
   }

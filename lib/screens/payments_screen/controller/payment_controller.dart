@@ -22,9 +22,6 @@ class PaymentController extends GetxController {
   RxDouble payableAmount = 0.00.obs;
   RxInt deliveryCharges = 0.obs;
   String code = '';
-
-  // RxDouble savedPrice = 0.0.obs;
-
   var paymentMethod;
 
   @override

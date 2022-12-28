@@ -42,11 +42,11 @@ class AddressController extends GetxController with RouteAware {
     getCheckout();
   }
 
-  @override
-  void dispose() {
-    routeObserver.unsubscribe(this);
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   routeObserver.unsubscribe(this);
+  //   super.dispose();
+  // }
 
   getCheckout() async {
     // is
@@ -54,19 +54,12 @@ class AddressController extends GetxController with RouteAware {
     addressModel.value = response.data!;
     print(ApiConstants.jwtToken);
     print(addressModel.value.logged);
-    // print("LOG::::::${response.data!.logged}");
-    // if (response.data!.logged == null || response.data!.logged == "null") {
-    //   print("LOG::::::${response.data!.logged}");
-    //   showAppNotificationNotifierInitial.value = true;
-    // } else {
       if ((addressModel.value.addresses?.length)! > 0) {
         getDatas();
         isEmptyAddress.value = false;
       } else {
         isaddressScreenLoader.value = true;
       }
-    // }
-
     addressModel.refresh();
     update();
   }

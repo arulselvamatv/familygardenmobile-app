@@ -11,7 +11,6 @@ import '../../../routes/app_pages.dart';
 class SplashController extends GetxController {
   @override
   void onInit() async {
-    log("A:${await FirebaseMessaging.instance.getToken()}");
     FirebaseMessaging messaging = FirebaseMessaging.instance;
 
     NotificationSettings settings = await messaging.requestPermission(

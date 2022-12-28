@@ -3,23 +3,18 @@ import 'package:family_garden/network/api_helper.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
 import '../../../models/category_product_model.dart';
 
-class OrderHistoryScreenController extends GetxController
-{
+class OrderHistoryScreenController extends GetxController {
   TextEditingController search = TextEditingController();
-  ValueNotifier<bool> showAppNotificationNotifierInitial = ValueNotifier(false);
   RxInt categoriesIndex = 1.obs;
   RxString categoryId = ''.obs;
   RxString title = "".obs;
   RxString staticImage = "assets/images/Fresh Vegetables.png".obs;
   RxString categoryName = "Fresh Vegetables".obs;
-
   RxList optionId = [].obs;
   RxList optionValueId = [].obs;
   RxList productId = [].obs;
   //RxList<ProductOptionValue> dropdownList = <ProductOptionValue>[].obs;
-
   RxList counterList = [].obs;
-
   RxList cartBoolList = [].obs;
   final orders = RxList<Orders>([]);
   RxBool isProductLoader = true.obs;
@@ -35,25 +30,13 @@ class OrderHistoryScreenController extends GetxController
     orders.clear();
     var response = await ApiHelper.getOrders();
     print("response:::${response.data}");
-    if (response.responseCode == 200)
-    {
-      print("LOG::::::${response.data!.logged}");
-
-      if (response.data!.logged == null || response.data!.logged == "null")
-      {
-        print("LOG::::::${response.data!.logged}");
-        showAppNotificationNotifierInitial.value = true;
-      }
-      else
-      {
-        for (var v in response.data!.orders!) {
-          orders.add(v);
-        }
+    if (response.responseCode == 200) {
+      for (var v in response.data!.orders!) {
+        orders.add(v);
       }
       isProductLoader.value = false;
     }
 
     update();
   }
-
 }

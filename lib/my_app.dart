@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: "Family Garden",
       initialRoute: AppPages.INITIAL,
-      navigatorObservers: [routeObserver],
+      // navigatorObservers: [routeObserver],
       // initialBinding: InitialBinding(),
       getPages: AppPages.routes,
       theme: ThemeData(

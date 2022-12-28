@@ -1,7 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../../routes/app_pages.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
 import '../controllers/product_list_controller.dart';
@@ -41,7 +40,19 @@ class ProductListView extends GetView<ProductListController> {
             leading_image: "Add",
             appBarActions: GestureDetector(
               onTap: () async {
-                Get.toNamed(Routes.CART_SCREEN);
+                print("Data");
+                int isSuccess = await controller.hitAddCartAPI();
+                if(isSuccess == 0){
+                  Get.toNamed(Routes.CART_SCREEN)?.then((value) {
+                    controller.productData.value = {"product_info": []};
+                    controller.refresh();
+                  });
+                }else{
+                  Get.toNamed(Routes.CART_SCREEN)?.then((value) {
+                    controller.productData.value = {"product_info": []};
+                    controller.refresh();
+                  });
+                }
                 controller.update();
               },
               child: Stack(
@@ -259,20 +270,34 @@ class ProductListView extends GetView<ProductListController> {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () async {
-                              controller.products.value[index]
-                                  .quantity! !=
-                                  "0"
-                                  ? Get.toNamed(
-                                  Routes
-                                      .PRODUCT_DETAILS_SCREEN,
-                                  arguments: controller
-                                      .products[index]
-                                      .productId)
-                                  ?.then((value) {
-                                controller.productData.value = {"product_info": []};
-                                controller.getCartCount();
-                              })
-                                  : null;
+                            if( controller.products.value[index]
+                                .quantity! !=
+                                "0"){
+                              int isSuccess = await controller.hitAddCartAPI();
+                              if(isSuccess == 0){
+                                Get.toNamed(
+                                    Routes
+                                        .PRODUCT_DETAILS_SCREEN,
+                                    arguments: controller
+                                        .products[index]
+                                        .productId)
+                                    ?.then((value) {
+                                  controller.productData.value = {"product_info": []};
+                                  controller.getCartCount();
+                                });
+                              }else{
+                                Get.toNamed(
+                                    Routes
+                                        .PRODUCT_DETAILS_SCREEN,
+                                    arguments: controller
+                                        .products[index]
+                                        .productId)
+                                    ?.then((value) {
+                                  controller.productData.value = {"product_info": []};
+                                  controller.getCartCount();
+                                });
+                              }
+                            }
                             controller.update();
                           },
                           child: Stack(
@@ -491,7 +516,7 @@ class ProductListView extends GetView<ProductListController> {
                                                         padding: const EdgeInsets.only(right: 16, bottom: 14),
                                                         child: GestureDetector(
                                                           onTap: () {
-                                                            controller.cartBtn(index, "CART");
+                                                            controller.addCartBtn(index, "CART");
                                                             // controller
                                                             //     .cartButton(index);
                                                           },
@@ -512,7 +537,7 @@ class ProductListView extends GetView<ProductListController> {
                                                                 children: [
                                                                   GestureDetector(
                                                                     onTap: () {
-                                                                      controller.cartBtn(index, "MINUS");
+                                                                      controller.addCartBtn(index,controller.products[index].counter ==0 ?"ADD":"MINUS");
                                                                       // controller
                                                                       //     .minus(index);
                                                                     },
@@ -533,7 +558,7 @@ class ProductListView extends GetView<ProductListController> {
                                                                   Spacer(),
                                                                   GestureDetector(
                                                                     onTap: () {
-                                                                      controller.cartBtn(index, "ADD");
+                                                                      controller.addCartBtn(index,"ADD");
                                                                       // controller
                                                                       //     .add(index);
                                                                     },
@@ -615,7 +640,7 @@ class ProductListView extends GetView<ProductListController> {
                                       "0"
                                       ? InkWell(
                                     onTap: () {
-                                      controller.cartBtn(index, "ADD");
+                                      controller.addCartBtn(index, "ADD");
                                       // controller
                                       //     .cartButton(
                                       //     index,
@@ -638,7 +663,7 @@ class ProductListView extends GetView<ProductListController> {
                                       "0"
                                       ? InkWell(
                                     onTap: () {
-                                      controller.cartBtn(index, "MINUS");
+                                      controller.addCartBtn(index,controller.products[index].counter==0? "ADD":"MINUS");
                                       // controller
                                       //     .cartButton(
                                       //     index,

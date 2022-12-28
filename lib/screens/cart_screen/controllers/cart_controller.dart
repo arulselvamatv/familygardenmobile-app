@@ -12,7 +12,6 @@ class CartController extends GetxController {
   TextEditingController cuponCode = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  ValueNotifier<bool> showAppNotificationNotifierInitial = ValueNotifier(false);
 
   var products = CartListModel().obs;
   RxBool isProductsLoader = true.obs;
