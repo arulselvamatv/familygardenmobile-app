@@ -16,7 +16,6 @@ import '../../account_screen/views/account_view.dart';
 class DashboardView extends GetView<DashboardController> {
   @override
   Widget build(BuildContext context) {
-    controller.getCartCount();
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return Obx(
       () => Scaffold(

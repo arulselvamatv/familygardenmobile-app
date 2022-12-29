@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:family_garden/network/api_constants/api_constants.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 // import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -9,7 +10,7 @@ import '../../../models/checkout_confirm_model.dart';
 class InitatePaymentController extends GetxController {
   CheckoutConfirmModel? paymentRes;
   String postData = '', url = "";
-  String paymentUrl = "https://www.familygarden.in/";
+  String paymentUrl = ApiConstants.baseUrl;
   WebViewController? webController;
   String data = "";
   // InAppWebViewController? webViewController;

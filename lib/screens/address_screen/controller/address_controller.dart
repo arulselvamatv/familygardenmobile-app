@@ -120,12 +120,13 @@ class AddressController extends GetxController with RouteAware {
                   await ApiHelper.shippingMethodSave();
               if (shippingMethodSaveResponse.responseCode == 200) {
                 isLoader.value = true;
-                Get.toNamed(Routes.PAYMENT, arguments: [
-                  totalPrice.value,
-                  savedPrice.value,
-                  shippingMethodResponse
-                      .data?.shippingMethods?.flat?.quote?.flat?.cost
-                ]);
+                Get.toNamed(Routes.TIME_AND_ORDER_CONFIRMATION,arguments: [totalPrice.value,savedPrice.value,shippingMethodResponse.data?.shippingMethods?.flat?.quote?.flat?.cost]);
+                // Get.toNamed(Routes.PAYMENT, arguments: [
+                //   totalPrice.value,
+                //   savedPrice.value,
+                //   shippingMethodResponse
+                //       .data?.shippingMethods?.flat?.quote?.flat?.cost,"",""
+                // ]);
               } else {
                 Get.snackbar('warning', "something went wrong");
                 // ScaffoldMessenger.of(context).showSnackBar(SnackBar(

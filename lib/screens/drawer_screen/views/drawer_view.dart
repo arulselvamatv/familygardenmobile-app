@@ -235,12 +235,6 @@ class DrawerView extends GetView<DrawerWidgetController> {
                             // controller.isLoggedIn.refresh();
                             controller.logout(context);
                             controller.update();
-                            var response = await ApiHelper.getToken();
-                            if (response.data?.apiToken != null) {
-                              SetLocalDatas.setToken(
-                                  (response.data?.apiToken)!);
-                              print(ApiConstants.jwtToken);
-                            }
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text("Logout successfully"),
                             ));

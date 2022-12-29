@@ -58,14 +58,6 @@ class DeleteAccountController extends GetxController {
             Get.find<DrawerWidgetController>()
                 .isLoggedin
                 .refresh();
-            var response =
-            await ApiHelper.getToken();
-            if (response.data?.apiToken !=
-                null) {
-              SetLocalDatas.setToken(
-                  (response.data?.apiToken)!);
-              print(ApiConstants.jwtToken);
-            }
             Get.put(DashboardController());
             Get.find<DashboardController>()
                 .isLoggedIn

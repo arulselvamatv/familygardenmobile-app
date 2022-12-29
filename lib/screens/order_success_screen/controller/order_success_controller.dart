@@ -8,7 +8,17 @@ class OrderSuccessController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    getOrderId();
+    if(Get.arguments != null){
+      showOrderId();
+    }else{
+      getOrderId();
+    }
+  }
+
+  showOrderId(){
+    orderId.value = "${Get.arguments}";
+    print("COD PRocessed");
+    update();
   }
 
   getOrderId() async {

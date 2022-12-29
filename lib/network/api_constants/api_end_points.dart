@@ -14,7 +14,7 @@ class EndPoints {
 
   static const editAddres = "/index.php?route=mobileapi/account/address/edit";
 
-  static const apiRoutes = "?route=mobileapi/homefeature";
+  static const homeFeature = "/index.php?route=mobileapi/homefeature";
 
   static const homeCarousel = "/index.php?route=mobileapi/homeslider";
 
@@ -24,7 +24,7 @@ class EndPoints {
 
   static const productCategoryList = "/index.php?route=mobileapi/product/view";
 
-  static const homeFeature = "/index.php";
+  static const timeSlot = "/index.php?route=mobileapi/time_slot";
 
   static const cartAdd = "/index.php?route=mobileapi/cart/add";
 

@@ -1,10 +1,10 @@
 class ApiConstants {
   ApiConstants._();
 
-  //development URL :
+  //DEVELOPEMENT URL :
   // static const String baseUrl = "https://dev.familygarden.in/";
 
-  //production URL :
+  //PRODUCTION URL :
   static const String baseUrl = "https://www.familygarden.in/";
 
   static const String getTokenkey =

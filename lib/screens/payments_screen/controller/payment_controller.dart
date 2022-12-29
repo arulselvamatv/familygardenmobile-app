@@ -23,6 +23,7 @@ class PaymentController extends GetxController {
   RxInt deliveryCharges = 0.obs;
   String code = '';
   var paymentMethod;
+  RxList passingData = [].obs;
 
   @override
   void onInit() {
@@ -31,6 +32,12 @@ class PaymentController extends GetxController {
       actulPrice.value = Get.arguments[0];
       savedPrice.value = Get.arguments[1];
       deliveryCharges.value = Get.arguments[2];
+      passingData.add(Get.arguments[0]);
+      passingData.add(Get.arguments[1]);
+      passingData.add(Get.arguments[2]);
+      passingData.add(Get.arguments[3]);
+      passingData.add(Get.arguments[4]);
+      print("Received Data $passingData");
       print("deliveryCharges $deliveryCharges");
       print(deliveryCharges.runtimeType);
       payableAmount.value = deliveryCharges.value + actulPrice.value;
@@ -133,7 +140,8 @@ class PaymentController extends GetxController {
       if (isCCavenueSelected.value) {
         var res = await ApiHelper.paymentMethodSave('ccavenuepay');
         if (res.responseCode == 200) {
-          var checkoutResponse = await ApiHelper.checkOutConfirm();
+          print("Before checkout COnfirm");
+          var checkoutResponse = await ApiHelper.checkOutConfirm(passingData[3],passingData[4]);
           if (checkoutResponse.responseCode == 200) {
             print(checkoutResponse.data);
             paymentRes = checkoutResponse.data!;
@@ -145,7 +153,7 @@ class PaymentController extends GetxController {
         var res = await ApiHelper.paymentMethodSave('cod');
         if (res.responseCode == 200) {
           print("shbdfskf");
-          var checkoutResponse = await ApiHelper.checkOutCODConfirm();
+          var checkoutResponse = await ApiHelper.checkOutCODConfirm(passingData[3],passingData[4]);
           print(ApiConstants.jwtToken);
           print(checkoutResponse.responseCode);
           if (checkoutResponse.responseCode == 200) {
