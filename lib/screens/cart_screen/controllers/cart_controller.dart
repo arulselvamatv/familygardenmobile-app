@@ -54,7 +54,7 @@ class CartController extends GetxController {
   }
 
   getCartListDatas() async {
-    var response = await ApiHelper.cartList();
+    var response = await ApiHelper.cartList(false);
     if (response.isSuccessFul) {
       products.value = response.data!;
       // if (products.value.logged == null || products.value.logged == "null") {
@@ -73,14 +73,14 @@ class CartController extends GetxController {
   }
 
   Future<String> getCoupon(String couponCode) async {
-    var response = await ApiHelper.getCoupon(couponCode);
+    var response = await ApiHelper.getCoupon(couponCode,false);
     // print("Coupon Data ${response.data?.error}");
     return response.message ?? "";
   }
 
   Future<int> hitAddCartAPI() async {
     if ((productData.value["product_info"]?.length)! > 0) {
-      var response = await ApiHelper.addCart(productData.value);
+      var response = await ApiHelper.addCart(productData.value,false);
       if (response.isSuccessFul) {
         print("Is successful");
         return 0;

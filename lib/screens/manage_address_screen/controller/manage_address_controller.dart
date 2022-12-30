@@ -33,7 +33,7 @@ class ManageAddressController extends GetxController {
 
   getAccountAddresses() async {
     print("hello");
-    var response = await ApiHelper.accountAddress();
+    var response = await ApiHelper.accountAddress(false);
     if (response.responseCode == 200) {
       isLoader.value = true;
     }

@@ -28,7 +28,7 @@ class OrderHistoryScreenController extends GetxController {
 
   getOrdersHistory() async {
     orders.clear();
-    var response = await ApiHelper.getOrders();
+    var response = await ApiHelper.getOrders(false);
     print("response:::${response.data}");
     if (response.responseCode == 200) {
       for (var v in response.data!.orders!) {

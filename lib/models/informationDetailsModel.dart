@@ -1,18 +1,21 @@
-class informationDetailsModel {
+class InformationDetailsModel {
   String? headingTitle;
   String? description;
+  String? logged;
 
-  informationDetailsModel({this.headingTitle, this.description});
+  InformationDetailsModel({this.headingTitle, this.description, this.logged});
 
-  informationDetailsModel.fromJson(Map<String, dynamic> json) {
+  InformationDetailsModel.fromJson(Map<String, dynamic> json) {
     headingTitle = json['heading_title'];
     description = json['description'];
+    logged = json['logged'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['heading_title'] = this.headingTitle;
     data['description'] = this.description;
+    data['logged'] = this.logged;
     return data;
   }
 }

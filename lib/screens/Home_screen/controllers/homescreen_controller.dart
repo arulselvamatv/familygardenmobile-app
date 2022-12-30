@@ -33,7 +33,7 @@ class HomeScreenController extends GetxController with RouteAware {
   String staticImage = "assets/images/Fresh Vegetables.png";
   RxBool ishomeFeatureLoader = true.obs;
   var productData = {"product_info": []}.obs;
-  var informationData = informationDetailsModel().obs;
+  var informationData = InformationDetailsModel().obs;
   RxBool informationLoader = false.obs;
 
   @override
@@ -54,7 +54,7 @@ class HomeScreenController extends GetxController with RouteAware {
   }
 
   informationDetails() async {
-    var response = await ApiHelper.informationDetails();
+    var response = await ApiHelper.informationDetails(false);
     informationData.value = response.data!;
     informationLoader.value = true;
   }
@@ -238,7 +238,7 @@ class HomeScreenController extends GetxController with RouteAware {
 
   Future<int> hitAddCartAPI() async {
     if ((productData.value["product_info"]?.length)! > 0) {
-      var response = await ApiHelper.addCart(productData.value);
+      var response = await ApiHelper.addCart(productData.value,false);
       if (response.responseCode == 0) {
         return 0;
       } else {

@@ -173,7 +173,7 @@ class ProductListController extends GetxController {
 
   Future<int> hitAddCartAPI() async {
     if ((productData.value["product_info"]?.length)! > 0) {
-      var response = await ApiHelper.addCart(productData.value);
+      var response = await ApiHelper.addCart(productData.value,false);
       if (response.isSuccessFul) {
         print("Is successful");
         return 0;

@@ -73,7 +73,7 @@ class OffersController extends GetxController {
   hitAddCartAPI() async {
     if ((productData.value["product_info"]?.length ?? 0) > 0) {
       print("AddCartAPI $productData");
-      var response = await ApiHelper.addCart(productData.value);
+      var response = await ApiHelper.addCart(productData.value,false);
     } else {}
     update();
   }

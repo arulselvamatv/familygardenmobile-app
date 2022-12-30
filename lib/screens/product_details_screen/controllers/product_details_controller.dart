@@ -129,7 +129,7 @@ class ProductDetailsController extends GetxController {
           ?.options?[0].productOptionValue?[0].productOptionValueId)!;
       print(optionId);
       print(optionValueId);
-      var res = await ApiHelper.removeWishList(productId.value,optionId.value,optionValueId.value);
+      var res = await ApiHelper.removeWishList(productId.value,optionId.value,optionValueId.value,false);
       print(res.responseCode);
       if(res.responseCode == 200){
         print("Success");
@@ -158,7 +158,7 @@ class ProductDetailsController extends GetxController {
 
   hitAddCartAPI() async {
     if ((data.value.isNotEmpty)) {
-      var response = await ApiHelper.addCart(data.value);
+      var response = await ApiHelper.addCart(data.value,false);
     } else {
       print("No Datas Found");
     }

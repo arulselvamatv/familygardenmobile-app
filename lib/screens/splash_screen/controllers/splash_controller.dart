@@ -38,13 +38,13 @@ class SplashController extends GetxController {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey("api_token")) {
       ApiConstants.jwtToken = prefs.getString("api_token")!;
-      Timer(const Duration(seconds: 2), () => Get.offNamed(Routes.DASHBOARD));
+      Timer(const Duration(seconds: 0), () => Get.offNamed(Routes.DASHBOARD));
     } else {
       var response = await ApiHelper.getToken();
       print(response.data?.apiToken);
       if (response.data?.apiToken != null) {
         SetLocalDatas.setToken((response.data?.apiToken)!);
-        Timer(const Duration(seconds: 2), () => Get.offNamed(Routes.DASHBOARD));
+        Timer(const Duration(seconds: 0), () => Get.offNamed(Routes.DASHBOARD));
       }
     }
   }

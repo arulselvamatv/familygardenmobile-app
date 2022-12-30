@@ -50,7 +50,7 @@ class AddressController extends GetxController with RouteAware {
 
   getCheckout() async {
     // is
-    var response = await ApiHelper.checkOut();
+    var response = await ApiHelper.checkOut(false);
     addressModel.value = response.data!;
     print(ApiConstants.jwtToken);
     print(addressModel.value.logged);
@@ -110,14 +110,14 @@ class AddressController extends GetxController with RouteAware {
   deliverHereBtn(context) async {
     isLoader.value = false;
     if (pickCheckBox.value == true) {
-      var response = await ApiHelper.existingPaymentAddressSave(formData);
+      var response = await ApiHelper.existingPaymentAddressSave(formData,false);
       if (response.responseCode == 200) {
         Future.delayed(Duration(seconds: 1), () async {
-          var shippingMethodResponse = await ApiHelper.shippingMethod();
+          var shippingMethodResponse = await ApiHelper.shippingMethod(false);
           if (shippingMethodResponse.responseCode == 200) {
             Future.delayed(Duration(seconds: 1), () async {
               var shippingMethodSaveResponse =
-                  await ApiHelper.shippingMethodSave();
+                  await ApiHelper.shippingMethodSave(false);
               if (shippingMethodSaveResponse.responseCode == 200) {
                 isLoader.value = true;
                 Get.toNamed(Routes.TIME_AND_ORDER_CONFIRMATION,arguments: [totalPrice.value,savedPrice.value,shippingMethodResponse.data?.shippingMethods?.flat?.quote?.flat?.cost]);

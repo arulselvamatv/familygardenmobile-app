@@ -48,20 +48,21 @@ class AddAddressController extends GetxController {
         phoneNumController.text,
         cityController.text,
         pinCodeController.text,
+        false
       );
       if (response.responseCode == 200) {
         Get.back();
       }
     } else {
       var response = await ApiHelper.addAddresses(
-        nameController.text,
-        addressController.text,
-        "99",
-        "1503",
-        phoneNumController.text,
-        cityController.text,
-        pinCodeController.text,
-      );
+          nameController.text,
+          addressController.text,
+          "99",
+          "1503",
+          phoneNumController.text,
+          cityController.text,
+          pinCodeController.text,
+          false);
       print(response.responseCode);
       if (response.responseCode == 200) {
         Get.back();

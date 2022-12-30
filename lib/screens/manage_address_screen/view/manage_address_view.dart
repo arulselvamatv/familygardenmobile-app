@@ -182,7 +182,7 @@ class ManageAddressView extends GetView<ManageAddressController> {
                                                                           .addresses
                                                                           .value
                                                                           .addresses?[index]
-                                                                          .addressId)!);
+                                                                          .addressId)!,false);
                                                                       print(
                                                                           res.responseCode);
                                                                       if (res.responseCode ==

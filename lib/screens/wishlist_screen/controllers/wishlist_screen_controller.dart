@@ -28,7 +28,7 @@ class WishListScreenController extends GetxController {
 
   Future<void> getWishlists() async {
     products.clear();
-    var response = await ApiHelper.getWishList();
+    var response = await ApiHelper.getWishList(false);
     print(response.data?.toString());
     if (response.responseCode == 200) {
       products.value = response.data!.products!;
@@ -49,7 +49,7 @@ class WishListScreenController extends GetxController {
 
   Future<void> removeWishlist(
       String productId, String option, String optionValue) async {
-    await ApiHelper.removeWishList(productId, option, optionValue);
+    await ApiHelper.removeWishList(productId, option, optionValue,false);
     Get.showOverlay(
         asyncFunction: getWishlists, loadingWidget: const Loading());
     update();

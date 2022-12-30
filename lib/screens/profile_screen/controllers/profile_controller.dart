@@ -59,7 +59,7 @@ class ProfileController extends GetxController {
   }
 
   onPressSaveChangesBtn(context) async {
-    var response = await ApiHelper.accountUpdate(nameController.text, "", emailController.text, telephoneController.text);
+    var response = await ApiHelper.accountUpdate(nameController.text, "", emailController.text, telephoneController.text,false);
 
     if (response.isSuccessFul)
     {

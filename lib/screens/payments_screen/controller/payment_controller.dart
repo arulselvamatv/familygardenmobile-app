@@ -5,8 +5,6 @@ import 'package:family_garden/network/api_helper.dart';
 import 'package:http/http.dart' as http;
 import '../../../models/cart_list_model.dart';
 import '../../../models/checkout_confirm_model.dart';
-import '../../../models/payment_method_model.dart';
-import '../../../network/api_constants/api_end_points.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/common_import/common_import.dart';
 
@@ -48,7 +46,7 @@ class PaymentController extends GetxController {
   }
 
   getPaymentMethodDetails() async {
-    var response = await ApiHelper.paymentMethod();
+    var response = await ApiHelper.paymentMethod(false);
     paymentMethod = response;
     print("paymentMethod ${paymentMethod}");
     if (paymentMethod["payment_methods"].isEmpty) {
@@ -61,7 +59,7 @@ class PaymentController extends GetxController {
   }
 
   getCartListDatas() async {
-    var response = await ApiHelper.cartList();
+    var response = await ApiHelper.cartList(false);
     if (response.isSuccessFul) {
       products.value = response.data!;
       getListDatas();

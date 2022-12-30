@@ -34,7 +34,7 @@ class DeleteAccountController extends GetxController {
     if(isValid.value){
       var response = await ApiHelper.login(telephone.value, passwordController.text);
       if (response.data?.status == 1){
-        var res = await ApiHelper.deleteAccount(response.data?.session?.customerId);
+        var res = await ApiHelper.deleteAccount(response.data?.session?.customerId,false);
         if(res.data?.status == 1){
           int res = await ApiHelper.logOut();
           final prefs =

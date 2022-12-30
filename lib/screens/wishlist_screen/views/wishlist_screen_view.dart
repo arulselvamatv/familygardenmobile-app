@@ -202,7 +202,7 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                                 };
                                                 var response =
                                                 await ApiHelper.addCart(
-                                                    productData);
+                                                    productData,false);
                                                 print(response.responseCode);
                                                 if (response.responseCode ==
                                                     200) {

@@ -39,7 +39,7 @@ class OrderDetailController extends GetxController {
     print(ApiConstants.jwtToken);
     boolList.clear();
     print("Data $orderId");
-    var response = await ApiHelper.getOrderInfo(orderId: int.parse(orderID));
+    var response = await ApiHelper.getOrderInfo(false,orderId: int.parse(orderID));
       // sub total
       var doubleString = response.data?.subTotals?.value;
       if (doubleString != null) {
