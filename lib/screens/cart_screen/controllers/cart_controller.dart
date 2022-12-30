@@ -1,9 +1,6 @@
 import 'dart:async';
-
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../models/cart_list_model.dart';
-import '../../../network/api_constants/api_constants.dart';
 import '../../../network/api_helper.dart';
 import '../../../utils/common_import/common_import.dart';
 
@@ -37,9 +34,9 @@ class CartController extends GetxController {
 
   @override
   void onInit() {
-    super.onInit();
     getLoginDetails();
     getCartListDatas();
+    super.onInit();
   }
 
   getLoginDetails() async {

@@ -160,7 +160,7 @@ class CartView extends GetView<CartController> {
                                   onTap: () {
                                     Get.toNamed(Routes.PRODUCT_DETAILS_SCREEN,arguments: controller.products.value.products?[index].productId)?.then((value) =>controller.getCartListDatas());
                                   },
-                                  child: Container(
+                                  child: SizedBox(
                                     width: Get.width,
                                     child: Column(
                                       children: [

@@ -61,21 +61,21 @@ class DashboardView extends GetView<DashboardController> {
                   // Get.find<HomeScreenController>().vegHitAddCartAPI();
                   int vals =
                       await Get.find<HomeScreenController>().hitAddCartAPI();
-                  Get.toNamed(Routes.CART_SCREEN)?.then((value) {
-                    Get.find<HomeScreenController>().getHomeFeatures();
-                    Get.find<DashboardController>().getCartCount();
-                    if (Get.find<DashboardController>().selectedIndex.value ==
-                        2) {
-                      if (Get.find<OffersController>()
-                              .productData
-                              .value["product_info"]
-                              ?.length !=
-                          0) {
-                        Get.find<OffersController>().hitAddCartAPI();
-                        Get.find<OffersController>().getsCategory();
+                  if(vals == 0) {
+                    Get.toNamed(Routes.CART_SCREEN)?.then((value) {
+                      Get.find<HomeScreenController>().getHomeFeatures();
+                      Get.find<DashboardController>().getCartCount();
+                      if (Get.find<DashboardController>().selectedIndex.value ==
+                          2) {
+                        if (Get.find<OffersController>()
+                            .productData
+                            .value["product_info"]!.isNotEmpty) {
+                          Get.find<OffersController>().hitAddCartAPI();
+                          Get.find<OffersController>().getsCategory();
+                        }
                       }
-                    }
-                  });
+                    });
+                  }
                   // Get.find<HomeScreenController>().fruitsHitAddCartAPI();
                   controller.update();
                 },
