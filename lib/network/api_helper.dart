@@ -902,7 +902,7 @@ class ApiHelper {
     }
   }
 
-  static Future<HTTPResponse<CheckoutConfirmCODModel>> checkOutCODConfirm(
+  static Future<HTTPResponse<CheckoutCartDatasModel>> checkOutCODConfirm(
       String date, String timeSlotId) async {
     String url =
         "${ApiConstants.baseUrl}${EndPoints.checkoutConfirm}&api_token=${ApiConstants.jwtToken}";
@@ -912,7 +912,7 @@ class ApiHelper {
           await http.post(Uri.parse(url), body: json.encode(passingBody));
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
-        var res = CheckoutConfirmCODModel.fromJson(body);
+        var res = CheckoutCartDatasModel.fromJson(body);
         return HTTPResponse(
           true,
           res,
@@ -2383,6 +2383,8 @@ class ApiHelper {
       var prefs = await SharedPreferences.getInstance();
       String deviceId = prefs.getString("device_id")!;
       String userToken = prefs.getString("userToken")!;
+      print("Device Id $deviceId");
+      print("user token $userToken");
       final response = await http.post(
         Uri.parse(
             "${ApiConstants.baseUrl}${EndPoints.reCreateSession}&api_token=${ApiConstants.jwtToken}"),

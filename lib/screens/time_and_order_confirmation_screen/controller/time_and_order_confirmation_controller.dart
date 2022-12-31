@@ -59,7 +59,7 @@ class TimeAndOrderConfirmationController extends GetxController{
     var response =await ApiHelper.checkOutCartDatas("", "",false);
     if(response.responseCode == 200){
       cartData = response.data;
-      print("Total Data sdfsdf ${cartData?.totals?[0].text}");
+      print("Total Data sdfsdf ${cartData?.totals?.value}");
       isLoading.value = true;
     }
     update();

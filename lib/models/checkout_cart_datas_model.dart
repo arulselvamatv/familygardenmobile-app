@@ -1,10 +1,20 @@
 class CheckoutCartDatasModel {
   List<Products>? products;
-  List<Totals>? totals;
+  Vouchers? vouchers;
+  Vouchers? subTotals;
+  Vouchers? shipping;
+  Vouchers? coupon;
+  Vouchers? totals;
   String? logged;
 
   CheckoutCartDatasModel(
-      {this.products, this.totals, this.logged});
+      {this.products,
+        this.vouchers,
+        this.subTotals,
+        this.shipping,
+        this.coupon,
+        this.totals,
+        this.logged});
 
   CheckoutCartDatasModel.fromJson(Map<String, dynamic> json) {
     if (json['products'] != null) {
@@ -13,12 +23,15 @@ class CheckoutCartDatasModel {
         products!.add(new Products.fromJson(v));
       });
     }
-    if (json['totals'] != null) {
-      totals = <Totals>[];
-      json['totals'].forEach((v) {
-        totals!.add(new Totals.fromJson(v));
-      });
-    }
+    vouchers = (json["vouchers"] is Map<String, dynamic>) ? Vouchers.fromJson(json["vouchers"]) : Vouchers(title: "", value: "0.00");
+    subTotals = json['sub_totals'] != null
+        ? new Vouchers.fromJson(json['sub_totals'])
+        : null;
+    shipping = (json["shipping"] is Map<String, dynamic>) ? Vouchers.fromJson(json["shipping"]) : Vouchers(title: "", value: "0.00");
+    coupon =
+    (json["coupon"] is Map<String, dynamic>) ? Vouchers.fromJson(json["coupon"]) : Vouchers(title: "", value: "0.00");
+    totals =
+    json['totals'] != null ? new Vouchers.fromJson(json['totals']) : null;
     logged = json['logged'];
   }
 
@@ -27,8 +40,20 @@ class CheckoutCartDatasModel {
     if (this.products != null) {
       data['products'] = this.products!.map((v) => v.toJson()).toList();
     }
+    if (this.vouchers != null) {
+      data['vouchers'] = this.vouchers!.toJson();
+    }
+    if (this.subTotals != null) {
+      data['sub_totals'] = this.subTotals!.toJson();
+    }
+    if (this.shipping != null) {
+      data['shipping'] = this.shipping!.toJson();
+    }
+    if (this.coupon != null) {
+      data['coupon'] = this.coupon!.toJson();
+    }
     if (this.totals != null) {
-      data['totals'] = this.totals!.map((v) => v.toJson()).toList();
+      data['totals'] = this.totals!.toJson();
     }
     data['logged'] = this.logged;
     return data;
@@ -41,6 +66,7 @@ class Products {
   String? thumb;
   String? name;
   String? model;
+  // List<Null>? option;
   String? recurring;
   String? quantity;
   String? subtract;
@@ -54,6 +80,7 @@ class Products {
         this.thumb,
         this.name,
         this.model,
+        // this.option,
         this.recurring,
         this.quantity,
         this.subtract,
@@ -67,6 +94,12 @@ class Products {
     thumb = json['thumb'];
     name = json['name'];
     model = json['model'];
+    // if (json['option'] != null) {
+    //   option = <Null>[];
+    //   json['option'].forEach((v) {
+    //     option!.add(new Null.fromJson(v));
+    //   });
+    // }
     recurring = json['recurring'];
     quantity = json['quantity'];
     subtract = json['subtract'];
@@ -82,6 +115,9 @@ class Products {
     data['thumb'] = this.thumb;
     data['name'] = this.name;
     data['model'] = this.model;
+    // if (this.option != null) {
+    //   data['option'] = this.option!.map((v) => v.toJson()).toList();
+    // }
     data['recurring'] = this.recurring;
     data['quantity'] = this.quantity;
     data['subtract'] = this.subtract;
@@ -92,21 +128,21 @@ class Products {
   }
 }
 
-class Totals {
+class Vouchers {
   String? title;
-  String? text;
+  String? value;
 
-  Totals({this.title, this.text});
+  Vouchers({this.title, this.value});
 
-  Totals.fromJson(Map<String, dynamic> json) {
-    title = json['title'];
-    text = json['text'];
+  Vouchers.fromJson(Map<String, dynamic> json) {
+    title = json["title"] == null ? null : json["title"];
+    value = json["value"] == null ? null : json["value"];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['title'] = this.title;
-    data['text'] = this.text;
+    data['title'] = title == null ? null : title;
+    data['value'] = value == null ? null : value;
     return data;
   }
 }

@@ -415,7 +415,7 @@ class TimeAndOrderConfirmationView
                               SizedBox(
                                 width: 50,
                                 child: Text(
-                                  controller.cartData?.totals?[0].text ?? "",
+                                  controller.cartData?.subTotals?.value ?? "",
                                   style: TextStyle(
                                       fontSize: 12, fontWeight: FontWeight.w500),
                                 ),
@@ -442,7 +442,7 @@ class TimeAndOrderConfirmationView
                               SizedBox(
                                 width: 50,
                                 child: Text(
-                                  "₹${controller.passinData.value[2]}.00",
+                                  controller.cartData?.shipping?.value ?? "0.00",
                                   style: const TextStyle(
                                       fontSize: 12, fontWeight: FontWeight.w500),
                                 ),
@@ -469,7 +469,7 @@ class TimeAndOrderConfirmationView
                               SizedBox(
                                 width: 50,
                                 child: Text(
-                                "₹00.00",
+                                  controller.cartData?.coupon?.value ?? "0.00",
                                   style: TextStyle(
                                       fontSize: 12, fontWeight: FontWeight.w500),
                                 ),
@@ -501,7 +501,7 @@ class TimeAndOrderConfirmationView
                               SizedBox(
                                 width: 75,
                                 child: Text(
-                                  controller.cartData?.totals?[1].text ?? "",
+                                  controller.cartData?.totals?.value ?? "0.00",
                                   style: TextStyle(
                                       fontSize: 14, fontWeight: FontWeight.w500),
                                 ),
