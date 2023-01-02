@@ -17,7 +17,6 @@ class CartView extends GetView<CartController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.onInit();
     return WillPopScope(
       onWillPop: () async {
         int response = await controller.hitAddCartAPI();

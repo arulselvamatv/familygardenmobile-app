@@ -1,13 +1,10 @@
 import 'package:family_garden/models/checkout_model.dart';
 import 'package:family_garden/network/api_constants/api_constants.dart';
-
-import '../../../main.dart';
 import '../../../network/api_helper.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/common_import/common_import.dart';
 
-class AddressController extends GetxController with RouteAware {
-  ValueNotifier<bool> showAppNotificationNotifierInitial = ValueNotifier(false);
+class AddressController extends GetxController {
   var addressModel = CheckoutModel().obs;
   RxBool isLoader = true.obs;
   RxBool isaddressScreenLoader = false.obs;

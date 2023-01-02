@@ -16,6 +16,7 @@ class ChangePasswordController extends GetxController {
   @override
   void onInit(){
     getDatas();
+    super.onInit();
   }
 
 getDatas() {
@@ -51,11 +52,6 @@ getDatas() {
     }
 
     update();
-    /* else
-      {
-        Navigator.of(Get.context!).pop();
-        showAppNotificationNotifierInitial.value = true;
-      }*/
   }
 
   openAlertBox(BuildContext context, ChangePasswordController controller) {

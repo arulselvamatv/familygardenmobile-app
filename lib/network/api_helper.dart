@@ -863,7 +863,7 @@ class ApiHelper {
       var response = await http.post(Uri.parse(url));
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
-        print("response of coConfirm $body");
+        print("response of CCAVENUE $body");
         var res = CheckoutConfirmModel.fromJson(body);
         return HTTPResponse(
           true,
@@ -893,7 +893,7 @@ class ApiHelper {
             "Invalid response received from server! Please try again in a minute or two.",
       );
     } catch (e) {
-      print("sdfsdf $e");
+      print("CC Avenue $e");
       return HTTPResponse(
         false,
         null,
@@ -969,7 +969,7 @@ class ApiHelper {
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
         var body = jsonDecode(await response.stream.bytesToString());
-        print(body);
+        print("Login Body $body");
         var res = LoginModel.fromJson(body);
         print("User TOken : ${res.userToken}");
         prefs.setString("userToken", res.userToken ?? "");

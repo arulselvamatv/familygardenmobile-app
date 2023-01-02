@@ -1,19 +1,15 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:family_garden/models/home_features_model.dart';
 import 'package:family_garden/network/api_constants/api_constants.dart';
-import 'package:family_garden/network/api_constants/api_end_points.dart';
 import 'package:family_garden/network/api_helper.dart';
 import 'package:family_garden/network/get_local_datas.dart';
 import 'package:family_garden/screens/dashboard/controllers/dashboard_controller.dart';
 import '../../../models/categories_model.dart';
-import '../../../models/home_feature_model.dart';
 import '../../../models/home_slider_model.dart';
 import '../../../models/informationDetailsModel.dart';
-import '../../../routes/app_pages.dart';
 import '../../../utils/common_import/common_import.dart';
-import '../../offers_screen/controller/offers_controller.dart';
 
-class HomeScreenController extends GetxController with RouteAware {
+class HomeScreenController extends GetxController {
   TextEditingController search = TextEditingController();
   final CarouselController carouselController = CarouselController();
   RxInt currentIndex = 0.obs;

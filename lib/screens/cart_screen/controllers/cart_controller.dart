@@ -9,7 +9,6 @@ class CartController extends GetxController {
   TextEditingController cuponCode = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
   var products = CartListModel().obs;
   RxBool isProductsLoader = true.obs;
   String staticImage = "assets/images/Carrot.png";

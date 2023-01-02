@@ -5,6 +5,7 @@ import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 // import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
+import '../../../models/checkout_cart_datas_model.dart';
 import '../../../models/checkout_confirm_model.dart';
 
 class InitatePaymentController extends GetxController {
@@ -20,12 +21,12 @@ class InitatePaymentController extends GetxController {
   void onInit() {
     if (Get.arguments != null) {
       paymentRes = Get.arguments;
-      print("paymentRes?.payment.policylink ${paymentRes?.payment.policylink}");
-      data = (paymentRes?.payment.action)! +
+      print("paymentRes?.payment.policylink ${paymentRes?.payment?.policylink}");
+      data = (paymentRes?.payment?.action)! +
           "&encRequest=" +
-          (paymentRes?.payment.encRequest)! +
+          (paymentRes?.payment?.encRequest)! +
           "&access_code=" +
-          (paymentRes?.payment.accessCode)!;
+          (paymentRes?.payment?.accessCode)!;
       print("Complete URL ${data}");
     }
     super.onInit();

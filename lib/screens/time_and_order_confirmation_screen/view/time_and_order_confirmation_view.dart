@@ -186,8 +186,7 @@ class TimeAndOrderConfirmationView
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (BuildContext ctxt, int index) {
-                      return Obx(
-                        ()=> IgnorePointer(
+                      return IgnorePointer(
                           ignoring: controller.selectedDays.value[0] ? controller.currentTimeNumber.value > double.parse(controller.timeSlotDatas.value.timeSlots?[index].endTime ?? "0"):false,
                           child: GestureDetector(
                             onTap: (){
@@ -241,8 +240,7 @@ class TimeAndOrderConfirmationView
                               ),
                             ),
                           ),
-                        ),
-                      );
+                        );
                     },
                     separatorBuilder: (BuildContext context, int index) {
                       return AppSize.size.h15;
@@ -322,38 +320,36 @@ class TimeAndOrderConfirmationView
                                     Expanded(
                                         child: Row(
                                       children: [
-                                        Obx(
-                                          () => Checkbox(
+                                        Checkbox(
                                             checkColor: Colors.white,
                                             fillColor: MaterialStateProperty.all(
                                                 AppColors.primaryColor),
-                                            value: controller.boolList.value[index],
-                                            shape: CircleBorder(),
+                                            value: false,
+                                            shape: const CircleBorder(),
                                             onChanged: (bool? value) {
-                                              print(value);
-                                              controller.boolList.value[index] =
-                                                  value!;
-                                              controller.boolList.refresh();
+                                              // print(value);
+                                              // controller.boolList.value[index] =
+                                              //     value!;
+                                              // controller.boolList.refresh();
                                             },
                                           ),
-                                        ),
                                         Flexible(
                                           // height: 100,
                                           child: Text(
                                             controller.cartData?.products?[index].name ?? "",
                                             maxLines: 3,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 11,
                                                 overflow: TextOverflow.ellipsis),
                                           ),
                                         ),
                                       ],
                                     )),
-                                    Container(
+                                    SizedBox(
                                       width: 60,
                                       child: Text(
                                         controller.cartData?.products?[index].model ?? "",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 11,
                                         ),
                                       ),
@@ -363,17 +359,17 @@ class TimeAndOrderConfirmationView
                                       width: 15,
                                       child: Text(
                                         controller.cartData?.products?[index].quantity ?? "",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 11,
                                         ),
                                       ),
                                     ),
                                     AppSize.size.w20,
-                                    Container(
+                                    SizedBox(
                                       width: 50,
                                       child: Text(
                                         controller.cartData?.products?[index].price ?? "",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 11,
                                         ),
                                       ),
@@ -386,7 +382,7 @@ class TimeAndOrderConfirmationView
                           );
                         },
                         separatorBuilder: (BuildContext context, int index) {
-                          return Divider(
+                          return const Divider(
                             color: AppColors.dividerColor,
                           );
                         },
@@ -394,7 +390,7 @@ class TimeAndOrderConfirmationView
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
                       ),
-                      Divider(
+                      const Divider(
                         color: AppColors.dividerColor,
                       ),
                       AppSize.size.h10,
@@ -406,17 +402,17 @@ class TimeAndOrderConfirmationView
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 "Sub-Total",
                                 style: TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.w500),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               SizedBox(
                                 width: 50,
                                 child: Text(
                                   controller.cartData?.subTotals?.value ?? "",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 12, fontWeight: FontWeight.w500),
                                 ),
                               ),
@@ -433,12 +429,12 @@ class TimeAndOrderConfirmationView
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 "Flat Shipping Rate",
                                 style: TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.w500),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               SizedBox(
                                 width: 50,
                                 child: Text(
