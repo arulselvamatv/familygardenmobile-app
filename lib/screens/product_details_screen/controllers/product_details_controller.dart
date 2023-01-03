@@ -156,11 +156,16 @@ class ProductDetailsController extends GetxController {
     update();
   }
 
-  hitAddCartAPI() async {
+  Future<int> hitAddCartAPI() async {
     if ((data.value.isNotEmpty)) {
       var response = await ApiHelper.addCart(data.value,false);
+      if(response.responseCode == 200){
+        return 0;
+      }else{
+        return 0;
+      }
     } else {
-      print("No Datas Found");
+      return 0;
     }
   }
 

@@ -464,6 +464,7 @@ class ApiHelper {
       );
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
+        print(body);
         var res = CheckoutModel.fromJson(body);
         print("checkout Logged ${res.logged}");
         if (!logged) {
@@ -860,7 +861,8 @@ class ApiHelper {
         "${ApiConstants.baseUrl}${EndPoints.checkoutConfirm}&api_token=${ApiConstants.jwtToken}";
     try {
       var passingBody = {"date": date, "time": timeSlotId};
-      var response = await http.post(Uri.parse(url));
+      print("CheckoutConfirm Passig Data");
+      var response = await http.post(Uri.parse(url),body: passingBody);
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
         print("response of CCAVENUE $body");
@@ -908,8 +910,9 @@ class ApiHelper {
         "${ApiConstants.baseUrl}${EndPoints.checkoutConfirm}&api_token=${ApiConstants.jwtToken}";
     try {
       var passingBody = {"date": date, "time": timeSlotId};
+      print(passingBody);
       var response =
-          await http.post(Uri.parse(url), body: json.encode(passingBody));
+          await http.post(Uri.parse(url), body: passingBody);
       if (response.statusCode == 200) {
         var body = jsonDecode(response.body);
         var res = CheckoutCartDatasModel.fromJson(body);
@@ -1660,6 +1663,10 @@ class ApiHelper {
     var req = await http.get(Uri.parse(
         "${ApiConstants.baseUrl}${EndPoints.loguout}?&api_token=${ApiConstants.jwtToken}"));
     if (req.statusCode == 200) {
+      var res = await getToken();
+      if(res.responseCode== 200){
+        ApiConstants.jwtToken = res.data?.apiToken ?? "";
+      }
       var body = json.decode(req.body);
       if (body["status"] == 1) {
         final prefs = await SharedPreferences.getInstance();

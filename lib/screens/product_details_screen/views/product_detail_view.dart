@@ -18,9 +18,14 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
     controller.getCartCount();
     return WillPopScope(
       onWillPop: () async {
-        controller.hitAddCartAPI();
-        Get.back();
-        return true;
+        int res = await controller.hitAddCartAPI();
+        if(res == 0){
+          Get.back();
+          return true;
+        }else{
+          Get.back();
+          return true;
+        }
       },
       child: Scaffold(
         backgroundColor: AppColors.primaryColor,
@@ -35,9 +40,13 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
                   Padding(
                     padding: const EdgeInsets.only(left: 15.0),
                     child: GestureDetector(
-                        onTap: () {
-                          controller.hitAddCartAPI();
-                          Get.back();
+                        onTap: () async{
+                          int res = await controller.hitAddCartAPI();
+                          if(res == 0){
+                            Get.back();
+                          }else{
+                            Get.back();
+                          }
                         },
                         child: SvgPicture.asset(
                           'assets/icons/BackIcon.svg',
@@ -53,12 +62,20 @@ class ProductDetailsView extends GetView<ProductDetailsController> {
             center_title: true,
             leading_image: "Add",
             appBarActions: GestureDetector(
-              onTap: () {
-                controller.hitAddCartAPI();
-                Get.toNamed(Routes.CART_SCREEN)?.then((value) {
-                  controller.clearAll();
-                  controller.getCartCount();
-                });
+              onTap: () async{
+
+                int res = await controller.hitAddCartAPI();
+                if(res == 0){
+                  Get.toNamed(Routes.CART_SCREEN)?.then((value) {
+                    controller.clearAll();
+                    controller.getCartCount();
+                  });
+                }else{
+                  Get.toNamed(Routes.CART_SCREEN)?.then((value) {
+                    controller.clearAll();
+                    controller.getCartCount();
+                  });
+                }
               },
               child: Stack(
                 children: [

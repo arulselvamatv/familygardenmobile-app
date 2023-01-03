@@ -48,15 +48,17 @@ class AddressController extends GetxController {
   getCheckout() async {
     // is
     var response = await ApiHelper.checkOut(false);
-    addressModel.value = response.data!;
-    print(ApiConstants.jwtToken);
-    print(addressModel.value.logged);
-      if ((addressModel.value.addresses?.length)! > 0) {
-        getDatas();
-        isEmptyAddress.value = false;
-      } else {
-        isaddressScreenLoader.value = true;
-      }
+    if(response.responseCode == 200){
+      addressModel.value = response.data ?? CheckoutModel();
+      print(ApiConstants.jwtToken);
+      print(addressModel.value.logged);
+    }
+    if ((addressModel.value.addresses?.length ?? 0) > 0) {
+      getDatas();
+      isEmptyAddress.value = false;
+    } else {
+      isaddressScreenLoader.value = true;
+    }
     addressModel.refresh();
     update();
   }

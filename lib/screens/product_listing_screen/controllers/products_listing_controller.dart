@@ -29,6 +29,7 @@ class ProductListingController extends GetxController {
   RxInt totalPages = 1.obs;
   RxDouble scrolledPosition = 0.0.obs;
   RxBool bottomLoader = true.obs;
+  ScrollController scrollController1 = ScrollController();
 
   @override
   void onInit() async {
