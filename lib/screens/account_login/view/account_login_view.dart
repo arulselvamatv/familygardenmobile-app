@@ -6,6 +6,10 @@ import '../../../widgets/LoginWidget/login_widget_view/login_widget_view.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
 
 class AccountLoginView extends GetView<AccountLoginController> {
+
+  @override
+  var controller = Get.put(AccountLoginController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

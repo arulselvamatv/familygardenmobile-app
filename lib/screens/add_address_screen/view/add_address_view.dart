@@ -2,6 +2,7 @@ import 'package:family_garden/routes/app_pages.dart';
 import 'package:family_garden/screens/add_address_screen/controller/add_address_controller.dart';
 import 'package:family_garden/screens/profile_screen/controllers/profile_controller.dart';
 import 'package:family_garden/widgets/custom_textfield.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -92,6 +93,9 @@ class AddAddressView extends GetView<AddAddressController> {
                         fontSize: 12,
                         keyboardType: TextInputType.number,
                         controller: controller.phoneNumController,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
                         hint: '',
                         counterText: "",
                         validator: (value) {
@@ -178,6 +182,9 @@ class AddAddressView extends GetView<AddAddressController> {
                             hasCaption: true,
                             maxline: 1,
                             keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                             maxlength: 6,
                             counterText: "",
                             fontSize: 12,

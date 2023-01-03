@@ -313,69 +313,57 @@ class TimeAndOrderConfirmationView
                                 width: Get.width,
                                 decoration: BoxDecoration(
                                     color: AppColors.white.withOpacity(0.5)),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    // AppSize.size.w15,
-                                    Expanded(
-                                        child: Row(
-                                      children: [
-                                        Checkbox(
-                                            checkColor: Colors.white,
-                                            fillColor: MaterialStateProperty.all(
-                                                AppColors.primaryColor),
-                                            value: false,
-                                            shape: const CircleBorder(),
-                                            onChanged: (bool? value) {
-                                              // print(value);
-                                              // controller.boolList.value[index] =
-                                              //     value!;
-                                              // controller.boolList.refresh();
-                                            },
-                                          ),
-                                        Flexible(
-                                          // height: 100,
-                                          child: Text(
-                                            controller.cartData?.products?[index].name ?? "",
-                                            maxLines: 3,
-                                            style: const TextStyle(
-                                                fontSize: 11,
-                                                overflow: TextOverflow.ellipsis),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      // AppSize.size.w15,
+                                      Expanded(
+                                          child:
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 10.0,top: 10),
+                                            child: Text (
+                                              controller.cartData?.products?[index].name ?? "",
+                                              maxLines: 3,
+                                              style: const TextStyle(
+                                                  fontSize: 11,
+                                                  overflow: TextOverflow.ellipsis),
+                                            ),
                                           ),
                                         ),
-                                      ],
-                                    )),
-                                    SizedBox(
-                                      width: 60,
-                                      child: Text(
-                                        controller.cartData?.products?[index].model ?? "",
-                                        style: const TextStyle(
-                                          fontSize: 11,
+                                      SizedBox(
+                                        width: 60,
+                                        child: Text(
+                                          controller.cartData?.products?[index].model ?? "",
+                                          style: const TextStyle(
+                                            fontSize: 11,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    AppSize.size.w20,
-                                    Container(
-                                      width: 15,
-                                      child: Text(
-                                        controller.cartData?.products?[index].quantity ?? "",
-                                        style: const TextStyle(
-                                          fontSize: 11,
+                                      AppSize.size.w20,
+                                      Container(
+                                        width: 15,
+                                        child: Text(
+                                          controller.cartData?.products?[index].quantity ?? "",
+                                          style: const TextStyle(
+                                            fontSize: 11,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    AppSize.size.w20,
-                                    SizedBox(
-                                      width: 50,
-                                      child: Text(
-                                        controller.cartData?.products?[index].price ?? "",
-                                        style: const TextStyle(
-                                          fontSize: 11,
+                                      AppSize.size.w20,
+                                      SizedBox(
+                                        width: 50,
+                                        child: Text(
+                                          controller.cartData?.products?[index].price ?? "",
+                                          style: const TextStyle(
+                                            fontSize: 11,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    AppSize.size.w20
-                                  ],
+                                      AppSize.size.w20
+                                    ],
+                                  ),
                                 ),
                               )
                             ],
