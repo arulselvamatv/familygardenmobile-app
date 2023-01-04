@@ -476,6 +476,7 @@ class AccountView extends GetView<AccountController> {
             physics: const NeverScrollableScrollPhysics(),
                 child: LoginWidgetView(
                     screenName: '',
+                  context: context,
                   ),
               ),
         ),

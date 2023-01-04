@@ -970,7 +970,8 @@ class ApiHelper {
         'device_id': deviceId
       };
       http.StreamedResponse response = await request.send();
-      if (response.statusCode == 200) {
+      print(response.statusCode);
+      if (response.statusCode == 200 || response.statusCode == 401) {
         var body = jsonDecode(await response.stream.bytesToString());
         print("Login Body $body");
         var res = LoginModel.fromJson(body);

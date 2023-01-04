@@ -10,8 +10,10 @@ import '../../../screens/drawer_screen/controllers/drawer_controller.dart';
 
 class LoginWidgetView extends GetView<LoginWidgetController> {
   final String? screenName;
+  final BuildContext context;
   LoginWidgetView({
     Key? key,
+    required this.context,
     required this.screenName,
   }) : super(key: key);
   @override
@@ -216,13 +218,15 @@ class LoginWidgetView extends GetView<LoginWidgetController> {
                           // controller.emailController.text = "";
                           // controller.passwordController.text = "";
                           // Get.back();
-                          Get.snackbar(
-                              'warning', response.data?.status.toString() ?? "" );
-                          // ScaffoldMessenger.of(context)
-                          //     .showSnackBar(SnackBar(
-                          //   content:
-                          //       Text(response.data?.errorWarning ?? ""),
-                          // ));
+
+                          print("error message ${response.data?.errorWarning}");
+                          // Get.snackbar(
+                          //     'warning', response.data?.errorWarning ?? "" );
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(SnackBar(
+                            content:
+                                Text(response.data?.errorWarning ?? ""),
+                          ));
                         }
                       }
                     },

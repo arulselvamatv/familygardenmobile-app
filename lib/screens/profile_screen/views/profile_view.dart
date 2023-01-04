@@ -5,6 +5,7 @@ import 'package:family_garden/routes/app_pages.dart';
 import 'package:family_garden/screens/profile_screen/controllers/profile_controller.dart';
 import 'package:family_garden/widgets/LoginWidget/pop_up_notification_view.dart';
 import 'package:family_garden/widgets/custom_textfield.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -111,6 +112,11 @@ class ProfileView extends GetView<ProfileController> {
                       caption: 'Edit Mobile Number',
                       hasCaption: true,
                       fontSize: 12,
+                      maxlength: 10,
+                      counterText: "",
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
                       controller: controller.telephoneController,
                       keyboardType: TextInputType.number,
                       hint: '',

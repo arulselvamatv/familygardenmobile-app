@@ -180,7 +180,10 @@ class WishListScreenView extends GetView<WishListScreenController> {
                                               if(controller
                                                   .products[
                                               index]
-                                                  .addToCart == false){
+                                                  .addToCart == false || controller
+                                                  .products[
+                                              index]
+                                                  .addToCart == null){
                                                 var productData = {
                                                   "product_info": [
                                                     {

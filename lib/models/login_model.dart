@@ -11,6 +11,7 @@ class LoginModel {
   String? logged;
   List<Null>? customFields;
   Null? accountCustomField;
+  String? errorWarning;
 
   LoginModel(
       {this.status,
@@ -24,6 +25,7 @@ class LoginModel {
         this.userToken,
         this.logged,
         this.customFields,
+        this.errorWarning,
         this.accountCustomField});
 
   LoginModel.fromJson(Map<String, dynamic> json) {
@@ -38,6 +40,7 @@ class LoginModel {
     telephone = json['telephone'];
     userToken = json['user_token'];
     logged = json['logged'];
+    errorWarning = json['error_warning'];
     // if (json['custom_fields'] != null) {
     //   customFields = <Null>[];
     //   json['custom_fields'].forEach((v) {

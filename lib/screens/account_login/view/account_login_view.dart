@@ -44,7 +44,7 @@ class AccountLoginView extends GetView<AccountLoginController> {
       body: SingleChildScrollView(
         controller: controller.scrollController,
         child: LoginWidgetView(
-          screenName: 'Account Login',
+          screenName: 'Account Login', context: context,
         ),
       ),
     );
