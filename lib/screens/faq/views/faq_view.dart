@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:family_garden/widgets/common_appbar/custom_appbar_view.dart';
@@ -85,6 +86,7 @@ class FaqView extends GetView<FaqController> {
                           gestureNavigationEnabled: true,
                           navigationDelegate: (NavigationRequest request) {
                             if (request.url.contains("mailto:")) {
+                              print(request.url);
                               canLaunchUrl(Uri(
                                       scheme: 'mailto',
                                       path: 'familygardenchennai@gmail.com'))
@@ -116,27 +118,32 @@ class FaqView extends GetView<FaqController> {
                           javascriptMode: JavascriptMode.unrestricted,
                           initialUrl: 'https://www.familygarden.in/faq',
                           onPageFinished: (String url) {
-                            print('Page finished loading: $url');
-                            controller.webViewCtrl!
-                                .runJavascriptReturningResult("javascript:(function() { " +
-                                    "var head = document.getElementsByTagName('header')[0];" +
-                                    "head.parentNode.removeChild(head);" +
-                                    "var title = Array.from(document.getElementsByClassName('navbar navbar-expand-lg navbar-light bg-white menu sticky-top'));" +
-                                    "title.forEach(tit =>{ tit.remove();});" +
-                                    "var title = Array.from(document.getElementsByClassName('container  mt-4'));" +
-                                    "title.forEach(tit =>{ tit.remove();});" +
-                                    "var footer = document.getElementsByTagName('footer')[0];" +
-                                    "footer.parentNode.removeChild(footer);" +
-                                    "document.getElementById('search').outerHTML='';" +
-                                    "document.getElementsByClassName('sec-bg').outerHTML='';" +
-                                    "})()")
-                                .then((value) {
-                              Future.delayed(const Duration(seconds: 1), () {
-                                controller.isLoader.value = true;
-                                debugPrint('Page finished loading Javascript');
-                                controller.isLoader.refresh();
-                              });
-                            }).catchError((onError) => debugPrint('$onError'));
+                            if(Platform.isAndroid){
+                              print('Page finished loading: $url');
+                              controller.webViewCtrl!
+                                  .runJavascriptReturningResult("javascript:(function() { " +
+                                  "var head = document.getElementsByTagName('header')[0];" +
+                                  "head.parentNode.removeChild(head);" +
+                                  "var title = Array.from(document.getElementsByClassName('navbar navbar-expand-lg navbar-light bg-white menu sticky-top'));" +
+                                  "title.forEach(tit =>{ tit.remove();});" +
+                                  "var title = Array.from(document.getElementsByClassName('container  mt-4'));" +
+                                  "title.forEach(tit =>{ tit.remove();});" +
+                                  "var footer = document.getElementsByTagName('footer')[0];" +
+                                  "footer.parentNode.removeChild(footer);" +
+                                  "document.getElementById('search').outerHTML='';" +
+                                  "document.getElementsByClassName('sec-bg').outerHTML='';" +
+                                  "})()")
+                                  .then((value) {
+                                Future.delayed(const Duration(seconds: 1), () {
+                                  controller.isLoader.value = true;
+                                  debugPrint('Page finished loading Javascript');
+                                  controller.isLoader.refresh();
+                                });
+                              }).catchError((onError) => debugPrint('$onError'));
+                            }else{
+
+                            }
+
                           },
                         ),
                       ),
