@@ -79,22 +79,26 @@ class FaqView extends GetView<FaqController> {
                         child: WebView(
                           onWebViewCreated:
                               (WebViewController webViewController) {
+                            print("webview created");
                             controller.webViewCtrl = webViewController;
                             controller.ctrl.complete(webViewController);
                           },
                           gestureRecognizers: controller.gestureRecognizers,
                           gestureNavigationEnabled: true,
                           navigationDelegate: (NavigationRequest request) {
+                            int index = request.url.indexOf(":");
+                            String email = request.url.substring(index + 1);
+                            print(email);
                             if (request.url.contains("mailto:")) {
-                              print(request.url);
+                              print("Request URL ${request.url}");
                               canLaunchUrl(Uri(
                                       scheme: 'mailto',
-                                      path: 'familygardenchennai@gmail.com'))
+                                      path: email))
                                   .then((bool result) {
                                 launchUrl(
                                   Uri(
                                       scheme: 'mailto',
-                                      path: 'familygardenchennai@gmail.com'),
+                                      path: email),
                                   mode: LaunchMode.externalApplication,
                                 );
                               });
@@ -118,32 +122,36 @@ class FaqView extends GetView<FaqController> {
                           javascriptMode: JavascriptMode.unrestricted,
                           initialUrl: 'https://www.familygarden.in/faq',
                           onPageFinished: (String url) {
-                            if(IO.Platform.isAndroid){
+                            print("page initialized");
+                            print(IO.Platform);
+                            if (IO.Platform.isAndroid) {
                               print('Page finished loading: $url');
                               controller.webViewCtrl!
                                   .runJavascriptReturningResult("javascript:(function() { " +
-                                  "var head = document.getElementsByTagName('header')[0];" +
-                                  "head.parentNode.removeChild(head);" +
-                                  "var title = Array.from(document.getElementsByClassName('navbar navbar-expand-lg navbar-light bg-white menu sticky-top'));" +
-                                  "title.forEach(tit =>{ tit.remove();});" +
-                                  "var title = Array.from(document.getElementsByClassName('container  mt-4'));" +
-                                  "title.forEach(tit =>{ tit.remove();});" +
-                                  "var footer = document.getElementsByTagName('footer')[0];" +
-                                  "footer.parentNode.removeChild(footer);" +
-                                  "document.getElementById('search').outerHTML='';" +
-                                  "document.getElementsByClassName('sec-bg').outerHTML='';" +
-                                  "})()")
+                                      "var head = document.getElementsByTagName('header')[0];" +
+                                      "head.parentNode.removeChild(head);" +
+                                      "var title = Array.from(document.getElementsByClassName('navbar navbar-expand-lg navbar-light bg-white menu sticky-top'));" +
+                                      "title.forEach(tit =>{ tit.remove();});" +
+                                      "var title = Array.from(document.getElementsByClassName('container  mt-4'));" +
+                                      "title.forEach(tit =>{ tit.remove();});" +
+                                      "var footer = document.getElementsByTagName('footer')[0];" +
+                                      "footer.parentNode.removeChild(footer);" +
+                                      "document.getElementById('search').outerHTML='';" +
+                                      "document.getElementsByClassName('sec-bg').outerHTML='';" +
+                                      "})()")
                                   .then((value) {
                                 Future.delayed(const Duration(seconds: 1), () {
                                   controller.isLoader.value = true;
-                                  debugPrint('Page finished loading Javascript');
+                                  debugPrint(
+                                      'Page finished loading Javascript');
                                   controller.isLoader.refresh();
                                 });
-                              }).catchError((onError) => debugPrint('$onError'));
-                            }else{
-
+                              }).catchError(
+                                      (onError) => debugPrint('$onError'));
+                            } else {
+                              controller.isLoader.value = true;
+                              controller.isLoader.refresh();
                             }
-
                           },
                         ),
                       ),
