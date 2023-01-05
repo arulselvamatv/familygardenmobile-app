@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:io';
+import 'dart:io' as IO;
 
 import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:family_garden/widgets/common_appbar/custom_appbar_view.dart';
@@ -118,7 +118,7 @@ class FaqView extends GetView<FaqController> {
                           javascriptMode: JavascriptMode.unrestricted,
                           initialUrl: 'https://www.familygarden.in/faq',
                           onPageFinished: (String url) {
-                            if(Platform.isAndroid){
+                            if(IO.Platform.isAndroid){
                               print('Page finished loading: $url');
                               controller.webViewCtrl!
                                   .runJavascriptReturningResult("javascript:(function() { " +
