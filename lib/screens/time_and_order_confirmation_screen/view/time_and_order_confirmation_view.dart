@@ -197,7 +197,7 @@ class TimeAndOrderConfirmationView
                               width: Get.width,
                               decoration: BoxDecoration(
                                 // color:controller.selectedDays.value[0] ?  controller.currentTimeNumber.value > double.parse(controller.timeSlotDatas.value.timeSlots?[index].endTime ?? "0")? controller.availableBoolList.value[index]?AppColors.slightGreyBackground.withOpacity(0.3):AppColors.white:AppColors.white:AppColors.white,
-                                color:controller.selectedDays.value[0]?controller.currentTimeNumber.value > double.parse(controller.timeSlotDatas.value.timeSlots?[index].endTime ?? "0")?AppColors.slightGreyBackground:controller.availableBoolList.value[index]?AppColors.slightGreyBackground.withOpacity(0.3):AppColors.white:controller.availableBoolList.value[index]?AppColors.slightGreyBackground.withOpacity(0.3):AppColors.white,
+                                color:controller.selectedDays.value[0]?controller.currentTimeNumber.value > double.parse(controller.timeSlotDatas.value.timeSlots?[index].endTime ?? "0")?AppColors.slightGreyBackground:controller.availableBoolList.value[index]?AppColors.white:AppColors.white:controller.availableBoolList.value[index]?AppColors.white:AppColors.white,
                                   border: Border.all(width: 1, color: AppColors.slightGreyBorder),
                                   borderRadius: BorderRadius.circular(5)),
                               child: Row(
@@ -232,10 +232,10 @@ class TimeAndOrderConfirmationView
                                   AppSize.size.w20,
                                   Text("${controller.startTimeList[index]} - ${controller.endTimeList[index]}"),
                                   Spacer(),
-                                  controller.availableBoolList.value[index] ?Padding(
+                                  controller.selectedDays.value[0]?controller.currentTimeNumber.value > double.parse(controller.timeSlotDatas.value.timeSlots?[index].endTime ?? "0")?Padding(
                                     padding: const EdgeInsets.only(right: 15.0),
-                                    child: Text ("Sold Out",style: TextStyle(fontSize: 8),),
-                                  ):Container()
+                                    child: Text ("slot full",style: TextStyle(fontSize: 8),),
+                                  ):controller.availableBoolList.value[index]?Container():Container():controller.availableBoolList.value[index]?Container():Container()
                                 ],
                               ),
                             ),

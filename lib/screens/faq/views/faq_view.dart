@@ -4,7 +4,7 @@ import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:family_garden/widgets/common_appbar/custom_appbar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -83,6 +83,36 @@ class FaqView extends GetView<FaqController> {
                           },
                           gestureRecognizers: controller.gestureRecognizers,
                           gestureNavigationEnabled: true,
+                          navigationDelegate: (NavigationRequest request) {
+                            if (request.url.contains("mailto:")) {
+                              canLaunchUrl(Uri(
+                                      scheme: 'mailto',
+                                      path: 'familygardenchennai@gmail.com'))
+                                  .then((bool result) {
+                                launchUrl(
+                                  Uri(
+                                      scheme: 'mailto',
+                                      path: 'familygardenchennai@gmail.com'),
+                                  mode: LaunchMode.externalApplication,
+                                );
+                              });
+                              return NavigationDecision.prevent;
+                            } else if (request.url.contains("tg:")) {
+                              canLaunchUrl(Uri(
+                                      scheme: 'tg',
+                                      path: 'resolve?domain=YourId'))
+                                  .then((bool result) {
+                                launchUrl(
+                                  Uri(
+                                      scheme: 'tg',
+                                      path: 'resolve?domain=YourId'),
+                                  mode: LaunchMode.externalApplication,
+                                );
+                              });
+                              return NavigationDecision.prevent;
+                            }
+                            return NavigationDecision.navigate;
+                          },
                           javascriptMode: JavascriptMode.unrestricted,
                           initialUrl: 'https://www.familygarden.in/faq',
                           onPageFinished: (String url) {

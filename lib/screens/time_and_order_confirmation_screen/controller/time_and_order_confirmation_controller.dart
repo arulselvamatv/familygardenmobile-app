@@ -49,6 +49,11 @@ class TimeAndOrderConfirmationController extends GetxController{
     var vals = DateFormat('HH:mm:ss').format(todayDate);
     print(vals);
     currentTimeNumber.value = int.parse(vals.substring(0,2));
+    if(currentTimeNumber.value < 12){
+      currentTimeNumber.value = 13;
+    }else{
+      currentTimeNumber.value = 24;
+    }
     print("sdfdslfnklsdfksdfkepwfpwe $currentTimeNumber");
     today.value = (DateFormat('dd/MM/yyyy').format(todayDate));
     tommorow.value = (DateFormat('dd/MM/yyyy').format(tommorowDate));

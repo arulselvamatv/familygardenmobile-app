@@ -2,6 +2,14 @@
     package="com.example.family_garden">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <queries>
+<!--        ... other intents-->
+        <!-- If your app sends emails need to add queries-->
+        <intent>
+            <action android:name="android.intent.action.SEND" />
+            <data android:mimeType="*/*" />
+        </intent>
+    </queries>
    <application
         android:label="Family Garden"
         android:name="${applicationName}"
