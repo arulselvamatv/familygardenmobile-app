@@ -49,7 +49,7 @@ class TimeAndOrderConfirmationView
                 topRight: Radius.circular(30),
                 topLeft: Radius.circular(30),
               )),
-          child: !controller.isLoading.value? Center(child: CircularProgressIndicator(),):Padding(
+          child: !controller.isLoading.value? const Center(child: CircularProgressIndicator(),):Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: SingleChildScrollView(
               child: Column(
