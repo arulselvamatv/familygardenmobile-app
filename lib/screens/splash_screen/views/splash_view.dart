@@ -1,3 +1,5 @@
+import 'package:flutter_svg/svg.dart';
+
 import '../../../utils/common_import/common_import.dart';
 import '../controllers/splash_controller.dart';
 
@@ -10,8 +12,8 @@ class SplashView extends GetView<SplashController> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Center(
-              child: Image.asset(
-            "assets/images/splash-mdpi.png",
+              child: SvgPicture.asset(
+            "assets/icons/logo-green.svg",
             height: 150,
             width: 150,
           ))

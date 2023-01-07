@@ -130,8 +130,8 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                     child: CircleAvatar(
                                   radius: 35,
                                   backgroundColor: Colors.grey.shade200,
-                                  child: Image.asset(
-                                    'assets/images/price-tag.png',
+                                  child: SvgPicture.asset(
+                                    'assets/icons/price-tag.svg',
                                   ),
                                 ))
                               ]),

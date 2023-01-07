@@ -192,11 +192,11 @@ class OffersView extends GetView<OffersController> {
                                                               padding:
                                                                   const EdgeInsets
                                                                       .all(8.0),
-                                                              child: Image.asset(
-                                                                  "assets/icons/minus.png"),
+                                                              child: SvgPicture.asset(
+                                                                  "assets/icons/minus_icon.svg"),
                                                             ),
                                                           ),
-                                                          Spacer(),
+                                                          const Spacer(),
                                                           // TextWidget('-',color: AppColors.white,fontSize: 8,),
                                                           TextWidget(
                                                             controller
@@ -218,8 +218,8 @@ class OffersView extends GetView<OffersController> {
                                                               padding:
                                                                   const EdgeInsets
                                                                       .all(8.0),
-                                                              child: Image.asset(
-                                                                  "assets/icons/add.png"),
+                                                              child: SvgPicture.asset(
+                                                                  "assets/icons/plus_btn.svg"),
                                                             ),
                                                           ),
                                                         ],
@@ -232,8 +232,8 @@ class OffersView extends GetView<OffersController> {
                                                                 vertical: 6),
                                                         child: Row(
                                                           children: [
-                                                            Image.asset(
-                                                              'assets/icons/addToCart.png',
+                                                            SvgPicture.asset(
+                                                              'assets/icons/cart-btn.svg',
                                                               height: 13,
                                                               width: 13,
                                                               fit: BoxFit.fill,

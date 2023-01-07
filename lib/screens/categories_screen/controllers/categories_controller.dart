@@ -6,7 +6,7 @@ class CategoriesController extends GetxController {
   TextEditingController searchController = TextEditingController();
   RxList<Category> categoriesList = <Category>[].obs;
   RxBool isCategoryLoader = true.obs;
-  RxString staticImage = "assets/images/Fresh Vegetables.png".obs;
+  RxString staticImage = "assets/images/fresh-fruits.svg".obs;
   @override
   void onInit() {
     getCategory();

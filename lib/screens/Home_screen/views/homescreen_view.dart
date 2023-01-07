@@ -1039,8 +1039,8 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                         child: Container(
                                                           height: 25,
                                                           width: 70,
-                                                          child: Image.asset(
-                                                              "assets/images/out-of-stock.png"),
+                                                          child: SvgPicture.asset(
+                                                              "assets/icons/out-of-stock.svg"),
                                                         ))
                                                     : Container()
                                               ],

@@ -623,8 +623,8 @@ class ProductListView extends GetView<ProductListController> {
                                         child: Container(
                                           height: 35,
                                           width: 115,
-                                          child: Image.asset(
-                                              "assets/images/out-of-stock.png"),
+                                          child: SvgPicture.asset(
+                                              "assets/icons/out-of-stock.svg"),
                                         ),
                                       )
                                           : Container())

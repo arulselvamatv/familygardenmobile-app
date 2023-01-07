@@ -76,7 +76,7 @@ class ProductListingView extends GetView<ProductListingController> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(right: 20, top: 15),
-                          child: Image.asset("assets/icons/cart.png",
+                          child: SvgPicture.asset("assets/icons/cart-btn.svg",
                               height: 25, width: 25),
                         ),
                         controller.cartCount.value == 0
@@ -603,8 +603,8 @@ class ProductListingView extends GetView<ProductListingController> {
                                                                     padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
                                                                     child: Row(
                                                                       children: [
-                                                                        Image.asset(
-                                                                          'assets/icons/addToCart.png',
+                                                                        SvgPicture.asset(
+                                                                          'assets/icons/add-to-cart.svg',
                                                                           height: 13,
                                                                           width: 13,
                                                                           fit: BoxFit.fill,
@@ -652,8 +652,8 @@ class ProductListingView extends GetView<ProductListingController> {
                                               child: Container(
                                                 height: 35,
                                                 width: 115,
-                                                child: Image.asset(
-                                                    "assets/images/out-of-stock.png"),
+                                                child: SvgPicture.asset(
+                                                    "assets/icons/out-of-stock.svg"),
                                               ),
                                             )
                                                 : Container())

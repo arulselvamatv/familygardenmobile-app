@@ -2,6 +2,7 @@ import 'package:family_garden/screens/categories_screen/controllers/categories_c
 import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:family_garden/widgets/custom_text.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../routes/app_pages.dart';
 
@@ -41,16 +42,16 @@ class CategoriesView extends GetView<CategoriesController> {
                           Get.toNamed(Routes.SEARCH_SCREEN)?.then((value) =>
                               FocusScope.of(context).requestFocus(FocusNode()));
                         },
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Color(0xff000000),
                             fontSize: 15,
                             fontWeight: FontWeight.w400),
                         decoration: InputDecoration(
                           prefixIcon:
-                              ImageIcon(AssetImage('assets/icons/search.png')),
+                               SvgPicture.asset('assets/icons/search.svg'),
                           hintText: "Search for vegetables and fruits",
-                          contentPadding: EdgeInsets.symmetric(vertical: 4),
-                          hintStyle: TextStyle(
+                          contentPadding: const EdgeInsets.symmetric(vertical: 4),
+                          hintStyle: const TextStyle(
                               color: Color(0xff464646),
                               fontSize: 15,
                               fontWeight: FontWeight.w400),
@@ -110,7 +111,7 @@ class CategoriesView extends GetView<CategoriesController> {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             8.0),
-                                                    child: Image.asset(
+                                                    child: SvgPicture.asset(
                                                         controller
                                                             .staticImage.value),
                                                   )
