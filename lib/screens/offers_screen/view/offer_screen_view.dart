@@ -71,7 +71,7 @@ class OffersView extends GetView<OffersController> {
                                             child: controller.products[index]
                                                         .thumb ==
                                                     null
-                                                ? Image.asset(
+                                                ? SvgPicture.asset(
                                                     controller
                                                         .staticImage.value,
                                                     fit: BoxFit.fill,
@@ -193,7 +193,7 @@ class OffersView extends GetView<OffersController> {
                                                                   const EdgeInsets
                                                                       .all(8.0),
                                                               child: SvgPicture.asset(
-                                                                  "assets/icons/minus_icon.svg"),
+                                                                  "assets/icons/minus_icon.svg",height: 2,width: 12,fit: BoxFit.scaleDown,),
                                                             ),
                                                           ),
                                                           const Spacer(),
@@ -219,7 +219,7 @@ class OffersView extends GetView<OffersController> {
                                                                   const EdgeInsets
                                                                       .all(8.0),
                                                               child: SvgPicture.asset(
-                                                                  "assets/icons/plus_btn.svg"),
+                                                                  "assets/icons/plus_icon.svg",height: 7,width: 12,fit: BoxFit.scaleDown,),
                                                             ),
                                                           ),
                                                         ],
@@ -236,7 +236,7 @@ class OffersView extends GetView<OffersController> {
                                                               'assets/icons/cart-btn.svg',
                                                               height: 13,
                                                               width: 13,
-                                                              fit: BoxFit.fill,
+                                                              fit: BoxFit.scaleDown,
                                                             ),
                                                             AppSize.size.w5,
                                                             TextWidget(

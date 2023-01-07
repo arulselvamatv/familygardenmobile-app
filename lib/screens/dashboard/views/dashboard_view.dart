@@ -34,8 +34,9 @@ class DashboardView extends GetView<DashboardController> {
                           onTap: () {
                             scaffoldKey.currentState?.openDrawer();
                           },
-                          child: Image.asset(
-                            'assets/icons/sideMenu.png',
+                          child: SvgPicture.asset(
+                            'assets/icons/side-menu.svg',
+                            fit: BoxFit.scaleDown,
                             height: 25,
                             width: 25,
                           )),
@@ -85,7 +86,7 @@ class DashboardView extends GetView<DashboardController> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(right: 20, top: 15),
-                            child: Image.asset("assets/icons/cart.png",
+                            child: SvgPicture.asset("assets/icons/cart-btn.svg", fit: BoxFit.scaleDown,
                                 height: 25, width: 25),
                           ),
                           controller.cartCount.value == 0

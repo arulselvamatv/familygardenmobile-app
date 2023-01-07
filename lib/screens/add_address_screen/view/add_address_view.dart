@@ -33,6 +33,7 @@ class AddAddressView extends GetView<AddAddressController> {
                       },
                       child: SvgPicture.asset(
                         'assets/icons/BackIcon.svg',
+                        fit: BoxFit.scaleDown,
                         height: 24,
                         width: 24,
                       )),

@@ -58,10 +58,11 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                 fontSize: 15,
                                 fontWeight: FontWeight.w400),
                             decoration: InputDecoration(
-                              prefixIcon: ImageIcon(
-                                  AssetImage('assets/icons/search.png')),
+                              // isDense: true,
+                              prefixIcon:
+                                  SvgPicture.asset ('assets/icons/search.svg',fit: BoxFit.scaleDown,height: 18,width: 18,),
                               hintText: "Search for vegetables and fruits",
-                              contentPadding: EdgeInsets.symmetric(vertical: 4),
+                                contentPadding: const EdgeInsets.symmetric(vertical: 4),
                               hintStyle: TextStyle(
                                   color: Color(0xff464646),
                                   fontSize: 15,
@@ -917,7 +918,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                                                 Container(
                                                                                   width: 30,
                                                                                   padding: const EdgeInsets.all(8.0),
-                                                                                  child: SvgPicture.asset("assets/icons/minus_icon.svg"),
+                                                                                  child: SvgPicture.asset("assets/icons/minus_icon.svg",height: 3,width: 12,fit: BoxFit.scaleDown,),
                                                                                 ),
                                                                                 Spacer(),
                                                                                 // TextWidget('-',color: AppColors.white,fontSize: 8,),
@@ -930,7 +931,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                                                 Spacer(),
                                                                                 Container(
                                                                                   padding: const EdgeInsets.all(8.0),
-                                                                                  child: SvgPicture.asset("assets/icons/plus_icon.svg"),
+                                                                                  child: SvgPicture.asset("assets/icons/plus_icon.svg",height: 10,width: 12,fit: BoxFit.scaleDown,),
                                                                                 ),
                                                                               ],
                                                                             ),
@@ -972,14 +973,14 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                                               color: AppColors.primaryColor,
                                                                               borderRadius: BorderRadius.circular(7)),
                                                                           child: Center(
-                                                                              child: Image.asset(
-                                                                            'assets/icons/addToCart.png',
+                                                                              child: SvgPicture.asset(
+                                                                            'assets/icons/add-to-cart.svg',
                                                                             height:
                                                                                 15,
                                                                             width:
                                                                                 15,
                                                                             fit:
-                                                                                BoxFit.contain,
+                                                                                BoxFit.scaleDown,
                                                                           )),
                                                                         ),
                                                                       )
@@ -1036,12 +1037,9 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                     ? Positioned(
                                                         top: 30,
                                                         left: 25,
-                                                        child: Container(
-                                                          height: 25,
-                                                          width: 70,
-                                                          child: SvgPicture.asset(
-                                                              "assets/icons/out-of-stock.svg"),
-                                                        ))
+                                                        child: SvgPicture.asset(
+                                                            "assets/icons/out-of-stock.svg",height: 25,
+                                                          width: 70,fit: BoxFit.scaleDown,))
                                                     : Container()
                                               ],
                                             );

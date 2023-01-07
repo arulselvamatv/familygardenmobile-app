@@ -7,7 +7,7 @@ class WishListScreenController extends GetxController {
   RxInt categoriesIndex = 1.obs;
   RxString categoryId = ''.obs;
   RxString title = "".obs;
-  RxString staticImage = "assets/images/Fresh Vegetables.png".obs;
+  // RxString staticImage = "assets/images/fresh-fruits.svg".obs;
   RxString categoryName = "Fresh Vegetables".obs;
   RxList optionId = [].obs;
   RxList optionValueId = [].obs;

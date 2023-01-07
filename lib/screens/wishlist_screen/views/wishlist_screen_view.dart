@@ -39,6 +39,7 @@ class WishListScreenView extends GetView<WishListScreenController> {
                           },
                           child: SvgPicture.asset(
                             'assets/icons/BackIcon.svg',
+                            fit: BoxFit.scaleDown,
                             height: 24,
                             width: 24,
                           )),
@@ -63,7 +64,8 @@ class WishListScreenView extends GetView<WishListScreenController> {
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(right: 20, top: 15),
-                      child: Image.asset("assets/icons/cart.png",
+                      child: SvgPicture.asset("assets/icons/cart-btn.svg",
+                          fit: BoxFit.scaleDown,
                           height: 25, width: 25),
                     ),
                   ),

@@ -32,6 +32,7 @@ class InitiatePaymentView extends GetView<InitatePaymentController> {
                       },
                       child: SvgPicture.asset(
                         'assets/icons/BackIcon.svg',
+                        fit: BoxFit.scaleDown,
                         height: 24,
                         width: 24,
                       )),

@@ -71,8 +71,7 @@ class SignupView extends GetView<SignupController> {
                           ),
                         ),
                       ),
-                      Container(
-                        height: 121,
+                      SizedBox(
                         width: Get.width,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -90,7 +89,7 @@ class SignupView extends GetView<SignupController> {
                             Padding(
                               padding: const EdgeInsets.only(right: 30.0),
                               child: SvgPicture.asset(
-                                  "assets/images/singup_image.svg"),
+                                  "assets/images/singup_image.svg",height: 121,width: 135,fit: BoxFit.scaleDown,),
                             ),
                           ],
                         ),
@@ -127,15 +126,11 @@ class SignupView extends GetView<SignupController> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(top: 15),
-                                child: Container(
-                                  height: 21,
-                                  width: 21,
-                                  child: SvgPicture.asset(
+                                child: SvgPicture.asset(
                                     "assets/icons/user.svg",
                                     height: 22,
                                     width: 21,
-                                    fit: BoxFit.contain,
-                                  ),
+                                    fit: BoxFit.scaleDown,
                                 ),
                               ),
                               AppSize.size.w20,
@@ -195,15 +190,11 @@ class SignupView extends GetView<SignupController> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(top: 15),
-                                child: Container(
-                                  height: 21,
-                                  width: 21,
-                                  child: SvgPicture.asset(
+                                child: SvgPicture.asset(
                                     "assets/icons/mobile.svg",
                                     height: 22,
                                     width: 21,
-                                    fit: BoxFit.contain,
-                                  ),
+                                    fit: BoxFit.scaleDown,
                                 ),
                               ),
                               AppSize.size.w20,
@@ -276,15 +267,11 @@ class SignupView extends GetView<SignupController> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(top: 15),
-                                child: Container(
-                                  height: 21,
-                                  width: 21,
-                                  child: SvgPicture.asset(
+                                child:  SvgPicture.asset(
                                     "assets/icons/email.svg",
                                     height: 22,
                                     width: 21,
-                                    fit: BoxFit.contain,
-                                  ),
+                                    fit: BoxFit.scaleDown,
                                 ),
                               ),
                               AppSize.size.w20,
@@ -351,15 +338,11 @@ class SignupView extends GetView<SignupController> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(top: 15),
-                                child: Container(
-                                  height: 21,
-                                  width: 21,
-                                  child: SvgPicture.asset(
+                                child: SvgPicture.asset(
                                     "assets/icons/lock.svg",
                                     height: 22,
                                     width: 21,
-                                    fit: BoxFit.contain,
-                                  ),
+                                    fit: BoxFit.scaleDown,
                                 ),
                               ),
                               AppSize.size.w20,
@@ -461,15 +444,11 @@ class SignupView extends GetView<SignupController> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(top: 15),
-                                child: Container(
-                                  height: 21,
-                                  width: 21,
-                                  child: SvgPicture.asset(
+                                child:  SvgPicture.asset(
                                     "assets/icons/lock.svg",
                                     height: 22,
                                     width: 21,
-                                    fit: BoxFit.contain,
-                                  ),
+                                    fit: BoxFit.scaleDown,
                                 ),
                               ),
                               AppSize.size.w20,

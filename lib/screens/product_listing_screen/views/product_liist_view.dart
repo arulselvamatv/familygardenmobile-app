@@ -27,8 +27,9 @@ class ProductListView extends GetView<ProductListController> {
                         },
                         child: SvgPicture.asset(
                           'assets/icons/BackIcon.svg',
-                          height: 24,
-                          width: 24,
+                          fit: BoxFit.scaleDown,
+                          height: 26,
+                          width: 26,
                         )),
                   )
                 ],
@@ -59,8 +60,8 @@ class ProductListView extends GetView<ProductListController> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(right: 20, top: 15),
-                    child: Image.asset("assets/icons/cart.png",
-                        height: 25, width: 25),
+                    child: SvgPicture.asset("assets/icons/cart-btn.svg",fit: BoxFit.scaleDown,
+                        height: 26, width: 26),
                   ),
                   controller.cartCount.value == 0
                       ? Container()
@@ -133,8 +134,8 @@ class ProductListView extends GetView<ProductListController> {
                           fontSize: 15,
                           fontWeight: FontWeight.w400),
                       decoration: InputDecoration(
-                        prefixIcon: ImageIcon(
-                            AssetImage('assets/icons/search.png')),
+                        prefixIcon:
+                            SvgPicture.asset('assets/icons/search.svg',fit: BoxFit.scaleDown,height: 18,width: 18,),
                         hintText: "Search for vegetables and fruits",
                         contentPadding:
                         EdgeInsets.symmetric(vertical: 4),
@@ -544,7 +545,7 @@ class ProductListView extends GetView<ProductListController> {
                                                                     child: Container(
                                                                       width: 30,
                                                                       padding: const EdgeInsets.all(8.0),
-                                                                      child: Image.asset("assets/icons/minus.png"),
+                                                                      child: SvgPicture.asset("assets/icons/minus_icon.svg",height: 3,width: 12,fit: BoxFit.scaleDown,),
                                                                     ),
                                                                   ),
                                                                   Spacer(),
@@ -564,7 +565,7 @@ class ProductListView extends GetView<ProductListController> {
                                                                     },
                                                                     child: Container(
                                                                       padding: const EdgeInsets.all(8.0),
-                                                                      child: Image.asset("assets/icons/add.png"),
+                                                                      child: SvgPicture.asset("assets/icons/plus_icon.svg",width: 12,height: 10,fit: BoxFit.scaleDown,),
                                                                     ),
                                                                   ),
                                                                 ],
@@ -573,8 +574,8 @@ class ProductListView extends GetView<ProductListController> {
                                                                 padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
                                                                 child: Row(
                                                                   children: [
-                                                                    Image.asset(
-                                                                      'assets/icons/addToCart.png',
+                                                                    SvgPicture.asset(
+                                                                      'assets/icons/add-to-cart.svg',
                                                                       height: 13,
                                                                       width: 13,
                                                                       fit: BoxFit.fill,

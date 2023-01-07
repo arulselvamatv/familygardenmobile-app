@@ -150,8 +150,8 @@ class ProductListingView extends GetView<ProductListingController> {
                               fontSize: 15,
                               fontWeight: FontWeight.w400),
                           decoration: InputDecoration(
-                            prefixIcon: ImageIcon(
-                                AssetImage('assets/icons/search.png')),
+                            prefixIcon:
+                                SvgPicture.asset('assets/icons/search.svg'),
                             hintText: "Search for vegetables and fruits",
                             contentPadding:
                             EdgeInsets.symmetric(vertical: 4),
@@ -575,10 +575,10 @@ class ProductListingView extends GetView<ProductListingController> {
                                                                         child: Container(
                                                                           width: 30,
                                                                           padding: const EdgeInsets.all(8.0),
-                                                                          child: Image.asset("assets/icons/minus.png"),
+                                                                          child: SvgPicture.asset("assets/icons/minus_icon.svg"),
                                                                         ),
                                                                       ),
-                                                                      Spacer(),
+                                                                      const Spacer(),
                                                                       // TextWidget('-',color: AppColors.white,fontSize: 8,),
                                                                       TextWidget(
                                                                         controller.counterList[index].toString(),
@@ -586,7 +586,7 @@ class ProductListingView extends GetView<ProductListingController> {
                                                                         fontSize: 13,
                                                                         fontWeight: FontWeight.w600,
                                                                       ),
-                                                                      Spacer(),
+                                                                      const Spacer(),
                                                                       GestureDetector(
                                                                         onTap: () {
                                                                           // controller
@@ -594,7 +594,7 @@ class ProductListingView extends GetView<ProductListingController> {
                                                                         },
                                                                         child: Container(
                                                                           padding: const EdgeInsets.all(8.0),
-                                                                          child: Image.asset("assets/icons/add.png"),
+                                                                          child: SvgPicture.asset("assets/icons/plus_icon.svg"),
                                                                         ),
                                                                       ),
                                                                     ],

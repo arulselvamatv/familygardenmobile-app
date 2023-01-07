@@ -29,6 +29,7 @@ class SearchView extends GetView<SearchController> {
                           },
                           child: SvgPicture.asset(
                             'assets/icons/BackIcon.svg',
+                            fit: BoxFit.scaleDown,
                             height: 24,
                             width: 24,
                           )),
@@ -50,7 +51,7 @@ class SearchView extends GetView<SearchController> {
                               fontWeight: FontWeight.w400),
                           decoration: InputDecoration(
                             prefixIcon:
-                                SvgPicture.asset('assets/icons/search.svg'),
+                                SvgPicture.asset('assets/icons/search.svg',height: 24,width: 24,fit: BoxFit.scaleDown,),
                             hintText: "Search for vegetables and fruits",
                             contentPadding: EdgeInsets.symmetric(vertical: 4),
                             hintStyle: TextStyle(

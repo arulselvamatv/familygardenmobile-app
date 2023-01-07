@@ -36,6 +36,7 @@ class AddressView extends GetView<AddressController> {
                         'assets/icons/BackIcon.svg',
                         height: 24,
                         width: 24,
+                        fit: BoxFit.scaleDown,
                       )),
                 )
               ],
@@ -51,9 +52,10 @@ class AddressView extends GetView<AddressController> {
                   ?.then((value) => controller.getCheckout());
             },
             child: Padding(
-              padding: const EdgeInsets.only(right: 20),
+              padding: const EdgeInsets.only(right: 15),
               child: SvgPicture.asset(
                 "assets/icons/plus_btn.svg",
+                fit: BoxFit.scaleDown,
                 height: 24,
                 width: 24,
               ),
@@ -306,8 +308,8 @@ class AddressView extends GetView<AddressController> {
                                                               controller
                                                                   .getCheckout());
                                                     },
-                                                    child: Container(
-                                                      height: 48,
+                                                    child: SizedBox(
+                                                      height: 52,
                                                       child: Padding(
                                                         padding:
                                                             const EdgeInsets
@@ -318,14 +320,16 @@ class AddressView extends GetView<AddressController> {
                                                               MainAxisAlignment
                                                                   .start,
                                                           children: [
-                                                            Icon(
-                                                              Icons.add,
-                                                              size: 32,
+                                                            SvgPicture.asset(
+                                                              "assets/icons/plus_icon.svg",
+                                                              fit: BoxFit.scaleDown,
+                                                              height: 24,
+                                                              width: 24,
                                                             ),
-                                                            SizedBox(
-                                                              width: 21,
+                                                            const SizedBox(
+                                                              width: 13,
                                                             ),
-                                                            Text(
+                                                            const Text(
                                                               "Add New Address",
                                                               style: TextStyle(
                                                                   fontSize:

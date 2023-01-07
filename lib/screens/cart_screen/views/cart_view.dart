@@ -51,6 +51,7 @@ class CartView extends GetView<CartController> {
                           },
                           child: SvgPicture.asset(
                             'assets/icons/BackIcon.svg',
+                            fit: BoxFit.scaleDown,
                             height: 24,
                             width: 24,
                           )),
@@ -601,8 +602,8 @@ class CartView extends GetView<CartController> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 9.0, bottom: 6),
-                  child: Image.asset(
-                    "assets/images/free_price-tag.png",
+                  child: SvgPicture.asset(
+                    "assets/icons/free-price-tag.svg",
                     height: 36,
                     width: 36,
                   ),
@@ -628,17 +629,14 @@ class CartView extends GetView<CartController> {
               "Empty!",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
             ),
-            SvgPicture.asset("assets/icons/Emoji.svg"),
+            AppSize.size.w10,
+            SvgPicture.asset("assets/icons/Emoji.svg",height: 19,width: 19,),
           ],
         ),
         const Spacer(),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 60),
-          child: Container(
-            height: 200,
-            width: Get.width,
-            child: SvgPicture.asset("assets/icons/CartIcon.svg"),
-          ),
+          child: SvgPicture.asset("assets/icons/CartIcon.svg",height: 200,fit: BoxFit.scaleDown,),
         ),
         const Spacer(),
         const Padding(

@@ -16,6 +16,7 @@ class SplashView extends GetView<SplashController> {
             "assets/icons/logo-green.svg",
             height: 150,
             width: 150,
+                fit: BoxFit.scaleDown,
           ))
         ],
       ),

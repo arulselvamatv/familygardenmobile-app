@@ -150,6 +150,7 @@ class DrawerView extends GetView<DrawerWidgetController> {
                           },
                           leading: SvgPicture.asset(
                             controller.sideMenus[index]["image"],
+                            fit: BoxFit.scaleDown,
                             height: 24,
                             width: 24,
                           ),
@@ -274,7 +275,7 @@ class DrawerView extends GetView<DrawerWidgetController> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SvgPicture.asset('assets/icons/copy_rights_icon.svg'),
+                        SvgPicture.asset('assets/icons/copy_rights_icon.svg',height: 12,width: 12,fit: BoxFit.scaleDown,),
                         AppSize.size.w5,
                         TextWidget(
                           'Family Garden. 2022',
@@ -335,12 +336,12 @@ class DrawerView extends GetView<DrawerWidgetController> {
                               ],
                             ),
                             Spacer(),
-                            Container(
+                            SvgPicture.asset(
+                              'assets/images/logo-green.svg',
+                              fit: BoxFit.scaleDown,
                               height: 47,
                               width: 47,
-                              child:
-                                  Image.asset('assets/images/splash-mdpi.png'),
-                            )
+                            ),
                           ],
                         ),
                         Divider(

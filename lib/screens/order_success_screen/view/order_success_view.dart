@@ -37,10 +37,8 @@ class OrderSuccessView extends GetView<OrderSuccessController> {
                     color: AppColors.white,
                   ),
                   AppSize.size.w10,
-                  Container(
-                      height: 24,
-                      width: 24,
-                      child: SvgPicture.asset("assets/images/Emoji.svg"))
+                  SvgPicture.asset("assets/images/Emoji.svg",height: 24,
+                    width: 24,fit: BoxFit.scaleDown,)
                 ],
               ),
               AppSize.size.h15,

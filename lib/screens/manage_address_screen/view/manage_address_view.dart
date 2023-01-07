@@ -35,6 +35,7 @@ class ManageAddressView extends GetView<ManageAddressController> {
                         },
                         child: SvgPicture.asset(
                           'assets/icons/BackIcon.svg',
+                          fit: BoxFit.scaleDown,
                           height: 24,
                           width: 24,
                         )),
@@ -52,9 +53,11 @@ class ManageAddressView extends GetView<ManageAddressController> {
                     ?.then((value) => controller.getAccountAddresses());
               },
               child: Padding(
-                padding: const EdgeInsets.only(right: 20, top: 15),
-                child: Image.asset(
-                  "assets/icons/plus.png",
+                padding: const EdgeInsets.only(right: 15.0),
+                child: SvgPicture.asset(
+                    "assets/icons/plus_btn.svg",
+                    height: 25,width: 25,fit: BoxFit.scaleDown,
+
                 ),
               ),
             ),
@@ -161,15 +164,12 @@ class ManageAddressView extends GetView<ManageAddressController> {
                                                                           controller.getAccountAddresses());
                                                                     },
                                                                     child:
-                                                                        Container(
-                                                                      height:
-                                                                          40,
-                                                                      width:
-                                                                          40,
-                                                                      child:
-                                                                          SvgPicture.asset("assets/icons/edit_address.svg"),
-                                                                    ),
+                                                                        SvgPicture.asset("assets/icons/edit_address.svg",height:
+                                                                        40,
+                                                                          width:
+                                                                          40,fit: BoxFit.scaleDown,),
                                                                   ),
+                                                                  AppSize.size.w5,
                                                                   GestureDetector(
                                                                     onTap:
                                                                         () async {
@@ -196,20 +196,14 @@ class ManageAddressView extends GetView<ManageAddressController> {
                                                                       }
                                                                     },
                                                                     child:
-                                                                        SizedBox(
-                                                                      height:
-                                                                          25,
-                                                                      width:
-                                                                          25,
-                                                                      child:
+
                                                                           SvgPicture.asset(
                                                                         "assets/icons/delete_address.svg",
                                                                         height:
-                                                                            25,
+                                                                            40,
                                                                         width:
-                                                                            25,
+                                                                            40,
                                                                       ),
-                                                                    ),
                                                                   ),
                                                                 ],
                                                               ),

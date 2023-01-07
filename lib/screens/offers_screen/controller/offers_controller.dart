@@ -5,7 +5,7 @@ import '../../../utils/common_import/common_import.dart';
 import 'package:family_garden/models/category_product_model.dart';
 
 class OffersController extends GetxController {
-  RxString staticImage = "assets/images/Fresh Vegetables.png".obs;
+  RxString staticImage = "assets/images/fresh-fruits.svg".obs;
   RxList<Products> products = <Products>[].obs; // it's holder product model
   RxList counterList = [].obs;
   RxList cartBoolList = [].obs;

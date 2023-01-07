@@ -15,8 +15,6 @@ import 'package:family_garden/screens/payments_screen/binding/payment_binding.da
 import 'package:family_garden/screens/payments_screen/view/payment_view.dart';
 import 'package:family_garden/screens/product_listing_screen/bindings/product_listing_binding.dart';
 import 'package:family_garden/screens/product_listing_screen/views/product_listing_view.dart';
-import 'package:family_garden/screens/register_screen/binding/register_binding.dart';
-import 'package:family_garden/screens/register_screen/view/register_view.dart';
 import 'package:family_garden/screens/verify_otp_screen/binding/verify_otp_binding.dart';
 import 'package:family_garden/screens/verify_otp_screen/view/verify_otp_view.dart';
 import 'package:get/get.dart';
@@ -59,7 +57,6 @@ import '../screens/time_and_order_confirmation_screen/binding/time_and_order_con
 import '../screens/time_and_order_confirmation_screen/view/time_and_order_confirmation_view.dart';
 import '../screens/wishlist_screen/bindings/wishlist_screen_binding.dart';
 import '../screens/wishlist_screen/views/wishlist_screen_view.dart';
-
 part 'app_routes.dart';
 
 class AppPages {
@@ -82,11 +79,6 @@ class AppPages {
       name: _Paths.VERIFY_OTP,
       page: () => VerifyOTPView(),
       binding: VerifyOTPBinding(),
-    ),
-    GetPage(
-      name: _Paths.REGISTER,
-      page: () => RegisterView(),
-      binding: RegisterBinding(),
     ),
     GetPage(
       name: _Paths.DASHBOARD,

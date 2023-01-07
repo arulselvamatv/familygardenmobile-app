@@ -29,6 +29,7 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                       },
                       child: SvgPicture.asset(
                         'assets/icons/BackIcon.svg',
+                        fit: BoxFit.scaleDown,
                         height: 24,
                         width: 24,
                       )),
@@ -64,22 +65,15 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            height: 79,
-                            width: 79,
-                            child: SvgPicture.asset("assets/images/appLogo.svg"),
-                          ),
+                          SvgPicture.asset("assets/images/appLogo.svg",height: 79,
+                            width: 79,fit: BoxFit.scaleDown,),
                           Column(
                             children: [
                               const SizedBox(
                                 height: 70,
                               ),
-                              Container(
-                                height: 150,
-                                width: 105,
-                                child:
-                                    SvgPicture.asset("assets/icons/sofa_girl.svg"),
-                              ),
+                              SvgPicture.asset("assets/icons/sofa_girl.svg",height: 150,
+                                width: 105,fit: BoxFit.scaleDown,),
                             ],
                           )
                         ],

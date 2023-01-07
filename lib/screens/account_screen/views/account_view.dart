@@ -96,19 +96,15 @@ class AccountView extends GetView<AccountController> {
                                                                       vertical:
                                                                           6),
                                                                   child:
-                                                                      Container(
-                                                                          height:
-                                                                              18,
-                                                                          width:
-                                                                              18,
-                                                                          child: SvgPicture
-                                                                              .asset(
-                                                                            'assets/icons/order_history_icon.svg',
-                                                                            fit: BoxFit
-                                                                                .fill,
-                                                                            color:
-                                                                                AppColors.primaryColor,
-                                                                          )),
+                                                                      SvgPicture
+                                                                          .asset(
+                                                                        'assets/icons/order_history_icon.svg',
+                                                                        height: 18,width: 18,
+                                                                        fit: BoxFit
+                                                                            .scaleDown,
+                                                                        color:
+                                                                            AppColors.primaryColor,
+                                                                      ),
                                                                 ),
                                                                 AppSize.size.w7,
                                                                 TextWidget(
@@ -157,19 +153,15 @@ class AccountView extends GetView<AccountController> {
                                                                       vertical:
                                                                           6),
                                                                   child:
-                                                                      Container(
-                                                                          height:
-                                                                              18,
-                                                                          width:
-                                                                              18,
-                                                                          child: SvgPicture
-                                                                              .asset(
-                                                                            'assets/icons/wishlist_icon.svg',
-                                                                            fit: BoxFit
-                                                                                .fill,
-                                                                            color:
-                                                                                AppColors.primaryColor,
-                                                                          )),
+                                                                      SvgPicture
+                                                                          .asset(
+                                                                        'assets/icons/wishlist_icon.svg',
+                                                                        fit: BoxFit
+                                                                            .scaleDown,
+                                                                        height: 18,width: 18,
+                                                                        color:
+                                                                            AppColors.primaryColor,
+                                                                      ),
                                                                 ),
                                                                 AppSize.size.w7,
                                                                 TextWidget(
@@ -236,15 +228,13 @@ class AccountView extends GetView<AccountController> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
                                               children: [
-                                                SizedBox(
-                                                    height: 18,
-                                                    width: 18,
-                                                    child: SvgPicture.asset(
+                                                     SvgPicture.asset(
                                                       'assets/icons/edit_profile_icon.svg',
-                                                      fit: BoxFit.fill,
+                                                      height: 18,width: 18,
+                                                      fit: BoxFit.scaleDown,
                                                       color:
                                                           AppColors.primaryColor,
-                                                    )),
+                                                    ),
                                                 AppSize.size.w10,
                                                 Expanded(
                                                   child: TextWidget(
@@ -272,16 +262,13 @@ class AccountView extends GetView<AccountController> {
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
-                                              children: [
-                                                SizedBox(
-                                                    height: 18,
-                                                    width: 18,
-                                                    child: SvgPicture.asset(
+                                              children: [ SvgPicture.asset(
                                                       'assets/icons/saved_address_icon.svg',
-                                                      fit: BoxFit.fill,
+                                                      height: 18,width: 18,
+                                                      fit: BoxFit.scaleDown,
                                                       color:
                                                           AppColors.primaryColor,
-                                                    )),
+                                                    ),
                                                 AppSize.size.w10,
                                                 Expanded(
                                                   flex: 2,
@@ -330,15 +317,14 @@ class AccountView extends GetView<AccountController> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
                                               children: [
-                                                SizedBox(
-                                                    height: 18,
-                                                    width: 18,
-                                                    child: SvgPicture.asset(
+                                                    SvgPicture.asset(
                                                       'assets/icons/terms & condition.svg',
-                                                      fit: BoxFit.fill,
+                                                      height: 18,
+                                                      width: 18,
+                                                      fit: BoxFit.scaleDown,
                                                       color:
                                                           AppColors.primaryColor,
-                                                    )),
+                                                    ),
                                                 AppSize.size.w10,
                                                 Expanded(
                                                   child: TextWidget(
@@ -365,16 +351,13 @@ class AccountView extends GetView<AccountController> {
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
-                                              children: [
-                                                SizedBox(
-                                                    height: 18,
-                                                    width: 18,
-                                                    child: SvgPicture.asset(
+                                              children: [SvgPicture.asset(
                                                       "assets/icons/faq's.svg",
-                                                      fit: BoxFit.fill,
+                                                      height: 18,width: 18,
+                                                      fit: BoxFit.scaleDown,
                                                       color:
                                                           AppColors.primaryColor,
-                                                    )),
+                                                    ),
                                                 AppSize.size.w10,
                                                 Expanded(
                                                   flex: 2,

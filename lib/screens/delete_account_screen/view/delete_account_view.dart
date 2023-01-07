@@ -27,6 +27,7 @@ class DeleteAccountView extends GetView<DeleteAccountController> {
                       },
                       child: SvgPicture.asset(
                         'assets/icons/BackIcon.svg',
+                        fit: BoxFit.scaleDown,
                         height: 24,
                         width: 24,
                       )),
@@ -74,7 +75,7 @@ class DeleteAccountView extends GetView<DeleteAccountController> {
                           children: [
                             Text("Deleting Your Account is Permanent",style: TextStyle(fontSize: 16),),
                             Spacer(),
-                            Container(height: 34,width: 34,child: SvgPicture.asset ("assets/icons/Exclamatory.svg",height: 34,width: 34,))
+                            SvgPicture.asset ("assets/icons/Exclamatory.svg",fit: BoxFit.scaleDown,height: 34,width: 34,)
                           ],
                         ),
                       ),

@@ -34,6 +34,7 @@ class FaqView extends GetView<FaqController> {
                       },
                       child: SvgPicture.asset(
                         'assets/icons/BackIcon.svg',
+                        fit: BoxFit.scaleDown,
                         height: 24,
                         width: 24,
                       )),

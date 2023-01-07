@@ -48,7 +48,7 @@ class CategoriesView extends GetView<CategoriesController> {
                             fontWeight: FontWeight.w400),
                         decoration: InputDecoration(
                           prefixIcon:
-                               SvgPicture.asset('assets/icons/search.svg'),
+                               SvgPicture.asset('assets/icons/search.svg',height: 24,width: 24,fit: BoxFit.scaleDown,),
                           hintText: "Search for vegetables and fruits",
                           contentPadding: const EdgeInsets.symmetric(vertical: 4),
                           hintStyle: const TextStyle(

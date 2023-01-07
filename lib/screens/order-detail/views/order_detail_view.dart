@@ -36,6 +36,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
                         },
                         child: SvgPicture.asset(
                           'assets/icons/BackIcon.svg',
+                          fit: BoxFit.scaleDown,
                           height: 24,
                           width: 24,
                         )),
@@ -130,8 +131,8 @@ class OrderDetailView extends GetView<OrderDetailController> {
                                     child: CircleAvatar(
                                   radius: 35,
                                   backgroundColor: Colors.grey.shade200,
-                                  child: SvgPicture.asset(
-                                    'assets/icons/price-tag.svg',
+                                  child: Image.asset(
+                                    'assets/images/price-tag.png  ',
                                   ),
                                 ))
                               ]),

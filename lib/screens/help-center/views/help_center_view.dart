@@ -31,8 +31,9 @@ class HelpCenterView extends GetView<HelpCenterController> {
                         },
                         child: SvgPicture.asset(
                           'assets/icons/BackIcon.svg',
-                          height: 24,
-                          width: 24,
+                          fit: BoxFit.scaleDown,
+                          height: 25,
+                          width: 25,
                         )),
                   )
                 ],

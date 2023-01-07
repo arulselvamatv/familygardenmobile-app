@@ -33,6 +33,7 @@ class TermsAndConditionsView extends GetView<TermsAndConditionsController> {
                         'assets/icons/BackIcon.svg',
                         height: 24,
                         width: 24,
+                        fit: BoxFit.scaleDown,
                       )),
                 )
               ],

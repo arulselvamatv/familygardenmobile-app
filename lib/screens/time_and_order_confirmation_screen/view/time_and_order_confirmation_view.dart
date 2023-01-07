@@ -1,8 +1,6 @@
 import 'package:family_garden/screens/time_and_order_confirmation_screen/controller/time_and_order_confirmation_controller.dart';
 import 'package:family_garden/utils/common_import/common_import.dart';
 import 'package:flutter_svg/svg.dart';
-
-import '../../../routes/app_pages.dart';
 import '../../../widgets/common_appbar/custom_appbar_view.dart';
 
 class TimeAndOrderConfirmationView
@@ -27,6 +25,7 @@ class TimeAndOrderConfirmationView
                       },
                       child: SvgPicture.asset(
                         'assets/icons/BackIcon.svg',
+                        fit: BoxFit.scaleDown,
                         height: 24,
                         width: 24,
                       )),
@@ -170,11 +169,8 @@ class TimeAndOrderConfirmationView
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Spacer(),
-                              SizedBox(
-                                  height: 64,
-                                  width: 64,
-                                  child:
-                                      SvgPicture.asset("assets/icons/clock.svg"))
+
+                                      SvgPicture.asset("assets/icons/clock.svg",height: 56,width: 56,fit: BoxFit.scaleDown)
                             ],
                           ),
                         )

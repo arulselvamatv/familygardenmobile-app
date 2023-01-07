@@ -29,6 +29,7 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                       },
                       child: SvgPicture.asset(
                         'assets/icons/BackIcon.svg',
+                        fit: BoxFit.scaleDown,
                         height: 24,
                         width: 24,
                       )),
@@ -62,11 +63,7 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AppSize.size.h40,
-                    Container(
-                      height: 79,
-                      width: 79,
-                      child: SvgPicture.asset("assets/images/appLogo.svg"),
-                    ),
+                    SvgPicture.asset("assets/images/appLogo.svg",height: 79,width: 79,fit: BoxFit.scaleDown,),
                     AppSize.size.h55,
                     const Text(
                       "Change Password",
