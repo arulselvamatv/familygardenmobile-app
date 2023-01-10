@@ -133,7 +133,7 @@ class ManageAddressView extends GetView<ManageAddressController> {
                                                         Row(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
-                                                                  .spaceBetween,
+                                                                  .start,
                                                           crossAxisAlignment:
                                                               CrossAxisAlignment
                                                                   .start,
@@ -152,7 +152,8 @@ class ManageAddressView extends GetView<ManageAddressController> {
                                                                   shrinkWrap:
                                                                       true),
                                                             ),
-                                                            Container(
+                                                            Spacer(),
+                                                            SizedBox(
                                                               height: 40,
                                                               width: 100,
                                                               child: Row(
@@ -203,6 +204,7 @@ class ManageAddressView extends GetView<ManageAddressController> {
                                                                             40,
                                                                         width:
                                                                             40,
+                                                                            fit: BoxFit.scaleDown,
                                                                       ),
                                                                   ),
                                                                 ],

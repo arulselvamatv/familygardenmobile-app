@@ -602,8 +602,8 @@ class CartView extends GetView<CartController> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 9.0, bottom: 6),
-                  child: SvgPicture.asset(
-                    "assets/icons/free-price-tag.svg",
+                  child: Image.asset(
+                    "assets/images/free_price-tag.png",
                     height: 36,
                     width: 36,
                   ),

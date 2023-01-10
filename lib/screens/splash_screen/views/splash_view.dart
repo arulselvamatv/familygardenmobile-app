@@ -1,5 +1,4 @@
 import 'package:flutter_svg/svg.dart';
-
 import '../../../utils/common_import/common_import.dart';
 import '../controllers/splash_controller.dart';
 

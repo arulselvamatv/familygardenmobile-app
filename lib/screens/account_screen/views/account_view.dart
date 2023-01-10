@@ -354,7 +354,7 @@ class AccountView extends GetView<AccountController> {
                                               children: [SvgPicture.asset(
                                                       "assets/icons/faq's.svg",
                                                       height: 18,width: 18,
-                                                      fit: BoxFit.scaleDown,
+                                                      fit: BoxFit.scaleDown ,
                                                       color:
                                                           AppColors.primaryColor,
                                                     ),
