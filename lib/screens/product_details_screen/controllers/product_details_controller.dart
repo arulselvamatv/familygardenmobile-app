@@ -62,8 +62,6 @@ class ProductDetailsController extends GetxController {
     print("product ID ${productId}");
     var response = await ApiHelper.getProductCategoryDetails(productId);
     if (response.responseCode == 200) {
-      print("LOG::::::${response.data!.logged}");
-
       // if (response.data!.logged == null || response.data!.logged == "null") {
       //   print("LOG::::::${response.data!.logged}");
       //   if (isLoggedIn.value == true) {

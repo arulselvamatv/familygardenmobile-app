@@ -1164,7 +1164,7 @@ class ApiHelper {
     return res;
   }
 
-  static Future<HTTPResponse<HomeFeaturesModel>> getHomeFeatures() async {
+  static Future<HTTPResponse<HomeFeaturesModel>>  getHomeFeatures() async {
     String url =
         "${ApiConstants.baseUrl}${EndPoints.homeFeature}&api_token=${ApiConstants.jwtToken}";
     try {

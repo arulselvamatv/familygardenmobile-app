@@ -476,7 +476,8 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                 controller.categoryList[index]
                                                     .categoryId
                                               ])?.then((value) {
-                                            controller.getHomeFeatures();
+                                            // controller.getHomeFeatures();
+                                            controller.clearHomeFeatureDatas();
                                             Get.find<DashboardController>()
                                                 .getCartCount();
                                           });
@@ -628,8 +629,8 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                                           .productId)
                                                                   ?.then(
                                                                       (value) {
-                                                                  controller
-                                                                      .getHomeFeatures();
+                                                                  controller.clearHomeFeatureDatas();
+                                                                      // .getHomeFeatures();
                                                                   Get.find<
                                                                           DashboardController>()
                                                                       .getCartCount();
@@ -893,7 +894,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                                             .value
                                                                             .categories?[index]
                                                                             .products?[indexx]
-                                                                            .count !=
+                                                                            .prodCartCount !=
                                                                         0
                                                                     ? Stack(
                                                                       children: [
@@ -907,9 +908,9 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                                                 // border: Border.all(),
 
                                                                                 boxShadow: [
-                                                                                  BoxShadow(offset: Offset(0, 0), blurRadius: 3, spreadRadius: 3, color: Color(0xff000000).withOpacity(controller.homeFeaturesData.value.categories?[index].products?[indexx].count != 0 ? 0.2 : 0)),
+                                                                                  BoxShadow(offset: Offset(0, 0), blurRadius: 3, spreadRadius: 3, color: Color(0xff000000).withOpacity(controller.homeFeaturesData.value.categories?[index].products?[indexx].prodCartCount != 0 ? 0.2 : 0)),
                                                                                 ],
-                                                                                color: controller.homeFeaturesData.value.categories?[index].products?[indexx].count != 0 ? AppColors.white : AppColors.primaryColor),
+                                                                                color: controller.homeFeaturesData.value.categories?[index].products?[indexx].prodCartCount != 0 ? AppColors.white : AppColors.primaryColor),
                                                                             child:
                                                                                 Row(
                                                                               mainAxisAlignment:
@@ -923,7 +924,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                                                 Spacer(),
                                                                                 // TextWidget('-',color: AppColors.white,fontSize: 8,),
                                                                                 TextWidget(
-                                                                                  controller.homeFeaturesData.value.categories?[index].products?[indexx].count.toString(),
+                                                                                  controller.homeFeaturesData.value.categories?[index].products?[indexx].prodCartCount.toString(),
                                                                                   color: Colors.black,
                                                                                   fontSize: 13,
                                                                                   fontWeight: FontWeight.w600,

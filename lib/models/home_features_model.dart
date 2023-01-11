@@ -69,6 +69,7 @@ class Products {
   String? productTamilName;
   List<Options>? options;
   int? count;
+  int? prodCartCount;
 
   Products({
     this.productId,
@@ -87,6 +88,7 @@ class Products {
     this.productTamilName,
     this.options,
     this.count = 0,
+    this.prodCartCount = 0,
   });
 
   Products.fromJson(Map<String, dynamic> json) {
@@ -111,6 +113,7 @@ class Products {
     }
     ;
     count = json['count'] ?? 0;
+    prodCartCount = json['prod_cart_count'] ?? 0;
   }
 
   Map<String, dynamic> toJson() {
@@ -133,6 +136,7 @@ class Products {
     }
     ;
     data['count'] = this.count;
+    data['prod_cart_count'] = this.prodCartCount;
     return data;
   }
 }

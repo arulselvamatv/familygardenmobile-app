@@ -42,10 +42,10 @@ class HomeScreenController extends GetxController {
     var res = await GetLocalDatas.getToken();
     ApiConstants.jwtToken = res!;
     if (ApiConstants.jwtToken != "") {
-       await informationDetails();
-       await getHomeSliderDetails();
-       await getCategories();
-       await getHomeFeatures();
+        informationDetails();
+        getHomeSliderDetails();
+        getCategories();
+        getHomeFeatures();
     }
   }
 
@@ -56,7 +56,7 @@ class HomeScreenController extends GetxController {
   }
 
   clearHomeFeatureDatas() {
-    homeFeaturesData.value.categories?.clear();
+    // homeFeaturesData.value.categories?.clear();
     productData.value = {"product_info": []};
   }
 
@@ -96,8 +96,8 @@ class HomeScreenController extends GetxController {
   homeFeatureAddToCart(int index, int indexx) {
     var count = Get.find<DashboardController>().cartCount.value + 1;
     Get.find<DashboardController>().cartCount.value = count;
-    homeFeaturesData.value.categories![index].products![indexx].count =
-        (homeFeaturesData.value.categories![index].products![indexx].count)! +
+    homeFeaturesData.value.categories![index].products![indexx].prodCartCount =
+        (homeFeaturesData.value.categories![index].products![indexx].prodCartCount)! +
             1;
     if (homeFeaturesData
             .value.categories?[index].products?[indexx].options?.isNotEmpty ??
@@ -121,11 +121,11 @@ class HomeScreenController extends GetxController {
     print("Clicked minus btn");
     var count = Get.find<DashboardController>().cartCount.value - 1;
     Get.find<DashboardController>().cartCount.value = count;
-    if (homeFeaturesData.value.categories![index].products![indexx].count ==
+    if (homeFeaturesData.value.categories![index].products![indexx].prodCartCount ==
         0) {
     } else {
-      homeFeaturesData.value.categories![index].products![indexx].count =
-          (homeFeaturesData.value.categories![index].products![indexx].count)! -
+      homeFeaturesData.value.categories![index].products![indexx].prodCartCount =
+          (homeFeaturesData.value.categories![index].products![indexx].prodCartCount)! -
               1;
     }
     removeCartDatas(index, indexx);
@@ -136,8 +136,8 @@ class HomeScreenController extends GetxController {
   homeFeatureAddBtn(int index, int indexx) {
     var count = Get.find<DashboardController>().cartCount.value + 1;
     Get.find<DashboardController>().cartCount.value = count;
-    homeFeaturesData.value.categories![index].products![indexx].count =
-        (homeFeaturesData.value.categories![index].products![indexx].count)! +
+    homeFeaturesData.value.categories![index].products![indexx].prodCartCount =
+        (homeFeaturesData.value.categories![index].products![indexx].prodCartCount)! +
             1;
     AddToCart(index, indexx);
     homeFeaturesData.refresh();

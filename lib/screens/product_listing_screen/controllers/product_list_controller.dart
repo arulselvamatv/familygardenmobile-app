@@ -158,11 +158,11 @@ class ProductListController extends GetxController {
     print(purpose);
     if(purpose == "ADD"){
       addData(index);
-      products[index].counter = products[index].counter! + 1;
+      products[index].prodCartCount = products[index].prodCartCount! + 1;
     }else{
       removeData(index);
-      products[index].counter = products[index].counter! - 1;
-      if(products[index].counter == 0){
+      products[index].prodCartCount = products[index].prodCartCount! - 1;
+      if(products[index].prodCartCount == 0){
         cartCount.value = cartCount.value  - 1;
       }
     }

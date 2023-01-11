@@ -64,7 +64,7 @@ class DashboardView extends GetView<DashboardController> {
                       await Get.find<HomeScreenController>().hitAddCartAPI();
                   if(vals == 0) {
                     Get.toNamed(Routes.CART_SCREEN)?.then((value) {
-                      Get.find<HomeScreenController>().getHomeFeatures();
+                      Get.find<HomeScreenController>().clearHomeFeatureDatas();
                       Get.find<DashboardController>().getCartCount();
                       if (Get.find<DashboardController>().selectedIndex.value ==
                           2) {

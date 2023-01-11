@@ -531,14 +531,14 @@ class ProductListView extends GetView<ProductListController> {
                                                                   boxShadow: [
                                                                     BoxShadow(offset: Offset(0, 0), blurRadius: 3, spreadRadius: 3, color: Color(0xff000000).withOpacity(controller.products[index] != 0 ? 0.2 : 0)),
                                                                   ],
-                                                                  color: controller.products[index].counter != 0 ? AppColors.white : AppColors.primaryColor),
-                                                              child: controller.products[index].counter != 0
+                                                                  color: controller.products[index].prodCartCount != 0 ? AppColors.white : AppColors.primaryColor),
+                                                              child: controller.products[index].prodCartCount != 0
                                                                   ? Row(
                                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                                 children: [
                                                                   GestureDetector(
                                                                     onTap: () {
-                                                                      controller.addCartBtn(index,controller.products[index].counter ==0 ?"ADD":"MINUS");
+                                                                      controller.addCartBtn(index,controller.products[index].prodCartCount ==0 ?"ADD":"MINUS");
                                                                       // controller
                                                                       //     .minus(index);
                                                                     },
@@ -551,7 +551,7 @@ class ProductListView extends GetView<ProductListController> {
                                                                   Spacer(),
                                                                   // TextWidget('-',color: AppColors.white,fontSize: 8,),
                                                                   TextWidget(
-                                                                    controller.products[index].counter.toString(),
+                                                                    controller.products[index].prodCartCount.toString(),
                                                                     color: Colors.black,
                                                                     fontSize: 13,
                                                                     fontWeight: FontWeight.w600,
@@ -664,7 +664,7 @@ class ProductListView extends GetView<ProductListController> {
                                       "0"
                                       ? InkWell(
                                     onTap: () {
-                                      controller.addCartBtn(index,controller.products[index].counter==0? "ADD":"MINUS");
+                                      controller.addCartBtn(index,controller.products[index].prodCartCount==0? "ADD":"MINUS");
                                       // controller
                                       //     .cartButton(
                                       //     index,

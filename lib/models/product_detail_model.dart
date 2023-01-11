@@ -12,24 +12,24 @@ String ProductDetailsModelToJson(ProductDetailsModel data) =>
 
 class ProductDetailsModel {
   ProductDetailsModel({
-    this.breadcrumbs,
-    this.headingTitle,
-    this.textMinimum,
-    this.textLogin,
-    this.tabReview,
-    this.productId,
-    this.manufacturers,
-    this.model,
+    // this.breadcrumbs,
+    // this.headingTitle,
+    // this.textMinimum,
+    // this.textLogin,
+    // this.tabReview,
+    // this.productId,
+    // this.manufacturers,
+    // this.model,
     this.productName,
     this.productNameTamil,
     this.productNameEnglish,
-    this.benefits,
-    this.points,
+    // this.benefits,
+    // this.points,
     this.description,
     this.quantity,
     this.iswishlist,
     this.stock,
-    this.popup,
+    // this.popup,
     this.thumb,
     this.images,
     this.price,
@@ -38,40 +38,40 @@ class ProductDetailsModel {
     this.percent,
     this.percentOff,
     this.options,
-    this.minimum,
-    this.reviewStatus,
-    this.reviewGuest,
-    this.customerName,
-    this.reviews,
-    this.rating,
+    // this.minimum,
+    // this.reviewStatus,
+    // this.reviewGuest,
+    // this.customerName,
+    // this.reviews,
+    // this.rating,
     this.captcha,
     this.share,
     this.attributeGroups,
     this.products,
-    this.tags,
-    this.recurrings,
-    this.joptions,
+    // this.tags,
+    // this.recurrings,
+    // this.joptions,
     this.logged
   });
 
-  List<Breadcrumb>? breadcrumbs;
-  String? headingTitle;
-  String? textMinimum;
-  String? textLogin;
-  String? tabReview;
+  // List<Breadcrumb>? breadcrumbs;
+  // String? headingTitle;
+  // String? textMinimum;
+  // String? textLogin;
+  // String? tabReview;
   int? productId;
-  String? manufacturers;
-  String? model;
+  // String? manufacturers;
+  // String? model;
   String? productName;
   String? productNameTamil;
   String? productNameEnglish;
-  String? benefits;
-  String? points;
+  // String? benefits;
+  // String? points;
   String? description;
   String? quantity;
   bool? iswishlist;
   String? stock;
-  String? popup;
+  // String? popup;
   String? thumb;
   List<CarousalImage>? images;
   String? price;
@@ -80,33 +80,33 @@ class ProductDetailsModel {
   String? percent;
   String? percentOff;
   List<Option>? options;
-  String? minimum;
-  String? reviewStatus;
-  bool? reviewGuest;
-  String? customerName;
-  String? reviews;
-  int? rating;
+  // String? minimum;
+  // String? reviewStatus;
+  // bool? reviewGuest;
+  // String? customerName;
+  // String? reviews;
+  // int? rating;
   String? captcha;
   String? share;
   List<dynamic>? attributeGroups;
   List<Product>? products;
-  List<dynamic>? tags;
-  List<dynamic>? recurrings;
-  List<Option>? joptions;
+  // List<dynamic>? tags;
+  // List<dynamic>? recurrings;
+  // List<Option>? joptions;
   dynamic logged;
 
   factory ProductDetailsModel.fromJson(Map<String, dynamic> json) =>
       ProductDetailsModel(
-        breadcrumbs: json["breadcrumbs"] == null
-            ? null
-            : List<Breadcrumb>.from(
-                json["breadcrumbs"].map((x) => Breadcrumb.fromJson(x))),
-        headingTitle:
-            json["heading_title"] == null ? null : json["heading_title"],
-        textMinimum: json["text_minimum"] == null ? null : json["text_minimum"],
-        textLogin: json["text_login"] == null ? null : json["text_login"],
-        tabReview: json["tab_review"] == null ? null : json["tab_review"],
-        productId: json["product_id"] == null ? null : json["product_id"],
+        // breadcrumbs: json["breadcrumbs"] == null
+        //     ? null
+        //     : List<Breadcrumb>.from(
+        //         json["breadcrumbs"].map((x) => Breadcrumb.fromJson(x))),
+        // headingTitle:
+        //     json["heading_title"] == null ? null : json["heading_title"],
+        // textMinimum: json["text_minimum"] == null ? null : json["text_minimum"],
+        // textLogin: json["text_login"] == null ? null : json["text_login"],
+        // tabReview: json["tab_review"] == null ? null : json["tab_review"],
+        // productId: json["product_id"] == null ? null : json["product_id"],
         productName: json["product_name"] == null ? null : json["product_name"],
         productNameTamil: json["product_name_tamil"] == null
             ? null
@@ -114,16 +114,16 @@ class ProductDetailsModel {
         productNameEnglish: json["product_name_english"] == null
             ? null
             : json["product_name_english"],
-        benefits: json["benefits"] == null ? null : json["benefits"],
-        manufacturers:
-            json["manufacturers"] == null ? null : json["manufacturers"],
-        model: json["model"] == null ? null : json["model"],
-        points: json["points"] == null ? null : json["points"],
+        // benefits: json["benefits"] == null ? null : json["benefits"],
+        // manufacturers:
+        //     json["manufacturers"] == null ? null : json["manufacturers"],
+        // model: json["model"] == null ? null : json["model"],
+        // points: json["points"] == null ? null : json["points"],
         description: json["description"] == null ? null : json["description"],
         quantity: json["quantity"] == null ? null : json["quantity"],
         iswishlist: json["iswishlist"] == null ? null : json["iswishlist"],
         stock: json["stock"] == null ? null : json["stock"],
-        popup: json["popup"] == null ? null : json["popup"],
+        // popup: json["popup"] == null ? null : json["popup"],
         thumb: json["thumb"] == null ? null : json["thumb"],
         images: json["images"] == null
             ? null
@@ -137,14 +137,14 @@ class ProductDetailsModel {
         options: json["options"] == null
             ? null
             : List<Option>.from(json["options"].map((x) => Option.fromJson(x))),
-        minimum: json["minimum"] == null ? null : json["minimum"],
-        reviewStatus:
-            json["review_status"] == null ? null : json["review_status"],
-        reviewGuest: json["review_guest"] == null ? null : json["review_guest"],
-        customerName:
-            json["customer_name"] == null ? null : json["customer_name"],
-        reviews: json["reviews"] == null ? null : json["reviews"],
-        rating: json["rating"] == null ? null : json["rating"],
+        // minimum: json["minimum"] == null ? null : json["minimum"],
+        // reviewStatus:
+        //     json["review_status"] == null ? null : json["review_status"],
+        // reviewGuest: json["review_guest"] == null ? null : json["review_guest"],
+        // customerName:
+        //     json["customer_name"] == null ? null : json["customer_name"],
+        // reviews: json["reviews"] == null ? null : json["reviews"],
+        // rating: json["rating"] == null ? null : json["rating"],
         captcha: json["captcha"] == null ? null : json["captcha"],
         share: json["share"] == null ? null : json["share"],
         attributeGroups: json["attribute_groups"] == null
@@ -154,42 +154,42 @@ class ProductDetailsModel {
             ? null
             : List<Product>.from(
                 json["products"].map((x) => Product.fromJson(x))),
-        tags: json["tags"] == null
-            ? null
-            : List<dynamic>.from(json["tags"].map((x) => x)),
-        recurrings: json["recurrings"] == null
-            ? null
-            : List<dynamic>.from(json["recurrings"].map((x) => x)),
-        joptions: json["joptions"] == null
-            ? null
-            : List<Option>.from(
-                json["joptions"].map((x) => Option.fromJson(x))),
+        // tags: json["tags"] == null
+        //     ? null
+        //     : List<dynamic>.from(json["tags"].map((x) => x)),
+        // recurrings: json["recurrings"] == null
+        //     ? null
+        //     : List<dynamic>.from(json["recurrings"].map((x) => x)),
+        // joptions: json["joptions"] == null
+        //     ? null
+        //     : List<Option>.from(
+        //         json["joptions"].map((x) => Option.fromJson(x))),
         logged: json["logged"],
       );
 
   Map<String, dynamic> toJson() => {
-        "breadcrumbs": breadcrumbs == null
-            ? null
-            : List<dynamic>.from(breadcrumbs!.map((x) => x.toJson())),
-        "heading_title": headingTitle == null ? null : headingTitle,
-        "text_minimum": textMinimum == null ? null : textMinimum,
-        "text_login": textLogin == null ? null : textLogin,
-        "tab_review": tabReview == null ? null : tabReview,
+        // "breadcrumbs": breadcrumbs == null
+        //     ? null
+        //     : List<dynamic>.from(breadcrumbs!.map((x) => x.toJson())),
+        // "heading_title": headingTitle == null ? null : headingTitle,
+        // "text_minimum": textMinimum == null ? null : textMinimum,
+        // "text_login": textLogin == null ? null : textLogin,
+        // "tab_review": tabReview == null ? null : tabReview,
         "product_id": productId == null ? null : productId,
         "product_name": productName == null ? null : productName,
         "product_name_english":
             productNameEnglish == null ? null : productNameEnglish,
         "product_name_tamil":
             productNameTamil == null ? null : productNameTamil,
-        "benefits": benefits == null ? null : benefits,
-        "manufacturers": manufacturers == null ? null : manufacturers,
-        "model": model == null ? null : model,
-        "points": points == null ? null : points,
+        // "benefits": benefits == null ? null : benefits,
+        // "manufacturers": manufacturers == null ? null : manufacturers,
+        // "model": model == null ? null : model,
+        // "points": points == null ? null : points,
         "description": description == null ? null : description,
         "quantity": quantity == null ? null : quantity,
         "iswishlist": iswishlist == null ? null : iswishlist,
         "stock": stock == null ? null : stock,
-        "popup": popup == null ? null : popup,
+        // "popup": popup == null ? null : popup,
         "thumb": thumb == null ? null : thumb,
         "images": images == null
             ? null
@@ -202,12 +202,12 @@ class ProductDetailsModel {
         "options": options == null
             ? null
             : List<dynamic>.from(options!.map((x) => x.toJson())),
-        "minimum": minimum == null ? null : minimum,
-        "review_status": reviewStatus == null ? null : reviewStatus,
-        "review_guest": reviewGuest == null ? null : reviewGuest,
-        "customer_name": customerName == null ? null : customerName,
-        "reviews": reviews == null ? null : reviews,
-        "rating": rating == null ? null : rating,
+        // "minimum": minimum == null ? null : minimum,
+        // "review_status": reviewStatus == null ? null : reviewStatus,
+        // "review_guest": reviewGuest == null ? null : reviewGuest,
+        // "customer_name": customerName == null ? null : customerName,
+        // "reviews": reviews == null ? null : reviews,
+        // "rating": rating == null ? null : rating,
         "captcha": captcha == null ? null : captcha,
         "share": share == null ? null : share,
         "attribute_groups": attributeGroups == null
@@ -216,13 +216,13 @@ class ProductDetailsModel {
         "products": products == null
             ? null
             : List<dynamic>.from(products!.map((x) => x.toJson())),
-        "tags": tags == null ? null : List<dynamic>.from(tags!.map((x) => x)),
-        "recurrings": recurrings == null
-            ? null
-            : List<dynamic>.from(recurrings!.map((x) => x)),
-        "joptions": joptions == null
-            ? null
-            : List<dynamic>.from(joptions!.map((x) => x.toJson())),
+        // "tags": tags == null ? null : List<dynamic>.from(tags!.map((x) => x)),
+        // "recurrings": recurrings == null
+        //     ? null
+        //     : List<dynamic>.from(recurrings!.map((x) => x)),
+        // "joptions": joptions == null
+        //     ? null
+        //     : List<dynamic>.from(joptions!.map((x) => x.toJson())),
     "logged": logged,
       };
 }
